@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>simuclustfactor package &mdash; simuclustfactor  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="simuclustfactor" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> simuclustfactor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">simuclustfactor</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">simuclustfactor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simuclustfactor.simultaneous">simuclustfactor.simultaneous module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simuclustfactor.tandem">simuclustfactor.tandem module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simuclustfactor.tensor">simuclustfactor.tensor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simuclustfactor.utils">simuclustfactor.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simuclustfactor">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">simuclustfactor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">simuclustfactor</a> &raquo;</li>
+      <li>simuclustfactor package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/simuclustfactor.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="simuclustfactor-package">
+<h1>simuclustfactor package<a class="headerlink" href="#simuclustfactor-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-simuclustfactor.simultaneous">
+<span id="simuclustfactor-simultaneous-module"></span><h2>simuclustfactor.simultaneous module<a class="headerlink" href="#module-simuclustfactor.simultaneous" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="simuclustfactor.simultaneous.CT3Clus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simuclustfactor.simultaneous.</span></span><span class="sig-name descname"><span class="pre">CT3Clus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.simultaneous.CT3Clus" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_BaseClass</span></code></p>
+<p>Combination of T3Clus and TFKMeans.</p>
+<dl class="simple">
+<dt>Initialization Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">n_max_iter</dt>
+<dd class="field-odd"><p>number of iterations. Defaults to 10.</p>
+</dd>
+<dt class="field-even">n_loops</dt>
+<dd class="field-even"><p>number of loops to gurantee global results. Defaults to 10.</p>
+</dd>
+<dt class="field-odd">tol</dt>
+<dd class="field-odd"><p>tolerance/acceptable error. Defaults to 1e-5.</p>
+</dd>
+<dt class="field-even">random_state</dt>
+<dd class="field-even"><p>seed for random generations. Defaults to None.</p>
+</dd>
+<dt class="field-odd">verbose</dt>
+<dd class="field-odd"><p>verbosity mode. Defaults to False.</p>
+</dd>
+<dt class="field-even">U_i_g0</dt>
+<dd class="field-even"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q0</dt>
+<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r0</dt>
+<dd class="field-even"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">U_i_g0</dt>
+<dd class="field-odd"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-even">B_j_q0</dt>
+<dd class="field-even"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-odd">C_k_r0</dt>
+<dd class="field-odd"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+<dt class="field-even">U_i_g</dt>
+<dd class="field-even"><p>(I,G) final iterate stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q</dt>
+<dd class="field-odd"><p>(J,Q) final iterate component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r</dt>
+<dd class="field-even"><p>(K,R) final iterate component weight matrix for occasions.</p>
+</dd>
+<dt class="field-odd">Y_g_qr</dt>
+<dd class="field-odd"><p>(G,QR) matricized version of three-way core tensor.</p>
+</dd>
+<dt class="field-even">X_i_jk_scaled</dt>
+<dd class="field-even"><p>is X_i_jk for T3Clus and updated otherwise.</p>
+</dd>
+<dt class="field-odd">BestTimeElapsed</dt>
+<dd class="field-odd"><p>time taken for the best iterate.</p>
+</dd>
+<dt class="field-even">BestLoop</dt>
+<dd class="field-even"><p>best loop for global result.</p>
+</dd>
+<dt class="field-odd">BestIteration</dt>
+<dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
+</dd>
+<dt class="field-even">TSS</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">BSS</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">RSS</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">PseudoF</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+</dd>
+<dt class="field-even">Fs</dt>
+<dd class="field-even"><p>objective function values.</p>
+</dd>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
+</dd>
+<dt class="field-even">Enorm</dt>
+<dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
+</dd>
+<dt class="field-odd">Labels</dt>
+<dd class="field-odd"><p>cluster labels for the best loop.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simuclustfactor.simultaneous.CT3Clus.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_i_jk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduced_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">twcfta_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">twfcta_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.simultaneous.CT3Clus.fit" title="Permalink to this definition"></a></dt>
+<dd><dl>
+<dt>Fit Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">X_i_jk</dt>
+<dd class="field-odd"><p>(I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</p>
+</dd>
+<dt class="field-even">full_tensor_shape</dt>
+<dd class="field-even"><p>(I,J,K) dimensions of the original tensor.</p>
+</dd>
+<dt class="field-odd">reduced_tensor_shape</dt>
+<dd class="field-odd"><p>(G,Q,R) dimensions of centroid tensor.</p>
+</dd>
+<dt class="field-even">alpha</dt>
+<dd class="field-even"><p>0&lt;=a&lt;=1. a=1 for T3Clus, a=0 for TFKMeans. a=0.5 improve recoverability.</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">U_i_g0</dt>
+<dd class="field-odd"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-even">B_j_q0</dt>
+<dd class="field-even"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-odd">C_k_r0</dt>
+<dd class="field-odd"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+<dt class="field-even">U_i_g</dt>
+<dd class="field-even"><p>(I,G) final iterate stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q</dt>
+<dd class="field-odd"><p>(J,Q) final iterate component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r</dt>
+<dd class="field-even"><p>(K,R) final iterate component weight matrix for occasions.</p>
+</dd>
+<dt class="field-odd">Y_g_qr</dt>
+<dd class="field-odd"><p>(G,QR) matricized version of three-way core tensor.</p>
+</dd>
+<dt class="field-even">X_i_jk_scaled</dt>
+<dd class="field-even"><p>is X_i_jk for T3Clus and updated otherwise.</p>
+</dd>
+<dt class="field-odd">BestTimeElapsed</dt>
+<dd class="field-odd"><p>time taken for the best iterate.</p>
+</dd>
+<dt class="field-even">BestLoop</dt>
+<dd class="field-even"><p>best loop for global result.</p>
+</dd>
+<dt class="field-odd">BestIteration</dt>
+<dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
+</dd>
+<dt class="field-even">TSS</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">BSS</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">RSS</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">PseudoF</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+</dd>
+<dt class="field-even">Fs</dt>
+<dd class="field-even"><p>objective function values.</p>
+</dd>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
+</dd>
+<dt class="field-even">Enorm</dt>
+<dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
+</dd>
+<dt class="field-odd">Labels</dt>
+<dd class="field-odd"><p>cluster labels for the best loop.</p>
+</dd>
+</dl>
+</dd>
+<dt>References:</dt><dd><p>[1] Vichi, Maurizio &amp; Rocci, Roberto &amp; Kiers, Henk. (2007).
+Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.
+Journal of Classification. 24. 71-98. 10.1007/s00357-007-0006-x.</p>
+<p>[2] Bro, R. (1998).
+Multi-way analysis in the food industry: models, algorithms, and applications.
+Universiteit van Amsterdam.</p>
+<p>[4] Ledyard Tucker.
+Some mathematical notes on three-mode factor analysis.
+Psychometrika, 31(3):279–311, September 1966.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="simuclustfactor.simultaneous.T3Clus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simuclustfactor.simultaneous.</span></span><span class="sig-name descname"><span class="pre">T3Clus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.simultaneous.T3Clus" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_BaseClass</span></code></p>
+<p>Simultaneous version of TWCFTA (T3Clus).
+Maximizes the between cluster deviance of the component scores.</p>
+<dl class="simple">
+<dt>Initialization Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">n_max_iter</dt>
+<dd class="field-odd"><p>number of iterations. Defaults to 10.</p>
+</dd>
+<dt class="field-even">n_loops</dt>
+<dd class="field-even"><p>number of loops to gurantee global results. Defaults to 10.</p>
+</dd>
+<dt class="field-odd">tol</dt>
+<dd class="field-odd"><p>tolerance/acceptable error. Defaults to 1e-5.</p>
+</dd>
+<dt class="field-even">random_state</dt>
+<dd class="field-even"><p>seed for random generations. Defaults to None.</p>
+</dd>
+<dt class="field-odd">verbose</dt>
+<dd class="field-odd"><p>verbosity mode. Defaults to False.</p>
+</dd>
+<dt class="field-even">U_i_g0</dt>
+<dd class="field-even"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q0</dt>
+<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r0</dt>
+<dd class="field-even"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">U_i_g0</dt>
+<dd class="field-odd"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-even">B_j_q0</dt>
+<dd class="field-even"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-odd">C_k_r0</dt>
+<dd class="field-odd"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+<dt class="field-even">U_i_g</dt>
+<dd class="field-even"><p>(I,G) final iterate stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q</dt>
+<dd class="field-odd"><p>(J,Q) final iterate component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r</dt>
+<dd class="field-even"><p>(K,R) final iterate component weight matrix for occasions.</p>
+</dd>
+<dt class="field-odd">Y_g_qr</dt>
+<dd class="field-odd"><p>(G,QR) matricized version of three-way core tensor.</p>
+</dd>
+<dt class="field-even">X_i_jk_scaled</dt>
+<dd class="field-even"><p>is X_i_jk for T3Clus and updated otherwise.</p>
+</dd>
+<dt class="field-odd">BestTimeElapsed</dt>
+<dd class="field-odd"><p>time taken for the best iterate.</p>
+</dd>
+<dt class="field-even">BestLoop</dt>
+<dd class="field-even"><p>best loop for global result.</p>
+</dd>
+<dt class="field-odd">BestIteration</dt>
+<dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
+</dd>
+<dt class="field-even">TSS</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">BSS</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">RSS</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">PseudoF</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+</dd>
+<dt class="field-even">Fs</dt>
+<dd class="field-even"><p>objective function values.</p>
+</dd>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
+</dd>
+<dt class="field-even">Enorm</dt>
+<dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
+</dd>
+<dt class="field-odd">Labels</dt>
+<dd class="field-odd"><p>cluster labels for the best loop.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simuclustfactor.simultaneous.T3Clus.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_i_jk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduced_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">U_i_g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C_k_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">twcfta_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">twfcta_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.simultaneous.T3Clus.fit" title="Permalink to this definition"></a></dt>
+<dd><dl>
+<dt>Fit Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">X_i_jk</dt>
+<dd class="field-odd"><p>(I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</p>
+</dd>
+<dt class="field-even">full_tensor_shape</dt>
+<dd class="field-even"><p>(I,J,K) dimensions of the original tensor.</p>
+</dd>
+<dt class="field-odd">reduced_tensor_shape</dt>
+<dd class="field-odd"><p>(G,Q,R) dimensions of centroid tensor.</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">U_i_g0</dt>
+<dd class="field-odd"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-even">B_j_q0</dt>
+<dd class="field-even"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-odd">C_k_r0</dt>
+<dd class="field-odd"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+<dt class="field-even">U_i_g</dt>
+<dd class="field-even"><p>(I,G) final iterate stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q</dt>
+<dd class="field-odd"><p>(J,Q) final iterate component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r</dt>
+<dd class="field-even"><p>(K,R) final iterate component weight matrix for occasions.</p>
+</dd>
+<dt class="field-odd">Y_g_qr</dt>
+<dd class="field-odd"><p>(G,QR) matricized version of three-way core tensor.</p>
+</dd>
+<dt class="field-even">X_i_jk_scaled</dt>
+<dd class="field-even"><p>is X_i_jk for T3Clus and updated otherwise.</p>
+</dd>
+<dt class="field-odd">BestTimeElapsed</dt>
+<dd class="field-odd"><p>time taken for the best iterate.</p>
+</dd>
+<dt class="field-even">BestLoop</dt>
+<dd class="field-even"><p>best loop for global result.</p>
+</dd>
+<dt class="field-odd">BestIteration</dt>
+<dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
+</dd>
+<dt class="field-even">TSS</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">BSS</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">RSS</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">PseudoF</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+</dd>
+<dt class="field-even">Fs</dt>
+<dd class="field-even"><p>objective function values.</p>
+</dd>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
+</dd>
+<dt class="field-even">Enorm</dt>
+<dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
+</dd>
+<dt class="field-odd">Labels</dt>
+<dd class="field-odd"><p>cluster labels for the best loop.</p>
+</dd>
+</dl>
+</dd>
+<dt>References:</dt><dd><p>[1] Vichi, Maurizio &amp; Rocci, Roberto &amp; Kiers, Henk. (2007).
+Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.
+Journal of Classification. 24. 71-98. 10.1007/s00357-007-0006-x.</p>
+<p>[2] Bro, R. (1998).
+Multi-way analysis in the food industry: models, algorithms, and applications.
+Universiteit van Amsterdam.</p>
+<p>[4] Ledyard Tucker.
+Some mathematical notes on three-mode factor analysis.
+Psychometrika, 31(3):279–311, September 1966.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="simuclustfactor.simultaneous.TFKMeans">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simuclustfactor.simultaneous.</span></span><span class="sig-name descname"><span class="pre">TFKMeans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.simultaneous.TFKMeans" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_BaseClass</span></code></p>
+<p>Simultaneous version of TWFCTA - Clustering-Factorial Decomposition (3FKMeans).
+Minimize within cluster deviance of the component scores.</p>
+<dl class="simple">
+<dt>Initialization Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">n_max_iter</dt>
+<dd class="field-odd"><p>number of iterations. Defaults to 10.</p>
+</dd>
+<dt class="field-even">n_loops</dt>
+<dd class="field-even"><p>number of loops to gurantee global results. Defaults to 10.</p>
+</dd>
+<dt class="field-odd">tol</dt>
+<dd class="field-odd"><p>tolerance/acceptable error. Defaults to 1e-5.</p>
+</dd>
+<dt class="field-even">random_state</dt>
+<dd class="field-even"><p>seed for random generations. Defaults to None.</p>
+</dd>
+<dt class="field-odd">verbose</dt>
+<dd class="field-odd"><p>verbosity mode. Defaults to False.</p>
+</dd>
+<dt class="field-even">U_i_g0</dt>
+<dd class="field-even"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q0</dt>
+<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r0</dt>
+<dd class="field-even"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">U_i_g0</dt>
+<dd class="field-odd"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-even">B_j_q0</dt>
+<dd class="field-even"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-odd">C_k_r0</dt>
+<dd class="field-odd"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+<dt class="field-even">U_i_g</dt>
+<dd class="field-even"><p>(I,G) final iterate stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q</dt>
+<dd class="field-odd"><p>(J,Q) final iterate component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r</dt>
+<dd class="field-even"><p>(K,R) final iterate component weight matrix for occasions.</p>
+</dd>
+<dt class="field-odd">Y_g_qr</dt>
+<dd class="field-odd"><p>(G,QR) matricized version of three-way core tensor.</p>
+</dd>
+<dt class="field-even">X_i_jk_scaled</dt>
+<dd class="field-even"><p>is X_i_jk for T3Clus and updated otherwise.</p>
+</dd>
+<dt class="field-odd">BestTimeElapsed</dt>
+<dd class="field-odd"><p>time taken for the best iterate.</p>
+</dd>
+<dt class="field-even">BestLoop</dt>
+<dd class="field-even"><p>best loop for global result.</p>
+</dd>
+<dt class="field-odd">BestIteration</dt>
+<dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
+</dd>
+<dt class="field-even">TSS</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">BSS</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">RSS</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">PseudoF</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+</dd>
+<dt class="field-even">Fs</dt>
+<dd class="field-even"><p>objective function values.</p>
+</dd>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
+</dd>
+<dt class="field-even">Enorm</dt>
+<dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
+</dd>
+<dt class="field-odd">Labels</dt>
+<dd class="field-odd"><p>cluster labels for the best loop.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simuclustfactor.simultaneous.TFKMeans.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_i_jk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduced_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B_j_q</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C_k_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">twcfta_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">twfcta_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.simultaneous.TFKMeans.fit" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Fit Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">X_i_jk</dt>
+<dd class="field-odd"><p>(I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</p>
+</dd>
+<dt class="field-even">full_tensor_shape</dt>
+<dd class="field-even"><p>(I,J,K) dimensions of the original tensor.</p>
+</dd>
+<dt class="field-odd">reduced_tensor_shape</dt>
+<dd class="field-odd"><p>(G,Q,R) dimensions of centroid tensor.</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">U_i_g0</dt>
+<dd class="field-odd"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-even">B_j_q0</dt>
+<dd class="field-even"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-odd">C_k_r0</dt>
+<dd class="field-odd"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+<dt class="field-even">U_i_g</dt>
+<dd class="field-even"><p>(I,G) final iterate stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q</dt>
+<dd class="field-odd"><p>(J,Q) final iterate component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r</dt>
+<dd class="field-even"><p>(K,R) final iterate component weight matrix for occasions.</p>
+</dd>
+<dt class="field-odd">Y_g_qr</dt>
+<dd class="field-odd"><p>(G,QR) matricized version of three-way core tensor.</p>
+</dd>
+<dt class="field-even">X_i_jk_scaled</dt>
+<dd class="field-even"><p>is X_i_jk for T3Clus and updated otherwise.</p>
+</dd>
+<dt class="field-odd">BestTimeElapsed</dt>
+<dd class="field-odd"><p>time taken for the best iterate.</p>
+</dd>
+<dt class="field-even">BestLoop</dt>
+<dd class="field-even"><p>best loop for global result.</p>
+</dd>
+<dt class="field-odd">BestIteration</dt>
+<dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
+</dd>
+<dt class="field-even">TSS</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">BSS</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">RSS</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">PseudoF</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+</dd>
+<dt class="field-even">Fs</dt>
+<dd class="field-even"><p>objective function values.</p>
+</dd>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
+</dd>
+<dt class="field-even">Enorm</dt>
+<dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
+</dd>
+<dt class="field-odd">Labels</dt>
+<dd class="field-odd"><p>cluster labels for the best loop.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simuclustfactor.tandem">
+<span id="simuclustfactor-tandem-module"></span><h2>simuclustfactor.tandem module<a class="headerlink" href="#module-simuclustfactor.tandem" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="simuclustfactor.tandem.TWCFTA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simuclustfactor.tandem.</span></span><span class="sig-name descname"><span class="pre">TWCFTA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.tandem.TWCFTA" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_BaseClass</span></code></p>
+<dl class="simple">
+<dt>Three-way Clustering-Factorial Tandem model (TWCFTA).</dt><dd><ul class="simple">
+<li><p>Perform KMeans on X_i_jk to obtain membership matrix U_i_g and centroids X_g_jk in full space.</p></li>
+<li><p>Obtain Y_g_qr and C_k_r &amp; B_j_q factor matrices that maximizes the reconstruction of U_i_g.X_g_jk via Tucker2.</p></li>
+</ul>
+</dd>
+<dt>Initialization Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">n_max_iter</dt>
+<dd class="field-odd"><p>Maximum number of iterations. Defaults to 10.</p>
+</dd>
+<dt class="field-even">n_loops</dt>
+<dd class="field-even"><p>Number of random initializations to gurantee global results. Defaults to 10.</p>
+</dd>
+<dt class="field-odd">tol</dt>
+<dd class="field-odd"><p>Tolerance level/acceptable error. Defaults to 1e-5.</p>
+</dd>
+<dt class="field-even">random_state</dt>
+<dd class="field-even"><p>Seed for random sequence generation. Defaults to None.</p>
+</dd>
+<dt class="field-odd">verbose</dt>
+<dd class="field-odd"><p>Whether to display executions output or not. Defaults to False.</p>
+</dd>
+<dt class="field-even">U_i_g0</dt>
+<dd class="field-even"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q0</dt>
+<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r0</dt>
+<dd class="field-even"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simuclustfactor.tandem.TWCFTA.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_i_jk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduced_tensor_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.tandem.TWCFTA.fit" title="Permalink to this definition"></a></dt>
+<dd><dl>
+<dt>Model Fitting Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">X_i_jk</dt>
+<dd class="field-odd"><p>(I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</p>
+</dd>
+<dt class="field-even">full_tensor_shape</dt>
+<dd class="field-even"><p>(I,J,K) dimensions of the original tensor.</p>
+</dd>
+<dt class="field-odd">reduced_tensor_shape</dt>
+<dd class="field-odd"><p>(G,Q,R) dimensions of centroids tensor.</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">U_i_g0</dt>
+<dd class="field-odd"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-even">B_j_q0</dt>
+<dd class="field-even"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-odd">C_k_r0</dt>
+<dd class="field-odd"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+<dt class="field-even">U_i_g</dt>
+<dd class="field-even"><p>(I,G) final iterate stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q</dt>
+<dd class="field-odd"><p>(J,Q) final iterate component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r</dt>
+<dd class="field-even"><p>(K,R) final iterate component weight matrix for occasions.</p>
+</dd>
+<dt class="field-odd">Y_g_qr</dt>
+<dd class="field-odd"><p>(G,QR) matricized version of three-way core tensor.</p>
+</dd>
+<dt class="field-even">X_i_jk_scaled</dt>
+<dd class="field-even"><p>Scaled X_i_jk</p>
+</dd>
+<dt class="field-odd">BestTimeElapsed</dt>
+<dd class="field-odd"><p>Time taken for the best iterate.</p>
+</dd>
+<dt class="field-even">BestLoop</dt>
+<dd class="field-even"><p>Best loop for global result.</p>
+</dd>
+<dt class="field-odd">BestKMIteration</dt>
+<dd class="field-odd"><p>Best iteration for convergence of the K-means procedure.</p>
+</dd>
+<dt class="field-even">BestFAIteration</dt>
+<dd class="field-even"><p>Best iteration for convergence of the factor decomposition procedure.</p>
+</dd>
+<dt class="field-odd">FaConverged</dt>
+<dd class="field-odd"><p>Whether the factorial decomposition proocedure converged or not.</p>
+</dd>
+<dt class="field-even">KmConverged</dt>
+<dd class="field-even"><p>Whether the K-means proocedure converged or not.</p>
+</dd>
+<dt class="field-odd">TSS</dt>
+<dd class="field-odd"><p>Total sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">BSS</dt>
+<dd class="field-even"><p>Between sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">RSS</dt>
+<dd class="field-odd"><p>Residual sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">PseudoF</dt>
+<dd class="field-even"><p>PsuedoF score from the best loop.</p>
+</dd>
+<dt class="field-odd">Labels</dt>
+<dd class="field-odd"><p>Cluster labels for the best loop.</p>
+</dd>
+<dt class="field-even">Fs_km</dt>
+<dd class="field-even"><p>K-means clustering objective function values.</p>
+</dd>
+<dt class="field-odd">Fs_fa</dt>
+<dd class="field-odd"><p>Factor decomposition objective function values.</p>
+</dd>
+<dt class="field-even">Enorm</dt>
+<dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
+</dd>
+</dl>
+</dd>
+<dt>References:</dt><dd><p>[1] Vichi, Maurizio &amp; Rocci, Roberto &amp; Kiers, Henk. (2007).
+Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.
+Journal of Classification. 24. 71-98. 10.1007/s00357-007-0006-x.</p>
+<p>[2] Bro, R. (1998).
+Multi-way analysis in the food industry: models, algorithms, and applications.
+Universiteit van Amsterdam.</p>
+<p>[3] P. Arabie and L. Hubert.
+Advances in cluster analysis relevant to marketing research.
+In Wolfgang Gaul and Dietmar Pfeifer, editors, From Data to Knowledge, pages 3–19,
+Berlin, Heidelberg, 1996. Springer Berlin Heidelberg.</p>
+<p>[4] Ledyard Tucker.
+Some mathematical notes on three-mode factor analysis.
+Psychometrika, 31(3):279–311, September 1966.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="simuclustfactor.tandem.TWFCTA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simuclustfactor.tandem.</span></span><span class="sig-name descname"><span class="pre">TWFCTA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.tandem.TWFCTA" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_BaseClass</span></code></p>
+<dl class="simple">
+<dt>Three-way Factorial-Clustering Tandem model (TWFCTA).</dt><dd><ul class="simple">
+<li><p>Apply Factorial Decomposition (via Tucker2 applied to X_i_jk) to obtain C_k_r and B_j_q component factors.</p></li>
+<li><p>Then perform Clustering (via KMeans applied to Y_i_qr) to obtain U_i_g and Y_g_qr.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X_i_jk</strong> – (I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</p></li>
+<li><p><strong>full_tensor_shape</strong> – (I,J,K) dimensions of the original tensor.</p></li>
+<li><p><strong>reduced_tensor_shape</strong> – (G,Q,R) dimensions of centroids tensor.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Initialization Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">n_max_iter</dt>
+<dd class="field-odd"><p>Maximum number of iterations. Defaults to 10.</p>
+</dd>
+<dt class="field-even">n_loops</dt>
+<dd class="field-even"><p>Number of random initializations to gurantee global results. Defaults to 10.</p>
+</dd>
+<dt class="field-odd">tol</dt>
+<dd class="field-odd"><p>Tolerance level/acceptable error. Defaults to 1e-5.</p>
+</dd>
+<dt class="field-even">random_state</dt>
+<dd class="field-even"><p>Seed for random sequence generation. Defaults to None.</p>
+</dd>
+<dt class="field-odd">verbose</dt>
+<dd class="field-odd"><p>Whether to display executions output or not. Defaults to False.</p>
+</dd>
+<dt class="field-even">U_i_g0</dt>
+<dd class="field-even"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q0</dt>
+<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r0</dt>
+<dd class="field-even"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simuclustfactor.tandem.TWFCTA.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_i_jk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduced_tensor_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.tandem.TWFCTA.fit" title="Permalink to this definition"></a></dt>
+<dd><blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>X_i_jk: (I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</p></li>
+<li><p>full_tensor_shape: (I,J,K) dimensions of the original tensor.</p></li>
+<li><p>reduced_tensor_shape: (G,Q,R) dimensions of centroids tensor.</p></li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>Attributes:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">U_i_g0</dt>
+<dd class="field-odd"><p>(I,G) initial stochastic membership function matrix.</p>
+</dd>
+<dt class="field-even">B_j_q0</dt>
+<dd class="field-even"><p>(J,Q) initial component weight matrix for variables.</p>
+</dd>
+<dt class="field-odd">C_k_r0</dt>
+<dd class="field-odd"><p>(K,R) initial component weight matrix for occasions.</p>
+</dd>
+<dt class="field-even">U_i_g</dt>
+<dd class="field-even"><p>(I,G) final iterate stochastic membership function matrix.</p>
+</dd>
+<dt class="field-odd">B_j_q</dt>
+<dd class="field-odd"><p>(J,Q) final iterate component weight matrix for variables.</p>
+</dd>
+<dt class="field-even">C_k_r</dt>
+<dd class="field-even"><p>(K,R) final iterate component weight matrix for occasions.</p>
+</dd>
+<dt class="field-odd">Y_g_qr</dt>
+<dd class="field-odd"><p>(G,QR) matricized version of three-way core tensor.</p>
+</dd>
+<dt class="field-even">X_i_jk_scaled</dt>
+<dd class="field-even"><p>Scaled X_i_jk</p>
+</dd>
+<dt class="field-odd">BestTimeElapsed</dt>
+<dd class="field-odd"><p>Time taken for the best iterate.</p>
+</dd>
+<dt class="field-even">BestLoop</dt>
+<dd class="field-even"><p>Best loop for global result.</p>
+</dd>
+<dt class="field-odd">BestKMIteration</dt>
+<dd class="field-odd"><p>Best iteration for convergence of the K-means procedure.</p>
+</dd>
+<dt class="field-even">BestFAIteration</dt>
+<dd class="field-even"><p>Best iteration for convergence of the factor decomposition procedure.</p>
+</dd>
+<dt class="field-odd">FaConverged</dt>
+<dd class="field-odd"><p>Whether the factorial decomposition proocedure converged or not.</p>
+</dd>
+<dt class="field-even">KmConverged</dt>
+<dd class="field-even"><p>Whether the K-means proocedure converged or not.</p>
+</dd>
+<dt class="field-odd">TSS</dt>
+<dd class="field-odd"><p>Total sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">BSS</dt>
+<dd class="field-even"><p>Between sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-odd">RSS</dt>
+<dd class="field-odd"><p>Residual sum of squared deviations for best loop.</p>
+</dd>
+<dt class="field-even">PseudoF</dt>
+<dd class="field-even"><p>PsuedoF score from the best loop.</p>
+</dd>
+<dt class="field-odd">Labels</dt>
+<dd class="field-odd"><p>Cluster labels for the best loop.</p>
+</dd>
+<dt class="field-even">Fs_km</dt>
+<dd class="field-even"><p>K-means clustering objective function values.</p>
+</dd>
+<dt class="field-odd">Fs_fa</dt>
+<dd class="field-odd"><p>Factor decomposition objective function values.</p>
+</dd>
+<dt class="field-even">Enorm</dt>
+<dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
+</dd>
+</dl>
+</dd>
+<dt>References:</dt><dd><p>[1] Vichi, Maurizio &amp; Rocci, Roberto &amp; Kiers, Henk. (2007).
+Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.
+Journal of Classification. 24. 71-98. 10.1007/s00357-007-0006-x.</p>
+<p>[2] Bro, R. (1998).
+Multi-way analysis in the food industry: models, algorithms, and applications.
+Universiteit van Amsterdam.</p>
+<p>[3] P. Arabie and L. Hubert.
+Advances in cluster analysis relevant to marketing research.
+In Wolfgang Gaul and Dietmar Pfeifer, editors, From Data to Knowledge, pages 3–19,
+Berlin, Heidelberg, 1996. Springer Berlin Heidelberg.</p>
+<p>[4] Ledyard Tucker.
+Some mathematical notes on three-mode factor analysis.
+Psychometrika, 31(3):279–311, September 1966.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simuclustfactor.tensor">
+<span id="simuclustfactor-tensor-module"></span><h2>simuclustfactor.tensor module<a class="headerlink" href="#module-simuclustfactor.tensor" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="simuclustfactor.tensor.Fold">
+<span class="sig-prename descclassname"><span class="pre">simuclustfactor.tensor.</span></span><span class="sig-name descname"><span class="pre">Fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.tensor.Fold" title="Permalink to this definition"></a></dt>
+<dd><p>Folding a matrix X back into a tensor X_i_j_k.
+The Fold function takes the following arguments: 
+mode: The mode to be folded. Must be an integer between 0 and 2 inclusive. 
+shape: The original shape of the tensor X (K,I,J).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – Used to Pass the tensor to be folded.</p></li>
+<li><p><strong>mode</strong> – Used to Specify the way in which we want to fold the tensor.</p></li>
+<li><p><strong>shape</strong> – Used to Specify the shape of the tensor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The folded original tensor shape.</p>
+</dd>
+</dl>
+<dl>
+<dt>Example:</dt><dd><p># mode 0 folding
+&gt;&gt; Fold(X_k_ij, mode=0, shape(K,I,J))
+&gt;&gt; X_i_j_k</p>
+<p># mode 1 folding
+&gt;&gt; Fold(X_i_jk, mode=1, shape(K,I,J))
+&gt;&gt; X_i_j_k</p>
+<p># mode 2 folding
+&gt;&gt; Fold(X_j_ki, mode=2, shape(K,I,J))
+&gt;&gt; X_i_j_k</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="simuclustfactor.tensor.Mat2Tensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simuclustfactor.tensor.</span></span><span class="sig-name descname"><span class="pre">Mat2Tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'row'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.tensor.Mat2Tensor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<p>It’s role is to instantiate (create) the object, and return it. 
+The Mat2Tensor class is used to restructure a given matrix with faces stacked row/column wise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cls</strong> – Used to Create an instance of the class.</p></li>
+<li><p><strong>input_array</strong> – Used to Pass the array that is to be converted.</p></li>
+<li><p><strong>I</strong> – Number of objects/units of the dataset</p></li>
+<li><p><strong>J</strong> – Number of variables in the dataset.</p></li>
+<li><p><strong>stacked='row'</strong> – Used to Specify whether the faces are row-stacked (‘row’) or column-stacked (‘coloumn’).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reformatted matrix into correct matricized representation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simuclustfactor.tensor.Unfold">
+<span class="sig-prename descclassname"><span class="pre">simuclustfactor.tensor.</span></span><span class="sig-name descname"><span class="pre">Unfold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.tensor.Unfold" title="Permalink to this definition"></a></dt>
+<dd><p>The Unfold function takes a tensor and returns the unfolded version of it.
+The mode parameter specifies which dimension to unfold.
+For example, if the input is a matrix X, then Unfold(X,0) returns X_k_ij as a vector, Unfold(X,1) returns X_i_jk and Unfold(X,2) returns X_j_ki.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> – The tensor to unfold.</p></li>
+<li><p><strong>mode</strong> – Used to Specify which mode of the tensor is to be unfolded.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A matrix of size (k,ij) for mode=0, (i,jk) for mode=2 and (j,ki) for mode=2.</p>
+</dd>
+</dl>
+<dl>
+<dt>Example:</dt><dd><p># mode 0 unfolding
+&gt;&gt; Unfold(X_i_j_k, mode=0)
+&gt;&gt; X_i_jk</p>
+<p># mode 1 unfolding
+&gt;&gt; Unfold(X_i_j_k, mode=1)
+&gt;&gt; X_i_jk</p>
+<p># mode 2 unfolding
+&gt;&gt; Unfold(X_i_j_k, mode=2)
+&gt;&gt; X_j_ki</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-simuclustfactor.utils">
+<span id="simuclustfactor-utils-module"></span><h2>simuclustfactor.utils module<a class="headerlink" href="#module-simuclustfactor.utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="simuclustfactor.utils.OneKMeans">
+<span class="sig-prename descclassname"><span class="pre">simuclustfactor.utils.</span></span><span class="sig-name descname"><span class="pre">OneKMeans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y_i_qr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">U_i_g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.utils.OneKMeans" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>The OneKMeans function takes in the following parameters:</dt><dd><ul class="simple">
+<li><p>Y_i_qr: A matrix of the component scores.</p></li>
+<li><p>G: The number of groups to cluster the objects into.</p></li>
+<li><p>U_i_g=None (optional): A membership matrix for all objects, with each row representing an object and each column representing a group.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Y_i_qr</strong> – Used to Store the data matrix for all objects.</p></li>
+<li><p><strong>G</strong> – Used to Define the number of clusters.</p></li>
+<li><p><strong>U_i_g=None</strong> – Used to Pass in a membership matrix to the function.</p></li>
+<li><p><strong>rng=None</strong> – Used to Ensure that the results are reproducible.</p></li>
+<li><p><strong>seed=None</strong> – Used to Ensure that the results are reproducible.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A stochastic membership matrix (U_i_g), allocating each component score to a centroid in the reduced space is returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simuclustfactor.utils.PseudoF">
+<span class="sig-prename descclassname"><span class="pre">simuclustfactor.utils.</span></span><span class="sig-name descname"><span class="pre">PseudoF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_tensor_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduced_tensor_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.utils.PseudoF" title="Permalink to this definition"></a></dt>
+<dd><p>The PseudoF function is a measure of the ratio between the amount of 
+variance explained by a model with <cite>rank</cite> components, and the variance 
+explained by an optimal model with <cite>tensor_shape</cite> dimensions. This function 
+is used to select an appropriate rank for a tensor decomposition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bss</strong> – Between cluster sum of squares deviance.</p></li>
+<li><p><strong>wss</strong> – Within cluster sum of squares deviance.</p></li>
+<li><p><strong>full_tensor_shape</strong> – (I,J,K) tensor dimensions.</p></li>
+<li><p><strong>reduced_tensor_shape</strong> – (G,Q,R) G clusters, Q components for variables, R components for Occasions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pseudo-f statistic for the given tensor and rank.</p>
+</dd>
+</dl>
+<dl>
+<dt>Reference:</dt><dd><p>[1] T. Caliński &amp; J Harabasz (1974).
+A dendrite method for cluster analysis
+Communications in Statistics, 3:1, 1-27, DOI: 10.1080/03610927408827101</p>
+<p>[2] Roberto Rocci and Maurizio Vichi (2005).
+Three-mode component analysis with crisp or fuzzy partition of units. 
+Psychometrika, 70:715–736, 02 2005.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simuclustfactor.utils.RandomMembershipMatrix">
+<span class="sig-prename descclassname"><span class="pre">simuclustfactor.utils.</span></span><span class="sig-name descname"><span class="pre">RandomMembershipMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">I</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.utils.RandomMembershipMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>The RandomMembershipMatrix function creates a random membership matrix U_i_g. 
+The function takes as input the number of objects I and the number of clusters G, 
+and returns a matrix U_i_g with dimensions (I x G) where each row is an object, and each column is a cluster. 
+The first G rows are assigned to unique clusters 0 through G-2. The last I-G rows are randomly assigned to one of the existing clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>I</strong> – Used to define the number of objects in the dataset.</p></li>
+<li><p><strong>G</strong> – Used to define the number of clusters.</p></li>
+<li><p><strong>rng=None</strong> – Used to specify the random number generator.</p></li>
+<li><p><strong>seed=None</strong> – Used to ensure that the results are random.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A binary stochastic matrix allocating objects to a cluster.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simuclustfactor.utils.SingularVectors">
+<span class="sig-prename descclassname"><span class="pre">simuclustfactor.utils.</span></span><span class="sig-name descname"><span class="pre">SingularVectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simuclustfactor.utils.SingularVectors" title="Permalink to this definition"></a></dt>
+<dd><p>The SingularVectors function computes the first D singular vectors of X.
+X is a matrix with dimension N x M. D is an integer greater than zero.
+U is a matrix with dimension N x min(N,D) containing the first min(N,D) singular vectors of X</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – Used to Store the data matrix.</p></li>
+<li><p><strong>D</strong> – Used to Specify the number of singular vectors to return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The first D columns of the matrix U.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-simuclustfactor">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-simuclustfactor" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="simuclustfactor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Prosper Ablordeppey.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
