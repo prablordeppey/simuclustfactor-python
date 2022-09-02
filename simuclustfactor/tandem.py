@@ -13,7 +13,7 @@ _doc_init_args = '''
 	Initialization Args:
 		:n_max_iter: Maximum number of iterations. Defaults to 10.
 		:n_loops: Number of random initializations to gurantee global results. Defaults to 10.
-		:tol: Tolerance level/acceptable error. Defaults to 1e-3.
+		:tol: Tolerance level/acceptable error. Defaults to 1e-5.
 		:random_state: Seed for random sequence generation. Defaults to None.
 		:verbose: Whether to display executions output or not. Defaults to False.
 		:U_i_g0: (I,G) initial stochastic membership function matrix.
