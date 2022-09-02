@@ -6,11 +6,6 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: ammaraskar/sphinx-action@master
-      with:
-        docs-folder: "docs/"
-        
     - name: Commit documentation changes
       run: |
         git clone https://github.com/your_git/repository.git --branch gh-pages --single-branch gh-pages
@@ -27,4 +22,4 @@ jobs:
       with:
         branch: gh-pages
         directory: gh-pages
-        github_token: ${{ secrets.TOKEN_GITHUB_ACTION }}  
+        github_token: ${{ secrets.GITHUB_TOKEN }}
