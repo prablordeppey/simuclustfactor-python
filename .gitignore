@@ -11,7 +11,7 @@ build/
 develop-eggs/
 dist/
 tests/
-eggs/
+.eggs/
 lib/
 lib64/
 parts/
