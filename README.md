@@ -37,9 +37,9 @@ nicely formatted plain-text table:
 ```pycon
 >>> from simuclustfactor import tandem
 
->>> X_i_j_k = [[[1,2,3,8],[9,1,2,3],[0,3,6,3]], [[5,1,9],[9,1,4]],
-...          [[7,5,6],[3,6,7]], [[7,5,6],[3,6,7]]]
->>> I,J,K = 3,4,4
->>> G,Q,R = 2,3,1
->>> twcfta_res = TWCFTA().fit(X=X_i_jk)
+>>> X_i_j_k = [[[1,2,3,8],[9,1,2,3],[0,3,6,3]], [[5,1,9,3],[9,1,4,5],[7,2,0,3]],
+...            [[7,5,6,8],[3,6,4,7],[3,9,0,7]], [[7,5,6,1],[3,6,5,7],[9,2,8,1]]]
+>>> I,J,K = 3,4,4  # dimension of the tensor in the fullspace
+>>> G,Q,R = 2,3,1  # dimension of tensor in the reduced space
+>>> twcfta_res = TWCFTA().fit(X_i_jk=X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R))
 ```
