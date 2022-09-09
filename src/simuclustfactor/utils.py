@@ -209,10 +209,10 @@ class _BaseClass:
 		init='svd',
 		n_max_iter=10,
 		n_loops=10,
-		tol=1e-5,
+		tol=1e-3,
 		U_i_g=None,
 		B_j_q=None,
-		C_k_r=None 
+		C_k_r=None
 	):
 		self.init = init
 		self.n_max_iter = n_max_iter

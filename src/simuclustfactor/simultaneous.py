@@ -16,9 +16,9 @@ _doc_init_args = '''
 		:tol: tolerance/acceptable error. Defaults to 1e-5.
 		:random_state: seed for random generations. Defaults to None.
 		:verbose: verbosity mode. Defaults to False.
-		:U_i_g0: (I,G) initial stochastic membership function matrix.
-		:B_j_q0: (J,Q) initial component weight matrix for variables.
-		:C_k_r0: (K,R) initial component weight matrix for occasions.
+		:U_i_g0: (I,G) initial stochastic membership function matrix. Defaults to None.
+		:B_j_q0: (J,Q) initial component weight matrix for variables. Defaults to None.
+		:C_k_r0: (K,R) initial component weight matrix for occasions. Defaults to None.
 	'''
 
 # inputs to the model
@@ -45,16 +45,21 @@ _doc_init_attrs = '''
 		:BestLoop: best loop for global result.
 		:BestIteration: best iteration for convergence of the procedure.
 
-		:TSS: Total sum of squared deviations for best loop.
-		:BSS: Between sum of squared deviations for best loop.
-		:RSS: Residual sum of squared deviations for best loop.
-		:PseudoF: PsuedoF score from the best loop.
-		
-		:Fs: objective function values. 
-		:converged: whether the procedure converged or not.
+		:TSSFull: Total sum of squared deviations for best loop in the full space.
+		:BSSFull: Between sum of squared deviations for best loop in the full space.
+		:RSSFull: Residual sum of squared deviations for best loop in the full space.
+		:PseudofFull: PsuedoF score from the best loop in the full space.
 
+		:TSSReduced: Total sum of squared deviations for best loop in the reduced space.
+		:BSSReduced: Between sum of squared deviations for best loop in the reduced space.
+		:RSSReduced: Residual sum of squared deviations for best loop in the reduced space.
+		:PseudofReduced: PsuedoF score from the best loop in the reduced space.
+		
+		:Labels: cluster labels for the best loop.
+
+		:Fs: A list of objective function values until stopping criteria. 
 		:Enorm: Frobenius or L2 norm of residual term from the model.
-		:Labels: cluster labels for the best loop.'''
+		:converged: whether the procedure converged or not.'''
 
 # === REFERENCES
 _doc_refs = '''
@@ -131,11 +136,10 @@ class T3Clus(_BaseClass):
 		X_k_ij = Unfold(X_k_i_j, mode=0)
 		X_j_ki = Unfold(X_k_i_j, mode=2)
 
-
 		I_jk_jk = np.diag(np.ones(J*K))
 		I_i_i = np.diag(np.ones(I))
 
-		headers = ['Loop','Iteration','Loop time','BSS (%)','PseudoF','Convergence']
+		headers = ['Loop','Best Iteration','Time Elapsed','BSS Full (%)', 'BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced','Convergence']
 		if self.verbose: print(tabulate([],headers=headers))
 		
 		for loop in range(1,self.n_loops+1):
@@ -183,15 +187,16 @@ class T3Clus(_BaseClass):
 			B_j_q_init = B_j_q0.copy()
 			C_k_r_init = C_k_r0.copy()
 
-			# updating X_i_jk
-			Y_g_qr = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ X_i_jk @ np.kron(C_k_r0, B_j_q0)  # updated centroids matrix
-			# Y_g_qr = np.diag(1/U_i_g0.sum(axis=0)) @ U_i_g0.T @ Y_i_qr
-
-			Z_i_qr = U_i_g0 @ Y_g_qr # model
-
+			Z_i_qr = U_i_g0 @ np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ X_i_jk @ np.kron(C_k_r0, B_j_q0) # model
 			F0 = np.linalg.norm(Z_i_qr,2)
 			conv = 2*self.tol
 			Fs.append(F0)
+
+			# best results
+			best_U_i_g = U_i_g0
+			best_B_j_q = B_j_q0
+			best_C_k_r = C_k_r0
+			best_iteration = 1
 
 			# ----------- End of Objective Function Definition --------------
 
@@ -202,7 +207,6 @@ class T3Clus(_BaseClass):
 				# ----------- Start of factor matrices update --------------
 
 				Hu_i_i = U_i_g0 @ np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T
-				# Hu_i_i = U_i_g0 @ np.diag(1/U_i_g0.sum(axis=0)) @ U_i_g0.T
 
 				# updating B_j_q
 				B_j_j = X_j_ki @ np.kron(Hu_i_i-I_i_i, C_k_r0@C_k_r0.T) @ X_j_ki.T
@@ -223,79 +227,104 @@ class T3Clus(_BaseClass):
 
 				# ----------- Start of objective functions update --------------
 
-				Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr
-				Z_i_qr = U_i_g @ Y_g_qr
+				Z_i_qr = U_i_g @ np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr @ np.kron(C_k_r, B_j_q).T
 
 				F = np.linalg.norm(Z_i_qr,2)
-				conv = abs(F-Fs[-1])
-				Fs.append(F)				
+				conv = abs(F-F0)
 
 				# ----------- End of objective functions update --------------
 
 				# ----------- Start stopping criteria check --------------						
 
+				if F >= F0:
+					Fs.append(F)
+					F0 = F
+					best_B_j_q = B_j_q
+					best_C_k_r = C_k_r
+					best_U_i_g = U_i_g
+					best_iteration = iteration
+
 				if conv < self.tol:
 					converged = True
-				else:
-					F0 = F
-					B_j_q0 = B_j_q
-					C_k_r0 = C_k_r
+					break
 
-				if (iteration == self.n_max_iter):
-					if self.verbose == True: print("Maximum iterations reached.")
+				if iteration == self.n_max_iter:
+					if self.verbose: print("Maximum iterations reached.")
 					break
 
 				# ----------- End stopping criteria check --------------
-			
+
+				U_i_g0 = U_i_g
+				B_j_q0 = B_j_q
+				C_k_r0 = C_k_r
+
+			print('Fs',Fs)
+
 			# ----------- Start of results update for each loop --------------
 
 			time_elapsed = time()-start_time
 
 			# updating X
-			Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q) # component scores
-			Z_i_qr = U_i_g @ np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr  # (PxQ) object centroid matrix.
+			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)
+			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+			Z_i_qr = best_U_i_g @  Y_g_qr
+			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
 
-			TSS = Y_i_qr.var()*Y_i_qr.size
-			BSS = Z_i_qr.var()*Z_i_qr.size  # redsidual sum of squares since clustering + factor reduction
-			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+			TSS_full = X_i_jk.var()*X_i_jk.size
+			BSS_full = Z_i_jk.var()*Z_i_jk.size
+			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
 
-			BSS_percent = (BSS/TSS)*100  # between cluster deviance
-			pseudoF = round(PseudoF(BSS, RSS, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+			BSS_reduced = Z_i_qr.var()*Z_i_qr.size
+			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+
+			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
 
 			# output results
-			if self.verbose: print(tabulate([[]], headers=[loop, iteration, round(time_elapsed,4), round(BSS_percent,4), pseudoF, converged], tablefmt='plain'))
+			if self.verbose: print(tabulate([[]], headers=[loop, best_iteration, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, converged], tablefmt='plain'))
 
 			if (loop == 1):
-				B_j_q_simu = B_j_q
-				C_k_r_simu = C_k_r
-				U_i_g_simu = U_i_g
-				iteration_simu = iteration
+				B_j_q_simu = best_B_j_q
+				C_k_r_simu = best_C_k_r
+				U_i_g_simu = best_U_i_g
+				iteration_simu = best_iteration
 				loop_simu = 1
 				converged_simu = converged
 				Fs_simu = Fs
-				pseudoF_simu = pseudoF
-				BSS_per = BSS_percent
-				TSS_simu = TSS
-				BSS_simu = BSS
-				RSS_simu = RSS
+				pseudoF_full_simu = pseudoF_full
+				pseudoF_reduced_simu = pseudoF_reduced
+				BSS_per = BSS_percent_full
+				TSS_full_simu = TSS_full
+				BSS_full_simu = BSS_full
+				RSS_full_simu = RSS_full
+				TSS_reduced_simu = TSS_reduced
+				BSS_reduced_simu = BSS_reduced
+				RSS_reduced_simu = RSS_reduced
 				U_i_g_init_simu = U_i_g_init
 				B_j_q_init_simu = B_j_q_init
 				C_k_r_init_simu = C_k_r_init
 				best_time_elapsed_simu = time_elapsed
 
-			if (BSS_percent > BSS_per):
-				B_j_q_simu = B_j_q
-				C_k_r_simu = C_k_r
-				U_i_g_simu = U_i_g
-				iteration_simu = iteration  # number of iterations until convergence
+			if (BSS_percent_full > BSS_per):
+				B_j_q_simu = best_B_j_q
+				C_k_r_simu = best_C_k_r
+				U_i_g_simu = best_U_i_g
+				iteration_simu = best_iteration  # number of iterations until convergence
 				loop_simu = loop  # best loop so far
 				converged_simu = converged  # if there was a convergence
 				Fs_simu = Fs  # objective function values
-				pseudoF_simu = pseudoF
-				BSS_per = BSS_percent
-				TSS_simu = TSS
-				BSS_simu = BSS
-				RSS_simu = RSS
+				pseudoF_full_simu = pseudoF_full
+				pseudoF_reduced_simu = pseudoF_reduced
+				BSS_per = BSS_percent_full
+				TSS_full_simu = TSS_full
+				BSS_full_simu = BSS_full
+				RSS_full_simu = RSS_full
+				TSS_reduced_simu = TSS_reduced
+				BSS_reduced_simu = BSS_reduced
+				RSS_reduced_simu = RSS_reduced
 				U_i_g_init_simu = U_i_g_init
 				B_j_q_init_simu = B_j_q_init
 				C_k_r_init_simu = C_k_r_init
@@ -306,14 +335,14 @@ class T3Clus(_BaseClass):
 		# ----------- Start of result update for best loop --------------
 
 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
-		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr
+		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu) @ U_i_g_simu.T@Y_i_qr
 		Z_i_qr = U_i_g_simu @ Y_g_qr
 
 		# factor matrices and centroid matrices
-		self.U_i_g = U_i_g_simu
 		self.U_i_g0 = U_i_g_init_simu
 		self.B_j_q0 = B_j_q_init_simu
 		self.C_k_r0 = C_k_r_init_simu
+		self.U_i_g = U_i_g_simu
 		self.B_j_q = B_j_q_simu
 		self.C_k_r = C_k_r_simu
 		self.Y_g_qr = Y_g_qr
@@ -325,13 +354,17 @@ class T3Clus(_BaseClass):
 		self.BestIteration = iteration_simu
 
 		# maximum between cluster deviance
-		self.TSS = TSS_simu
-		self.BSS = BSS_simu
-		self.RSS = RSS_simu
-		self.PseudoF = pseudoF_simu
+		self.TSS_full = TSS_full_simu
+		self.BSS_full = BSS_full_simu
+		self.RSS_full = RSS_full_simu
+		self.TSS_reduced = TSS_reduced_simu
+		self.BSS_reduced = BSS_reduced_simu
+		self.RSS_reduced = RSS_reduced_simu
+		self.PseudoF_full = pseudoF_full
+		self.PseudoF_reduced = pseudoF_reduced
 
 		# Error in model
-		self.Enorm = 1/I*np.linalg.norm(X_i_jk - U_i_g_simu@Y_g_qr@np.kron(C_k_r_simu, B_j_q_simu).T, 2)
+		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
 		self.Fs = Fs_simu  # all error norms
 
 		# classification of objects (labels)
@@ -390,7 +423,7 @@ class TFKMeans(_BaseClass):
 		I_jk_jk = np.diag(np.ones(J*K))
 		I_i_i = np.diag(np.ones(I))
 
-		headers = ['Loop','Iteration','Loop time','BSS (%)','PseudoF','Convergence']
+		headers = ['Loop','Best Iteration','Time Elapsed','BSS Full (%)','BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced', 'Convergence']
 		if self.verbose: print(tabulate([],headers=headers))
 		
 		for loop in range(1,self.n_loops+1):
@@ -445,16 +478,18 @@ class TFKMeans(_BaseClass):
 			C_k_r_init = C_k_r0.copy()
 
 			# updating X_i_jk
-			X_i_jk_N = X_i_jk @ np.kron(C_k_r0 @ C_k_r0.T, B_j_q0 @ B_j_q0.T)
-
-			Y_g_qr = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ X_i_jk_N @ np.kron(C_k_r0, B_j_q0)  # updated centroids matrix
-			# Y_g_qr = np.diag(1/U_i_g0.sum(axis=0)) @ U_i_g0.T @ X_i_jk_N @ np.kron(C_k_r0, B_j_q0)  # updated centroids matrix
-
-			Z_i_qr = U_i_g0 @ Y_g_qr
+			X_i_jk_N = X_i_jk @ np.kron(C_k_r0@C_k_r0.T, B_j_q0@B_j_q0.T)
+			Z_i_qr = U_i_g0 @ np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ X_i_jk_N @ np.kron(C_k_r0, B_j_q0)  # updated centroids matrix
 
 			F0 = np.linalg.norm(Z_i_qr,2)
 			conv = 2*self.tol
 			Fs.append(F0)
+
+			# best results
+			best_U_i_g = U_i_g0
+			best_B_j_q = B_j_q0
+			best_C_k_r = C_k_r0
+			best_iteration = 1
 
 			# ----------- End of Objective Function Definition --------------
 
@@ -464,8 +499,7 @@ class TFKMeans(_BaseClass):
 
 				# ----------- Start of factor matrices update --------------
 
-				# Hu_i_i = U_i_g0 @ np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T
-				Hu_i_i = U_i_g0 @ np.diag(1/U_i_g0.sum(axis=0)) @ U_i_g0.T
+				Hu_i_i = U_i_g0 @ np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T
 
 				# permuting X_i_jk_N by mode
 				X_k_i_j = Fold(X_i_jk_N, mode=1, shape=(K,I,J))
@@ -493,104 +527,125 @@ class TFKMeans(_BaseClass):
 
 				# ----------- Start of objective functions update --------------
 
-				# Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr
-				# Y_g_qr = np.diag(1/U_i_g0.sum(axis=0)) @ U_i_g0.T @ Y_i_qr
 				Z_i_qr = U_i_g @ np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr
 
 				F = np.linalg.norm(Z_i_qr,2)
-				conv = abs(F-Fs[-1])
-				Fs.append(F)		
+				conv = abs(F-F0)	
 
 				# ----------- End of objective functions update --------------
 
 				# ----------- Start stopping criteria check --------------						
 
-				if (iteration == self.n_max_iter):
-					if self.verbose == True: print("Maximum iterations reached.")
-					break
-				
+				if F >= F0:
+					Fs.append(F)
+					F0 = F
+					best_B_j_q = B_j_q
+					best_C_k_r = C_k_r
+					best_U_i_g = U_i_g
+					best_iteration = iteration
+
 				if conv < self.tol:
 					converged = True
-				else:
-					F0 = F
-					B_j_q0 = B_j_q
-					C_k_r0 = C_k_r
+					break
+
+				if iteration == self.n_max_iter:
+					if self.verbose: print("Maximum iterations reached.")
+					break				
 
 				# ----------- End stopping criteria check --------------
-			
+
+				U_i_g0 = U_i_g
+				B_j_q0 = B_j_q
+				C_k_r0 = C_k_r
+
+			print('Fs',Fs)
+
 			# ----------- Start of results update for each loop --------------
 
 			time_elapsed = time()-start_time
 
 			# updating X
-			X_i_jk_N = X_i_jk @ np.kron(C_k_r@C_k_r.T, B_j_q@B_j_q.T)
-			
-			Y_i_qr = X_i_jk_N @ np.kron(C_k_r, B_j_q) # component scores
-			Z_i_qr = U_i_g @ np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr  # (PxQ) object centroid matrix.
+			X_i_jk_N = X_i_jk @ np.kron(best_C_k_r@best_C_k_r.T, best_B_j_q@best_B_j_q.T)
+			Y_i_qr = X_i_jk_N @ np.kron(best_C_k_r, best_B_j_q)  # (PxQ) object centroid matrix.
+			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+			Z_i_qr = best_U_i_g @  Y_g_qr
+			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
 
-			TSS = Y_i_qr.var()*Y_i_qr.size
-			BSS = Z_i_qr.var()*Z_i_qr.size  # redsidual sum of squares since clustering + factor reduction
-			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+			TSS_full = X_i_jk.var()*X_i_jk.size
+			BSS_full = Z_i_jk.var()*Z_i_jk.size
+			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
 
-			# print(Fs)
-			BSS_percent = (BSS/TSS)*100  # between cluster deviance
-			pseudoF = round(PseudoF(BSS, RSS, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+			BSS_reduced = Z_i_qr.var()*Z_i_qr.size
+			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+
+			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
 
 			# output results
-			if self.verbose: print(tabulate([[]], headers=[loop, iteration, round(time_elapsed,4), round(BSS_percent,4), pseudoF, converged], tablefmt='plain'))
+			if self.verbose: print(tabulate([[]], headers=[loop, best_iteration, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, converged], tablefmt='plain'))
 
 			if (loop == 1):
-				B_j_q_simu = B_j_q
-				C_k_r_simu = C_k_r
-				U_i_g_simu = U_i_g
-				iteration_simu = iteration
+				B_j_q_simu = best_B_j_q
+				C_k_r_simu = best_C_k_r
+				U_i_g_simu = best_U_i_g
+				iteration_simu = best_iteration
 				loop_simu = 1
 				converged_simu = converged
-				BSS_per = BSS_percent
 				Fs_simu = Fs
-				pseudoF_simu = pseudoF
-				TSS_simu = TSS
-				BSS_simu = BSS
-				RSS_simu = RSS
+				pseudoF_full_simu = pseudoF_full
+				pseudoF_reduced_simu = pseudoF_reduced
+				BSS_per = BSS_percent_reduced
+				TSS_full_simu = TSS_full
+				BSS_full_simu = BSS_full
+				RSS_full_simu = RSS_full
+				TSS_reduced_simu = TSS_reduced
+				BSS_reduced_simu = BSS_reduced
+				RSS_reduced_simu = RSS_reduced
 				U_i_g_init_simu = U_i_g_init
 				B_j_q_init_simu = B_j_q_init
 				C_k_r_init_simu = C_k_r_init
 				best_time_elapsed_simu = time_elapsed
 
-			if (BSS_percent > BSS_per):
-				B_j_q_simu = B_j_q
-				C_k_r_simu = C_k_r
-				U_i_g_simu = U_i_g
-				iteration_simu = iteration  # number of iterations until convergence
+			if (BSS_percent_reduced > BSS_per):
+				B_j_q_simu = best_B_j_q
+				C_k_r_simu = best_C_k_r
+				U_i_g_simu = best_U_i_g
+				iteration_simu = best_iteration
 				loop_simu = loop  # best loop so far
-				converged_simu = converged  # if there was a convergence
-				BSS_per = BSS_percent
+				converged_simu = converged  # if there was a convergence				
 				Fs_simu = Fs  # objective function values
-				pseudoF_simu = pseudoF
-				TSS_simu = TSS
-				BSS_simu = BSS
-				RSS_simu = RSS
+				pseudoF_full_simu = pseudoF_full
+				pseudoF_reduced_simu = pseudoF_reduced
+				BSS_per = BSS_percent_reduced
+				TSS_full_simu = TSS_full
+				BSS_full_simu = BSS_full
+				RSS_full_simu = RSS_full
+				TSS_reduced_simu = TSS_reduced
+				BSS_reduced_simu = BSS_reduced
+				RSS_reduced_simu = RSS_reduced
 				U_i_g_init_simu = U_i_g_init
 				B_j_q_init_simu = B_j_q_init
 				C_k_r_init_simu = C_k_r_init
 				best_time_elapsed_simu = time_elapsed
-
 
 			# ----------- End of results update for each loop --------------
 
 		# ----------- Start of result update for best loop --------------
 
-		X_i_jk_N = X_i_jk @ np.kron(C_k_r_simu @ C_k_r_simu.T, B_j_q_simu @ B_j_q_simu.T)
+		X_i_jk_N = X_i_jk @ np.kron(C_k_r_simu@C_k_r_simu.T, B_j_q_simu@B_j_q_simu.T)
 		
 		Y_i_qr = X_i_jk_N @ np.kron(C_k_r_simu, B_j_q_simu)
-		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr
+		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu)@U_i_g.T@Y_i_qr
 		Z_i_qr = U_i_g_simu @ Y_g_qr
 
 		# factor matrices and centroid matrices
-		self.U_i_g = U_i_g_simu
 		self.U_i_g0 = U_i_g_init_simu
 		self.B_j_q0 = B_j_q_init_simu
 		self.C_k_r0 = C_k_r_init_simu
+		self.U_i_g = U_i_g_simu
 		self.B_j_q = B_j_q_simu
 		self.C_k_r = C_k_r_simu
 		self.Y_g_qr = Y_g_qr
@@ -602,14 +657,19 @@ class TFKMeans(_BaseClass):
 		self.BestIteration = iteration_simu
 
 		# maximum between cluster deviance
-		self.TSS = TSS_simu
-		self.BSS = BSS_simu
-		self.RSS = RSS_simu
-		self.PseudoF = pseudoF_simu
+		self.TSS_full = TSS_full_simu
+		self.BSS_full = BSS_full_simu
+		self.RSS_full = RSS_full_simu
+		self.TSS_reduced = TSS_reduced_simu
+		self.BSS_reduced = BSS_reduced_simu
+		self.RSS_reduced = RSS_reduced_simu
+		self.PseudoF_full = pseudoF_full
+		self.PseudoF_reduced = pseudoF_reduced
 
 		# Error in model
-		self.Enorm = 1/I*np.linalg.norm(X_i_jk_N - U_i_g_simu@Y_g_qr@np.kron(C_k_r_simu, B_j_q_simu).T, 2)
+		self.Enorm = 1/I*np.linalg.norm(X_i_jk_N - Z_i_qr@np.kron(C_k_r_simu, B_j_q_simu).T, 2)
 		self.Fs = Fs_simu  # all error norms
+		self.converged = converged_simu
 
 		# classification of objects (labels)
 		self.Labels = np.where(U_i_g_simu)[1]
@@ -674,9 +734,8 @@ class CT3Clus(_BaseClass):
 		I_jk_jk = np.diag(np.ones(J*K))
 		I_i_i = np.diag(np.ones(I))
 
-		headers = ['Loop','Iteration','Loop time','BSS (%)','PseudoF','Convergence']
+		headers = ['Loop','Iteration','Time Elapsed','BSS Full (%)', 'BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced','Convergence']
 		if self.verbose: print(tabulate([],headers=headers))
-		best_elapsed_times = []
 		
 		for loop in range(1,self.n_loops+1):
 
@@ -733,16 +792,17 @@ class CT3Clus(_BaseClass):
 			P = np.kron(C_k_r0 @ C_k_r0.T, B_j_q0 @ B_j_q0.T)
 			X_i_jk_N = X_i_jk @ (P + (alpha**0.5)*(I_jk_jk-P) )
 
-			# Y_i_qr = X_i_jk_N @ np.kron(C_k_r0, B_j_q0) # component scores
-			# Y_g_qr = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ Y_i_qr  # updated centroids matrix
-			# Y_g_qr = np.diag(1/U_i_g0.sum(axis=0)) @ U_i_g0.T @ Y_i_qr
-
 			Z_i_qr = U_i_g0 @ np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ X_i_jk_N @ np.kron(C_k_r0, B_j_q0)  # (PxQ) object centroid matrix. It identifies the P centroids in the reduced space of the principal components.
-			# Z_i_jk = U_i_g0 @ Y_g_qr @ np.kron(C_k_r0,B_j_q0).T  # model
 
 			F0 = np.linalg.norm(Z_i_qr,2)
 			conv = 2*self.tol
 			Fs.append(F0)
+
+			# best results
+			best_U_i_g = U_i_g0
+			best_B_j_q = B_j_q0
+			best_C_k_r = C_k_r0
+			best_iteration = 1
 
 			# ----------- End of Objective Function Definition --------------
 
@@ -769,10 +829,12 @@ class CT3Clus(_BaseClass):
 				C_k_r = SingularVectors(C_k_k, R)
 
 				# ----------- End of factor matrices update --------------
-				# # updating X
+	
+				# ----------- Start of objects membership matrix update --------------
+
+				# updating X
 				P = np.kron(C_k_r @ C_k_r.T, B_j_q @ B_j_q.T)
 				X_i_jk_N = X_i_jk @ (P + (alpha**0.5)*(I_jk_jk-P) )
-				# ----------- Start of objects membership matrix update --------------
 
 				Y_i_qr = X_i_jk_N @ np.kron(C_k_r, B_j_q) # component scores
 				U_i_g = OneKMeans(Y_i_qr, G, U_i_g=U_i_g0, seed=self.random_state)  # updated membership matrix
@@ -781,85 +843,109 @@ class CT3Clus(_BaseClass):
 
 				# ----------- Start of objective functions update --------------
 
-				# Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr
-				# Z_i_qr = U_i_g @ Y_g_qr
-				# Z_i_jk = U_i_g @ Y_g_qr @ np.kron(C_k_r, B_j_q).T
 				Z_i_qr = U_i_g @ np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr
 
 				F = np.linalg.norm(Z_i_qr,2)
-				conv = abs(F-Fs[-1])
-				Fs.append(F)				
+				conv = abs(F-F0)				
 
 				# ----------- End of objective functions update --------------
 
 				# ----------- Start stopping criteria check --------------						
 
-				if (iteration == self.n_max_iter):
-					if self.verbose == True: print("Maximum iterations reached.")
-					break					
+				if F >= F0:
+					Fs.append(F)
+					F0 = F
+					best_B_j_q = B_j_q
+					best_C_k_r = C_k_r
+					best_U_i_g = U_i_g
+					best_iteration = iteration
 
 				if conv < self.tol:
 					converged = True
-				else:
-					F0 = F
-					B_j_q0 = B_j_q
-					C_k_r0 = C_k_r
+					break
+
+				if iteration == self.n_max_iter:
+					if self.verbose: print("Maximum iterations reached.")
+					break
 
 				# ----------- End stopping criteria check --------------
-			
+				
+				U_i_g0 = U_i_g
+				B_j_q0 = B_j_q
+				C_k_r0 = C_k_r
+
+			print('Fs',Fs)
+
 			# ----------- Start of results update for each loop --------------
 
 			time_elapsed = time()-start_time
-			best_elapsed_times.append(time_elapsed)
-
-			# updating X
-			P = np.kron(C_k_r@C_k_r.T, B_j_q@B_j_q.T)
-			X_i_jk_N = X_i_jk @ (P + (alpha**0.5)*(I_jk_jk-P) )
 			
-			Y_i_qr = X_i_jk_N @ np.kron(C_k_r, B_j_q) # component scores
-			Z_i_qr = U_i_g @ np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr  # (PxQ) object centroid matrix.
+			# updating X
+			P = np.kron(best_C_k_r@best_C_k_r.T, best_B_j_q@best_B_j_q.T)
+			X_i_jk_N = X_i_jk @ (P + (alpha**0.5)*(I_jk_jk-P) )			
+			Y_i_qr = X_i_jk_N @ np.kron(best_C_k_r, best_B_j_q)  # (PxQ) object centroid matrix.
+			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+			Z_i_qr = best_U_i_g @  Y_g_qr
+			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
 
-			TSS = Y_i_qr.var()*Y_i_qr.size
-			BSS = Z_i_qr.var()*Z_i_qr.size  # redsidual sum of squares since clustering + factor reduction
-			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+			TSS_full = X_i_jk.var()*X_i_jk.size
+			BSS_full = Z_i_jk.var()*Z_i_jk.size
+			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
 
-			BSS_percent = (BSS/TSS)*100  # between cluster deviance
-			pseudoF = round(PseudoF(BSS, RSS, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+			BSS_reduced = Z_i_qr.var()*Z_i_qr.size
+			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+			
+			BSS_percent = alpha*BSS_full + (1-alpha)*BSS_reduced
+
+			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
 
 			# output results
-			if self.verbose: print(tabulate([[]], headers=[loop, iteration, round(time_elapsed,4), round(BSS_percent,4), pseudoF, converged], tablefmt='plain'))
+			if self.verbose: print(tabulate([[]], headers=[loop, best_iteration, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, converged], tablefmt='plain'))
 
 			if (loop == 1):
-				B_j_q_simu = B_j_q
-				C_k_r_simu = C_k_r
-				U_i_g_simu = U_i_g
-				iteration_simu = iteration
+				B_j_q_simu = best_B_j_q
+				C_k_r_simu = best_C_k_r
+				U_i_g_simu = best_U_i_g
+				iteration_simu = best_iteration
 				loop_simu = 1
 				converged_simu = converged
-				BSS_per = BSS_percent
 				Fs_simu = Fs
-				pseudoF_simu = pseudoF
-				TSS_simu = TSS
-				BSS_simu = BSS
-				RSS_simu = RSS
+				pseudoF_full_simu = pseudoF_full
+				pseudoF_reduced_simu = pseudoF_reduced
+				BSS_per = BSS_percent_reduced
+				TSS_full_simu = TSS_full
+				BSS_full_simu = BSS_full
+				RSS_full_simu = RSS_full
+				TSS_reduced_simu = TSS_reduced
+				BSS_reduced_simu = BSS_reduced
+				RSS_reduced_simu = RSS_reduced
 				U_i_g_init_simu = U_i_g_init
 				B_j_q_init_simu = B_j_q_init
 				C_k_r_init_simu = C_k_r_init
 				best_time_elapsed_simu = time_elapsed
 
+
 			if (BSS_percent > BSS_per):
-				B_j_q_simu = B_j_q
-				C_k_r_simu = C_k_r
-				U_i_g_simu = U_i_g
-				iteration_simu = iteration  # number of iterations until convergence
+				B_j_q_simu = best_B_j_q
+				C_k_r_simu = best_C_k_r
+				U_i_g_simu = best_U_i_g
+				iteration_simu = best_iteration
 				loop_simu = loop  # best loop so far
-				converged_simu = converged  # if there was a convergence
-				BSS_per = BSS_percent
+				converged_simu = converged  # if there was a convergence				
 				Fs_simu = Fs  # objective function values
-				pseudoF_simu = pseudoF
-				TSS_simu = TSS
-				BSS_simu = BSS
-				RSS_simu = RSS
+				pseudoF_full_simu = pseudoF_full
+				pseudoF_reduced_simu = pseudoF_reduced
+				BSS_per = BSS_percent_reduced
+				TSS_full_simu = TSS_full
+				BSS_full_simu = BSS_full
+				RSS_full_simu = RSS_full
+				TSS_reduced_simu = TSS_reduced
+				BSS_reduced_simu = BSS_reduced
+				RSS_reduced_simu = RSS_reduced
 				U_i_g_init_simu = U_i_g_init
 				B_j_q_init_simu = B_j_q_init
 				C_k_r_init_simu = C_k_r_init
@@ -871,16 +957,15 @@ class CT3Clus(_BaseClass):
 
 		P = np.kron(C_k_r_simu @ C_k_r_simu.T, B_j_q_simu @ B_j_q_simu.T)
 		X_i_jk_N = X_i_jk @ (P + (alpha**0.5)*(I_jk_jk-P) )
-		
 		Y_i_qr = X_i_jk_N @ np.kron(C_k_r_simu, B_j_q_simu)
-		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr
+		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu)@U_i_g.T@Y_i_qr
 		Z_i_qr = U_i_g_simu @ Y_g_qr
 
 		# factor matrices and centroid matrices
-		self.U_i_g = U_i_g_simu
 		self.U_i_g0 = U_i_g_init_simu
 		self.B_j_q0 = B_j_q_init_simu
 		self.C_k_r0 = C_k_r_init_simu
+		self.U_i_g = U_i_g_simu
 		self.B_j_q = B_j_q_simu
 		self.C_k_r = C_k_r_simu
 		self.Y_g_qr = Y_g_qr
@@ -892,17 +977,19 @@ class CT3Clus(_BaseClass):
 		self.BestIteration = iteration_simu
 
 		# maximum between cluster deviance
-		self.TSS = TSS_simu
-		self.BSS = BSS_simu
-		self.RSS = RSS_simu
-		self.PseudoF = pseudoF_simu
+		self.TSS_full = TSS_full_simu
+		self.BSS_full = BSS_full_simu
+		self.RSS_full = RSS_full_simu
+		self.TSS_reduced = TSS_reduced_simu
+		self.BSS_reduced = BSS_reduced_simu
+		self.RSS_reduced = RSS_reduced_simu
+		self.PseudoF_full = pseudoF_full
+		self.PseudoF_reduced = pseudoF_reduced
 
 		# convergence
+		self.Enorm = 1/I*np.linalg.norm(X_i_jk_N - Z_i_qr@np.kron(C_k_r_simu, B_j_q_simu).T, 2)
 		self.Fs = Fs_simu  # all error norms
 		self.converged = converged_simu
-
-		# Error in model
-		self.Enorm = 1/I*np.linalg.norm(X_i_jk_N - U_i_g_simu@Y_g_qr@np.kron(C_k_r_simu, B_j_q_simu).T, 2)
 
 		# classification of objects (labels)
 		self.Labels = np.where(U_i_g_simu)[1]

@@ -108,13 +108,13 @@
 <dd class="field-odd"><p>verbosity mode. Defaults to False.</p>
 </dd>
 <dt class="field-even">U_i_g0</dt>
-<dd class="field-even"><p>(I,G) initial stochastic membership function matrix.</p>
+<dd class="field-even"><p>(I,G) initial stochastic membership function matrix. Defaults to None.</p>
 </dd>
 <dt class="field-odd">B_j_q0</dt>
-<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables.</p>
+<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables. Defaults to None.</p>
 </dd>
 <dt class="field-even">C_k_r0</dt>
-<dd class="field-even"><p>(K,R) initial component weight matrix for occasions.</p>
+<dd class="field-even"><p>(K,R) initial component weight matrix for occasions. Defaults to None.</p>
 </dd>
 </dl>
 </dd>
@@ -152,29 +152,41 @@
 <dt class="field-odd">BestIteration</dt>
 <dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
 </dd>
-<dt class="field-even">TSS</dt>
-<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+<dt class="field-even">TSSFull</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">BSS</dt>
-<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+<dt class="field-odd">BSSFull</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">RSS</dt>
-<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+<dt class="field-even">RSSFull</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">PseudoF</dt>
-<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+<dt class="field-odd">PseudofFull</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the full space.</p>
 </dd>
-<dt class="field-even">Fs</dt>
-<dd class="field-even"><p>objective function values.</p>
+<dt class="field-even">TSSReduced</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the reduced space.</p>
 </dd>
-<dt class="field-odd">converged</dt>
-<dd class="field-odd"><p>whether the procedure converged or not.</p>
+<dt class="field-odd">BSSReduced</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">RSSReduced</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-odd">PseudofReduced</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">Labels</dt>
+<dd class="field-even"><p>cluster labels for the best loop.</p>
+</dd>
+<dt class="field-odd">Fs</dt>
+<dd class="field-odd"><p>A list of objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-even">Enorm</dt>
 <dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
 </dd>
-<dt class="field-odd">Labels</dt>
-<dd class="field-odd"><p>cluster labels for the best loop.</p>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
 </dd>
 </dl>
 </dd>
@@ -232,29 +244,41 @@
 <dt class="field-odd">BestIteration</dt>
 <dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
 </dd>
-<dt class="field-even">TSS</dt>
-<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+<dt class="field-even">TSSFull</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">BSS</dt>
-<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+<dt class="field-odd">BSSFull</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">RSS</dt>
-<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+<dt class="field-even">RSSFull</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">PseudoF</dt>
-<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+<dt class="field-odd">PseudofFull</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the full space.</p>
 </dd>
-<dt class="field-even">Fs</dt>
-<dd class="field-even"><p>objective function values.</p>
+<dt class="field-even">TSSReduced</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the reduced space.</p>
 </dd>
-<dt class="field-odd">converged</dt>
-<dd class="field-odd"><p>whether the procedure converged or not.</p>
+<dt class="field-odd">BSSReduced</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">RSSReduced</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-odd">PseudofReduced</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">Labels</dt>
+<dd class="field-even"><p>cluster labels for the best loop.</p>
+</dd>
+<dt class="field-odd">Fs</dt>
+<dd class="field-odd"><p>A list of objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-even">Enorm</dt>
 <dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
 </dd>
-<dt class="field-odd">Labels</dt>
-<dd class="field-odd"><p>cluster labels for the best loop.</p>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
 </dd>
 </dl>
 </dd>
@@ -297,13 +321,13 @@ Maximizes the between cluster deviance of the component scores.</p>
 <dd class="field-odd"><p>verbosity mode. Defaults to False.</p>
 </dd>
 <dt class="field-even">U_i_g0</dt>
-<dd class="field-even"><p>(I,G) initial stochastic membership function matrix.</p>
+<dd class="field-even"><p>(I,G) initial stochastic membership function matrix. Defaults to None.</p>
 </dd>
 <dt class="field-odd">B_j_q0</dt>
-<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables.</p>
+<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables. Defaults to None.</p>
 </dd>
 <dt class="field-even">C_k_r0</dt>
-<dd class="field-even"><p>(K,R) initial component weight matrix for occasions.</p>
+<dd class="field-even"><p>(K,R) initial component weight matrix for occasions. Defaults to None.</p>
 </dd>
 </dl>
 </dd>
@@ -341,29 +365,41 @@ Maximizes the between cluster deviance of the component scores.</p>
 <dt class="field-odd">BestIteration</dt>
 <dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
 </dd>
-<dt class="field-even">TSS</dt>
-<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+<dt class="field-even">TSSFull</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">BSS</dt>
-<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+<dt class="field-odd">BSSFull</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">RSS</dt>
-<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+<dt class="field-even">RSSFull</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">PseudoF</dt>
-<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+<dt class="field-odd">PseudofFull</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the full space.</p>
 </dd>
-<dt class="field-even">Fs</dt>
-<dd class="field-even"><p>objective function values.</p>
+<dt class="field-even">TSSReduced</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the reduced space.</p>
 </dd>
-<dt class="field-odd">converged</dt>
-<dd class="field-odd"><p>whether the procedure converged or not.</p>
+<dt class="field-odd">BSSReduced</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">RSSReduced</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-odd">PseudofReduced</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">Labels</dt>
+<dd class="field-even"><p>cluster labels for the best loop.</p>
+</dd>
+<dt class="field-odd">Fs</dt>
+<dd class="field-odd"><p>A list of objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-even">Enorm</dt>
 <dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
 </dd>
-<dt class="field-odd">Labels</dt>
-<dd class="field-odd"><p>cluster labels for the best loop.</p>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
 </dd>
 </dl>
 </dd>
@@ -418,29 +454,41 @@ Maximizes the between cluster deviance of the component scores.</p>
 <dt class="field-odd">BestIteration</dt>
 <dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
 </dd>
-<dt class="field-even">TSS</dt>
-<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+<dt class="field-even">TSSFull</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">BSS</dt>
-<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+<dt class="field-odd">BSSFull</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">RSS</dt>
-<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+<dt class="field-even">RSSFull</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">PseudoF</dt>
-<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+<dt class="field-odd">PseudofFull</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the full space.</p>
 </dd>
-<dt class="field-even">Fs</dt>
-<dd class="field-even"><p>objective function values.</p>
+<dt class="field-even">TSSReduced</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the reduced space.</p>
 </dd>
-<dt class="field-odd">converged</dt>
-<dd class="field-odd"><p>whether the procedure converged or not.</p>
+<dt class="field-odd">BSSReduced</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">RSSReduced</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-odd">PseudofReduced</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">Labels</dt>
+<dd class="field-even"><p>cluster labels for the best loop.</p>
+</dd>
+<dt class="field-odd">Fs</dt>
+<dd class="field-odd"><p>A list of objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-even">Enorm</dt>
 <dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
 </dd>
-<dt class="field-odd">Labels</dt>
-<dd class="field-odd"><p>cluster labels for the best loop.</p>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
 </dd>
 </dl>
 </dd>
@@ -483,13 +531,13 @@ Minimize within cluster deviance of the component scores.</p>
 <dd class="field-odd"><p>verbosity mode. Defaults to False.</p>
 </dd>
 <dt class="field-even">U_i_g0</dt>
-<dd class="field-even"><p>(I,G) initial stochastic membership function matrix.</p>
+<dd class="field-even"><p>(I,G) initial stochastic membership function matrix. Defaults to None.</p>
 </dd>
 <dt class="field-odd">B_j_q0</dt>
-<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables.</p>
+<dd class="field-odd"><p>(J,Q) initial component weight matrix for variables. Defaults to None.</p>
 </dd>
 <dt class="field-even">C_k_r0</dt>
-<dd class="field-even"><p>(K,R) initial component weight matrix for occasions.</p>
+<dd class="field-even"><p>(K,R) initial component weight matrix for occasions. Defaults to None.</p>
 </dd>
 </dl>
 </dd>
@@ -527,29 +575,41 @@ Minimize within cluster deviance of the component scores.</p>
 <dt class="field-odd">BestIteration</dt>
 <dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
 </dd>
-<dt class="field-even">TSS</dt>
-<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+<dt class="field-even">TSSFull</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">BSS</dt>
-<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+<dt class="field-odd">BSSFull</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">RSS</dt>
-<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+<dt class="field-even">RSSFull</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">PseudoF</dt>
-<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+<dt class="field-odd">PseudofFull</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the full space.</p>
 </dd>
-<dt class="field-even">Fs</dt>
-<dd class="field-even"><p>objective function values.</p>
+<dt class="field-even">TSSReduced</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the reduced space.</p>
 </dd>
-<dt class="field-odd">converged</dt>
-<dd class="field-odd"><p>whether the procedure converged or not.</p>
+<dt class="field-odd">BSSReduced</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">RSSReduced</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-odd">PseudofReduced</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">Labels</dt>
+<dd class="field-even"><p>cluster labels for the best loop.</p>
+</dd>
+<dt class="field-odd">Fs</dt>
+<dd class="field-odd"><p>A list of objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-even">Enorm</dt>
 <dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
 </dd>
-<dt class="field-odd">Labels</dt>
-<dd class="field-odd"><p>cluster labels for the best loop.</p>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
 </dd>
 </dl>
 </dd>
@@ -604,29 +664,41 @@ Minimize within cluster deviance of the component scores.</p>
 <dt class="field-odd">BestIteration</dt>
 <dd class="field-odd"><p>best iteration for convergence of the procedure.</p>
 </dd>
-<dt class="field-even">TSS</dt>
-<dd class="field-even"><p>Total sum of squared deviations for best loop.</p>
+<dt class="field-even">TSSFull</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">BSS</dt>
-<dd class="field-odd"><p>Between sum of squared deviations for best loop.</p>
+<dt class="field-odd">BSSFull</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">RSS</dt>
-<dd class="field-even"><p>Residual sum of squared deviations for best loop.</p>
+<dt class="field-even">RSSFull</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">PseudoF</dt>
-<dd class="field-odd"><p>PsuedoF score from the best loop.</p>
+<dt class="field-odd">PseudofFull</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the full space.</p>
 </dd>
-<dt class="field-even">Fs</dt>
-<dd class="field-even"><p>objective function values.</p>
+<dt class="field-even">TSSReduced</dt>
+<dd class="field-even"><p>Total sum of squared deviations for best loop in the reduced space.</p>
 </dd>
-<dt class="field-odd">converged</dt>
-<dd class="field-odd"><p>whether the procedure converged or not.</p>
+<dt class="field-odd">BSSReduced</dt>
+<dd class="field-odd"><p>Between sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">RSSReduced</dt>
+<dd class="field-even"><p>Residual sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-odd">PseudofReduced</dt>
+<dd class="field-odd"><p>PsuedoF score from the best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">Labels</dt>
+<dd class="field-even"><p>cluster labels for the best loop.</p>
+</dd>
+<dt class="field-odd">Fs</dt>
+<dd class="field-odd"><p>A list of objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-even">Enorm</dt>
 <dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
 </dd>
-<dt class="field-odd">Labels</dt>
-<dd class="field-odd"><p>cluster labels for the best loop.</p>
+<dt class="field-odd">converged</dt>
+<dd class="field-odd"><p>whether the procedure converged or not.</p>
 </dd>
 </dl>
 </dd>
@@ -656,7 +728,7 @@ Minimize within cluster deviance of the component scores.</p>
 <dd class="field-even"><p>Number of random initializations to gurantee global results. Defaults to 10.</p>
 </dd>
 <dt class="field-odd">tol</dt>
-<dd class="field-odd"><p>Tolerance level/acceptable error. Defaults to 1e-5.</p>
+<dd class="field-odd"><p>Tolerance level/acceptable error. Defaults to 1e-3.</p>
 </dd>
 <dt class="field-even">random_state</dt>
 <dd class="field-even"><p>Seed for random sequence generation. Defaults to None.</p>
@@ -723,10 +795,10 @@ Minimize within cluster deviance of the component scores.</p>
 <dt class="field-even">BestLoop</dt>
 <dd class="field-even"><p>Best loop for global result.</p>
 </dd>
-<dt class="field-odd">BestKMIteration</dt>
+<dt class="field-odd">BestKmIteration</dt>
 <dd class="field-odd"><p>Best iteration for convergence of the K-means procedure.</p>
 </dd>
-<dt class="field-even">BestFAIteration</dt>
+<dt class="field-even">BestFaIteration</dt>
 <dd class="field-even"><p>Best iteration for convergence of the factor decomposition procedure.</p>
 </dd>
 <dt class="field-odd">FaConverged</dt>
@@ -735,26 +807,38 @@ Minimize within cluster deviance of the component scores.</p>
 <dt class="field-even">KmConverged</dt>
 <dd class="field-even"><p>Whether the K-means proocedure converged or not.</p>
 </dd>
-<dt class="field-odd">TSS</dt>
-<dd class="field-odd"><p>Total sum of squared deviations for best loop.</p>
+<dt class="field-odd">TSSFull</dt>
+<dd class="field-odd"><p>Total sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">BSS</dt>
-<dd class="field-even"><p>Between sum of squared deviations for best loop.</p>
+<dt class="field-even">BSSFull</dt>
+<dd class="field-even"><p>Between sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">RSS</dt>
-<dd class="field-odd"><p>Residual sum of squared deviations for best loop.</p>
+<dt class="field-odd">RSSFull</dt>
+<dd class="field-odd"><p>Residual sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">PseudoF</dt>
-<dd class="field-even"><p>PsuedoF score from the best loop.</p>
+<dt class="field-even">PseudofFull</dt>
+<dd class="field-even"><p>PsuedoF score from the best loop in the full space.</p>
+</dd>
+<dt class="field-odd">TSSReduced</dt>
+<dd class="field-odd"><p>Total sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">BSSReduced</dt>
+<dd class="field-even"><p>Between sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-odd">RSSReduced</dt>
+<dd class="field-odd"><p>Residual sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">PseudofReduced</dt>
+<dd class="field-even"><p>PsuedoF score from the best loop in the reduced space.</p>
 </dd>
 <dt class="field-odd">Labels</dt>
 <dd class="field-odd"><p>Cluster labels for the best loop.</p>
 </dd>
 <dt class="field-even">Fs_km</dt>
-<dd class="field-even"><p>K-means clustering objective function values.</p>
+<dd class="field-even"><p>a list of K-means clustering objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-odd">Fs_fa</dt>
-<dd class="field-odd"><p>Factor decomposition objective function values.</p>
+<dd class="field-odd"><p>A list of Factor decomposition objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-even">Enorm</dt>
 <dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>
@@ -809,7 +893,7 @@ Psychometrika, 31(3):279–311, September 1966.</p>
 <dd class="field-even"><p>Number of random initializations to gurantee global results. Defaults to 10.</p>
 </dd>
 <dt class="field-odd">tol</dt>
-<dd class="field-odd"><p>Tolerance level/acceptable error. Defaults to 1e-5.</p>
+<dd class="field-odd"><p>Tolerance level/acceptable error. Defaults to 1e-3.</p>
 </dd>
 <dt class="field-even">random_state</dt>
 <dd class="field-even"><p>Seed for random sequence generation. Defaults to None.</p>
@@ -875,10 +959,10 @@ Psychometrika, 31(3):279–311, September 1966.</p>
 <dt class="field-even">BestLoop</dt>
 <dd class="field-even"><p>Best loop for global result.</p>
 </dd>
-<dt class="field-odd">BestKMIteration</dt>
+<dt class="field-odd">BestKmIteration</dt>
 <dd class="field-odd"><p>Best iteration for convergence of the K-means procedure.</p>
 </dd>
-<dt class="field-even">BestFAIteration</dt>
+<dt class="field-even">BestFaIteration</dt>
 <dd class="field-even"><p>Best iteration for convergence of the factor decomposition procedure.</p>
 </dd>
 <dt class="field-odd">FaConverged</dt>
@@ -887,26 +971,38 @@ Psychometrika, 31(3):279–311, September 1966.</p>
 <dt class="field-even">KmConverged</dt>
 <dd class="field-even"><p>Whether the K-means proocedure converged or not.</p>
 </dd>
-<dt class="field-odd">TSS</dt>
-<dd class="field-odd"><p>Total sum of squared deviations for best loop.</p>
+<dt class="field-odd">TSSFull</dt>
+<dd class="field-odd"><p>Total sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">BSS</dt>
-<dd class="field-even"><p>Between sum of squared deviations for best loop.</p>
+<dt class="field-even">BSSFull</dt>
+<dd class="field-even"><p>Between sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-odd">RSS</dt>
-<dd class="field-odd"><p>Residual sum of squared deviations for best loop.</p>
+<dt class="field-odd">RSSFull</dt>
+<dd class="field-odd"><p>Residual sum of squared deviations for best loop in the full space.</p>
 </dd>
-<dt class="field-even">PseudoF</dt>
-<dd class="field-even"><p>PsuedoF score from the best loop.</p>
+<dt class="field-even">PseudofFull</dt>
+<dd class="field-even"><p>PsuedoF score from the best loop in the full space.</p>
+</dd>
+<dt class="field-odd">TSSReduced</dt>
+<dd class="field-odd"><p>Total sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">BSSReduced</dt>
+<dd class="field-even"><p>Between sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-odd">RSSReduced</dt>
+<dd class="field-odd"><p>Residual sum of squared deviations for best loop in the reduced space.</p>
+</dd>
+<dt class="field-even">PseudofReduced</dt>
+<dd class="field-even"><p>PsuedoF score from the best loop in the reduced space.</p>
 </dd>
 <dt class="field-odd">Labels</dt>
 <dd class="field-odd"><p>Cluster labels for the best loop.</p>
 </dd>
 <dt class="field-even">Fs_km</dt>
-<dd class="field-even"><p>K-means clustering objective function values.</p>
+<dd class="field-even"><p>a list of K-means clustering objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-odd">Fs_fa</dt>
-<dd class="field-odd"><p>Factor decomposition objective function values.</p>
+<dd class="field-odd"><p>A list of Factor decomposition objective function values until stopping criteria.</p>
 </dd>
 <dt class="field-even">Enorm</dt>
 <dd class="field-even"><p>Frobenius or L2 norm of residual term from the model.</p>

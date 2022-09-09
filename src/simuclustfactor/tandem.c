@@ -1325,6 +1325,12 @@ static PyObject *__Pyx_PyLong_AbsNeg(PyObject *num);
 #define __Pyx_PyNumber_Absolute(x)  PyNumber_Absolute(x)
 #endif
 
+/* PyIntCompare.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_NeObjC(PyObject *op1, PyObject *op2, long intval, long inplace);
+
+/* None.proto */
+static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
+
 /* GetItemInt.proto */
 #define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
     (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
@@ -1346,12 +1352,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
 static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
                                                      int is_list, int wraparound, int boundscheck);
-
-/* None.proto */
-static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
-
-/* PyIntCompare.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_NeObjC(PyObject *op1, PyObject *op2, long intval, long inplace);
 
 /* PyObject_GenericGetAttrNoDict.proto */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
@@ -1506,9 +1506,6 @@ static const char __pyx_k_R[] = "R";
 static const char __pyx_k_T[] = "T";
 static const char __pyx_k_F0[] = "F0";
 static const char __pyx_k_np[] = "np";
-static const char __pyx_k_BSS[] = "BSS (%)";
-static const char __pyx_k_RSS[] = "RSS";
-static const char __pyx_k_TSS[] = "TSS";
 static const char __pyx_k_dec[] = "dec";
 static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_eye[] = "eye";
@@ -1541,7 +1538,6 @@ static const char __pyx_k_self[] = "self";
 static const char __pyx_k_size[] = "size";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_time[] = "time";
-static const char __pyx_k_BSS_2[] = "BSS";
 static const char __pyx_k_B_j_j[] = "B_j_j";
 static const char __pyx_k_B_j_q[] = "B_j_q";
 static const char __pyx_k_C_k_k[] = "C_k_k";
@@ -1577,6 +1573,7 @@ static const char __pyx_k_X_k_gj[] = "X_k_gj";
 static const char __pyx_k_X_k_ij[] = "X_k_ij";
 static const char __pyx_k_Y_g_qr[] = "Y_g_qr";
 static const char __pyx_k_Y_i_qr[] = "Y_i_qr";
+static const char __pyx_k_Z_i_jk[] = "Z_i_jk";
 static const char __pyx_k_Z_i_qr[] = "Z_i_qr";
 static const char __pyx_k_format[] = "format";
 static const char __pyx_k_import[] = "__import__";
@@ -1601,13 +1598,13 @@ static const char __pyx_k_imatmul[] = "__imatmul__";
 static const char __pyx_k_km_iter[] = "km_iter";
 static const char __pyx_k_n_loops[] = "n_loops";
 static const char __pyx_k_prepare[] = "__prepare__";
-static const char __pyx_k_pseudoF[] = "pseudoF";
 static const char __pyx_k_rmatmul[] = "__rmatmul__";
 static const char __pyx_k_verbose[] = "verbose";
-static const char __pyx_k_BSS_simu[] = "BSS_simu";
+static const char __pyx_k_BSS_Full[] = "BSS Full (%)";
+static const char __pyx_k_BSS_full[] = "BSS_full";
 static const char __pyx_k_BestLoop[] = "BestLoop";
-static const char __pyx_k_RSS_simu[] = "RSS_simu";
-static const char __pyx_k_TSS_simu[] = "TSS_simu";
+static const char __pyx_k_RSS_full[] = "RSS_full";
+static const char __pyx_k_TSS_full[] = "TSS_full";
 static const char __pyx_k_doc_refs[] = "_doc_refs";
 static const char __pyx_k_keepdims[] = "keepdims";
 static const char __pyx_k_qualname[] = "__qualname__";
@@ -1627,43 +1624,67 @@ static const char __pyx_k_TWCFTA_fit[] = "TWCFTA.fit";
 static const char __pyx_k_TWFCTA_fit[] = "TWFCTA.fit";
 static const char __pyx_k_U_i_g_init[] = "U_i_g_init";
 static const char __pyx_k_U_i_g_simu[] = "U_i_g_simu";
+static const char __pyx_k_best_B_j_q[] = "best_B_j_q";
+static const char __pyx_k_best_C_k_r[] = "best_C_k_r";
+static const char __pyx_k_best_U_i_g[] = "best_U_i_g";
 static const char __pyx_k_n_max_iter[] = "n_max_iter";
 static const char __pyx_k_start_time[] = "start_time";
-static const char __pyx_k_BSS_percent[] = "BSS_percent";
+static const char __pyx_k_BSS_Reduced[] = "BSS Reduced (%)";
+static const char __pyx_k_BSS_reduced[] = "BSS_reduced";
 static const char __pyx_k_FaConverged[] = "FaConverged";
 static const char __pyx_k_KmConverged[] = "KmConverged";
-static const char __pyx_k_Y_g_qr_simu[] = "Y_g_qr_simu";
+static const char __pyx_k_RSS_reduced[] = "RSS_reduced";
+static const char __pyx_k_TSS_reduced[] = "TSS_reduced";
 static const char __pyx_k_default_rng[] = "default_rng";
-static const char __pyx_k_BSS_per_simu[] = "BSS_per_simu";
-static const char __pyx_k_FA_Converged[] = "FA_Converged";
-static const char __pyx_k_KM_Converged[] = "KM_Converged";
+static const char __pyx_k_Best_FA_Iter[] = "Best FA Iter";
+static const char __pyx_k_Best_KM_Iter[] = "Best KM Iter";
+static const char __pyx_k_FA_Converged[] = "FA Converged";
+static const char __pyx_k_KM_Converged[] = "KM Converged";
+static const char __pyx_k_PseudoF_Full[] = "PseudoF Full";
+static const char __pyx_k_PseudoF_full[] = "PseudoF_full";
+static const char __pyx_k_best_fa_iter[] = "best_fa_iter";
+static const char __pyx_k_best_km_iter[] = "best_km_iter";
 static const char __pyx_k_check_params[] = "_check_params";
 static const char __pyx_k_doc_fit_args[] = "_doc_fit_args";
 static const char __pyx_k_fa_converged[] = "fa_converged";
 static const char __pyx_k_fa_iter_simu[] = "fa_iter_simu";
 static const char __pyx_k_km_converged[] = "km_converged";
 static const char __pyx_k_km_iter_simu[] = "km_iter_simu";
-static const char __pyx_k_pseudoF_simu[] = "pseudoF_simu";
+static const char __pyx_k_pseudoF_full[] = "pseudoF_full";
 static const char __pyx_k_random_state[] = "random_state";
 static const char __pyx_k_time_elapsed[] = "time_elapsed";
+static const char __pyx_k_BSS_full_simu[] = "BSS_full_simu";
+static const char __pyx_k_RSS_full_simu[] = "RSS_full_simu";
+static const char __pyx_k_TSS_full_simu[] = "TSS_full_simu";
 static const char __pyx_k_TWCFTA___init[] = "TWCFTA.__init__";
 static const char __pyx_k_TWFCTA___init[] = "TWFCTA.__init__";
 static const char __pyx_k_X_i_jk_scaled[] = "X_i_jk_scaled";
 static const char __pyx_k_doc_formatter[] = "_doc_formatter";
 static const char __pyx_k_doc_init_args[] = "_doc_init_args";
-static const char __pyx_k_converged_simu[] = "converged_simu";
 static const char __pyx_k_doc_init_attrs[] = "_doc_init_attrs";
 static const char __pyx_k_B_j_q_init_simu[] = "B_j_q_init_simu";
 static const char __pyx_k_BestFAIteration[] = "BestFAIteration";
+static const char __pyx_k_BestFaIteration[] = "BestFaIteration";
 static const char __pyx_k_BestKMIteration[] = "BestKMIteration";
+static const char __pyx_k_BestKmIteration[] = "BestKmIteration";
 static const char __pyx_k_BestTimeElapsed[] = "BestTimeElapsed";
 static const char __pyx_k_C_k_r_init_simu[] = "C_k_r_init_simu";
+static const char __pyx_k_PseudoF_Reduced[] = "PseudoF Reduced";
+static const char __pyx_k_PseudoF_reduced[] = "PseudoF_reduced";
 static const char __pyx_k_SingularVectors[] = "SingularVectors";
 static const char __pyx_k_U_i_g_init_simu[] = "U_i_g_init_simu";
+static const char __pyx_k_pseudoF_reduced[] = "pseudoF_reduced";
+static const char __pyx_k_BSS_percent_full[] = "BSS_percent_full";
+static const char __pyx_k_BSS_reduced_simu[] = "BSS_reduced_simu";
+static const char __pyx_k_RSS_reduced_simu[] = "RSS_reduced_simu";
+static const char __pyx_k_TSS_reduced_simu[] = "TSS_reduced_simu";
 static const char __pyx_k_fa_converged_simu[] = "fa_converged_simu";
 static const char __pyx_k_full_tensor_shape[] = "full_tensor_shape";
 static const char __pyx_k_km_converged_simu[] = "km_converged_simu";
+static const char __pyx_k_pseudoF_full_simu[] = "pseudoF_full_simu";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_BSS_percent_reduced[] = "BSS_percent_reduced";
+static const char __pyx_k_pseudoF_reduced_simu[] = "pseudoF_reduced_simu";
 static const char __pyx_k_reduced_tensor_shape[] = "reduced_tensor_shape";
 static const char __pyx_k_RandomMembershipMatrix[] = "RandomMembershipMatrix";
 static const char __pyx_k_best_time_elapsed_simu[] = "best_time_elapsed_simu";
@@ -1677,15 +1698,18 @@ static const char __pyx_k_Initialization_Args_n_max_iter[] = "\n\tInitialization
 static const char __pyx_k_Model_Fitting_Args_X_i_jk_I_JK[] = "\n\tModel Fitting Args:\n\t\t:X_i_jk: (I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.\n\t\t:full_tensor_shape: (I,J,K) dimensions of the original tensor.\n\t\t:reduced_tensor_shape: (G,Q,R) dimensions of centroids tensor.";
 static const char __pyx_k_Three_way_Clustering_Factorial[] = "\n\tThree-way Clustering-Factorial Tandem model (TWCFTA).\n\t\t- Perform KMeans on X_i_jk to obtain membership matrix U_i_g and centroids X_g_jk in full space.\n\t\t- Obtain Y_g_qr and C_k_r & B_j_q factor matrices that maximizes the reconstruction of U_i_g.X_g_jk via Tucker2.\n\t{0}\n\t";
 static const char __pyx_k_Three_way_Factorial_Clustering[] = "\n\tThree-way Factorial-Clustering Tandem model (TWFCTA).\n\t\t- Apply Factorial Decomposition (via Tucker2 applied to X_i_jk) to obtain C_k_r and B_j_q component factors.\n\t\t- Then perform Clustering (via KMeans applied to Y_i_qr) to obtain U_i_g and Y_g_qr.\n\t\n\t:param X_i_jk: (I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.\n\t:param full_tensor_shape: (I,J,K) dimensions of the original tensor.\n\t:param reduced_tensor_shape: (G,Q,R) dimensions of centroids tensor.\n\n\t{0}\n\t";
-static const char __pyx_k_Attributes_U_i_g0_I_G_initial_s[] = "\n\tAttributes:\n\t\t:U_i_g0: (I,G) initial stochastic membership function matrix.\n\t\t:B_j_q0: (J,Q) initial component weight matrix for variables.\n\t\t:C_k_r0: (K,R) initial component weight matrix for occasions.\n\t\t:U_i_g: (I,G) final iterate stochastic membership function matrix.\n\t\t:B_j_q: (J,Q) final iterate component weight matrix for variables.\n\t\t:C_k_r: (K,R) final iterate component weight matrix for occasions.\n\t\t:Y_g_qr: (G,QR) matricized version of three-way core tensor.\n\t\t:X_i_jk_scaled: Scaled X_i_jk\n\t\n\t\t:BestTimeElapsed: Time taken for the best iterate.\n\t\t:BestLoop: Best loop for global result.\n\t\t:BestKMIteration: Best iteration for convergence of the K-means procedure.\n\t\t:BestFAIteration: Best iteration for convergence of the factor decomposition procedure.\n\t\t:FaConverged: Whether the factorial decomposition proocedure converged or not. \n\t\t:KmConverged: Whether the K-means proocedure converged or not. \n\n\t\t:TSS: Total sum of squared deviations for best loop.\n\t\t:BSS: Between sum of squared deviations for best loop.\n\t\t:RSS: Residual sum of squared deviations for best loop.\n\t\t:PseudoF: PsuedoF score from the best loop.\n\t\n\t\t:Labels: Cluster labels for the best loop.\n\n\t\t:Fs_km: K-means clustering objective function values.\n\t\t:Fs_fa: Factor decomposition objective function values.\n\t\t:Enorm: Frobenius or L2 norm of residual term from the model.";
+static const char __pyx_k_Attributes_U_i_g0_I_G_initial_s[] = "\n\tAttributes:\n\t\t:U_i_g0: (I,G) initial stochastic membership function matrix.\n\t\t:B_j_q0: (J,Q) initial component weight matrix for variables.\n\t\t:C_k_r0: (K,R) initial component weight matrix for occasions.\n\t\t:U_i_g: (I,G) final iterate stochastic membership function matrix.\n\t\t:B_j_q: (J,Q) final iterate component weight matrix for variables.\n\t\t:C_k_r: (K,R) final iterate component weight matrix for occasions.\n\t\t:Y_g_qr: (G,QR) matricized version of three-way core tensor.\n\t\t:X_i_jk_scaled: Scaled X_i_jk\n\t\n\t\t:BestTimeElapsed: Time taken for the best iterate.\n\t\t:BestLoop: Best loop for global result.\n\t\t:BestKmIteration: Best iteration for convergence of the K-means procedure.\n\t\t:BestFaIteration: Best iteration for convergence of the factor decomposition procedure.\n\t\t:FaConverged: Whether the factorial decomposition proocedure converged or not. \n\t\t:KmConverged: Whether the K-means proocedure converged or not. \n\n\t\t:TSS: Total sum of squared deviations for best loop.\n\t\t:BSS: Between sum of squared deviations for best loop.\n\t\t:RSS: Residual sum of squared deviations for best loop.\n\t\t:PseudoF: PsuedoF score from the best loop.\n\t\n\t\t:Labels: Cluster labels for the best loop.\n\n\t\t:Fs_km: a list of K-means clustering objective function values until stopping criteria.\n\t\t:Fs_fa: A list of Factor decomposition objective function values until stopping criteria.\n\t\t:Enorm: Frobenius or L2 norm of residual term from the model.";
 static const char __pyx_k_References_1_Vichi_Maurizio_Roc[] = "\n\tReferences:\n\t\t[1] Vichi, Maurizio & Rocci, Roberto & Kiers, Henk. (2007).\n\t\tSimultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.\n\t\tJournal of Classification. 24. 71-98. 10.1007/s00357-007-0006-x. \n\n\t\t[2] Bro, R. (1998).\n\t\tMulti-way analysis in the food industry: models, algorithms, and applications.\n\t\tUniversiteit van Amsterdam.\n\t\t\n\t\t[3] P. Arabie and L. Hubert.\n\t\tAdvances in cluster analysis relevant to marketing research.\n\t\tIn Wolfgang Gaul and Dietmar Pfeifer, editors, From Data to Knowledge, pages 3\342\200\22319,\n\t\tBerlin, Heidelberg, 1996. Springer Berlin Heidelberg.\n\t\t\n\t\t[4] Ledyard Tucker.\n\t\tSome mathematical notes on three-mode factor analysis.\n\t\tPsychometrika, 31(3):279\342\200\223311, September 1966.";
 static PyObject *__pyx_kp_u_Attributes_U_i_g0_I_G_initial_s;
-static PyObject *__pyx_kp_u_BSS;
-static PyObject *__pyx_n_s_BSS_2;
+static PyObject *__pyx_kp_u_BSS_Full;
+static PyObject *__pyx_kp_u_BSS_Reduced;
+static PyObject *__pyx_n_s_BSS_full;
+static PyObject *__pyx_n_s_BSS_full_simu;
 static PyObject *__pyx_n_s_BSS_per;
-static PyObject *__pyx_n_s_BSS_per_simu;
-static PyObject *__pyx_n_s_BSS_percent;
-static PyObject *__pyx_n_s_BSS_simu;
+static PyObject *__pyx_n_s_BSS_percent_full;
+static PyObject *__pyx_n_s_BSS_percent_reduced;
+static PyObject *__pyx_n_s_BSS_reduced;
+static PyObject *__pyx_n_s_BSS_reduced_simu;
 static PyObject *__pyx_n_s_B_j_j;
 static PyObject *__pyx_n_s_B_j_q;
 static PyObject *__pyx_n_s_B_j_q0;
@@ -1694,9 +1718,13 @@ static PyObject *__pyx_n_s_B_j_q_init_simu;
 static PyObject *__pyx_n_s_B_j_q_simu;
 static PyObject *__pyx_n_s_BaseClass;
 static PyObject *__pyx_n_s_BestFAIteration;
+static PyObject *__pyx_n_s_BestFaIteration;
 static PyObject *__pyx_n_s_BestKMIteration;
+static PyObject *__pyx_n_s_BestKmIteration;
 static PyObject *__pyx_n_s_BestLoop;
 static PyObject *__pyx_n_s_BestTimeElapsed;
+static PyObject *__pyx_kp_u_Best_FA_Iter;
+static PyObject *__pyx_kp_u_Best_KM_Iter;
 static PyObject *__pyx_n_s_C_k_k;
 static PyObject *__pyx_n_s_C_k_r;
 static PyObject *__pyx_n_s_C_k_r0;
@@ -1706,13 +1734,15 @@ static PyObject *__pyx_n_s_C_k_r_simu;
 static PyObject *__pyx_n_s_Enorm;
 static PyObject *__pyx_n_s_F;
 static PyObject *__pyx_n_s_F0;
-static PyObject *__pyx_n_u_FA_Converged;
+static PyObject *__pyx_kp_u_FA_Converged;
 static PyObject *__pyx_kp_u_FA_Iter;
 static PyObject *__pyx_kp_u_FA_Maximum_iterations_reached;
 static PyObject *__pyx_n_s_FaConverged;
 static PyObject *__pyx_n_s_Fold;
 static PyObject *__pyx_n_s_Fs_fa;
+static PyObject *__pyx_n_u_Fs_fa;
 static PyObject *__pyx_n_s_Fs_km;
+static PyObject *__pyx_n_u_Fs_km;
 static PyObject *__pyx_n_s_G;
 static PyObject *__pyx_n_s_I;
 static PyObject *__pyx_n_s_I_g_g;
@@ -1720,7 +1750,7 @@ static PyObject *__pyx_n_s_I_i_i;
 static PyObject *__pyx_kp_u_Initialization_Args_n_max_iter;
 static PyObject *__pyx_n_s_J;
 static PyObject *__pyx_n_s_K;
-static PyObject *__pyx_n_u_KM_Converged;
+static PyObject *__pyx_kp_u_KM_Converged;
 static PyObject *__pyx_kp_u_KM_Iter;
 static PyObject *__pyx_kp_u_KM_Maximum_iterations_reached;
 static PyObject *__pyx_n_s_KmConverged;
@@ -1730,17 +1760,24 @@ static PyObject *__pyx_kp_u_Loop_time;
 static PyObject *__pyx_kp_u_Model_Fitting_Args_X_i_jk_I_JK;
 static PyObject *__pyx_n_s_OneKMeans;
 static PyObject *__pyx_n_s_PseudoF;
-static PyObject *__pyx_n_u_PseudoF;
+static PyObject *__pyx_kp_u_PseudoF_Full;
+static PyObject *__pyx_kp_u_PseudoF_Reduced;
+static PyObject *__pyx_n_s_PseudoF_full;
+static PyObject *__pyx_n_s_PseudoF_reduced;
 static PyObject *__pyx_n_s_Q;
 static PyObject *__pyx_n_s_R;
-static PyObject *__pyx_n_s_RSS;
-static PyObject *__pyx_n_s_RSS_simu;
+static PyObject *__pyx_n_s_RSS_full;
+static PyObject *__pyx_n_s_RSS_full_simu;
+static PyObject *__pyx_n_s_RSS_reduced;
+static PyObject *__pyx_n_s_RSS_reduced_simu;
 static PyObject *__pyx_n_s_RandomMembershipMatrix;
 static PyObject *__pyx_kp_u_References_1_Vichi_Maurizio_Roc;
 static PyObject *__pyx_n_s_SingularVectors;
 static PyObject *__pyx_n_s_T;
-static PyObject *__pyx_n_s_TSS;
-static PyObject *__pyx_n_s_TSS_simu;
+static PyObject *__pyx_n_s_TSS_full;
+static PyObject *__pyx_n_s_TSS_full_simu;
+static PyObject *__pyx_n_s_TSS_reduced;
+static PyObject *__pyx_n_s_TSS_reduced_simu;
 static PyObject *__pyx_n_s_TWCFTA;
 static PyObject *__pyx_n_s_TWCFTA___init;
 static PyObject *__pyx_n_s_TWCFTA_fit;
@@ -1767,19 +1804,23 @@ static PyObject *__pyx_n_s_X_k_i_j;
 static PyObject *__pyx_n_s_X_k_ij;
 static PyObject *__pyx_n_s_Y_g_qr;
 static PyObject *__pyx_n_s_Y_g_qr0;
-static PyObject *__pyx_n_s_Y_g_qr_simu;
 static PyObject *__pyx_n_s_Y_i_qr;
+static PyObject *__pyx_n_s_Z_i_jk;
 static PyObject *__pyx_n_s_Z_i_qr;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_axis;
+static PyObject *__pyx_n_s_best_B_j_q;
+static PyObject *__pyx_n_s_best_C_k_r;
+static PyObject *__pyx_n_s_best_U_i_g;
+static PyObject *__pyx_n_s_best_fa_iter;
+static PyObject *__pyx_n_s_best_km_iter;
 static PyObject *__pyx_n_s_best_time_elapsed_simu;
 static PyObject *__pyx_n_s_check_initialized_components;
 static PyObject *__pyx_n_s_check_params;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_conv;
 static PyObject *__pyx_n_s_converged;
-static PyObject *__pyx_n_s_converged_simu;
 static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_dec;
 static PyObject *__pyx_n_s_default_rng;
@@ -1832,8 +1873,10 @@ static PyObject *__pyx_n_s_ones;
 static PyObject *__pyx_n_u_plain;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_print;
-static PyObject *__pyx_n_s_pseudoF;
-static PyObject *__pyx_n_s_pseudoF_simu;
+static PyObject *__pyx_n_s_pseudoF_full;
+static PyObject *__pyx_n_s_pseudoF_full_simu;
+static PyObject *__pyx_n_s_pseudoF_reduced;
+static PyObject *__pyx_n_s_pseudoF_reduced_simu;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_random;
 static PyObject *__pyx_n_s_random_state;
@@ -2364,6 +2407,8 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   PyObject *__pyx_v_X_g_jk0 = NULL;
   PyObject *__pyx_v_F0 = NULL;
   PyObject *__pyx_v_conv = NULL;
+  PyObject *__pyx_v_best_km_iter = NULL;
+  PyObject *__pyx_v_best_U_i_g = NULL;
   PyObject *__pyx_v_U_i_g = NULL;
   PyObject *__pyx_v_X_g_jk = NULL;
   PyObject *__pyx_v_F = NULL;
@@ -2379,6 +2424,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   PyObject *__pyx_v_B_j_q_init = NULL;
   PyObject *__pyx_v_C_k_r_init = NULL;
   PyObject *__pyx_v_Y_g_qr = NULL;
+  PyObject *__pyx_v_best_fa_iter = NULL;
+  PyObject *__pyx_v_best_B_j_q = NULL;
+  PyObject *__pyx_v_best_C_k_r = NULL;
   PyObject *__pyx_v_B_j_j = NULL;
   PyObject *__pyx_v_B_j_q = NULL;
   PyObject *__pyx_v_C_k_k = NULL;
@@ -2386,25 +2434,34 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   PyObject *__pyx_v_time_elapsed = NULL;
   PyObject *__pyx_v_Y_i_qr = NULL;
   PyObject *__pyx_v_Z_i_qr = NULL;
-  PyObject *__pyx_v_TSS = NULL;
-  PyObject *__pyx_v_BSS = NULL;
-  PyObject *__pyx_v_RSS = NULL;
-  PyObject *__pyx_v_BSS_percent = NULL;
-  PyObject *__pyx_v_pseudoF = NULL;
+  PyObject *__pyx_v_Z_i_jk = NULL;
+  PyObject *__pyx_v_TSS_full = NULL;
+  PyObject *__pyx_v_BSS_full = NULL;
+  PyObject *__pyx_v_RSS_full = NULL;
+  PyObject *__pyx_v_TSS_reduced = NULL;
+  PyObject *__pyx_v_BSS_reduced = NULL;
+  PyObject *__pyx_v_RSS_reduced = NULL;
+  PyObject *__pyx_v_BSS_percent_full = NULL;
+  PyObject *__pyx_v_BSS_percent_reduced = NULL;
+  PyObject *__pyx_v_pseudoF_full = NULL;
+  PyObject *__pyx_v_pseudoF_reduced = NULL;
   PyObject *__pyx_v_B_j_q_simu = NULL;
   PyObject *__pyx_v_C_k_r_simu = NULL;
   PyObject *__pyx_v_U_i_g_simu = NULL;
-  CYTHON_UNUSED PyObject *__pyx_v_Y_g_qr_simu = NULL;
   PyObject *__pyx_v_km_iter_simu = NULL;
   PyObject *__pyx_v_fa_iter_simu = NULL;
   PyObject *__pyx_v_loop_simu = NULL;
   int __pyx_v_km_converged_simu;
   int __pyx_v_fa_converged_simu;
+  CYTHON_UNUSED PyObject *__pyx_v_pseudoF_full_simu = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_pseudoF_reduced_simu = NULL;
   PyObject *__pyx_v_BSS_per = NULL;
-  PyObject *__pyx_v_TSS_simu = NULL;
-  PyObject *__pyx_v_BSS_simu = NULL;
-  PyObject *__pyx_v_RSS_simu = NULL;
-  PyObject *__pyx_v_pseudoF_simu = NULL;
+  PyObject *__pyx_v_TSS_full_simu = NULL;
+  PyObject *__pyx_v_BSS_full_simu = NULL;
+  PyObject *__pyx_v_RSS_full_simu = NULL;
+  PyObject *__pyx_v_TSS_reduced_simu = NULL;
+  PyObject *__pyx_v_BSS_reduced_simu = NULL;
+  PyObject *__pyx_v_RSS_reduced_simu = NULL;
   PyObject *__pyx_v_U_i_g_init_simu = NULL;
   PyObject *__pyx_v_B_j_q_init_simu = NULL;
   PyObject *__pyx_v_C_k_r_init_simu = NULL;
@@ -2427,6 +2484,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   PyObject *__pyx_t_14 = NULL;
   PyObject *__pyx_t_15 = NULL;
   PyObject *__pyx_t_16 = NULL;
+  PyObject *__pyx_t_17 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2704,7 +2762,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
  * 		# standardizing the dataset X_i_jk
  * 		X_i_jk = (X_i_jk - X_i_jk.mean(axis=0, keepdims=True))/X_i_jk.std(axis=0, keepdims=True)             # <<<<<<<<<<<<<<
  * 
- * 		headers = ['Loop','KM Iter','FA Iter','Loop time','BSS (%)','PseudoF','KM_Converged','FA_Converged']
+ * 		headers = ['Loop','Best KM Iter','Best FA Iter','Loop time','BSS Full (%)', 'BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced', 'KM Converged','FA Converged']
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_mean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2739,42 +2797,48 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   /* "simuclustfactor/tandem.py":137
  * 		X_i_jk = (X_i_jk - X_i_jk.mean(axis=0, keepdims=True))/X_i_jk.std(axis=0, keepdims=True)
  * 
- * 		headers = ['Loop','KM Iter','FA Iter','Loop time','BSS (%)','PseudoF','KM_Converged','FA_Converged']             # <<<<<<<<<<<<<<
+ * 		headers = ['Loop','Best KM Iter','Best FA Iter','Loop time','BSS Full (%)', 'BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced', 'KM Converged','FA Converged']             # <<<<<<<<<<<<<<
  * 		if self.verbose: print(tabulate([],headers=headers))
  * 
  */
-  __pyx_t_1 = PyList_New(8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_u_Loop);
   __Pyx_GIVEREF(__pyx_n_u_Loop);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_u_Loop);
-  __Pyx_INCREF(__pyx_kp_u_KM_Iter);
-  __Pyx_GIVEREF(__pyx_kp_u_KM_Iter);
-  PyList_SET_ITEM(__pyx_t_1, 1, __pyx_kp_u_KM_Iter);
-  __Pyx_INCREF(__pyx_kp_u_FA_Iter);
-  __Pyx_GIVEREF(__pyx_kp_u_FA_Iter);
-  PyList_SET_ITEM(__pyx_t_1, 2, __pyx_kp_u_FA_Iter);
+  __Pyx_INCREF(__pyx_kp_u_Best_KM_Iter);
+  __Pyx_GIVEREF(__pyx_kp_u_Best_KM_Iter);
+  PyList_SET_ITEM(__pyx_t_1, 1, __pyx_kp_u_Best_KM_Iter);
+  __Pyx_INCREF(__pyx_kp_u_Best_FA_Iter);
+  __Pyx_GIVEREF(__pyx_kp_u_Best_FA_Iter);
+  PyList_SET_ITEM(__pyx_t_1, 2, __pyx_kp_u_Best_FA_Iter);
   __Pyx_INCREF(__pyx_kp_u_Loop_time);
   __Pyx_GIVEREF(__pyx_kp_u_Loop_time);
   PyList_SET_ITEM(__pyx_t_1, 3, __pyx_kp_u_Loop_time);
-  __Pyx_INCREF(__pyx_kp_u_BSS);
-  __Pyx_GIVEREF(__pyx_kp_u_BSS);
-  PyList_SET_ITEM(__pyx_t_1, 4, __pyx_kp_u_BSS);
-  __Pyx_INCREF(__pyx_n_u_PseudoF);
-  __Pyx_GIVEREF(__pyx_n_u_PseudoF);
-  PyList_SET_ITEM(__pyx_t_1, 5, __pyx_n_u_PseudoF);
-  __Pyx_INCREF(__pyx_n_u_KM_Converged);
-  __Pyx_GIVEREF(__pyx_n_u_KM_Converged);
-  PyList_SET_ITEM(__pyx_t_1, 6, __pyx_n_u_KM_Converged);
-  __Pyx_INCREF(__pyx_n_u_FA_Converged);
-  __Pyx_GIVEREF(__pyx_n_u_FA_Converged);
-  PyList_SET_ITEM(__pyx_t_1, 7, __pyx_n_u_FA_Converged);
+  __Pyx_INCREF(__pyx_kp_u_BSS_Full);
+  __Pyx_GIVEREF(__pyx_kp_u_BSS_Full);
+  PyList_SET_ITEM(__pyx_t_1, 4, __pyx_kp_u_BSS_Full);
+  __Pyx_INCREF(__pyx_kp_u_BSS_Reduced);
+  __Pyx_GIVEREF(__pyx_kp_u_BSS_Reduced);
+  PyList_SET_ITEM(__pyx_t_1, 5, __pyx_kp_u_BSS_Reduced);
+  __Pyx_INCREF(__pyx_kp_u_PseudoF_Full);
+  __Pyx_GIVEREF(__pyx_kp_u_PseudoF_Full);
+  PyList_SET_ITEM(__pyx_t_1, 6, __pyx_kp_u_PseudoF_Full);
+  __Pyx_INCREF(__pyx_kp_u_PseudoF_Reduced);
+  __Pyx_GIVEREF(__pyx_kp_u_PseudoF_Reduced);
+  PyList_SET_ITEM(__pyx_t_1, 7, __pyx_kp_u_PseudoF_Reduced);
+  __Pyx_INCREF(__pyx_kp_u_KM_Converged);
+  __Pyx_GIVEREF(__pyx_kp_u_KM_Converged);
+  PyList_SET_ITEM(__pyx_t_1, 8, __pyx_kp_u_KM_Converged);
+  __Pyx_INCREF(__pyx_kp_u_FA_Converged);
+  __Pyx_GIVEREF(__pyx_kp_u_FA_Converged);
+  PyList_SET_ITEM(__pyx_t_1, 9, __pyx_kp_u_FA_Converged);
   __pyx_v_headers = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* "simuclustfactor/tandem.py":138
  * 
- * 		headers = ['Loop','KM Iter','FA Iter','Loop time','BSS (%)','PseudoF','KM_Converged','FA_Converged']
+ * 		headers = ['Loop','Best KM Iter','Best FA Iter','Loop time','BSS Full (%)', 'BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced', 'KM Converged','FA Converged']
  * 		if self.verbose: print(tabulate([],headers=headers))             # <<<<<<<<<<<<<<
  * 
  * 		# Factorial reduction on centroids (via T2 applied to the centroids matrix X_g_jk_bar)
@@ -3050,7 +3114,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
  * 
  * 				# initial objective
  * 				X_g_jk0 = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ X_i_jk  # compute centroids matrix             # <<<<<<<<<<<<<<
- * 				F0 = np.linalg.norm(U_i_g0@X_g_jk0,2)  # residual matrix
+ * 				F0 = np.linalg.norm(U_i_g0@X_g_jk0, 2)  # residual matrix
  * 				Fs_km.append(F0)
  */
       __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
@@ -3097,7 +3161,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       /* "simuclustfactor/tandem.py":163
  * 				# initial objective
  * 				X_g_jk0 = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ X_i_jk  # compute centroids matrix
- * 				F0 = np.linalg.norm(U_i_g0@X_g_jk0,2)  # residual matrix             # <<<<<<<<<<<<<<
+ * 				F0 = np.linalg.norm(U_i_g0@X_g_jk0, 2)  # residual matrix             # <<<<<<<<<<<<<<
  * 				Fs_km.append(F0)
  * 
  */
@@ -3163,7 +3227,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
 
       /* "simuclustfactor/tandem.py":164
  * 				X_g_jk0 = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ X_i_jk  # compute centroids matrix
- * 				F0 = np.linalg.norm(U_i_g0@X_g_jk0,2)  # residual matrix
+ * 				F0 = np.linalg.norm(U_i_g0@X_g_jk0, 2)  # residual matrix
  * 				Fs_km.append(F0)             # <<<<<<<<<<<<<<
  * 
  * 				# clustering on objects (via KMeans applied to X_i_jk)
@@ -3175,7 +3239,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
  * 				# clustering on objects (via KMeans applied to X_i_jk)
  * 				conv = 2*self.tol             # <<<<<<<<<<<<<<
  * 
- * 				# print('initial',U_i_g0)
+ * 				# iterates init
  */
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
@@ -3187,42 +3251,62 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
 
       /* "simuclustfactor/tandem.py":170
  * 
+ * 				# iterates init
+ * 				best_km_iter = 1             # <<<<<<<<<<<<<<
+ * 				best_U_i_g = U_i_g0
+ * 
+ */
+      __Pyx_INCREF(__pyx_int_1);
+      __Pyx_XDECREF_SET(__pyx_v_best_km_iter, __pyx_int_1);
+
+      /* "simuclustfactor/tandem.py":171
+ * 				# iterates init
+ * 				best_km_iter = 1
+ * 				best_U_i_g = U_i_g0             # <<<<<<<<<<<<<<
+ * 
+ * 				# print('initial',U_i_g0)
+ */
+      __Pyx_INCREF(__pyx_v_U_i_g0);
+      __Pyx_XDECREF_SET(__pyx_v_best_U_i_g, __pyx_v_U_i_g0);
+
+      /* "simuclustfactor/tandem.py":174
+ * 
  * 				# print('initial',U_i_g0)
  * 				while conv > self.tol:             # <<<<<<<<<<<<<<
  * 
  * 					km_iter += 1
  */
       while (1) {
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 174, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __pyx_t_1 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (!__pyx_t_9) break;
 
-        /* "simuclustfactor/tandem.py":172
+        /* "simuclustfactor/tandem.py":176
  * 				while conv > self.tol:
  * 
  * 					km_iter += 1             # <<<<<<<<<<<<<<
  * 
  * 					# get random centroids
  */
-        __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_km_iter, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_km_iter, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF_SET(__pyx_v_km_iter, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "simuclustfactor/tandem.py":175
+        /* "simuclustfactor/tandem.py":179
  * 
  * 					# get random centroids
  * 					U_i_g = OneKMeans(X_i_jk, G, U_i_g=U_i_g0, rng=rng)  # updated membership matrix             # <<<<<<<<<<<<<<
- * 					X_g_jk = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ X_i_jk  # compute centroids matrix
+ * 					X_g_jk = np.linalg.inv(U_i_g.T @ U_i_g) @ U_i_g.T @ X_i_jk  # compute centroids matrix
  * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_OneKMeans); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_OneKMeans); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 175, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_INCREF(__pyx_v_X_i_jk);
         __Pyx_GIVEREF(__pyx_v_X_i_jk);
@@ -3230,11 +3314,11 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_v_G);
         __Pyx_GIVEREF(__pyx_v_G);
         PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_G);
-        __pyx_t_12 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 175, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 179, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_U_i_g, __pyx_v_U_i_g0) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
-        if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_rng, __pyx_v_rng) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
-        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_12); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 175, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_U_i_g, __pyx_v_U_i_g0) < 0) __PYX_ERR(0, 179, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_rng, __pyx_v_rng) < 0) __PYX_ERR(0, 179, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_12); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 179, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3242,24 +3326,24 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_XDECREF_SET(__pyx_v_U_i_g, __pyx_t_10);
         __pyx_t_10 = 0;
 
-        /* "simuclustfactor/tandem.py":176
+        /* "simuclustfactor/tandem.py":180
  * 					# get random centroids
  * 					U_i_g = OneKMeans(X_i_jk, G, U_i_g=U_i_g0, rng=rng)  # updated membership matrix
- * 					X_g_jk = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ X_i_jk  # compute centroids matrix             # <<<<<<<<<<<<<<
+ * 					X_g_jk = np.linalg.inv(U_i_g.T @ U_i_g) @ U_i_g.T @ X_i_jk  # compute centroids matrix             # <<<<<<<<<<<<<<
  * 
  * 					# check if maximizes orbjective or minimizes the loss
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 176, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_inv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 176, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_inv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_2, __pyx_v_U_i_g); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_2, __pyx_v_U_i_g); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = NULL;
@@ -3275,37 +3359,37 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __pyx_t_10 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_2, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_1);
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 176, __pyx_L1_error)
+        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 176, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_v_X_i_jk); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 176, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_v_X_i_jk); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 180, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_XDECREF_SET(__pyx_v_X_g_jk, __pyx_t_12);
         __pyx_t_12 = 0;
 
-        /* "simuclustfactor/tandem.py":179
+        /* "simuclustfactor/tandem.py":183
  * 
  * 					# check if maximizes orbjective or minimizes the loss
- * 					F = np.linalg.norm(U_i_g@X_g_jk,2)  # residual matrix             # <<<<<<<<<<<<<<
- * 					conv = abs(F-Fs_km[-1])
- * 					Fs_km.append(F)
+ * 					F = np.linalg.norm(U_i_g @ X_g_jk,2)  # residual matrix             # <<<<<<<<<<<<<<
+ * 					conv = abs(F-F0)
+ * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 179, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 183, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g, __pyx_v_X_g_jk); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 179, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g, __pyx_v_X_g_jk); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 183, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __pyx_t_2 = NULL;
         __pyx_t_11 = 0;
@@ -3322,7 +3406,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_1)) {
           PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_10, __pyx_int_2};
-          __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 179, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 183, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -3331,14 +3415,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
           PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_10, __pyx_int_2};
-          __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 179, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 183, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         } else
         #endif
         {
-          __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+          __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 183, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           if (__pyx_t_2) {
             __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -3349,7 +3433,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
           __Pyx_GIVEREF(__pyx_int_2);
           PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_int_2);
           __pyx_t_10 = 0;
-          __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 179, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 183, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         }
@@ -3357,76 +3441,166 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_XDECREF_SET(__pyx_v_F, __pyx_t_12);
         __pyx_t_12 = 0;
 
-        /* "simuclustfactor/tandem.py":180
+        /* "simuclustfactor/tandem.py":184
  * 					# check if maximizes orbjective or minimizes the loss
- * 					F = np.linalg.norm(U_i_g@X_g_jk,2)  # residual matrix
- * 					conv = abs(F-Fs_km[-1])             # <<<<<<<<<<<<<<
- * 					Fs_km.append(F)
+ * 					F = np.linalg.norm(U_i_g @ X_g_jk,2)  # residual matrix
+ * 					conv = abs(F-F0)             # <<<<<<<<<<<<<<
  * 
+ * 					if F >= F0:
  */
-        __pyx_t_12 = __Pyx_GetItemInt_List(__pyx_v_Fs_km, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 180, __pyx_L1_error)
+        __pyx_t_12 = PyNumber_Subtract(__pyx_v_F, __pyx_v_F0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 184, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_1 = PyNumber_Subtract(__pyx_v_F, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyNumber_Absolute(__pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyNumber_Absolute(__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 180, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_12);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_12);
-        __pyx_t_12 = 0;
+        __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_1);
+        __pyx_t_1 = 0;
 
-        /* "simuclustfactor/tandem.py":181
- * 					F = np.linalg.norm(U_i_g@X_g_jk,2)  # residual matrix
- * 					conv = abs(F-Fs_km[-1])
- * 					Fs_km.append(F)             # <<<<<<<<<<<<<<
+        /* "simuclustfactor/tandem.py":186
+ * 					conv = abs(F-F0)
+ * 
+ * 					if F >= F0:             # <<<<<<<<<<<<<<
+ * 						F0 = F
+ * 						Fs_km.append(F)
+ */
+        __pyx_t_1 = PyObject_RichCompare(__pyx_v_F, __pyx_v_F0, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (__pyx_t_9) {
+
+          /* "simuclustfactor/tandem.py":187
+ * 
+ * 					if F >= F0:
+ * 						F0 = F             # <<<<<<<<<<<<<<
+ * 						Fs_km.append(F)
+ * 						best_U_i_g = U_i_g
+ */
+          __Pyx_INCREF(__pyx_v_F);
+          __Pyx_DECREF_SET(__pyx_v_F0, __pyx_v_F);
+
+          /* "simuclustfactor/tandem.py":188
+ * 					if F >= F0:
+ * 						F0 = F
+ * 						Fs_km.append(F)             # <<<<<<<<<<<<<<
+ * 						best_U_i_g = U_i_g
+ * 						best_km_iter = km_iter
+ */
+          __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_km, __pyx_v_F); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 188, __pyx_L1_error)
+
+          /* "simuclustfactor/tandem.py":189
+ * 						F0 = F
+ * 						Fs_km.append(F)
+ * 						best_U_i_g = U_i_g             # <<<<<<<<<<<<<<
+ * 						best_km_iter = km_iter
+ * 
+ */
+          __Pyx_INCREF(__pyx_v_U_i_g);
+          __Pyx_DECREF_SET(__pyx_v_best_U_i_g, __pyx_v_U_i_g);
+
+          /* "simuclustfactor/tandem.py":190
+ * 						Fs_km.append(F)
+ * 						best_U_i_g = U_i_g
+ * 						best_km_iter = km_iter             # <<<<<<<<<<<<<<
+ * 
+ * 					if conv < self.tol:
+ */
+          __Pyx_INCREF(__pyx_v_km_iter);
+          __Pyx_DECREF_SET(__pyx_v_best_km_iter, __pyx_v_km_iter);
+
+          /* "simuclustfactor/tandem.py":186
+ * 					conv = abs(F-F0)
+ * 
+ * 					if F >= F0:             # <<<<<<<<<<<<<<
+ * 						F0 = F
+ * 						Fs_km.append(F)
+ */
+        }
+
+        /* "simuclustfactor/tandem.py":192
+ * 						best_km_iter = km_iter
+ * 
+ * 					if conv < self.tol:             # <<<<<<<<<<<<<<
+ * 						km_converged = True
+ * 						break
+ */
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_12 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        if (__pyx_t_9) {
+
+          /* "simuclustfactor/tandem.py":193
+ * 
+ * 					if conv < self.tol:
+ * 						km_converged = True             # <<<<<<<<<<<<<<
+ * 						break
+ * 
+ */
+          __pyx_v_km_converged = 1;
+
+          /* "simuclustfactor/tandem.py":194
+ * 					if conv < self.tol:
+ * 						km_converged = True
+ * 						break             # <<<<<<<<<<<<<<
  * 
  * 					if km_iter == self.n_max_iter:
  */
-        __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_km, __pyx_v_F); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 181, __pyx_L1_error)
+          goto __pyx_L14_break;
 
-        /* "simuclustfactor/tandem.py":183
- * 					Fs_km.append(F)
+          /* "simuclustfactor/tandem.py":192
+ * 						best_km_iter = km_iter
+ * 
+ * 					if conv < self.tol:             # <<<<<<<<<<<<<<
+ * 						km_converged = True
+ * 						break
+ */
+        }
+
+        /* "simuclustfactor/tandem.py":196
+ * 						break
  * 
  * 					if km_iter == self.n_max_iter:             # <<<<<<<<<<<<<<
  * 						if self.verbose: print("KM Maximum iterations reached.")
  * 						break
  */
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_max_iter); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 183, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_max_iter); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 196, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_1 = PyObject_RichCompare(__pyx_v_km_iter, __pyx_t_12, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
+        __pyx_t_1 = PyObject_RichCompare(__pyx_v_km_iter, __pyx_t_12, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 183, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 196, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_9) {
 
-          /* "simuclustfactor/tandem.py":184
+          /* "simuclustfactor/tandem.py":197
  * 
  * 					if km_iter == self.n_max_iter:
  * 						if self.verbose: print("KM Maximum iterations reached.")             # <<<<<<<<<<<<<<
  * 						break
  * 
  */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 197, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           if (__pyx_t_9) {
-            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           }
 
-          /* "simuclustfactor/tandem.py":185
+          /* "simuclustfactor/tandem.py":198
  * 					if km_iter == self.n_max_iter:
  * 						if self.verbose: print("KM Maximum iterations reached.")
  * 						break             # <<<<<<<<<<<<<<
  * 
- * 					if conv < self.tol:
+ * 					U_i_g0 = U_i_g
  */
           goto __pyx_L14_break;
 
-          /* "simuclustfactor/tandem.py":183
- * 					Fs_km.append(F)
+          /* "simuclustfactor/tandem.py":196
+ * 						break
  * 
  * 					if km_iter == self.n_max_iter:             # <<<<<<<<<<<<<<
  * 						if self.verbose: print("KM Maximum iterations reached.")
@@ -3434,64 +3608,37 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
  */
         }
 
-        /* "simuclustfactor/tandem.py":187
+        /* "simuclustfactor/tandem.py":200
  * 						break
  * 
- * 					if conv < self.tol:             # <<<<<<<<<<<<<<
- * 						km_converged = True
- * 					else:
- */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_12 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 187, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 187, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        if (__pyx_t_9) {
-
-          /* "simuclustfactor/tandem.py":188
+ * 					U_i_g0 = U_i_g             # <<<<<<<<<<<<<<
  * 
- * 					if conv < self.tol:
- * 						km_converged = True             # <<<<<<<<<<<<<<
- * 					else:
- * 						F0 = F
+ * 				print('Fs_km',Fs_km)
  */
-          __pyx_v_km_converged = 1;
-
-          /* "simuclustfactor/tandem.py":187
- * 						break
- * 
- * 					if conv < self.tol:             # <<<<<<<<<<<<<<
- * 						km_converged = True
- * 					else:
- */
-          goto __pyx_L17;
-        }
-
-        /* "simuclustfactor/tandem.py":190
- * 						km_converged = True
- * 					else:
- * 						F0 = F             # <<<<<<<<<<<<<<
- * 						U_i_g0 = U_i_g
- * 			else:
- */
-        /*else*/ {
-          __Pyx_INCREF(__pyx_v_F);
-          __Pyx_DECREF_SET(__pyx_v_F0, __pyx_v_F);
-
-          /* "simuclustfactor/tandem.py":191
- * 					else:
- * 						F0 = F
- * 						U_i_g0 = U_i_g             # <<<<<<<<<<<<<<
- * 			else:
- * 				U_i_g_init = np.array(U_i_g0)
- */
-          __Pyx_INCREF(__pyx_v_U_i_g);
-          __Pyx_DECREF_SET(__pyx_v_U_i_g0, __pyx_v_U_i_g);
-        }
-        __pyx_L17:;
+        __Pyx_INCREF(__pyx_v_U_i_g);
+        __Pyx_DECREF_SET(__pyx_v_U_i_g0, __pyx_v_U_i_g);
       }
       __pyx_L14_break:;
+
+      /* "simuclustfactor/tandem.py":202
+ * 					U_i_g0 = U_i_g
+ * 
+ * 				print('Fs_km',Fs_km)             # <<<<<<<<<<<<<<
+ * 
+ * 			else:
+ */
+      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_INCREF(__pyx_n_u_Fs_km);
+      __Pyx_GIVEREF(__pyx_n_u_Fs_km);
+      PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_n_u_Fs_km);
+      __Pyx_INCREF(__pyx_v_Fs_km);
+      __Pyx_GIVEREF(__pyx_v_Fs_km);
+      PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_Fs_km);
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
       /* "simuclustfactor/tandem.py":156
  * 			Fs_km = []
@@ -3503,17 +3650,17 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       goto __pyx_L12;
     }
 
-    /* "simuclustfactor/tandem.py":193
- * 						U_i_g0 = U_i_g
+    /* "simuclustfactor/tandem.py":205
+ * 
  * 			else:
  * 				U_i_g_init = np.array(U_i_g0)             # <<<<<<<<<<<<<<
- * 				U_i_g = U_i_g_init
- * 			# print('final',U_i_g)
+ * 				best_U_i_g = U_i_g_init
+ * 
  */
     /*else*/ {
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_1 = NULL;
@@ -3528,44 +3675,42 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       }
       __pyx_t_12 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_1, __pyx_v_U_i_g0) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_U_i_g0);
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 193, __pyx_L1_error)
+      if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_XDECREF_SET(__pyx_v_U_i_g_init, __pyx_t_12);
       __pyx_t_12 = 0;
 
-      /* "simuclustfactor/tandem.py":194
+      /* "simuclustfactor/tandem.py":206
  * 			else:
  * 				U_i_g_init = np.array(U_i_g0)
- * 				U_i_g = U_i_g_init             # <<<<<<<<<<<<<<
- * 			# print('final',U_i_g)
+ * 				best_U_i_g = U_i_g_init             # <<<<<<<<<<<<<<
  * 
+ * 			# updated centroids
  */
       __Pyx_INCREF(__pyx_v_U_i_g_init);
-      __Pyx_XDECREF_SET(__pyx_v_U_i_g, __pyx_v_U_i_g_init);
+      __Pyx_XDECREF_SET(__pyx_v_best_U_i_g, __pyx_v_U_i_g_init);
     }
     __pyx_L12:;
 
-    /* "simuclustfactor/tandem.py":198
+    /* "simuclustfactor/tandem.py":209
  * 
  * 			# updated centroids
- * 			X_g_jk = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ X_i_jk  # compute centroids matrix             # <<<<<<<<<<<<<<
+ * 			X_g_jk = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ X_i_jk  # compute centroids matrix             # <<<<<<<<<<<<<<
  * 
  * 			# ------------ End KMeans Clustering ------------
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_inv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_inv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 198, __pyx_L1_error) }
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_best_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 198, __pyx_L1_error) }
-    __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_v_U_i_g); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_v_best_U_i_g); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = NULL;
@@ -3581,23 +3726,22 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     __pyx_t_12 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_1, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 198, __pyx_L1_error)
+    if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 198, __pyx_L1_error) }
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_best_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_12, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_12, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_v_X_i_jk); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_v_X_i_jk); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_XDECREF_SET(__pyx_v_X_g_jk, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "simuclustfactor/tandem.py":204
+    /* "simuclustfactor/tandem.py":215
  * 			# ------------ Start of initialization for FA ------------
  * 
  * 			fa_converged = False             # <<<<<<<<<<<<<<
@@ -3606,7 +3750,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
  */
     __pyx_v_fa_converged = 0;
 
-    /* "simuclustfactor/tandem.py":205
+    /* "simuclustfactor/tandem.py":216
  * 
  * 			fa_converged = False
  * 			fa_iter = 0             # <<<<<<<<<<<<<<
@@ -3616,36 +3760,36 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_XDECREF_SET(__pyx_v_fa_iter, __pyx_int_0);
 
-    /* "simuclustfactor/tandem.py":206
+    /* "simuclustfactor/tandem.py":217
  * 			fa_converged = False
  * 			fa_iter = 0
  * 			Fs_fa = []  # objective function values             # <<<<<<<<<<<<<<
  * 
  * 			# matricize centroid tensor
  */
-    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 206, __pyx_L1_error)
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_Fs_fa, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "simuclustfactor/tandem.py":209
+    /* "simuclustfactor/tandem.py":220
  * 
  * 			# matricize centroid tensor
  * 			X_k_g_j = Fold(X_g_jk, mode=1, shape=(K,G,J))             # <<<<<<<<<<<<<<
  * 			X_j_kg = Unfold(X_k_g_j, mode=2)
  * 			X_k_gj = Unfold(X_k_g_j, mode=0)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Fold); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Fold); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_INCREF(__pyx_v_X_g_jk);
     __Pyx_GIVEREF(__pyx_v_X_g_jk);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_X_g_jk);
-    __pyx_t_12 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_mode, __pyx_int_1) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
-    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_mode, __pyx_int_1) < 0) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_v_K);
     __Pyx_GIVEREF(__pyx_v_K);
@@ -3656,9 +3800,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     __Pyx_INCREF(__pyx_v_J);
     __Pyx_GIVEREF(__pyx_v_J);
     PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_J);
-    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_shape, __pyx_t_1) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_shape, __pyx_t_1) < 0) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -3666,24 +3810,24 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     __Pyx_XDECREF_SET(__pyx_v_X_k_g_j, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":210
+    /* "simuclustfactor/tandem.py":221
  * 			# matricize centroid tensor
  * 			X_k_g_j = Fold(X_g_jk, mode=1, shape=(K,G,J))
  * 			X_j_kg = Unfold(X_k_g_j, mode=2)             # <<<<<<<<<<<<<<
  * 			X_k_gj = Unfold(X_k_g_j, mode=0)
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Unfold); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Unfold); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 210, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_INCREF(__pyx_v_X_k_g_j);
     __Pyx_GIVEREF(__pyx_v_X_k_g_j);
     PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_v_X_k_g_j);
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 210, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_mode, __pyx_int_2) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 210, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_mode, __pyx_int_2) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -3691,24 +3835,24 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     __Pyx_XDECREF_SET(__pyx_v_X_j_kg, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "simuclustfactor/tandem.py":211
+    /* "simuclustfactor/tandem.py":222
  * 			X_k_g_j = Fold(X_g_jk, mode=1, shape=(K,G,J))
  * 			X_j_kg = Unfold(X_k_g_j, mode=2)
  * 			X_k_gj = Unfold(X_k_g_j, mode=0)             # <<<<<<<<<<<<<<
  * 
  * 			# as direct input
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Unfold); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Unfold); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_INCREF(__pyx_v_X_k_g_j);
     __Pyx_GIVEREF(__pyx_v_X_k_g_j);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_X_k_g_j);
-    __pyx_t_12 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_mode, __pyx_int_0) < 0) __PYX_ERR(0, 211, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_mode, __pyx_int_0) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -3716,44 +3860,44 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     __Pyx_XDECREF_SET(__pyx_v_X_k_gj, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":214
+    /* "simuclustfactor/tandem.py":225
  * 
  * 			# as direct input
  * 			B_j_q0 = self.B_j_q             # <<<<<<<<<<<<<<
  * 			C_k_r0 = self.C_k_r
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_B_j_q0, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":215
+    /* "simuclustfactor/tandem.py":226
  * 			# as direct input
  * 			B_j_q0 = self.B_j_q
  * 			C_k_r0 = self.C_k_r             # <<<<<<<<<<<<<<
  * 
  * 			# initialize B and C
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_C_k_r0, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":218
+    /* "simuclustfactor/tandem.py":229
  * 
  * 			# initialize B and C
  * 			if self.init == 'svd':             # <<<<<<<<<<<<<<
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(X_j_kg@X_j_kg.T, Q)
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(X_k_gj@X_k_gj.T, R)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_init_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_init_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_svd, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 218, __pyx_L1_error)
+    __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_svd, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 229, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_9) {
 
-      /* "simuclustfactor/tandem.py":219
+      /* "simuclustfactor/tandem.py":230
  * 			# initialize B and C
  * 			if self.init == 'svd':
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(X_j_kg@X_j_kg.T, Q)             # <<<<<<<<<<<<<<
@@ -3763,11 +3907,11 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __pyx_t_9 = (__pyx_v_B_j_q0 == Py_None);
       __pyx_t_6 = (__pyx_t_9 != 0);
       if (__pyx_t_6) {
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 219, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 230, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_j_kg, __pyx_n_s_T); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 219, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_j_kg, __pyx_n_s_T); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 230, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_j_kg, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 219, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_j_kg, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 230, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __pyx_t_10 = NULL;
@@ -3785,7 +3929,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_t_3, __pyx_v_Q};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3794,14 +3938,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_t_3, __pyx_v_Q};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         } else
         #endif
         {
-          __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           if (__pyx_t_10) {
             __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_10); __pyx_t_10 = NULL;
@@ -3812,7 +3956,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
           __Pyx_GIVEREF(__pyx_v_Q);
           PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_11, __pyx_v_Q);
           __pyx_t_3 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
@@ -3821,7 +3965,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __pyx_t_1 = 0;
       }
 
-      /* "simuclustfactor/tandem.py":220
+      /* "simuclustfactor/tandem.py":231
  * 			if self.init == 'svd':
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(X_j_kg@X_j_kg.T, Q)
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(X_k_gj@X_k_gj.T, R)             # <<<<<<<<<<<<<<
@@ -3831,11 +3975,11 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __pyx_t_6 = (__pyx_v_C_k_r0 == Py_None);
       __pyx_t_9 = (__pyx_t_6 != 0);
       if (__pyx_t_9) {
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 231, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_k_gj, __pyx_n_s_T); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_k_gj, __pyx_n_s_T); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_k_gj, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_k_gj, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = NULL;
@@ -3853,7 +3997,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_3, __pyx_v_R};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3862,14 +4006,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_3, __pyx_v_R};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         } else
         #endif
         {
-          __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 231, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           if (__pyx_t_2) {
             __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -3880,7 +4024,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
           __Pyx_GIVEREF(__pyx_v_R);
           PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_11, __pyx_v_R);
           __pyx_t_3 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         }
@@ -3889,17 +4033,17 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __pyx_t_1 = 0;
       }
 
-      /* "simuclustfactor/tandem.py":218
+      /* "simuclustfactor/tandem.py":229
  * 
  * 			# initialize B and C
  * 			if self.init == 'svd':             # <<<<<<<<<<<<<<
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(X_j_kg@X_j_kg.T, Q)
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(X_k_gj@X_k_gj.T, R)
  */
-      goto __pyx_L18;
+      goto __pyx_L19;
     }
 
-    /* "simuclustfactor/tandem.py":222
+    /* "simuclustfactor/tandem.py":233
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(X_k_gj@X_k_gj.T, R)
  * 			else:  # random initialization
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(rng.random([J,J]), Q)             # <<<<<<<<<<<<<<
@@ -3910,11 +4054,11 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __pyx_t_9 = (__pyx_v_B_j_q0 == Py_None);
       __pyx_t_6 = (__pyx_t_9 != 0);
       if (__pyx_t_6) {
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 222, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 233, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_rng, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_rng, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 233, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 233, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_INCREF(__pyx_v_J);
         __Pyx_GIVEREF(__pyx_v_J);
@@ -3935,7 +4079,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __pyx_t_10 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_14, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2);
         __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 222, __pyx_L1_error)
+        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 233, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __pyx_t_3 = NULL;
@@ -3953,7 +4097,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_10, __pyx_v_Q};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -3962,14 +4106,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_10, __pyx_v_Q};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         } else
         #endif
         {
-          __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 233, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           if (__pyx_t_3) {
             __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -3980,7 +4124,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
           __Pyx_GIVEREF(__pyx_v_Q);
           PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_11, __pyx_v_Q);
           __pyx_t_10 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
@@ -3989,7 +4133,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __pyx_t_1 = 0;
       }
 
-      /* "simuclustfactor/tandem.py":223
+      /* "simuclustfactor/tandem.py":234
  * 			else:  # random initialization
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(rng.random([J,J]), Q)
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(rng.random([K,K]), R)             # <<<<<<<<<<<<<<
@@ -3999,11 +4143,11 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __pyx_t_6 = (__pyx_v_C_k_r0 == Py_None);
       __pyx_t_9 = (__pyx_t_6 != 0);
       if (__pyx_t_9) {
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 223, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_rng, __pyx_n_s_random); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 223, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_rng, __pyx_n_s_random); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 223, __pyx_L1_error)
+        __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_v_K);
         __Pyx_GIVEREF(__pyx_v_K);
@@ -4024,7 +4168,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __pyx_t_2 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_14, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_3);
         __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __pyx_t_10 = NULL;
@@ -4042,7 +4186,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_t_2, __pyx_v_R};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4051,14 +4195,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_t_2, __pyx_v_R};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         } else
         #endif
         {
-          __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 223, __pyx_L1_error)
+          __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 234, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           if (__pyx_t_10) {
             __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_10); __pyx_t_10 = NULL;
@@ -4069,7 +4213,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
           __Pyx_GIVEREF(__pyx_v_R);
           PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_v_R);
           __pyx_t_2 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         }
@@ -4078,18 +4222,18 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __pyx_t_1 = 0;
       }
     }
-    __pyx_L18:;
+    __pyx_L19:;
 
-    /* "simuclustfactor/tandem.py":225
+    /* "simuclustfactor/tandem.py":236
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(rng.random([K,K]), R)
  * 
  * 			I_g_g = np.eye(G)             # <<<<<<<<<<<<<<
  * 
  * 			# ----------- End of initialization --------------
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 225, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 236, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_eye); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 225, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_eye); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __pyx_t_12 = NULL;
@@ -4104,42 +4248,76 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     }
     __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_12, __pyx_v_G) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_G);
     __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF_SET(__pyx_v_I_g_g, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":231
- * 			# ----------- Start of objective function --------------
+    /* "simuclustfactor/tandem.py":243
  * 
- * 			B_j_q_init = B_j_q0             # <<<<<<<<<<<<<<
- * 			C_k_r_init = C_k_r0
+ * 			# to return as initializers
+ * 			B_j_q_init = B_j_q0.copy()             # <<<<<<<<<<<<<<
+ * 			C_k_r_init = C_k_r0.copy()
  * 
  */
-    __Pyx_INCREF(__pyx_v_B_j_q0);
-    __Pyx_XDECREF_SET(__pyx_v_B_j_q_init, __pyx_v_B_j_q0);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_B_j_q0, __pyx_n_s_copy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_12 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_12)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_12);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_B_j_q_init, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":232
- * 
- * 			B_j_q_init = B_j_q0
- * 			C_k_r_init = C_k_r0             # <<<<<<<<<<<<<<
+    /* "simuclustfactor/tandem.py":244
+ * 			# to return as initializers
+ * 			B_j_q_init = B_j_q0.copy()
+ * 			C_k_r_init = C_k_r0.copy()             # <<<<<<<<<<<<<<
  * 
  * 			# updated centroids matrix
  */
-    __Pyx_INCREF(__pyx_v_C_k_r0);
-    __Pyx_XDECREF_SET(__pyx_v_C_k_r_init, __pyx_v_C_k_r0);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_C_k_r0, __pyx_n_s_copy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_12 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_12)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_12);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_C_k_r_init, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":235
+    /* "simuclustfactor/tandem.py":247
  * 
  * 			# updated centroids matrix
  * 			Y_g_qr = X_g_jk @ np.kron(C_k_r0, B_j_q0)             # <<<<<<<<<<<<<<
  * 
  * 			F0 = np.linalg.norm(Y_g_qr,2)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_kron); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_kron); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -4157,7 +4335,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_12)) {
       PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_C_k_r0, __pyx_v_B_j_q0};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -4165,13 +4343,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
       PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_C_k_r0, __pyx_v_B_j_q0};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 235, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       if (__pyx_t_3) {
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -4182,30 +4360,30 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_B_j_q0);
       __Pyx_GIVEREF(__pyx_v_B_j_q0);
       PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_11, __pyx_v_B_j_q0);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_g_jk, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_g_jk, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF_SET(__pyx_v_Y_g_qr, __pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "simuclustfactor/tandem.py":237
+    /* "simuclustfactor/tandem.py":249
  * 			Y_g_qr = X_g_jk @ np.kron(C_k_r0, B_j_q0)
  * 
  * 			F0 = np.linalg.norm(Y_g_qr,2)             # <<<<<<<<<<<<<<
- * 			conv = 2*self.tol
  * 			Fs_fa.append(F0)
+ * 			conv = 2*self.tol
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -4223,7 +4401,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_Y_g_qr, __pyx_int_2};
-      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 237, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 249, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_12);
     } else
@@ -4231,13 +4409,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_Y_g_qr, __pyx_int_2};
-      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 237, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 249, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_12);
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 237, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 249, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       if (__pyx_t_2) {
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -4248,7 +4426,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_int_2);
       __Pyx_GIVEREF(__pyx_int_2);
       PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_int_2);
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 237, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 249, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -4256,31 +4434,61 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     __Pyx_XDECREF_SET(__pyx_v_F0, __pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "simuclustfactor/tandem.py":238
+    /* "simuclustfactor/tandem.py":250
  * 
  * 			F0 = np.linalg.norm(Y_g_qr,2)
- * 			conv = 2*self.tol             # <<<<<<<<<<<<<<
- * 			Fs_fa.append(F0)
+ * 			Fs_fa.append(F0)             # <<<<<<<<<<<<<<
+ * 			conv = 2*self.tol
  * 
  */
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 238, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_fa, __pyx_v_F0); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 250, __pyx_L1_error)
+
+    /* "simuclustfactor/tandem.py":251
+ * 			F0 = np.linalg.norm(Y_g_qr,2)
+ * 			Fs_fa.append(F0)
+ * 			conv = 2*self.tol             # <<<<<<<<<<<<<<
+ * 
+ * 			# iterates init
+ */
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 251, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_1 = PyNumber_Multiply(__pyx_int_2, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Multiply(__pyx_int_2, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 251, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_XDECREF_SET(__pyx_v_conv, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":239
- * 			F0 = np.linalg.norm(Y_g_qr,2)
- * 			conv = 2*self.tol
- * 			Fs_fa.append(F0)             # <<<<<<<<<<<<<<
+    /* "simuclustfactor/tandem.py":254
+ * 
+ * 			# iterates init
+ * 			best_fa_iter = 1             # <<<<<<<<<<<<<<
+ * 			best_B_j_q = B_j_q0
+ * 			best_C_k_r = C_k_r0
+ */
+    __Pyx_INCREF(__pyx_int_1);
+    __Pyx_XDECREF_SET(__pyx_v_best_fa_iter, __pyx_int_1);
+
+    /* "simuclustfactor/tandem.py":255
+ * 			# iterates init
+ * 			best_fa_iter = 1
+ * 			best_B_j_q = B_j_q0             # <<<<<<<<<<<<<<
+ * 			best_C_k_r = C_k_r0
+ * 
+ */
+    __Pyx_INCREF(__pyx_v_B_j_q0);
+    __Pyx_XDECREF_SET(__pyx_v_best_B_j_q, __pyx_v_B_j_q0);
+
+    /* "simuclustfactor/tandem.py":256
+ * 			best_fa_iter = 1
+ * 			best_B_j_q = B_j_q0
+ * 			best_C_k_r = C_k_r0             # <<<<<<<<<<<<<<
  * 
  * 			# ----------- End of Objective Function Definition --------------
  */
-    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_fa, __pyx_v_F0); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 239, __pyx_L1_error)
+    __Pyx_INCREF(__pyx_v_C_k_r0);
+    __Pyx_XDECREF_SET(__pyx_v_best_C_k_r, __pyx_v_C_k_r0);
 
-    /* "simuclustfactor/tandem.py":243
+    /* "simuclustfactor/tandem.py":260
  * 			# ----------- End of Objective Function Definition --------------
  * 
  * 			while (conv > self.tol):             # <<<<<<<<<<<<<<
@@ -4288,41 +4496,41 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
  * 				fa_iter += 1
  */
     while (1) {
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_12 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_1, Py_GT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 243, __pyx_L1_error)
+      __pyx_t_12 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_1, Py_GT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 260, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 243, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       if (!__pyx_t_9) break;
 
-      /* "simuclustfactor/tandem.py":245
+      /* "simuclustfactor/tandem.py":262
  * 			while (conv > self.tol):
  * 
  * 				fa_iter += 1             # <<<<<<<<<<<<<<
  * 
  * 				# ----------- Start of factor matrices update --------------
  */
-      __pyx_t_12 = __Pyx_PyInt_AddObjC(__pyx_v_fa_iter, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyInt_AddObjC(__pyx_v_fa_iter, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF_SET(__pyx_v_fa_iter, __pyx_t_12);
       __pyx_t_12 = 0;
 
-      /* "simuclustfactor/tandem.py":250
+      /* "simuclustfactor/tandem.py":267
  * 
  * 				# updating B_j_q
  * 				B_j_j = X_j_kg @ np.kron(I_g_g, C_k_r0@C_k_r0.T) @ X_j_kg.T             # <<<<<<<<<<<<<<
  * 				B_j_q = SingularVectors(B_j_j, Q)
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 250, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_kron); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_kron); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_C_k_r0, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 250, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_C_k_r0, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_C_k_r0, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_C_k_r0, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_1 = NULL;
@@ -4340,7 +4548,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_I_g_g, __pyx_t_2};
-        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 250, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 267, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4349,14 +4557,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_I_g_g, __pyx_t_2};
-        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 250, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 267, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       } else
       #endif
       {
-        __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 250, __pyx_L1_error)
+        __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 267, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         if (__pyx_t_1) {
           __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -4367,31 +4575,31 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_GIVEREF(__pyx_t_2);
         PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_11, __pyx_t_2);
         __pyx_t_2 = 0;
-        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 250, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 267, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_j_kg, __pyx_t_12); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_j_kg, __pyx_t_12); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_j_kg, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 250, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_j_kg, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_t_12); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 250, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_t_12); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_XDECREF_SET(__pyx_v_B_j_j, __pyx_t_10);
       __pyx_t_10 = 0;
 
-      /* "simuclustfactor/tandem.py":251
+      /* "simuclustfactor/tandem.py":268
  * 				# updating B_j_q
  * 				B_j_j = X_j_kg @ np.kron(I_g_g, C_k_r0@C_k_r0.T) @ X_j_kg.T
  * 				B_j_q = SingularVectors(B_j_j, Q)             # <<<<<<<<<<<<<<
  * 
  * 				# updating C_k_r
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 251, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 268, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __pyx_t_3 = NULL;
       __pyx_t_11 = 0;
@@ -4408,7 +4616,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_12)) {
         PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_B_j_j, __pyx_v_Q};
-        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 268, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_10);
       } else
@@ -4416,13 +4624,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
         PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_B_j_j, __pyx_v_Q};
-        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 268, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_10);
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 268, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         if (__pyx_t_3) {
           __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -4433,7 +4641,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_v_Q);
         __Pyx_GIVEREF(__pyx_v_Q);
         PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_11, __pyx_v_Q);
-        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 268, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
@@ -4441,21 +4649,21 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_XDECREF_SET(__pyx_v_B_j_q, __pyx_t_10);
       __pyx_t_10 = 0;
 
-      /* "simuclustfactor/tandem.py":254
+      /* "simuclustfactor/tandem.py":271
  * 
  * 				# updating C_k_r
  * 				C_k_k = X_k_gj @ np.kron(B_j_q@B_j_q.T, I_g_g) @ X_k_gj.T             # <<<<<<<<<<<<<<
  * 				C_k_r = SingularVectors(C_k_k, R)
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_kron); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_kron); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_B_j_q, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_B_j_q, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_B_j_q, __pyx_t_12); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_B_j_q, __pyx_t_12); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __pyx_t_12 = NULL;
@@ -4473,7 +4681,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_3, __pyx_v_I_g_g};
-        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 254, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 271, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4482,14 +4690,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_3, __pyx_v_I_g_g};
-        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 254, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 271, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         if (__pyx_t_12) {
           __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_12); __pyx_t_12 = NULL;
@@ -4500,31 +4708,31 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_GIVEREF(__pyx_v_I_g_g);
         PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_11, __pyx_v_I_g_g);
         __pyx_t_3 = 0;
-        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 254, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 271, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_k_gj, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_k_gj, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_k_gj, __pyx_n_s_T); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_k_gj, __pyx_n_s_T); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_XDECREF_SET(__pyx_v_C_k_k, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "simuclustfactor/tandem.py":255
+      /* "simuclustfactor/tandem.py":272
  * 				# updating C_k_r
  * 				C_k_k = X_k_gj @ np.kron(B_j_q@B_j_q.T, I_g_g) @ X_k_gj.T
  * 				C_k_r = SingularVectors(C_k_k, R)             # <<<<<<<<<<<<<<
  * 
  * 				# ----------- End of factor matrices update --------------
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 255, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 272, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __pyx_t_2 = NULL;
       __pyx_t_11 = 0;
@@ -4541,7 +4749,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_10)) {
         PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_C_k_k, __pyx_v_R};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
@@ -4549,13 +4757,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
         PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_C_k_k, __pyx_v_R};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 272, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         if (__pyx_t_2) {
           __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -4566,7 +4774,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_v_R);
         __Pyx_GIVEREF(__pyx_v_R);
         PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_v_R);
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
@@ -4574,16 +4782,16 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_XDECREF_SET(__pyx_v_C_k_r, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "simuclustfactor/tandem.py":262
+      /* "simuclustfactor/tandem.py":279
  * 
  * 				# updated centroids matrix
  * 				Y_g_qr = X_g_jk @ np.kron(C_k_r, B_j_q)             # <<<<<<<<<<<<<<
  * 
  * 				# compute L2 norm of reconstruction error
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 262, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 279, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_kron); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_kron); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 279, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __pyx_t_10 = NULL;
@@ -4601,7 +4809,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_v_C_k_r, __pyx_v_B_j_q};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
@@ -4609,13 +4817,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_v_C_k_r, __pyx_v_B_j_q};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 262, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         if (__pyx_t_10) {
           __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_10); __pyx_t_10 = NULL;
@@ -4626,30 +4834,30 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_v_B_j_q);
         __Pyx_GIVEREF(__pyx_v_B_j_q);
         PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_11, __pyx_v_B_j_q);
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_g_jk, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_g_jk, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 279, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF_SET(__pyx_v_Y_g_qr, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "simuclustfactor/tandem.py":265
+      /* "simuclustfactor/tandem.py":282
  * 
  * 				# compute L2 norm of reconstruction error
  * 				F = np.linalg.norm(Y_g_qr,2)             # <<<<<<<<<<<<<<
- * 				conv = abs(F-Fs_fa[-1])
- * 				Fs_fa.append(F)
+ * 				conv = abs(F-F0)
+ * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_2 = NULL;
@@ -4667,7 +4875,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_Y_g_qr, __pyx_int_2};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 282, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_3);
       } else
@@ -4675,13 +4883,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_Y_g_qr, __pyx_int_2};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 282, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_3);
       } else
       #endif
       {
-        __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 265, __pyx_L1_error)
+        __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 282, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         if (__pyx_t_2) {
           __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -4692,7 +4900,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_int_2);
         __Pyx_GIVEREF(__pyx_int_2);
         PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_11, __pyx_int_2);
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 282, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
@@ -4700,76 +4908,176 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_XDECREF_SET(__pyx_v_F, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "simuclustfactor/tandem.py":266
+      /* "simuclustfactor/tandem.py":283
  * 				# compute L2 norm of reconstruction error
  * 				F = np.linalg.norm(Y_g_qr,2)
- * 				conv = abs(F-Fs_fa[-1])             # <<<<<<<<<<<<<<
- * 				Fs_fa.append(F)
- * 
- */
-      __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_Fs_fa, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyNumber_Subtract(__pyx_v_F, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyNumber_Absolute(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_3);
-      __pyx_t_3 = 0;
-
-      /* "simuclustfactor/tandem.py":267
- * 				F = np.linalg.norm(Y_g_qr,2)
- * 				conv = abs(F-Fs_fa[-1])
- * 				Fs_fa.append(F)             # <<<<<<<<<<<<<<
+ * 				conv = abs(F-F0)             # <<<<<<<<<<<<<<
  * 
  * 				# ----------- End of objective functions update --------------
  */
-      __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_fa, __pyx_v_F); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 267, __pyx_L1_error)
+      __pyx_t_3 = PyNumber_Subtract(__pyx_v_F, __pyx_v_F0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 283, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_1 = __Pyx_PyNumber_Absolute(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_1);
+      __pyx_t_1 = 0;
 
-      /* "simuclustfactor/tandem.py":273
+      /* "simuclustfactor/tandem.py":289
  * 				# ----------- Start of convergence test --------------
+ * 
+ * 				if F >= F0:             # <<<<<<<<<<<<<<
+ * 					Fs_fa.append(F)
+ * 					F0 = F
+ */
+      __pyx_t_1 = PyObject_RichCompare(__pyx_v_F, __pyx_v_F0, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 289, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 289, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (__pyx_t_9) {
+
+        /* "simuclustfactor/tandem.py":290
+ * 
+ * 				if F >= F0:
+ * 					Fs_fa.append(F)             # <<<<<<<<<<<<<<
+ * 					F0 = F
+ * 					best_B_j_q = B_j_q
+ */
+        __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_fa, __pyx_v_F); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 290, __pyx_L1_error)
+
+        /* "simuclustfactor/tandem.py":291
+ * 				if F >= F0:
+ * 					Fs_fa.append(F)
+ * 					F0 = F             # <<<<<<<<<<<<<<
+ * 					best_B_j_q = B_j_q
+ * 					best_C_k_r = C_k_r
+ */
+        __Pyx_INCREF(__pyx_v_F);
+        __Pyx_DECREF_SET(__pyx_v_F0, __pyx_v_F);
+
+        /* "simuclustfactor/tandem.py":292
+ * 					Fs_fa.append(F)
+ * 					F0 = F
+ * 					best_B_j_q = B_j_q             # <<<<<<<<<<<<<<
+ * 					best_C_k_r = C_k_r
+ * 					best_fa_iter = fa_iter
+ */
+        __Pyx_INCREF(__pyx_v_B_j_q);
+        __Pyx_DECREF_SET(__pyx_v_best_B_j_q, __pyx_v_B_j_q);
+
+        /* "simuclustfactor/tandem.py":293
+ * 					F0 = F
+ * 					best_B_j_q = B_j_q
+ * 					best_C_k_r = C_k_r             # <<<<<<<<<<<<<<
+ * 					best_fa_iter = fa_iter
+ * 
+ */
+        __Pyx_INCREF(__pyx_v_C_k_r);
+        __Pyx_DECREF_SET(__pyx_v_best_C_k_r, __pyx_v_C_k_r);
+
+        /* "simuclustfactor/tandem.py":294
+ * 					best_B_j_q = B_j_q
+ * 					best_C_k_r = C_k_r
+ * 					best_fa_iter = fa_iter             # <<<<<<<<<<<<<<
+ * 
+ * 				if (conv < self.tol):
+ */
+        __Pyx_INCREF(__pyx_v_fa_iter);
+        __Pyx_DECREF_SET(__pyx_v_best_fa_iter, __pyx_v_fa_iter);
+
+        /* "simuclustfactor/tandem.py":289
+ * 				# ----------- Start of convergence test --------------
+ * 
+ * 				if F >= F0:             # <<<<<<<<<<<<<<
+ * 					Fs_fa.append(F)
+ * 					F0 = F
+ */
+      }
+
+      /* "simuclustfactor/tandem.py":296
+ * 					best_fa_iter = fa_iter
+ * 
+ * 				if (conv < self.tol):             # <<<<<<<<<<<<<<
+ * 					fa_converged = True
+ * 					break
+ */
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 296, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_3 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 296, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (__pyx_t_9) {
+
+        /* "simuclustfactor/tandem.py":297
+ * 
+ * 				if (conv < self.tol):
+ * 					fa_converged = True             # <<<<<<<<<<<<<<
+ * 					break
+ * 
+ */
+        __pyx_v_fa_converged = 1;
+
+        /* "simuclustfactor/tandem.py":298
+ * 				if (conv < self.tol):
+ * 					fa_converged = True
+ * 					break             # <<<<<<<<<<<<<<
+ * 
+ * 				if (fa_iter == self.n_max_iter):
+ */
+        goto __pyx_L25_break;
+
+        /* "simuclustfactor/tandem.py":296
+ * 					best_fa_iter = fa_iter
+ * 
+ * 				if (conv < self.tol):             # <<<<<<<<<<<<<<
+ * 					fa_converged = True
+ * 					break
+ */
+      }
+
+      /* "simuclustfactor/tandem.py":300
+ * 					break
  * 
  * 				if (fa_iter == self.n_max_iter):             # <<<<<<<<<<<<<<
  * 					if self.verbose: print("FA Maximum iterations reached.")
  * 					break
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_max_iter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_max_iter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 300, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyObject_RichCompare(__pyx_v_fa_iter, __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
+      __pyx_t_1 = PyObject_RichCompare(__pyx_v_fa_iter, __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 273, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 300, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_9) {
 
-        /* "simuclustfactor/tandem.py":274
+        /* "simuclustfactor/tandem.py":301
  * 
  * 				if (fa_iter == self.n_max_iter):
  * 					if self.verbose: print("FA Maximum iterations reached.")             # <<<<<<<<<<<<<<
  * 					break
  * 
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 274, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 301, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_9) {
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         }
 
-        /* "simuclustfactor/tandem.py":275
+        /* "simuclustfactor/tandem.py":302
  * 				if (fa_iter == self.n_max_iter):
  * 					if self.verbose: print("FA Maximum iterations reached.")
  * 					break             # <<<<<<<<<<<<<<
  * 
- * 				if (conv < self.tol):
+ * 				B_j_q0 = B_j_q
  */
-        goto __pyx_L24_break;
+        goto __pyx_L25_break;
 
-        /* "simuclustfactor/tandem.py":273
- * 				# ----------- Start of convergence test --------------
+        /* "simuclustfactor/tandem.py":300
+ * 					break
  * 
  * 				if (fa_iter == self.n_max_iter):             # <<<<<<<<<<<<<<
  * 					if self.verbose: print("FA Maximum iterations reached.")
@@ -4777,83 +5085,56 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
  */
       }
 
-      /* "simuclustfactor/tandem.py":277
+      /* "simuclustfactor/tandem.py":304
  * 					break
  * 
- * 				if (conv < self.tol):             # <<<<<<<<<<<<<<
- * 					fa_converged = True
- * 				else:
- */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 277, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 277, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 277, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (__pyx_t_9) {
-
-        /* "simuclustfactor/tandem.py":278
- * 
- * 				if (conv < self.tol):
- * 					fa_converged = True             # <<<<<<<<<<<<<<
- * 				else:
- * 					F0 = F
- */
-        __pyx_v_fa_converged = 1;
-
-        /* "simuclustfactor/tandem.py":277
- * 					break
- * 
- * 				if (conv < self.tol):             # <<<<<<<<<<<<<<
- * 					fa_converged = True
- * 				else:
- */
-        goto __pyx_L27;
-      }
-
-      /* "simuclustfactor/tandem.py":280
- * 					fa_converged = True
- * 				else:
- * 					F0 = F             # <<<<<<<<<<<<<<
- * 					B_j_q0 = B_j_q
- * 					C_k_r0 = C_k_r
- */
-      /*else*/ {
-        __Pyx_INCREF(__pyx_v_F);
-        __Pyx_DECREF_SET(__pyx_v_F0, __pyx_v_F);
-
-        /* "simuclustfactor/tandem.py":281
- * 				else:
- * 					F0 = F
- * 					B_j_q0 = B_j_q             # <<<<<<<<<<<<<<
- * 					C_k_r0 = C_k_r
+ * 				B_j_q0 = B_j_q             # <<<<<<<<<<<<<<
+ * 				C_k_r0 = C_k_r
  * 
  */
-        __Pyx_INCREF(__pyx_v_B_j_q);
-        __Pyx_DECREF_SET(__pyx_v_B_j_q0, __pyx_v_B_j_q);
+      __Pyx_INCREF(__pyx_v_B_j_q);
+      __Pyx_DECREF_SET(__pyx_v_B_j_q0, __pyx_v_B_j_q);
 
-        /* "simuclustfactor/tandem.py":282
- * 					F0 = F
- * 					B_j_q0 = B_j_q
- * 					C_k_r0 = C_k_r             # <<<<<<<<<<<<<<
+      /* "simuclustfactor/tandem.py":305
  * 
- * 				# ----------- End of convergence test --------------
+ * 				B_j_q0 = B_j_q
+ * 				C_k_r0 = C_k_r             # <<<<<<<<<<<<<<
+ * 
+ * 			print('Fs_fa',Fs_fa)
  */
-        __Pyx_INCREF(__pyx_v_C_k_r);
-        __Pyx_DECREF_SET(__pyx_v_C_k_r0, __pyx_v_C_k_r);
-      }
-      __pyx_L27:;
+      __Pyx_INCREF(__pyx_v_C_k_r);
+      __Pyx_DECREF_SET(__pyx_v_C_k_r0, __pyx_v_C_k_r);
     }
-    __pyx_L24_break:;
+    __pyx_L25_break:;
 
-    /* "simuclustfactor/tandem.py":288
+    /* "simuclustfactor/tandem.py":307
+ * 				C_k_r0 = C_k_r
+ * 
+ * 			print('Fs_fa',Fs_fa)             # <<<<<<<<<<<<<<
+ * 				# ----------- End of convergence test --------------
+ * 
+ */
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_n_u_Fs_fa);
+    __Pyx_GIVEREF(__pyx_n_u_Fs_fa);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_n_u_Fs_fa);
+    __Pyx_INCREF(__pyx_v_Fs_fa);
+    __Pyx_GIVEREF(__pyx_v_Fs_fa);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_Fs_fa);
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 307, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "simuclustfactor/tandem.py":312
  * 			# ----------- Start of results update for each loop --------------
  * 
  * 			time_elapsed = time()-start_time             # <<<<<<<<<<<<<<
  * 
- * 			Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q)
+ * 			# updating X
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 288, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_10 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -4867,29 +5148,27 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     }
     __pyx_t_3 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
     __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 288, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_v_start_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 288, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_v_start_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF_SET(__pyx_v_time_elapsed, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":290
- * 			time_elapsed = time()-start_time
+    /* "simuclustfactor/tandem.py":315
  * 
- * 			Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q)             # <<<<<<<<<<<<<<
- * 			Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr
- * 			Z_i_qr = U_i_g @ Y_g_qr
+ * 			# updating X
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)             # <<<<<<<<<<<<<<
+ * 			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+ * 			Z_i_qr = best_U_i_g @  Y_g_qr
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 290, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 315, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_kron); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 290, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_kron); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 315, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_v_C_k_r)) { __Pyx_RaiseUnboundLocalError("C_k_r"); __PYX_ERR(0, 290, __pyx_L1_error) }
-    if (unlikely(!__pyx_v_B_j_q)) { __Pyx_RaiseUnboundLocalError("B_j_q"); __PYX_ERR(0, 290, __pyx_L1_error) }
     __pyx_t_3 = NULL;
     __pyx_t_11 = 0;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -4904,63 +5183,61 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     }
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_10)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_C_k_r, __pyx_v_B_j_q};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 290, __pyx_L1_error)
+      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_C_k_r, __pyx_v_B_j_q};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 290, __pyx_L1_error)
+      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 290, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 315, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       if (__pyx_t_3) {
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
       }
-      __Pyx_INCREF(__pyx_v_C_k_r);
-      __Pyx_GIVEREF(__pyx_v_C_k_r);
-      PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_11, __pyx_v_C_k_r);
-      __Pyx_INCREF(__pyx_v_B_j_q);
-      __Pyx_GIVEREF(__pyx_v_B_j_q);
-      PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_11, __pyx_v_B_j_q);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 290, __pyx_L1_error)
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_GIVEREF(__pyx_v_best_C_k_r);
+      PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_11, __pyx_v_best_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_GIVEREF(__pyx_v_best_B_j_q);
+      PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_11, __pyx_v_best_B_j_q);
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 290, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 315, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF_SET(__pyx_v_Y_i_qr, __pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "simuclustfactor/tandem.py":291
- * 
- * 			Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q)
- * 			Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr             # <<<<<<<<<<<<<<
- * 			Z_i_qr = U_i_g @ Y_g_qr
- * 
+    /* "simuclustfactor/tandem.py":316
+ * 			# updating X
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)
+ * 			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr             # <<<<<<<<<<<<<<
+ * 			Z_i_qr = best_U_i_g @  Y_g_qr
+ * 			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_inv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_inv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 291, __pyx_L1_error) }
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_best_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 291, __pyx_L1_error) }
-    __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_2, __pyx_v_U_i_g); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_2, __pyx_v_best_U_i_g); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -4976,426 +5253,714 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
     __pyx_t_10 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 291, __pyx_L1_error)
+    if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 291, __pyx_L1_error) }
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_best_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF_SET(__pyx_v_Y_g_qr, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":292
- * 			Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q)
- * 			Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr
- * 			Z_i_qr = U_i_g @ Y_g_qr             # <<<<<<<<<<<<<<
+    /* "simuclustfactor/tandem.py":317
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)
+ * 			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+ * 			Z_i_qr = best_U_i_g @  Y_g_qr             # <<<<<<<<<<<<<<
+ * 			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
  * 
- * 			TSS = Y_i_qr.var()*Y_i_qr.size
  */
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 292, __pyx_L1_error) }
-    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 292, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_best_U_i_g, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 317, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_Z_i_qr, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":294
- * 			Z_i_qr = U_i_g @ Y_g_qr
+    /* "simuclustfactor/tandem.py":318
+ * 			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+ * 			Z_i_qr = best_U_i_g @  Y_g_qr
+ * 			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T             # <<<<<<<<<<<<<<
  * 
- * 			TSS = Y_i_qr.var()*Y_i_qr.size             # <<<<<<<<<<<<<<
- * 			BSS = Z_i_qr.var()*Z_i_qr.size  # clustering + factor reduction
- * 			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size  # redsidual sum of squares
+ * 			TSS_full = X_i_jk.var()*X_i_jk.size
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_Y_i_qr, __pyx_n_s_var); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-      __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_3);
-      if (likely(__pyx_t_10)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-        __Pyx_INCREF(__pyx_t_10);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_3, function);
-      }
-    }
-    __pyx_t_1 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 294, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_Y_i_qr, __pyx_n_s_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = PyNumber_Multiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 294, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_TSS, __pyx_t_10);
-    __pyx_t_10 = 0;
-
-    /* "simuclustfactor/tandem.py":295
- * 
- * 			TSS = Y_i_qr.var()*Y_i_qr.size
- * 			BSS = Z_i_qr.var()*Z_i_qr.size  # clustering + factor reduction             # <<<<<<<<<<<<<<
- * 			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size  # redsidual sum of squares
- * 
- */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_qr, __pyx_n_s_var); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 295, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
-      if (likely(__pyx_t_1)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-        __Pyx_INCREF(__pyx_t_1);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_3, function);
-      }
-    }
-    __pyx_t_10 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 295, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_qr, __pyx_n_s_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 295, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_10, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 295, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_BSS, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "simuclustfactor/tandem.py":296
- * 			TSS = Y_i_qr.var()*Y_i_qr.size
- * 			BSS = Z_i_qr.var()*Z_i_qr.size  # clustering + factor reduction
- * 			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size  # redsidual sum of squares             # <<<<<<<<<<<<<<
- * 
- * 			BSS_percent = (BSS/TSS)*100  # between cluster deviance
- */
-    __pyx_t_3 = PyNumber_Subtract(__pyx_v_Y_i_qr, __pyx_v_Z_i_qr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_var); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 296, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_kron); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
+    __pyx_t_11 = 0;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
       __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_10);
       if (likely(__pyx_t_3)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
         __Pyx_INCREF(__pyx_t_3);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_10, function);
+        __pyx_t_11 = 1;
       }
     }
-    __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 296, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_10)) {
+      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
+      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+    } else
+    #endif
+    {
+      __pyx_t_2 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 318, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      if (__pyx_t_3) {
+        __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      }
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_GIVEREF(__pyx_v_best_C_k_r);
+      PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_11, __pyx_v_best_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_GIVEREF(__pyx_v_best_B_j_q);
+      PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_11, __pyx_v_best_B_j_q);
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    }
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = PyNumber_Subtract(__pyx_v_Y_i_qr, __pyx_v_Z_i_qr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 296, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = PyNumber_Multiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 296, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_T); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_RSS, __pyx_t_10);
+    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_Z_i_qr, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_Z_i_jk, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":320
+ * 			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
+ * 
+ * 			TSS_full = X_i_jk.var()*X_i_jk.size             # <<<<<<<<<<<<<<
+ * 			BSS_full = Z_i_jk.var()*Z_i_jk.size
+ * 			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
+ */
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_var); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_2 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
+      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_10);
+      if (likely(__pyx_t_2)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+        __Pyx_INCREF(__pyx_t_2);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_10, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_size); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_TSS_full, __pyx_t_2);
+    __pyx_t_2 = 0;
+
+    /* "simuclustfactor/tandem.py":321
+ * 
+ * 			TSS_full = X_i_jk.var()*X_i_jk.size
+ * 			BSS_full = Z_i_jk.var()*Z_i_jk.size             # <<<<<<<<<<<<<<
+ * 			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
+ * 
+ */
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_jk, __pyx_n_s_var); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 321, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_1 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_10);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_10, function);
+      }
+    }
+    __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_jk, __pyx_n_s_size); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 321, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_BSS_full, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":322
+ * 			TSS_full = X_i_jk.var()*X_i_jk.size
+ * 			BSS_full = Z_i_jk.var()*Z_i_jk.size
+ * 			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size             # <<<<<<<<<<<<<<
+ * 
+ * 			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+ */
+    __pyx_t_10 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_v_Z_i_jk); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 322, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_var); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_10)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_10);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 322, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_v_Z_i_jk); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_size); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 322, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_RSS_full, __pyx_t_2);
+    __pyx_t_2 = 0;
+
+    /* "simuclustfactor/tandem.py":324
+ * 			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
+ * 
+ * 			TSS_reduced = Y_i_qr.var()*Y_i_qr.size             # <<<<<<<<<<<<<<
+ * 			BSS_reduced = Z_i_qr.var()*Z_i_qr.size
+ * 			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+ */
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_Y_i_qr, __pyx_n_s_var); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_1 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_10);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_10, function);
+      }
+    }
+    __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_Y_i_qr, __pyx_n_s_size); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_TSS_reduced, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":325
+ * 
+ * 			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+ * 			BSS_reduced = Z_i_qr.var()*Z_i_qr.size             # <<<<<<<<<<<<<<
+ * 			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+ * 
+ */
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_qr, __pyx_n_s_var); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_2 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
+      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_10);
+      if (likely(__pyx_t_2)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+        __Pyx_INCREF(__pyx_t_2);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_10, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_qr, __pyx_n_s_size); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_BSS_reduced, __pyx_t_2);
+    __pyx_t_2 = 0;
+
+    /* "simuclustfactor/tandem.py":326
+ * 			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+ * 			BSS_reduced = Z_i_qr.var()*Z_i_qr.size
+ * 			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size             # <<<<<<<<<<<<<<
+ * 
+ * 			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+ */
+    __pyx_t_10 = PyNumber_Subtract(__pyx_v_Y_i_qr, __pyx_v_Z_i_qr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_var); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_10)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_10);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    __pyx_t_2 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Subtract(__pyx_v_Y_i_qr, __pyx_v_Z_i_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_size); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_RSS_reduced, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":328
+ * 			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+ * 
+ * 			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance             # <<<<<<<<<<<<<<
+ * 			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+ * 			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+ */
+    __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_BSS_full, __pyx_v_TSS_full); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_10 = PyNumber_Multiply(__pyx_t_1, __pyx_int_100); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_BSS_percent_full, __pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "simuclustfactor/tandem.py":298
- * 			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size  # redsidual sum of squares
+    /* "simuclustfactor/tandem.py":329
  * 
- * 			BSS_percent = (BSS/TSS)*100  # between cluster deviance             # <<<<<<<<<<<<<<
- * 
- * 			# pseudoF and output results
+ * 			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+ * 			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance             # <<<<<<<<<<<<<<
+ * 			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+ * 			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
  */
-    __pyx_t_10 = __Pyx_PyNumber_Divide(__pyx_v_BSS, __pyx_v_TSS); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 298, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyNumber_Divide(__pyx_v_BSS_reduced, __pyx_v_TSS_reduced); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 329, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_3 = PyNumber_Multiply(__pyx_t_10, __pyx_int_100); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 298, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_10, __pyx_int_100); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_BSS_percent, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_BSS_percent_reduced, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":301
- * 
- * 			# pseudoF and output results
- * 			pseudoF = round(PseudoF(BSS, RSS, full_tensor_shape, reduced_tensor_shape), 4) if G not in [1,I] else None             # <<<<<<<<<<<<<<
- * 			if self.verbose: print(tabulate([[]], headers=[loop, km_iter, fa_iter, round(time_elapsed,4), round(BSS_percent,4), pseudoF, km_converged, fa_converged], tablefmt='plain'))
+    /* "simuclustfactor/tandem.py":330
+ * 			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+ * 			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+ * 			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None             # <<<<<<<<<<<<<<
+ * 			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
  * 
  */
     __Pyx_INCREF(__pyx_v_G);
     __pyx_t_10 = __pyx_v_G;
-    __pyx_t_1 = __Pyx_PyInt_NeObjC(__pyx_t_10, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 301, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_2 = __Pyx_PyInt_NeObjC(__pyx_t_10, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_6) {
     } else {
       __pyx_t_9 = __pyx_t_6;
-      goto __pyx_L28_bool_binop_done;
+      goto __pyx_L30_bool_binop_done;
     }
-    __pyx_t_1 = PyObject_RichCompare(__pyx_t_10, __pyx_v_I, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
-    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 301, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_10, __pyx_v_I, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_9 = __pyx_t_6;
-    __pyx_L28_bool_binop_done:;
+    __pyx_L30_bool_binop_done:;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     if ((__pyx_t_9 != 0)) {
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_PseudoF); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = NULL;
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_PseudoF); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_3 = NULL;
       __pyx_t_11 = 0;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_2);
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+        if (likely(__pyx_t_3)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+          __Pyx_INCREF(__pyx_t_3);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_1, function);
+          __Pyx_DECREF_SET(__pyx_t_2, function);
           __pyx_t_11 = 1;
         }
       }
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[5] = {__pyx_t_2, __pyx_v_BSS, __pyx_v_RSS, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
-        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 301, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (PyFunction_Check(__pyx_t_2)) {
+        PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_BSS_full, __pyx_v_RSS_full, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
+        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 330, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_10);
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[5] = {__pyx_t_2, __pyx_v_BSS, __pyx_v_RSS, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
-        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 301, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+        PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_BSS_full, __pyx_v_RSS_full, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
+        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 330, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_10);
       } else
       #endif
       {
-        __pyx_t_12 = PyTuple_New(4+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 301, __pyx_L1_error)
+        __pyx_t_12 = PyTuple_New(4+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 330, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        if (__pyx_t_2) {
-          __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_2); __pyx_t_2 = NULL;
+        if (__pyx_t_3) {
+          __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_3); __pyx_t_3 = NULL;
         }
-        __Pyx_INCREF(__pyx_v_BSS);
-        __Pyx_GIVEREF(__pyx_v_BSS);
-        PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_11, __pyx_v_BSS);
-        __Pyx_INCREF(__pyx_v_RSS);
-        __Pyx_GIVEREF(__pyx_v_RSS);
-        PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_v_RSS);
+        __Pyx_INCREF(__pyx_v_BSS_full);
+        __Pyx_GIVEREF(__pyx_v_BSS_full);
+        PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_11, __pyx_v_BSS_full);
+        __Pyx_INCREF(__pyx_v_RSS_full);
+        __Pyx_GIVEREF(__pyx_v_RSS_full);
+        PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_v_RSS_full);
         __Pyx_INCREF(__pyx_v_full_tensor_shape);
         __Pyx_GIVEREF(__pyx_v_full_tensor_shape);
         PyTuple_SET_ITEM(__pyx_t_12, 2+__pyx_t_11, __pyx_v_full_tensor_shape);
         __Pyx_INCREF(__pyx_v_reduced_tensor_shape);
         __Pyx_GIVEREF(__pyx_v_reduced_tensor_shape);
         PyTuple_SET_ITEM(__pyx_t_12, 3+__pyx_t_11, __pyx_v_reduced_tensor_shape);
-        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 301, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 330, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       }
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_10);
-      PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_10);
+      PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_10);
       __Pyx_INCREF(__pyx_int_4);
       __Pyx_GIVEREF(__pyx_int_4);
-      PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_4);
+      PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_4);
       __pyx_t_10 = 0;
-      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_1, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 301, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_2, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 330, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_3 = __pyx_t_10;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_1 = __pyx_t_10;
       __pyx_t_10 = 0;
     } else {
       __Pyx_INCREF(Py_None);
-      __pyx_t_3 = Py_None;
+      __pyx_t_1 = Py_None;
     }
-    __Pyx_XDECREF_SET(__pyx_v_pseudoF, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_pseudoF_full, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "simuclustfactor/tandem.py":302
+    /* "simuclustfactor/tandem.py":331
+ * 			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+ * 			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+ * 			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+    __Pyx_INCREF(__pyx_v_G);
+    __pyx_t_10 = __pyx_v_G;
+    __pyx_t_2 = __Pyx_PyInt_NeObjC(__pyx_t_10, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 331, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 331, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__pyx_t_6) {
+    } else {
+      __pyx_t_9 = __pyx_t_6;
+      goto __pyx_L32_bool_binop_done;
+    }
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_10, __pyx_v_I, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 331, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 331, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_9 = __pyx_t_6;
+    __pyx_L32_bool_binop_done:;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    if ((__pyx_t_9 != 0)) {
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_PseudoF); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 331, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_12 = NULL;
+      __pyx_t_11 = 0;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+        __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_2);
+        if (likely(__pyx_t_12)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+          __Pyx_INCREF(__pyx_t_12);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_2, function);
+          __pyx_t_11 = 1;
+        }
+      }
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_2)) {
+        PyObject *__pyx_temp[5] = {__pyx_t_12, __pyx_v_BSS_reduced, __pyx_v_RSS_reduced, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
+        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 331, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __Pyx_GOTREF(__pyx_t_10);
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+        PyObject *__pyx_temp[5] = {__pyx_t_12, __pyx_v_BSS_reduced, __pyx_v_RSS_reduced, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
+        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 331, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __Pyx_GOTREF(__pyx_t_10);
+      } else
+      #endif
+      {
+        __pyx_t_3 = PyTuple_New(4+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 331, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        if (__pyx_t_12) {
+          __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_12); __pyx_t_12 = NULL;
+        }
+        __Pyx_INCREF(__pyx_v_BSS_reduced);
+        __Pyx_GIVEREF(__pyx_v_BSS_reduced);
+        PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_11, __pyx_v_BSS_reduced);
+        __Pyx_INCREF(__pyx_v_RSS_reduced);
+        __Pyx_GIVEREF(__pyx_v_RSS_reduced);
+        PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_v_RSS_reduced);
+        __Pyx_INCREF(__pyx_v_full_tensor_shape);
+        __Pyx_GIVEREF(__pyx_v_full_tensor_shape);
+        PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_11, __pyx_v_full_tensor_shape);
+        __Pyx_INCREF(__pyx_v_reduced_tensor_shape);
+        __Pyx_GIVEREF(__pyx_v_reduced_tensor_shape);
+        PyTuple_SET_ITEM(__pyx_t_3, 3+__pyx_t_11, __pyx_v_reduced_tensor_shape);
+        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 331, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 331, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_GIVEREF(__pyx_t_10);
+      PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_10);
+      __Pyx_INCREF(__pyx_int_4);
+      __Pyx_GIVEREF(__pyx_int_4);
+      PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_4);
+      __pyx_t_10 = 0;
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_2, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 331, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_1 = __pyx_t_10;
+      __pyx_t_10 = 0;
+    } else {
+      __Pyx_INCREF(Py_None);
+      __pyx_t_1 = Py_None;
+    }
+    __Pyx_XDECREF_SET(__pyx_v_pseudoF_reduced, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":335
+ * 
  * 			# pseudoF and output results
- * 			pseudoF = round(PseudoF(BSS, RSS, full_tensor_shape, reduced_tensor_shape), 4) if G not in [1,I] else None
- * 			if self.verbose: print(tabulate([[]], headers=[loop, km_iter, fa_iter, round(time_elapsed,4), round(BSS_percent,4), pseudoF, km_converged, fa_converged], tablefmt='plain'))             # <<<<<<<<<<<<<<
+ * 			if self.verbose: print(tabulate([[]], headers=[loop, best_km_iter, best_fa_iter, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, km_converged, fa_converged], tablefmt='plain'))             # <<<<<<<<<<<<<<
  * 
  * 			if (loop == 1):
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 302, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 302, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (__pyx_t_9) {
-      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_tabulate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_10 = PyList_New(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_GIVEREF(__pyx_t_10);
-      PyList_SET_ITEM(__pyx_t_1, 0, __pyx_t_10);
-      __pyx_t_10 = 0;
-      __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __Pyx_GIVEREF(__pyx_t_1);
-      PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_1);
-      __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_INCREF(__pyx_v_time_elapsed);
-      __Pyx_GIVEREF(__pyx_v_time_elapsed);
-      PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_v_time_elapsed);
-      __Pyx_INCREF(__pyx_int_4);
-      __Pyx_GIVEREF(__pyx_int_4);
-      PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_int_4);
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_INCREF(__pyx_v_BSS_percent);
-      __Pyx_GIVEREF(__pyx_v_BSS_percent);
-      PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_v_BSS_percent);
-      __Pyx_INCREF(__pyx_int_4);
-      __Pyx_GIVEREF(__pyx_int_4);
-      PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_int_4);
-      __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_12, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_14);
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = __Pyx_PyBool_FromLong(__pyx_v_km_converged); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_15 = __Pyx_PyBool_FromLong(__pyx_v_fa_converged); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_15);
-      __pyx_t_16 = PyList_New(8); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_16);
-      __Pyx_INCREF(__pyx_v_loop);
-      __Pyx_GIVEREF(__pyx_v_loop);
-      PyList_SET_ITEM(__pyx_t_16, 0, __pyx_v_loop);
-      __Pyx_INCREF(__pyx_v_km_iter);
-      __Pyx_GIVEREF(__pyx_v_km_iter);
-      PyList_SET_ITEM(__pyx_t_16, 1, __pyx_v_km_iter);
-      __Pyx_INCREF(__pyx_v_fa_iter);
-      __Pyx_GIVEREF(__pyx_v_fa_iter);
-      PyList_SET_ITEM(__pyx_t_16, 2, __pyx_v_fa_iter);
-      __Pyx_GIVEREF(__pyx_t_2);
-      PyList_SET_ITEM(__pyx_t_16, 3, __pyx_t_2);
-      __Pyx_GIVEREF(__pyx_t_14);
-      PyList_SET_ITEM(__pyx_t_16, 4, __pyx_t_14);
-      __Pyx_INCREF(__pyx_v_pseudoF);
-      __Pyx_GIVEREF(__pyx_v_pseudoF);
-      PyList_SET_ITEM(__pyx_t_16, 5, __pyx_v_pseudoF);
-      __Pyx_GIVEREF(__pyx_t_12);
-      PyList_SET_ITEM(__pyx_t_16, 6, __pyx_t_12);
-      __Pyx_GIVEREF(__pyx_t_15);
-      PyList_SET_ITEM(__pyx_t_16, 7, __pyx_t_15);
-      __pyx_t_2 = 0;
-      __pyx_t_14 = 0;
-      __pyx_t_12 = 0;
-      __pyx_t_15 = 0;
-      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_headers, __pyx_t_16) < 0) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tablefmt, __pyx_n_u_plain) < 0) __PYX_ERR(0, 302, __pyx_L1_error)
-      __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_16);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_16); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    }
-
-    /* "simuclustfactor/tandem.py":304
- * 			if self.verbose: print(tabulate([[]], headers=[loop, km_iter, fa_iter, round(time_elapsed,4), round(BSS_percent,4), pseudoF, km_converged, fa_converged], tablefmt='plain'))
- * 
- * 			if (loop == 1):             # <<<<<<<<<<<<<<
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
- */
-    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_loop, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 335, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 304, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 335, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_9) {
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_tabulate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_10 = PyList_New(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_GIVEREF(__pyx_t_10);
+      PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_10);
+      __pyx_t_10 = 0;
+      __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_GIVEREF(__pyx_t_2);
+      PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2);
+      __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      if (unlikely(!__pyx_v_best_km_iter)) { __Pyx_RaiseUnboundLocalError("best_km_iter"); __PYX_ERR(0, 335, __pyx_L1_error) }
+      __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_v_time_elapsed);
+      __Pyx_GIVEREF(__pyx_v_time_elapsed);
+      PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_time_elapsed);
+      __Pyx_INCREF(__pyx_int_4);
+      __Pyx_GIVEREF(__pyx_int_4);
+      PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_4);
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_v_BSS_percent_full);
+      __Pyx_GIVEREF(__pyx_v_BSS_percent_full);
+      PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_BSS_percent_full);
+      __Pyx_INCREF(__pyx_int_2);
+      __Pyx_GIVEREF(__pyx_int_2);
+      PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_2);
+      __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_3, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_14);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_v_BSS_percent_reduced);
+      __Pyx_GIVEREF(__pyx_v_BSS_percent_reduced);
+      PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_BSS_percent_reduced);
+      __Pyx_INCREF(__pyx_int_2);
+      __Pyx_GIVEREF(__pyx_int_2);
+      PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_2);
+      __pyx_t_15 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_3, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_15);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = __Pyx_PyBool_FromLong(__pyx_v_km_converged); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_16 = __Pyx_PyBool_FromLong(__pyx_v_fa_converged); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_16);
+      __pyx_t_17 = PyList_New(10); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
+      __Pyx_INCREF(__pyx_v_loop);
+      __Pyx_GIVEREF(__pyx_v_loop);
+      PyList_SET_ITEM(__pyx_t_17, 0, __pyx_v_loop);
+      __Pyx_INCREF(__pyx_v_best_km_iter);
+      __Pyx_GIVEREF(__pyx_v_best_km_iter);
+      PyList_SET_ITEM(__pyx_t_17, 1, __pyx_v_best_km_iter);
+      __Pyx_INCREF(__pyx_v_best_fa_iter);
+      __Pyx_GIVEREF(__pyx_v_best_fa_iter);
+      PyList_SET_ITEM(__pyx_t_17, 2, __pyx_v_best_fa_iter);
+      __Pyx_GIVEREF(__pyx_t_12);
+      PyList_SET_ITEM(__pyx_t_17, 3, __pyx_t_12);
+      __Pyx_GIVEREF(__pyx_t_14);
+      PyList_SET_ITEM(__pyx_t_17, 4, __pyx_t_14);
+      __Pyx_GIVEREF(__pyx_t_15);
+      PyList_SET_ITEM(__pyx_t_17, 5, __pyx_t_15);
+      __Pyx_INCREF(__pyx_v_pseudoF_full);
+      __Pyx_GIVEREF(__pyx_v_pseudoF_full);
+      PyList_SET_ITEM(__pyx_t_17, 6, __pyx_v_pseudoF_full);
+      __Pyx_INCREF(__pyx_v_pseudoF_reduced);
+      __Pyx_GIVEREF(__pyx_v_pseudoF_reduced);
+      PyList_SET_ITEM(__pyx_t_17, 7, __pyx_v_pseudoF_reduced);
+      __Pyx_GIVEREF(__pyx_t_3);
+      PyList_SET_ITEM(__pyx_t_17, 8, __pyx_t_3);
+      __Pyx_GIVEREF(__pyx_t_16);
+      PyList_SET_ITEM(__pyx_t_17, 9, __pyx_t_16);
+      __pyx_t_12 = 0;
+      __pyx_t_14 = 0;
+      __pyx_t_15 = 0;
+      __pyx_t_3 = 0;
+      __pyx_t_16 = 0;
+      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_headers, __pyx_t_17) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_tablefmt, __pyx_n_u_plain) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
+      __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_17); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 335, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    }
 
-      /* "simuclustfactor/tandem.py":305
+    /* "simuclustfactor/tandem.py":337
+ * 			if self.verbose: print(tabulate([[]], headers=[loop, best_km_iter, best_fa_iter, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, km_converged, fa_converged], tablefmt='plain'))
+ * 
+ * 			if (loop == 1):             # <<<<<<<<<<<<<<
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
+ */
+    __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_v_loop, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__pyx_t_9) {
+
+      /* "simuclustfactor/tandem.py":338
  * 
  * 			if (loop == 1):
- * 				B_j_q_simu = B_j_q             # <<<<<<<<<<<<<<
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g
+ * 				B_j_q_simu = best_B_j_q             # <<<<<<<<<<<<<<
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g
  */
-      if (unlikely(!__pyx_v_B_j_q)) { __Pyx_RaiseUnboundLocalError("B_j_q"); __PYX_ERR(0, 305, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_B_j_q);
-      __Pyx_XDECREF_SET(__pyx_v_B_j_q_simu, __pyx_v_B_j_q);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_XDECREF_SET(__pyx_v_B_j_q_simu, __pyx_v_best_B_j_q);
 
-      /* "simuclustfactor/tandem.py":306
+      /* "simuclustfactor/tandem.py":339
  * 			if (loop == 1):
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r             # <<<<<<<<<<<<<<
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r             # <<<<<<<<<<<<<<
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter
  */
-      if (unlikely(!__pyx_v_C_k_r)) { __Pyx_RaiseUnboundLocalError("C_k_r"); __PYX_ERR(0, 306, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_C_k_r);
-      __Pyx_XDECREF_SET(__pyx_v_C_k_r_simu, __pyx_v_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_XDECREF_SET(__pyx_v_C_k_r_simu, __pyx_v_best_C_k_r);
 
-      /* "simuclustfactor/tandem.py":307
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g             # <<<<<<<<<<<<<<
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter
+      /* "simuclustfactor/tandem.py":340
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g             # <<<<<<<<<<<<<<
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter
  */
-      if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 307, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_U_i_g);
-      __Pyx_XDECREF_SET(__pyx_v_U_i_g_simu, __pyx_v_U_i_g);
+      __Pyx_INCREF(__pyx_v_best_U_i_g);
+      __Pyx_XDECREF_SET(__pyx_v_U_i_g_simu, __pyx_v_best_U_i_g);
 
-      /* "simuclustfactor/tandem.py":308
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr             # <<<<<<<<<<<<<<
- * 				km_iter_simu = km_iter
- * 				fa_iter_simu = fa_iter
- */
-      __Pyx_INCREF(__pyx_v_Y_g_qr);
-      __Pyx_XDECREF_SET(__pyx_v_Y_g_qr_simu, __pyx_v_Y_g_qr);
-
-      /* "simuclustfactor/tandem.py":309
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter             # <<<<<<<<<<<<<<
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":341
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter             # <<<<<<<<<<<<<<
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = 1
  */
-      __Pyx_INCREF(__pyx_v_km_iter);
-      __Pyx_XDECREF_SET(__pyx_v_km_iter_simu, __pyx_v_km_iter);
+      if (unlikely(!__pyx_v_best_km_iter)) { __Pyx_RaiseUnboundLocalError("best_km_iter"); __PYX_ERR(0, 341, __pyx_L1_error) }
+      __Pyx_INCREF(__pyx_v_best_km_iter);
+      __Pyx_XDECREF_SET(__pyx_v_km_iter_simu, __pyx_v_best_km_iter);
 
-      /* "simuclustfactor/tandem.py":310
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter
- * 				fa_iter_simu = fa_iter             # <<<<<<<<<<<<<<
+      /* "simuclustfactor/tandem.py":342
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter             # <<<<<<<<<<<<<<
  * 				loop_simu = 1
  * 				km_converged_simu = km_converged
  */
-      __Pyx_INCREF(__pyx_v_fa_iter);
-      __Pyx_XDECREF_SET(__pyx_v_fa_iter_simu, __pyx_v_fa_iter);
+      __Pyx_INCREF(__pyx_v_best_fa_iter);
+      __Pyx_XDECREF_SET(__pyx_v_fa_iter_simu, __pyx_v_best_fa_iter);
 
-      /* "simuclustfactor/tandem.py":311
- * 				km_iter_simu = km_iter
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":343
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = 1             # <<<<<<<<<<<<<<
  * 				km_converged_simu = km_converged
  * 				fa_converged_simu = fa_converged
@@ -5403,97 +5968,137 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_int_1);
       __Pyx_XDECREF_SET(__pyx_v_loop_simu, __pyx_int_1);
 
-      /* "simuclustfactor/tandem.py":312
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":344
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = 1
  * 				km_converged_simu = km_converged             # <<<<<<<<<<<<<<
  * 				fa_converged_simu = fa_converged
- * 				BSS_per = BSS_percent
+ * 				Fs_fa = Fs_fa
  */
       __pyx_v_km_converged_simu = __pyx_v_km_converged;
 
-      /* "simuclustfactor/tandem.py":313
+      /* "simuclustfactor/tandem.py":345
  * 				loop_simu = 1
  * 				km_converged_simu = km_converged
  * 				fa_converged_simu = fa_converged             # <<<<<<<<<<<<<<
- * 				BSS_per = BSS_percent
- * 				TSS_simu = TSS
+ * 				Fs_fa = Fs_fa
+ * 				Fs_km = Fs_km
  */
       __pyx_v_fa_converged_simu = __pyx_v_fa_converged;
 
-      /* "simuclustfactor/tandem.py":314
+      /* "simuclustfactor/tandem.py":346
  * 				km_converged_simu = km_converged
  * 				fa_converged_simu = fa_converged
- * 				BSS_per = BSS_percent             # <<<<<<<<<<<<<<
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS
- */
-      __Pyx_INCREF(__pyx_v_BSS_percent);
-      __Pyx_XDECREF_SET(__pyx_v_BSS_per, __pyx_v_BSS_percent);
-
-      /* "simuclustfactor/tandem.py":315
- * 				fa_converged_simu = fa_converged
- * 				BSS_per = BSS_percent
- * 				TSS_simu = TSS             # <<<<<<<<<<<<<<
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS
- */
-      __Pyx_INCREF(__pyx_v_TSS);
-      __Pyx_XDECREF_SET(__pyx_v_TSS_simu, __pyx_v_TSS);
-
-      /* "simuclustfactor/tandem.py":316
- * 				BSS_per = BSS_percent
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS             # <<<<<<<<<<<<<<
- * 				RSS_simu = RSS
- * 				Fs_fa = Fs_fa
- */
-      __Pyx_INCREF(__pyx_v_BSS);
-      __Pyx_XDECREF_SET(__pyx_v_BSS_simu, __pyx_v_BSS);
-
-      /* "simuclustfactor/tandem.py":317
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS             # <<<<<<<<<<<<<<
- * 				Fs_fa = Fs_fa
- * 				Fs_km = Fs_km
- */
-      __Pyx_INCREF(__pyx_v_RSS);
-      __Pyx_XDECREF_SET(__pyx_v_RSS_simu, __pyx_v_RSS);
-
-      /* "simuclustfactor/tandem.py":318
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS
  * 				Fs_fa = Fs_fa             # <<<<<<<<<<<<<<
  * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF
+ * 				pseudoF_full_simu = pseudoF_full
  */
       __Pyx_INCREF(__pyx_v_Fs_fa);
       __Pyx_DECREF_SET(__pyx_v_Fs_fa, __pyx_v_Fs_fa);
 
-      /* "simuclustfactor/tandem.py":319
- * 				RSS_simu = RSS
+      /* "simuclustfactor/tandem.py":347
+ * 				fa_converged_simu = fa_converged
  * 				Fs_fa = Fs_fa
  * 				Fs_km = Fs_km             # <<<<<<<<<<<<<<
- * 				pseudoF_simu = pseudoF
- * 				U_i_g_init_simu = U_i_g_init
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced
  */
       __Pyx_INCREF(__pyx_v_Fs_km);
       __Pyx_DECREF_SET(__pyx_v_Fs_km, __pyx_v_Fs_km);
 
-      /* "simuclustfactor/tandem.py":320
+      /* "simuclustfactor/tandem.py":348
  * 				Fs_fa = Fs_fa
  * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF             # <<<<<<<<<<<<<<
+ * 				pseudoF_full_simu = pseudoF_full             # <<<<<<<<<<<<<<
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_full
+ */
+      __Pyx_INCREF(__pyx_v_pseudoF_full);
+      __Pyx_XDECREF_SET(__pyx_v_pseudoF_full_simu, __pyx_v_pseudoF_full);
+
+      /* "simuclustfactor/tandem.py":349
+ * 				Fs_km = Fs_km
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced             # <<<<<<<<<<<<<<
+ * 				BSS_per = BSS_percent_full
+ * 				TSS_full_simu = TSS_full
+ */
+      __Pyx_INCREF(__pyx_v_pseudoF_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_pseudoF_reduced_simu, __pyx_v_pseudoF_reduced);
+
+      /* "simuclustfactor/tandem.py":350
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_full             # <<<<<<<<<<<<<<
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full
+ */
+      __Pyx_INCREF(__pyx_v_BSS_percent_full);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_per, __pyx_v_BSS_percent_full);
+
+      /* "simuclustfactor/tandem.py":351
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_full
+ * 				TSS_full_simu = TSS_full             # <<<<<<<<<<<<<<
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full
+ */
+      __Pyx_INCREF(__pyx_v_TSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_TSS_full_simu, __pyx_v_TSS_full);
+
+      /* "simuclustfactor/tandem.py":352
+ * 				BSS_per = BSS_percent_full
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full             # <<<<<<<<<<<<<<
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_BSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_full_simu, __pyx_v_BSS_full);
+
+      /* "simuclustfactor/tandem.py":353
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full             # <<<<<<<<<<<<<<
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_RSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_RSS_full_simu, __pyx_v_RSS_full);
+
+      /* "simuclustfactor/tandem.py":354
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced             # <<<<<<<<<<<<<<
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_TSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_TSS_reduced_simu, __pyx_v_TSS_reduced);
+
+      /* "simuclustfactor/tandem.py":355
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced             # <<<<<<<<<<<<<<
+ * 				RSS_reduced_simu = RSS_reduced
+ * 				U_i_g_init_simu = U_i_g_init
+ */
+      __Pyx_INCREF(__pyx_v_BSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_reduced_simu, __pyx_v_BSS_reduced);
+
+      /* "simuclustfactor/tandem.py":356
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced             # <<<<<<<<<<<<<<
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init
  */
-      __Pyx_INCREF(__pyx_v_pseudoF);
-      __Pyx_XDECREF_SET(__pyx_v_pseudoF_simu, __pyx_v_pseudoF);
+      __Pyx_INCREF(__pyx_v_RSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_RSS_reduced_simu, __pyx_v_RSS_reduced);
 
-      /* "simuclustfactor/tandem.py":321
- * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF
+      /* "simuclustfactor/tandem.py":357
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced
  * 				U_i_g_init_simu = U_i_g_init             # <<<<<<<<<<<<<<
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init
@@ -5501,8 +6106,8 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_U_i_g_init);
       __Pyx_XDECREF_SET(__pyx_v_U_i_g_init_simu, __pyx_v_U_i_g_init);
 
-      /* "simuclustfactor/tandem.py":322
- * 				pseudoF_simu = pseudoF
+      /* "simuclustfactor/tandem.py":358
+ * 				RSS_reduced_simu = RSS_reduced
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init             # <<<<<<<<<<<<<<
  * 				C_k_r_init_simu = C_k_r_init
@@ -5511,7 +6116,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_B_j_q_init);
       __Pyx_XDECREF_SET(__pyx_v_B_j_q_init_simu, __pyx_v_B_j_q_init);
 
-      /* "simuclustfactor/tandem.py":323
+      /* "simuclustfactor/tandem.py":359
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init             # <<<<<<<<<<<<<<
@@ -5521,104 +6126,92 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_C_k_r_init);
       __Pyx_XDECREF_SET(__pyx_v_C_k_r_init_simu, __pyx_v_C_k_r_init);
 
-      /* "simuclustfactor/tandem.py":324
+      /* "simuclustfactor/tandem.py":360
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init
  * 				best_time_elapsed_simu = time_elapsed             # <<<<<<<<<<<<<<
  * 
- * 			if (BSS_percent > BSS_per):
+ * 			if (BSS_percent_full > BSS_per):
  */
       __Pyx_INCREF(__pyx_v_time_elapsed);
       __Pyx_XDECREF_SET(__pyx_v_best_time_elapsed_simu, __pyx_v_time_elapsed);
 
-      /* "simuclustfactor/tandem.py":304
- * 			if self.verbose: print(tabulate([[]], headers=[loop, km_iter, fa_iter, round(time_elapsed,4), round(BSS_percent,4), pseudoF, km_converged, fa_converged], tablefmt='plain'))
+      /* "simuclustfactor/tandem.py":337
+ * 			if self.verbose: print(tabulate([[]], headers=[loop, best_km_iter, best_fa_iter, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, km_converged, fa_converged], tablefmt='plain'))
  * 
  * 			if (loop == 1):             # <<<<<<<<<<<<<<
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
  */
     }
 
-    /* "simuclustfactor/tandem.py":326
+    /* "simuclustfactor/tandem.py":362
  * 				best_time_elapsed_simu = time_elapsed
  * 
- * 			if (BSS_percent > BSS_per):             # <<<<<<<<<<<<<<
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
+ * 			if (BSS_percent_full > BSS_per):             # <<<<<<<<<<<<<<
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
  */
-    if (unlikely(!__pyx_v_BSS_per)) { __Pyx_RaiseUnboundLocalError("BSS_per"); __PYX_ERR(0, 326, __pyx_L1_error) }
-    __pyx_t_1 = PyObject_RichCompare(__pyx_v_BSS_percent, __pyx_v_BSS_per, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
-    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 326, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_v_BSS_per)) { __Pyx_RaiseUnboundLocalError("BSS_per"); __PYX_ERR(0, 362, __pyx_L1_error) }
+    __pyx_t_2 = PyObject_RichCompare(__pyx_v_BSS_percent_full, __pyx_v_BSS_per, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_9) {
 
-      /* "simuclustfactor/tandem.py":327
+      /* "simuclustfactor/tandem.py":363
  * 
- * 			if (BSS_percent > BSS_per):
- * 				B_j_q_simu = B_j_q             # <<<<<<<<<<<<<<
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g
+ * 			if (BSS_percent_full > BSS_per):
+ * 				B_j_q_simu = best_B_j_q             # <<<<<<<<<<<<<<
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g
  */
-      if (unlikely(!__pyx_v_B_j_q)) { __Pyx_RaiseUnboundLocalError("B_j_q"); __PYX_ERR(0, 327, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_B_j_q);
-      __Pyx_XDECREF_SET(__pyx_v_B_j_q_simu, __pyx_v_B_j_q);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_XDECREF_SET(__pyx_v_B_j_q_simu, __pyx_v_best_B_j_q);
 
-      /* "simuclustfactor/tandem.py":328
- * 			if (BSS_percent > BSS_per):
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r             # <<<<<<<<<<<<<<
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr
+      /* "simuclustfactor/tandem.py":364
+ * 			if (BSS_percent_full > BSS_per):
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r             # <<<<<<<<<<<<<<
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter  # number of iterations until convergence
  */
-      if (unlikely(!__pyx_v_C_k_r)) { __Pyx_RaiseUnboundLocalError("C_k_r"); __PYX_ERR(0, 328, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_C_k_r);
-      __Pyx_XDECREF_SET(__pyx_v_C_k_r_simu, __pyx_v_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_XDECREF_SET(__pyx_v_C_k_r_simu, __pyx_v_best_C_k_r);
 
-      /* "simuclustfactor/tandem.py":329
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g             # <<<<<<<<<<<<<<
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter  # number of iterations until convergence
+      /* "simuclustfactor/tandem.py":365
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g             # <<<<<<<<<<<<<<
+ * 				km_iter_simu = best_km_iter  # number of iterations until convergence
+ * 				fa_iter_simu = best_fa_iter
  */
-      if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 329, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_U_i_g);
-      __Pyx_XDECREF_SET(__pyx_v_U_i_g_simu, __pyx_v_U_i_g);
+      __Pyx_INCREF(__pyx_v_best_U_i_g);
+      __Pyx_XDECREF_SET(__pyx_v_U_i_g_simu, __pyx_v_best_U_i_g);
 
-      /* "simuclustfactor/tandem.py":330
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr             # <<<<<<<<<<<<<<
- * 				km_iter_simu = km_iter  # number of iterations until convergence
- * 				fa_iter_simu = fa_iter
- */
-      __Pyx_INCREF(__pyx_v_Y_g_qr);
-      __Pyx_XDECREF_SET(__pyx_v_Y_g_qr_simu, __pyx_v_Y_g_qr);
-
-      /* "simuclustfactor/tandem.py":331
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter  # number of iterations until convergence             # <<<<<<<<<<<<<<
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":366
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter  # number of iterations until convergence             # <<<<<<<<<<<<<<
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = loop  # best loop so far
  */
-      __Pyx_INCREF(__pyx_v_km_iter);
-      __Pyx_XDECREF_SET(__pyx_v_km_iter_simu, __pyx_v_km_iter);
+      if (unlikely(!__pyx_v_best_km_iter)) { __Pyx_RaiseUnboundLocalError("best_km_iter"); __PYX_ERR(0, 366, __pyx_L1_error) }
+      __Pyx_INCREF(__pyx_v_best_km_iter);
+      __Pyx_XDECREF_SET(__pyx_v_km_iter_simu, __pyx_v_best_km_iter);
 
-      /* "simuclustfactor/tandem.py":332
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter  # number of iterations until convergence
- * 				fa_iter_simu = fa_iter             # <<<<<<<<<<<<<<
+      /* "simuclustfactor/tandem.py":367
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter  # number of iterations until convergence
+ * 				fa_iter_simu = best_fa_iter             # <<<<<<<<<<<<<<
  * 				loop_simu = loop  # best loop so far
  * 				km_converged_simu = km_converged  # if there was a convergence
  */
-      __Pyx_INCREF(__pyx_v_fa_iter);
-      __Pyx_XDECREF_SET(__pyx_v_fa_iter_simu, __pyx_v_fa_iter);
+      __Pyx_INCREF(__pyx_v_best_fa_iter);
+      __Pyx_XDECREF_SET(__pyx_v_fa_iter_simu, __pyx_v_best_fa_iter);
 
-      /* "simuclustfactor/tandem.py":333
- * 				km_iter_simu = km_iter  # number of iterations until convergence
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":368
+ * 				km_iter_simu = best_km_iter  # number of iterations until convergence
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = loop  # best loop so far             # <<<<<<<<<<<<<<
  * 				km_converged_simu = km_converged  # if there was a convergence
  * 				fa_converged_simu = fa_converged  # if there was a convergence
@@ -5626,97 +6219,137 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_loop);
       __Pyx_XDECREF_SET(__pyx_v_loop_simu, __pyx_v_loop);
 
-      /* "simuclustfactor/tandem.py":334
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":369
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = loop  # best loop so far
  * 				km_converged_simu = km_converged  # if there was a convergence             # <<<<<<<<<<<<<<
  * 				fa_converged_simu = fa_converged  # if there was a convergence
- * 				BSS_per = BSS_percent  # best objective functional value
+ * 				Fs_fa = Fs_fa  # objective function values for FA
  */
       __pyx_v_km_converged_simu = __pyx_v_km_converged;
 
-      /* "simuclustfactor/tandem.py":335
+      /* "simuclustfactor/tandem.py":370
  * 				loop_simu = loop  # best loop so far
  * 				km_converged_simu = km_converged  # if there was a convergence
  * 				fa_converged_simu = fa_converged  # if there was a convergence             # <<<<<<<<<<<<<<
- * 				BSS_per = BSS_percent  # best objective functional value
- * 				TSS_simu = TSS
+ * 				Fs_fa = Fs_fa  # objective function values for FA
+ * 				Fs_km = Fs_km
  */
       __pyx_v_fa_converged_simu = __pyx_v_fa_converged;
 
-      /* "simuclustfactor/tandem.py":336
+      /* "simuclustfactor/tandem.py":371
  * 				km_converged_simu = km_converged  # if there was a convergence
  * 				fa_converged_simu = fa_converged  # if there was a convergence
- * 				BSS_per = BSS_percent  # best objective functional value             # <<<<<<<<<<<<<<
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS
- */
-      __Pyx_INCREF(__pyx_v_BSS_percent);
-      __Pyx_XDECREF_SET(__pyx_v_BSS_per, __pyx_v_BSS_percent);
-
-      /* "simuclustfactor/tandem.py":337
- * 				fa_converged_simu = fa_converged  # if there was a convergence
- * 				BSS_per = BSS_percent  # best objective functional value
- * 				TSS_simu = TSS             # <<<<<<<<<<<<<<
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS
- */
-      __Pyx_INCREF(__pyx_v_TSS);
-      __Pyx_XDECREF_SET(__pyx_v_TSS_simu, __pyx_v_TSS);
-
-      /* "simuclustfactor/tandem.py":338
- * 				BSS_per = BSS_percent  # best objective functional value
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS             # <<<<<<<<<<<<<<
- * 				RSS_simu = RSS
- * 				Fs_fa = Fs_fa  # objective function values for FA
- */
-      __Pyx_INCREF(__pyx_v_BSS);
-      __Pyx_XDECREF_SET(__pyx_v_BSS_simu, __pyx_v_BSS);
-
-      /* "simuclustfactor/tandem.py":339
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS             # <<<<<<<<<<<<<<
- * 				Fs_fa = Fs_fa  # objective function values for FA
- * 				Fs_km = Fs_km
- */
-      __Pyx_INCREF(__pyx_v_RSS);
-      __Pyx_XDECREF_SET(__pyx_v_RSS_simu, __pyx_v_RSS);
-
-      /* "simuclustfactor/tandem.py":340
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS
  * 				Fs_fa = Fs_fa  # objective function values for FA             # <<<<<<<<<<<<<<
  * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF
+ * 				pseudoF_full_simu = pseudoF_full
  */
       __Pyx_INCREF(__pyx_v_Fs_fa);
       __Pyx_DECREF_SET(__pyx_v_Fs_fa, __pyx_v_Fs_fa);
 
-      /* "simuclustfactor/tandem.py":341
- * 				RSS_simu = RSS
+      /* "simuclustfactor/tandem.py":372
+ * 				fa_converged_simu = fa_converged  # if there was a convergence
  * 				Fs_fa = Fs_fa  # objective function values for FA
  * 				Fs_km = Fs_km             # <<<<<<<<<<<<<<
- * 				pseudoF_simu = pseudoF
- * 				U_i_g_init_simu = U_i_g_init
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced
  */
       __Pyx_INCREF(__pyx_v_Fs_km);
       __Pyx_DECREF_SET(__pyx_v_Fs_km, __pyx_v_Fs_km);
 
-      /* "simuclustfactor/tandem.py":342
+      /* "simuclustfactor/tandem.py":373
  * 				Fs_fa = Fs_fa  # objective function values for FA
  * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF             # <<<<<<<<<<<<<<
+ * 				pseudoF_full_simu = pseudoF_full             # <<<<<<<<<<<<<<
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_full
+ */
+      __Pyx_INCREF(__pyx_v_pseudoF_full);
+      __Pyx_XDECREF_SET(__pyx_v_pseudoF_full_simu, __pyx_v_pseudoF_full);
+
+      /* "simuclustfactor/tandem.py":374
+ * 				Fs_km = Fs_km
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced             # <<<<<<<<<<<<<<
+ * 				BSS_per = BSS_percent_full
+ * 				TSS_full_simu = TSS_full
+ */
+      __Pyx_INCREF(__pyx_v_pseudoF_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_pseudoF_reduced_simu, __pyx_v_pseudoF_reduced);
+
+      /* "simuclustfactor/tandem.py":375
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_full             # <<<<<<<<<<<<<<
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full
+ */
+      __Pyx_INCREF(__pyx_v_BSS_percent_full);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_per, __pyx_v_BSS_percent_full);
+
+      /* "simuclustfactor/tandem.py":376
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_full
+ * 				TSS_full_simu = TSS_full             # <<<<<<<<<<<<<<
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full
+ */
+      __Pyx_INCREF(__pyx_v_TSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_TSS_full_simu, __pyx_v_TSS_full);
+
+      /* "simuclustfactor/tandem.py":377
+ * 				BSS_per = BSS_percent_full
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full             # <<<<<<<<<<<<<<
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_BSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_full_simu, __pyx_v_BSS_full);
+
+      /* "simuclustfactor/tandem.py":378
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full             # <<<<<<<<<<<<<<
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_RSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_RSS_full_simu, __pyx_v_RSS_full);
+
+      /* "simuclustfactor/tandem.py":379
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced             # <<<<<<<<<<<<<<
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_TSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_TSS_reduced_simu, __pyx_v_TSS_reduced);
+
+      /* "simuclustfactor/tandem.py":380
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced             # <<<<<<<<<<<<<<
+ * 				RSS_reduced_simu = RSS_reduced
+ * 				U_i_g_init_simu = U_i_g_init
+ */
+      __Pyx_INCREF(__pyx_v_BSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_reduced_simu, __pyx_v_BSS_reduced);
+
+      /* "simuclustfactor/tandem.py":381
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced             # <<<<<<<<<<<<<<
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init
  */
-      __Pyx_INCREF(__pyx_v_pseudoF);
-      __Pyx_XDECREF_SET(__pyx_v_pseudoF_simu, __pyx_v_pseudoF);
+      __Pyx_INCREF(__pyx_v_RSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_RSS_reduced_simu, __pyx_v_RSS_reduced);
 
-      /* "simuclustfactor/tandem.py":343
- * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF
+      /* "simuclustfactor/tandem.py":382
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced
  * 				U_i_g_init_simu = U_i_g_init             # <<<<<<<<<<<<<<
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init
@@ -5724,8 +6357,8 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_U_i_g_init);
       __Pyx_XDECREF_SET(__pyx_v_U_i_g_init_simu, __pyx_v_U_i_g_init);
 
-      /* "simuclustfactor/tandem.py":344
- * 				pseudoF_simu = pseudoF
+      /* "simuclustfactor/tandem.py":383
+ * 				RSS_reduced_simu = RSS_reduced
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init             # <<<<<<<<<<<<<<
  * 				C_k_r_init_simu = C_k_r_init
@@ -5734,7 +6367,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_B_j_q_init);
       __Pyx_XDECREF_SET(__pyx_v_B_j_q_init_simu, __pyx_v_B_j_q_init);
 
-      /* "simuclustfactor/tandem.py":345
+      /* "simuclustfactor/tandem.py":384
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init             # <<<<<<<<<<<<<<
@@ -5744,7 +6377,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_C_k_r_init);
       __Pyx_XDECREF_SET(__pyx_v_C_k_r_init_simu, __pyx_v_C_k_r_init);
 
-      /* "simuclustfactor/tandem.py":346
+      /* "simuclustfactor/tandem.py":385
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init
  * 				best_time_elapsed_simu = time_elapsed             # <<<<<<<<<<<<<<
@@ -5754,12 +6387,12 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_time_elapsed);
       __Pyx_XDECREF_SET(__pyx_v_best_time_elapsed_simu, __pyx_v_time_elapsed);
 
-      /* "simuclustfactor/tandem.py":326
+      /* "simuclustfactor/tandem.py":362
  * 				best_time_elapsed_simu = time_elapsed
  * 
- * 			if (BSS_percent > BSS_per):             # <<<<<<<<<<<<<<
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
+ * 			if (BSS_percent_full > BSS_per):             # <<<<<<<<<<<<<<
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
  */
     }
 
@@ -5774,20 +6407,381 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   __pyx_L9_break:;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "simuclustfactor/tandem.py":352
+  /* "simuclustfactor/tandem.py":391
  * 		# ----------- Start of result update for best loop --------------
  * 
  * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)             # <<<<<<<<<<<<<<
- * 		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr
+ * 		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu)@U_i_g_simu.T@Y_i_qr
  * 		Z_i_qr = U_i_g_simu @ Y_g_qr
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_kron); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 391, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 391, __pyx_L1_error) }
+  __pyx_t_2 = NULL;
+  __pyx_t_11 = 0;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_17);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_17, function);
+      __pyx_t_11 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_17)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 391, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 391, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+  } else
+  #endif
+  {
+    __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 391, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    if (__pyx_t_2) {
+      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2); __pyx_t_2 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_C_k_r_simu);
+    __Pyx_GIVEREF(__pyx_v_C_k_r_simu);
+    PyTuple_SET_ITEM(__pyx_t_10, 0+__pyx_t_11, __pyx_v_C_k_r_simu);
+    __Pyx_INCREF(__pyx_v_B_j_q_simu);
+    __Pyx_GIVEREF(__pyx_v_B_j_q_simu);
+    PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_11, __pyx_v_B_j_q_simu);
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_10, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 391, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  __pyx_t_17 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_XDECREF_SET(__pyx_v_Y_i_qr, __pyx_t_17);
+  __pyx_t_17 = 0;
+
+  /* "simuclustfactor/tandem.py":392
+ * 
+ * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
+ * 		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu)@U_i_g_simu.T@Y_i_qr             # <<<<<<<<<<<<<<
+ * 		Z_i_qr = U_i_g_simu @ Y_g_qr
+ * 
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_linalg); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_inv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 392, __pyx_L1_error) }
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g_simu, __pyx_n_s_T); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 392, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_v_U_i_g_simu); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_10)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_10);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
+    }
+  }
+  __pyx_t_17 = (__pyx_t_10) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_10, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 392, __pyx_L1_error) }
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g_simu, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_17, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_2, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_XDECREF_SET(__pyx_v_Y_g_qr, __pyx_t_4);
+  __pyx_t_4 = 0;
+
+  /* "simuclustfactor/tandem.py":393
+ * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
+ * 		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu)@U_i_g_simu.T@Y_i_qr
+ * 		Z_i_qr = U_i_g_simu @ Y_g_qr             # <<<<<<<<<<<<<<
+ * 
+ * 		# factor matrices and centroid matrices
+ */
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 393, __pyx_L1_error) }
+  __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g_simu, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 393, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_XDECREF_SET(__pyx_v_Z_i_qr, __pyx_t_4);
+  __pyx_t_4 = 0;
+
+  /* "simuclustfactor/tandem.py":396
+ * 
+ * 		# factor matrices and centroid matrices
+ * 		self.U_i_g0 = U_i_g_init_simu             # <<<<<<<<<<<<<<
+ * 		self.B_j_q0 = B_j_q_init_simu
+ * 		self.C_k_r0 = C_k_r_init_simu
+ */
+  if (unlikely(!__pyx_v_U_i_g_init_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_init_simu"); __PYX_ERR(0, 396, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g0, __pyx_v_U_i_g_init_simu) < 0) __PYX_ERR(0, 396, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":397
+ * 		# factor matrices and centroid matrices
+ * 		self.U_i_g0 = U_i_g_init_simu
+ * 		self.B_j_q0 = B_j_q_init_simu             # <<<<<<<<<<<<<<
+ * 		self.C_k_r0 = C_k_r_init_simu
+ * 		self.U_i_g = U_i_g_simu
+ */
+  if (unlikely(!__pyx_v_B_j_q_init_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_init_simu"); __PYX_ERR(0, 397, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q0, __pyx_v_B_j_q_init_simu) < 0) __PYX_ERR(0, 397, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":398
+ * 		self.U_i_g0 = U_i_g_init_simu
+ * 		self.B_j_q0 = B_j_q_init_simu
+ * 		self.C_k_r0 = C_k_r_init_simu             # <<<<<<<<<<<<<<
+ * 		self.U_i_g = U_i_g_simu
+ * 		self.B_j_q = B_j_q_simu
+ */
+  if (unlikely(!__pyx_v_C_k_r_init_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_init_simu"); __PYX_ERR(0, 398, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r0, __pyx_v_C_k_r_init_simu) < 0) __PYX_ERR(0, 398, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":399
+ * 		self.B_j_q0 = B_j_q_init_simu
+ * 		self.C_k_r0 = C_k_r_init_simu
+ * 		self.U_i_g = U_i_g_simu             # <<<<<<<<<<<<<<
+ * 		self.B_j_q = B_j_q_simu
+ * 		self.C_k_r = C_k_r_simu
+ */
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 399, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g, __pyx_v_U_i_g_simu) < 0) __PYX_ERR(0, 399, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":400
+ * 		self.C_k_r0 = C_k_r_init_simu
+ * 		self.U_i_g = U_i_g_simu
+ * 		self.B_j_q = B_j_q_simu             # <<<<<<<<<<<<<<
+ * 		self.C_k_r = C_k_r_simu
+ * 		self.Y_g_qr = Y_g_qr
+ */
+  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 400, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q, __pyx_v_B_j_q_simu) < 0) __PYX_ERR(0, 400, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":401
+ * 		self.U_i_g = U_i_g_simu
+ * 		self.B_j_q = B_j_q_simu
+ * 		self.C_k_r = C_k_r_simu             # <<<<<<<<<<<<<<
+ * 		self.Y_g_qr = Y_g_qr
+ * 		self.X_i_jk_scaled = X_i_jk
+ */
+  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 401, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r, __pyx_v_C_k_r_simu) < 0) __PYX_ERR(0, 401, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":402
+ * 		self.B_j_q = B_j_q_simu
+ * 		self.C_k_r = C_k_r_simu
+ * 		self.Y_g_qr = Y_g_qr             # <<<<<<<<<<<<<<
+ * 		self.X_i_jk_scaled = X_i_jk
+ * 
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Y_g_qr, __pyx_v_Y_g_qr) < 0) __PYX_ERR(0, 402, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":403
+ * 		self.C_k_r = C_k_r_simu
+ * 		self.Y_g_qr = Y_g_qr
+ * 		self.X_i_jk_scaled = X_i_jk             # <<<<<<<<<<<<<<
+ * 
+ * 		# total time taken
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_X_i_jk_scaled, __pyx_v_X_i_jk) < 0) __PYX_ERR(0, 403, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":406
+ * 
+ * 		# total time taken
+ * 		self.BestTimeElapsed = best_time_elapsed_simu             # <<<<<<<<<<<<<<
+ * 		self.BestLoop = loop_simu
+ * 		self.BestKmIteration = km_iter_simu
+ */
+  if (unlikely(!__pyx_v_best_time_elapsed_simu)) { __Pyx_RaiseUnboundLocalError("best_time_elapsed_simu"); __PYX_ERR(0, 406, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestTimeElapsed, __pyx_v_best_time_elapsed_simu) < 0) __PYX_ERR(0, 406, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":407
+ * 		# total time taken
+ * 		self.BestTimeElapsed = best_time_elapsed_simu
+ * 		self.BestLoop = loop_simu             # <<<<<<<<<<<<<<
+ * 		self.BestKmIteration = km_iter_simu
+ * 		self.BestFaIteration = fa_iter_simu
+ */
+  if (unlikely(!__pyx_v_loop_simu)) { __Pyx_RaiseUnboundLocalError("loop_simu"); __PYX_ERR(0, 407, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestLoop, __pyx_v_loop_simu) < 0) __PYX_ERR(0, 407, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":408
+ * 		self.BestTimeElapsed = best_time_elapsed_simu
+ * 		self.BestLoop = loop_simu
+ * 		self.BestKmIteration = km_iter_simu             # <<<<<<<<<<<<<<
+ * 		self.BestFaIteration = fa_iter_simu
+ * 		self.FaConverged = fa_converged_simu
+ */
+  if (unlikely(!__pyx_v_km_iter_simu)) { __Pyx_RaiseUnboundLocalError("km_iter_simu"); __PYX_ERR(0, 408, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestKmIteration, __pyx_v_km_iter_simu) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":409
+ * 		self.BestLoop = loop_simu
+ * 		self.BestKmIteration = km_iter_simu
+ * 		self.BestFaIteration = fa_iter_simu             # <<<<<<<<<<<<<<
+ * 		self.FaConverged = fa_converged_simu
+ * 		self.KmConverged = km_converged_simu
+ */
+  if (unlikely(!__pyx_v_fa_iter_simu)) { __Pyx_RaiseUnboundLocalError("fa_iter_simu"); __PYX_ERR(0, 409, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestFaIteration, __pyx_v_fa_iter_simu) < 0) __PYX_ERR(0, 409, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":410
+ * 		self.BestKmIteration = km_iter_simu
+ * 		self.BestFaIteration = fa_iter_simu
+ * 		self.FaConverged = fa_converged_simu             # <<<<<<<<<<<<<<
+ * 		self.KmConverged = km_converged_simu
+ * 
+ */
+  __pyx_t_4 = __Pyx_PyBool_FromLong(__pyx_v_fa_converged_simu); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 410, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_FaConverged, __pyx_t_4) < 0) __PYX_ERR(0, 410, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "simuclustfactor/tandem.py":411
+ * 		self.BestFaIteration = fa_iter_simu
+ * 		self.FaConverged = fa_converged_simu
+ * 		self.KmConverged = km_converged_simu             # <<<<<<<<<<<<<<
+ * 
+ * 		# maximum between cluster deviance
+ */
+  __pyx_t_4 = __Pyx_PyBool_FromLong(__pyx_v_km_converged_simu); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 411, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_KmConverged, __pyx_t_4) < 0) __PYX_ERR(0, 411, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "simuclustfactor/tandem.py":414
+ * 
+ * 		# maximum between cluster deviance
+ * 		self.TSS_full = TSS_full_simu             # <<<<<<<<<<<<<<
+ * 		self.BSS_full = BSS_full_simu
+ * 		self.RSS_full = RSS_full_simu
+ */
+  if (unlikely(!__pyx_v_TSS_full_simu)) { __Pyx_RaiseUnboundLocalError("TSS_full_simu"); __PYX_ERR(0, 414, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TSS_full, __pyx_v_TSS_full_simu) < 0) __PYX_ERR(0, 414, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":415
+ * 		# maximum between cluster deviance
+ * 		self.TSS_full = TSS_full_simu
+ * 		self.BSS_full = BSS_full_simu             # <<<<<<<<<<<<<<
+ * 		self.RSS_full = RSS_full_simu
+ * 		self.TSS_reduced = TSS_reduced_simu
+ */
+  if (unlikely(!__pyx_v_BSS_full_simu)) { __Pyx_RaiseUnboundLocalError("BSS_full_simu"); __PYX_ERR(0, 415, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BSS_full, __pyx_v_BSS_full_simu) < 0) __PYX_ERR(0, 415, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":416
+ * 		self.TSS_full = TSS_full_simu
+ * 		self.BSS_full = BSS_full_simu
+ * 		self.RSS_full = RSS_full_simu             # <<<<<<<<<<<<<<
+ * 		self.TSS_reduced = TSS_reduced_simu
+ * 		self.BSS_reduced = BSS_reduced_simu
+ */
+  if (unlikely(!__pyx_v_RSS_full_simu)) { __Pyx_RaiseUnboundLocalError("RSS_full_simu"); __PYX_ERR(0, 416, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RSS_full, __pyx_v_RSS_full_simu) < 0) __PYX_ERR(0, 416, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":417
+ * 		self.BSS_full = BSS_full_simu
+ * 		self.RSS_full = RSS_full_simu
+ * 		self.TSS_reduced = TSS_reduced_simu             # <<<<<<<<<<<<<<
+ * 		self.BSS_reduced = BSS_reduced_simu
+ * 		self.RSS_reduced = RSS_reduced_simu
+ */
+  if (unlikely(!__pyx_v_TSS_reduced_simu)) { __Pyx_RaiseUnboundLocalError("TSS_reduced_simu"); __PYX_ERR(0, 417, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TSS_reduced, __pyx_v_TSS_reduced_simu) < 0) __PYX_ERR(0, 417, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":418
+ * 		self.RSS_full = RSS_full_simu
+ * 		self.TSS_reduced = TSS_reduced_simu
+ * 		self.BSS_reduced = BSS_reduced_simu             # <<<<<<<<<<<<<<
+ * 		self.RSS_reduced = RSS_reduced_simu
+ * 		self.PseudoF_full = pseudoF_full
+ */
+  if (unlikely(!__pyx_v_BSS_reduced_simu)) { __Pyx_RaiseUnboundLocalError("BSS_reduced_simu"); __PYX_ERR(0, 418, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BSS_reduced, __pyx_v_BSS_reduced_simu) < 0) __PYX_ERR(0, 418, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":419
+ * 		self.TSS_reduced = TSS_reduced_simu
+ * 		self.BSS_reduced = BSS_reduced_simu
+ * 		self.RSS_reduced = RSS_reduced_simu             # <<<<<<<<<<<<<<
+ * 		self.PseudoF_full = pseudoF_full
+ * 		self.PseudoF_reduced = pseudoF_reduced
+ */
+  if (unlikely(!__pyx_v_RSS_reduced_simu)) { __Pyx_RaiseUnboundLocalError("RSS_reduced_simu"); __PYX_ERR(0, 419, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RSS_reduced, __pyx_v_RSS_reduced_simu) < 0) __PYX_ERR(0, 419, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":420
+ * 		self.BSS_reduced = BSS_reduced_simu
+ * 		self.RSS_reduced = RSS_reduced_simu
+ * 		self.PseudoF_full = pseudoF_full             # <<<<<<<<<<<<<<
+ * 		self.PseudoF_reduced = pseudoF_reduced
+ * 
+ */
+  if (unlikely(!__pyx_v_pseudoF_full)) { __Pyx_RaiseUnboundLocalError("pseudoF_full"); __PYX_ERR(0, 420, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_PseudoF_full, __pyx_v_pseudoF_full) < 0) __PYX_ERR(0, 420, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":421
+ * 		self.RSS_reduced = RSS_reduced_simu
+ * 		self.PseudoF_full = pseudoF_full
+ * 		self.PseudoF_reduced = pseudoF_reduced             # <<<<<<<<<<<<<<
+ * 
+ * 		# Error in model
+ */
+  if (unlikely(!__pyx_v_pseudoF_reduced)) { __Pyx_RaiseUnboundLocalError("pseudoF_reduced"); __PYX_ERR(0, 421, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_PseudoF_reduced, __pyx_v_pseudoF_reduced) < 0) __PYX_ERR(0, 421, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":424
+ * 
+ * 		# Error in model
+ * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)             # <<<<<<<<<<<<<<
+ * 		self.Fs_km = Fs_km  # objective values for kmeans
+ * 		self.Fs_fa = Fs_fa  # objective values for factor decomposition
+ */
+  __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_int_1, __pyx_v_I); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 424, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_np); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 424, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_linalg); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 424, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_norm); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 424, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_kron); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 352, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_kron); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 352, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 352, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 424, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 424, __pyx_L1_error) }
   __pyx_t_1 = NULL;
   __pyx_t_11 = 0;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
@@ -5803,479 +6797,154 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_16)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
-    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 352, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 424, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GOTREF(__pyx_t_10);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
-    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 352, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 424, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GOTREF(__pyx_t_10);
   } else
   #endif
   {
-    __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 352, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     if (__pyx_t_1) {
-      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_1); __pyx_t_1 = NULL;
+      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
     }
     __Pyx_INCREF(__pyx_v_C_k_r_simu);
     __Pyx_GIVEREF(__pyx_v_C_k_r_simu);
-    PyTuple_SET_ITEM(__pyx_t_10, 0+__pyx_t_11, __pyx_v_C_k_r_simu);
+    PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_11, __pyx_v_C_k_r_simu);
     __Pyx_INCREF(__pyx_v_B_j_q_simu);
     __Pyx_GIVEREF(__pyx_v_B_j_q_simu);
-    PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_11, __pyx_v_B_j_q_simu);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_10, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 352, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_v_B_j_q_simu);
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_3, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_16 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_4); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 352, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_T); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_XDECREF_SET(__pyx_v_Y_i_qr, __pyx_t_16);
-  __pyx_t_16 = 0;
-
-  /* "simuclustfactor/tandem.py":353
- * 
- * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
- * 		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr             # <<<<<<<<<<<<<<
- * 		Z_i_qr = U_i_g_simu @ Y_g_qr
- * 
- */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 353, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_linalg); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 353, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_inv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 353, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 353, __pyx_L1_error) }
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 353, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_Z_i_qr, __pyx_t_16); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 353, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_v_U_i_g); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 353, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  __pyx_t_16 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_t_10); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 424, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_16);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_t_10 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_4);
+  __pyx_t_11 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_17))) {
+    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_17);
     if (likely(__pyx_t_10)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
       __Pyx_INCREF(__pyx_t_10);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-    }
-  }
-  __pyx_t_16 = (__pyx_t_10) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_10, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 353, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 353, __pyx_L1_error) }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 353, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_16, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 353, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 353, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_XDECREF_SET(__pyx_v_Y_g_qr, __pyx_t_4);
-  __pyx_t_4 = 0;
-
-  /* "simuclustfactor/tandem.py":354
- * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
- * 		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr
- * 		Z_i_qr = U_i_g_simu @ Y_g_qr             # <<<<<<<<<<<<<<
- * 
- * 		# factor matrices and centroid matrices
- */
-  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 354, __pyx_L1_error) }
-  __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g_simu, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_XDECREF_SET(__pyx_v_Z_i_qr, __pyx_t_4);
-  __pyx_t_4 = 0;
-
-  /* "simuclustfactor/tandem.py":357
- * 
- * 		# factor matrices and centroid matrices
- * 		self.U_i_g = U_i_g_simu             # <<<<<<<<<<<<<<
- * 		self.U_i_g0 = U_i_g_init_simu
- * 		self.B_j_q0 = B_j_q_init_simu
- */
-  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 357, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g, __pyx_v_U_i_g_simu) < 0) __PYX_ERR(0, 357, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":358
- * 		# factor matrices and centroid matrices
- * 		self.U_i_g = U_i_g_simu
- * 		self.U_i_g0 = U_i_g_init_simu             # <<<<<<<<<<<<<<
- * 		self.B_j_q0 = B_j_q_init_simu
- * 		self.C_k_r0 = C_k_r_init_simu
- */
-  if (unlikely(!__pyx_v_U_i_g_init_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_init_simu"); __PYX_ERR(0, 358, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g0, __pyx_v_U_i_g_init_simu) < 0) __PYX_ERR(0, 358, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":359
- * 		self.U_i_g = U_i_g_simu
- * 		self.U_i_g0 = U_i_g_init_simu
- * 		self.B_j_q0 = B_j_q_init_simu             # <<<<<<<<<<<<<<
- * 		self.C_k_r0 = C_k_r_init_simu
- * 		self.B_j_q = B_j_q_simu
- */
-  if (unlikely(!__pyx_v_B_j_q_init_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_init_simu"); __PYX_ERR(0, 359, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q0, __pyx_v_B_j_q_init_simu) < 0) __PYX_ERR(0, 359, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":360
- * 		self.U_i_g0 = U_i_g_init_simu
- * 		self.B_j_q0 = B_j_q_init_simu
- * 		self.C_k_r0 = C_k_r_init_simu             # <<<<<<<<<<<<<<
- * 		self.B_j_q = B_j_q_simu
- * 		self.C_k_r = C_k_r_simu
- */
-  if (unlikely(!__pyx_v_C_k_r_init_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_init_simu"); __PYX_ERR(0, 360, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r0, __pyx_v_C_k_r_init_simu) < 0) __PYX_ERR(0, 360, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":361
- * 		self.B_j_q0 = B_j_q_init_simu
- * 		self.C_k_r0 = C_k_r_init_simu
- * 		self.B_j_q = B_j_q_simu             # <<<<<<<<<<<<<<
- * 		self.C_k_r = C_k_r_simu
- * 		self.Y_g_qr = Y_g_qr
- */
-  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 361, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q, __pyx_v_B_j_q_simu) < 0) __PYX_ERR(0, 361, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":362
- * 		self.C_k_r0 = C_k_r_init_simu
- * 		self.B_j_q = B_j_q_simu
- * 		self.C_k_r = C_k_r_simu             # <<<<<<<<<<<<<<
- * 		self.Y_g_qr = Y_g_qr
- * 		self.X_i_jk_scaled = X_i_jk
- */
-  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 362, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r, __pyx_v_C_k_r_simu) < 0) __PYX_ERR(0, 362, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":363
- * 		self.B_j_q = B_j_q_simu
- * 		self.C_k_r = C_k_r_simu
- * 		self.Y_g_qr = Y_g_qr             # <<<<<<<<<<<<<<
- * 		self.X_i_jk_scaled = X_i_jk
- * 
- */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Y_g_qr, __pyx_v_Y_g_qr) < 0) __PYX_ERR(0, 363, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":364
- * 		self.C_k_r = C_k_r_simu
- * 		self.Y_g_qr = Y_g_qr
- * 		self.X_i_jk_scaled = X_i_jk             # <<<<<<<<<<<<<<
- * 
- * 		# total time taken
- */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_X_i_jk_scaled, __pyx_v_X_i_jk) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":367
- * 
- * 		# total time taken
- * 		self.BestTimeElapsed = best_time_elapsed_simu             # <<<<<<<<<<<<<<
- * 		self.BestLoop = loop_simu
- * 		self.BestKMIteration = km_iter_simu
- */
-  if (unlikely(!__pyx_v_best_time_elapsed_simu)) { __Pyx_RaiseUnboundLocalError("best_time_elapsed_simu"); __PYX_ERR(0, 367, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestTimeElapsed, __pyx_v_best_time_elapsed_simu) < 0) __PYX_ERR(0, 367, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":368
- * 		# total time taken
- * 		self.BestTimeElapsed = best_time_elapsed_simu
- * 		self.BestLoop = loop_simu             # <<<<<<<<<<<<<<
- * 		self.BestKMIteration = km_iter_simu
- * 		self.BestFAIteration = fa_iter_simu
- */
-  if (unlikely(!__pyx_v_loop_simu)) { __Pyx_RaiseUnboundLocalError("loop_simu"); __PYX_ERR(0, 368, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestLoop, __pyx_v_loop_simu) < 0) __PYX_ERR(0, 368, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":369
- * 		self.BestTimeElapsed = best_time_elapsed_simu
- * 		self.BestLoop = loop_simu
- * 		self.BestKMIteration = km_iter_simu             # <<<<<<<<<<<<<<
- * 		self.BestFAIteration = fa_iter_simu
- * 		self.FaConverged = fa_converged_simu
- */
-  if (unlikely(!__pyx_v_km_iter_simu)) { __Pyx_RaiseUnboundLocalError("km_iter_simu"); __PYX_ERR(0, 369, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestKMIteration, __pyx_v_km_iter_simu) < 0) __PYX_ERR(0, 369, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":370
- * 		self.BestLoop = loop_simu
- * 		self.BestKMIteration = km_iter_simu
- * 		self.BestFAIteration = fa_iter_simu             # <<<<<<<<<<<<<<
- * 		self.FaConverged = fa_converged_simu
- * 		self.KmConverged = km_converged_simu
- */
-  if (unlikely(!__pyx_v_fa_iter_simu)) { __Pyx_RaiseUnboundLocalError("fa_iter_simu"); __PYX_ERR(0, 370, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestFAIteration, __pyx_v_fa_iter_simu) < 0) __PYX_ERR(0, 370, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":371
- * 		self.BestKMIteration = km_iter_simu
- * 		self.BestFAIteration = fa_iter_simu
- * 		self.FaConverged = fa_converged_simu             # <<<<<<<<<<<<<<
- * 		self.KmConverged = km_converged_simu
- * 
- */
-  __pyx_t_4 = __Pyx_PyBool_FromLong(__pyx_v_fa_converged_simu); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 371, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_FaConverged, __pyx_t_4) < 0) __PYX_ERR(0, 371, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-  /* "simuclustfactor/tandem.py":372
- * 		self.BestFAIteration = fa_iter_simu
- * 		self.FaConverged = fa_converged_simu
- * 		self.KmConverged = km_converged_simu             # <<<<<<<<<<<<<<
- * 
- * 		# maximum between cluster deviance
- */
-  __pyx_t_4 = __Pyx_PyBool_FromLong(__pyx_v_km_converged_simu); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 372, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_KmConverged, __pyx_t_4) < 0) __PYX_ERR(0, 372, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-  /* "simuclustfactor/tandem.py":375
- * 
- * 		# maximum between cluster deviance
- * 		self.TSS = TSS_simu             # <<<<<<<<<<<<<<
- * 		self.BSS = BSS_simu
- * 		self.RSS = RSS_simu
- */
-  if (unlikely(!__pyx_v_TSS_simu)) { __Pyx_RaiseUnboundLocalError("TSS_simu"); __PYX_ERR(0, 375, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TSS, __pyx_v_TSS_simu) < 0) __PYX_ERR(0, 375, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":376
- * 		# maximum between cluster deviance
- * 		self.TSS = TSS_simu
- * 		self.BSS = BSS_simu             # <<<<<<<<<<<<<<
- * 		self.RSS = RSS_simu
- * 		self.PseudoF = pseudoF_simu
- */
-  if (unlikely(!__pyx_v_BSS_simu)) { __Pyx_RaiseUnboundLocalError("BSS_simu"); __PYX_ERR(0, 376, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BSS_2, __pyx_v_BSS_simu) < 0) __PYX_ERR(0, 376, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":377
- * 		self.TSS = TSS_simu
- * 		self.BSS = BSS_simu
- * 		self.RSS = RSS_simu             # <<<<<<<<<<<<<<
- * 		self.PseudoF = pseudoF_simu
- * 
- */
-  if (unlikely(!__pyx_v_RSS_simu)) { __Pyx_RaiseUnboundLocalError("RSS_simu"); __PYX_ERR(0, 377, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RSS, __pyx_v_RSS_simu) < 0) __PYX_ERR(0, 377, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":378
- * 		self.BSS = BSS_simu
- * 		self.RSS = RSS_simu
- * 		self.PseudoF = pseudoF_simu             # <<<<<<<<<<<<<<
- * 
- * 		# Error in model
- */
-  if (unlikely(!__pyx_v_pseudoF_simu)) { __Pyx_RaiseUnboundLocalError("pseudoF_simu"); __PYX_ERR(0, 378, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_PseudoF, __pyx_v_pseudoF_simu) < 0) __PYX_ERR(0, 378, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":381
- * 
- * 		# Error in model
- * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - U_i_g_simu @ Y_g_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)             # <<<<<<<<<<<<<<
- * 		self.Fs_km = Fs_km  # objective values for kmeans
- * 		self.Fs_fa = Fs_fa  # objective values for factor decomposition
- */
-  __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_int_1, __pyx_v_I); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_16, __pyx_n_s_np); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_linalg); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_norm); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 381, __pyx_L1_error) }
-  __pyx_t_10 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g_simu, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_GetModuleGlobalName(__pyx_t_15, __pyx_n_s_np); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_kron); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_12);
-  __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 381, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 381, __pyx_L1_error) }
-  __pyx_t_15 = NULL;
-  __pyx_t_11 = 0;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
-    __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_12);
-    if (likely(__pyx_t_15)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
-      __Pyx_INCREF(__pyx_t_15);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_12, function);
+      __Pyx_DECREF_SET(__pyx_t_17, function);
       __pyx_t_11 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_12)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_15, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
-    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __Pyx_GOTREF(__pyx_t_3);
+  if (PyFunction_Check(__pyx_t_17)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_t_16, __pyx_int_2};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_15, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
-    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_t_16, __pyx_int_2};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   } else
   #endif
   {
-    __pyx_t_14 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 381, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_14);
-    if (__pyx_t_15) {
-      __Pyx_GIVEREF(__pyx_t_15); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_15); __pyx_t_15 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_C_k_r_simu);
-    __Pyx_GIVEREF(__pyx_v_C_k_r_simu);
-    PyTuple_SET_ITEM(__pyx_t_14, 0+__pyx_t_11, __pyx_v_C_k_r_simu);
-    __Pyx_INCREF(__pyx_v_B_j_q_simu);
-    __Pyx_GIVEREF(__pyx_v_B_j_q_simu);
-    PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_11, __pyx_v_B_j_q_simu);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 424, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_12);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  __pyx_t_12 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_t_3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_12);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
-  __pyx_t_11 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_16))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_16);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-      __Pyx_INCREF(__pyx_t_3);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_16, function);
-      __pyx_t_11 = 1;
+    if (__pyx_t_10) {
+      __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_10); __pyx_t_10 = NULL;
     }
-  }
-  #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_16)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_12, __pyx_int_2};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  } else
-  #endif
-  #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_12, __pyx_int_2};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  } else
-  #endif
-  {
-    __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 381, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    if (__pyx_t_3) {
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_3); __pyx_t_3 = NULL;
-    }
-    __Pyx_GIVEREF(__pyx_t_12);
-    PyTuple_SET_ITEM(__pyx_t_10, 0+__pyx_t_11, __pyx_t_12);
+    __Pyx_GIVEREF(__pyx_t_16);
+    PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_11, __pyx_t_16);
     __Pyx_INCREF(__pyx_int_2);
     __Pyx_GIVEREF(__pyx_int_2);
-    PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_11, __pyx_int_2);
-    __pyx_t_12 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_int_2);
+    __pyx_t_16 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_16 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  __pyx_t_17 = PyNumber_Multiply(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 424, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Enorm, __pyx_t_16) < 0) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Enorm, __pyx_t_17) < 0) __PYX_ERR(0, 424, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "simuclustfactor/tandem.py":382
+  /* "simuclustfactor/tandem.py":425
  * 		# Error in model
- * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - U_i_g_simu @ Y_g_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
+ * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
  * 		self.Fs_km = Fs_km  # objective values for kmeans             # <<<<<<<<<<<<<<
  * 		self.Fs_fa = Fs_fa  # objective values for factor decomposition
  * 
  */
-  if (unlikely(!__pyx_v_Fs_km)) { __Pyx_RaiseUnboundLocalError("Fs_km"); __PYX_ERR(0, 382, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Fs_km, __pyx_v_Fs_km) < 0) __PYX_ERR(0, 382, __pyx_L1_error)
+  if (unlikely(!__pyx_v_Fs_km)) { __Pyx_RaiseUnboundLocalError("Fs_km"); __PYX_ERR(0, 425, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Fs_km, __pyx_v_Fs_km) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
 
-  /* "simuclustfactor/tandem.py":383
- * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - U_i_g_simu @ Y_g_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
+  /* "simuclustfactor/tandem.py":426
+ * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
  * 		self.Fs_km = Fs_km  # objective values for kmeans
  * 		self.Fs_fa = Fs_fa  # objective values for factor decomposition             # <<<<<<<<<<<<<<
  * 
  * 		# classification of objects (labels)
  */
-  if (unlikely(!__pyx_v_Fs_fa)) { __Pyx_RaiseUnboundLocalError("Fs_fa"); __PYX_ERR(0, 383, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Fs_fa, __pyx_v_Fs_fa) < 0) __PYX_ERR(0, 383, __pyx_L1_error)
+  if (unlikely(!__pyx_v_Fs_fa)) { __Pyx_RaiseUnboundLocalError("Fs_fa"); __PYX_ERR(0, 426, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Fs_fa, __pyx_v_Fs_fa) < 0) __PYX_ERR(0, 426, __pyx_L1_error)
 
-  /* "simuclustfactor/tandem.py":386
+  /* "simuclustfactor/tandem.py":429
  * 
  * 		# classification of objects (labels)
  * 		self.Labels = np.where(U_i_g_simu)[1]             # <<<<<<<<<<<<<<
  * 
  * 		# ----------- End of result update for best loop --------------
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 386, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_where); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_where); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 429, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 386, __pyx_L1_error) }
-  __pyx_t_1 = NULL;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 429, __pyx_L1_error) }
+  __pyx_t_2 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_1)) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_2)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_4, function);
     }
   }
-  __pyx_t_16 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_1, __pyx_v_U_i_g_simu) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_U_i_g_simu);
-  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 386, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
+  __pyx_t_17 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_2, __pyx_v_U_i_g_simu) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_U_i_g_simu);
+  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_16, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_17, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 429, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Labels, __pyx_t_4) < 0) __PYX_ERR(0, 386, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Labels, __pyx_t_4) < 0) __PYX_ERR(0, 429, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "simuclustfactor/tandem.py":390
+  /* "simuclustfactor/tandem.py":433
  * 		# ----------- End of result update for best loop --------------
  * 
  * 		return self             # <<<<<<<<<<<<<<
@@ -6306,6 +6975,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   __Pyx_XDECREF(__pyx_t_14);
   __Pyx_XDECREF(__pyx_t_15);
   __Pyx_XDECREF(__pyx_t_16);
+  __Pyx_XDECREF(__pyx_t_17);
   __Pyx_AddTraceback("simuclustfactor.tandem.TWCFTA.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -6326,6 +6996,8 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   __Pyx_XDECREF(__pyx_v_X_g_jk0);
   __Pyx_XDECREF(__pyx_v_F0);
   __Pyx_XDECREF(__pyx_v_conv);
+  __Pyx_XDECREF(__pyx_v_best_km_iter);
+  __Pyx_XDECREF(__pyx_v_best_U_i_g);
   __Pyx_XDECREF(__pyx_v_U_i_g);
   __Pyx_XDECREF(__pyx_v_X_g_jk);
   __Pyx_XDECREF(__pyx_v_F);
@@ -6340,6 +7012,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   __Pyx_XDECREF(__pyx_v_B_j_q_init);
   __Pyx_XDECREF(__pyx_v_C_k_r_init);
   __Pyx_XDECREF(__pyx_v_Y_g_qr);
+  __Pyx_XDECREF(__pyx_v_best_fa_iter);
+  __Pyx_XDECREF(__pyx_v_best_B_j_q);
+  __Pyx_XDECREF(__pyx_v_best_C_k_r);
   __Pyx_XDECREF(__pyx_v_B_j_j);
   __Pyx_XDECREF(__pyx_v_B_j_q);
   __Pyx_XDECREF(__pyx_v_C_k_k);
@@ -6347,23 +7022,32 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   __Pyx_XDECREF(__pyx_v_time_elapsed);
   __Pyx_XDECREF(__pyx_v_Y_i_qr);
   __Pyx_XDECREF(__pyx_v_Z_i_qr);
-  __Pyx_XDECREF(__pyx_v_TSS);
-  __Pyx_XDECREF(__pyx_v_BSS);
-  __Pyx_XDECREF(__pyx_v_RSS);
-  __Pyx_XDECREF(__pyx_v_BSS_percent);
-  __Pyx_XDECREF(__pyx_v_pseudoF);
+  __Pyx_XDECREF(__pyx_v_Z_i_jk);
+  __Pyx_XDECREF(__pyx_v_TSS_full);
+  __Pyx_XDECREF(__pyx_v_BSS_full);
+  __Pyx_XDECREF(__pyx_v_RSS_full);
+  __Pyx_XDECREF(__pyx_v_TSS_reduced);
+  __Pyx_XDECREF(__pyx_v_BSS_reduced);
+  __Pyx_XDECREF(__pyx_v_RSS_reduced);
+  __Pyx_XDECREF(__pyx_v_BSS_percent_full);
+  __Pyx_XDECREF(__pyx_v_BSS_percent_reduced);
+  __Pyx_XDECREF(__pyx_v_pseudoF_full);
+  __Pyx_XDECREF(__pyx_v_pseudoF_reduced);
   __Pyx_XDECREF(__pyx_v_B_j_q_simu);
   __Pyx_XDECREF(__pyx_v_C_k_r_simu);
   __Pyx_XDECREF(__pyx_v_U_i_g_simu);
-  __Pyx_XDECREF(__pyx_v_Y_g_qr_simu);
   __Pyx_XDECREF(__pyx_v_km_iter_simu);
   __Pyx_XDECREF(__pyx_v_fa_iter_simu);
   __Pyx_XDECREF(__pyx_v_loop_simu);
+  __Pyx_XDECREF(__pyx_v_pseudoF_full_simu);
+  __Pyx_XDECREF(__pyx_v_pseudoF_reduced_simu);
   __Pyx_XDECREF(__pyx_v_BSS_per);
-  __Pyx_XDECREF(__pyx_v_TSS_simu);
-  __Pyx_XDECREF(__pyx_v_BSS_simu);
-  __Pyx_XDECREF(__pyx_v_RSS_simu);
-  __Pyx_XDECREF(__pyx_v_pseudoF_simu);
+  __Pyx_XDECREF(__pyx_v_TSS_full_simu);
+  __Pyx_XDECREF(__pyx_v_BSS_full_simu);
+  __Pyx_XDECREF(__pyx_v_RSS_full_simu);
+  __Pyx_XDECREF(__pyx_v_TSS_reduced_simu);
+  __Pyx_XDECREF(__pyx_v_BSS_reduced_simu);
+  __Pyx_XDECREF(__pyx_v_RSS_reduced_simu);
   __Pyx_XDECREF(__pyx_v_U_i_g_init_simu);
   __Pyx_XDECREF(__pyx_v_B_j_q_init_simu);
   __Pyx_XDECREF(__pyx_v_C_k_r_init_simu);
@@ -6374,7 +7058,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWCFTA_2fit(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "simuclustfactor/tandem.py":408
+/* "simuclustfactor/tandem.py":451
  * 	"""
  * 
  * 	def __init__(             # <<<<<<<<<<<<<<
@@ -6428,7 +7112,7 @@ static PyObject *__pyx_pw_15simuclustfactor_6tandem_6TWFCTA_1__init__(PyObject *
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwargs, values, used_pos_args, "__init__") < 0)) __PYX_ERR(0, 408, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwargs, values, used_pos_args, "__init__") < 0)) __PYX_ERR(0, 451, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) < 1) {
       goto __pyx_L5_argtuple_error;
@@ -6439,7 +7123,7 @@ static PyObject *__pyx_pw_15simuclustfactor_6tandem_6TWFCTA_1__init__(PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 408, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 451, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_DECREF(__pyx_v_args); __pyx_v_args = 0;
   __Pyx_DECREF(__pyx_v_kwargs); __pyx_v_kwargs = 0;
@@ -6467,7 +7151,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA___init__(CYTHON_UNUS
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "simuclustfactor/tandem.py":413
+  /* "simuclustfactor/tandem.py":456
  * 		**kwargs
  * 	):
  * 		super().__init__(             # <<<<<<<<<<<<<<
@@ -6475,9 +7159,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA___init__(CYTHON_UNUS
  * 			**kwargs
  */
   __pyx_t_1 = __Pyx_CyFunction_GetClassObj(__pyx_self);
-  if (!__pyx_t_1) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 413, __pyx_L1_error) }
+  if (!__pyx_t_1) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 456, __pyx_L1_error) }
   __Pyx_INCREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -6485,37 +7169,37 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA___init__(CYTHON_UNUS
   __Pyx_GIVEREF(__pyx_v_self);
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_self);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_init); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_init); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "simuclustfactor/tandem.py":415
+  /* "simuclustfactor/tandem.py":458
  * 		super().__init__(
  * 			*args,
  * 			**kwargs             # <<<<<<<<<<<<<<
  * 		)
  * 
  */
-  __pyx_t_1 = PyDict_Copy(__pyx_v_kwargs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 415, __pyx_L1_error)
+  __pyx_t_1 = PyDict_Copy(__pyx_v_kwargs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "simuclustfactor/tandem.py":413
+  /* "simuclustfactor/tandem.py":456
  * 		**kwargs
  * 	):
  * 		super().__init__(             # <<<<<<<<<<<<<<
  * 			*args,
  * 			**kwargs
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_v_args, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_v_args, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "simuclustfactor/tandem.py":408
+  /* "simuclustfactor/tandem.py":451
  * 	"""
  * 
  * 	def __init__(             # <<<<<<<<<<<<<<
@@ -6538,7 +7222,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA___init__(CYTHON_UNUS
   return __pyx_r;
 }
 
-/* "simuclustfactor/tandem.py":419
+/* "simuclustfactor/tandem.py":462
  * 
  * 	@_doc_formatter(_doc_init_attrs, _doc_refs)
  * 	def fit(self, X_i_jk, full_tensor_shape, reduced_tensor_shape):             # <<<<<<<<<<<<<<
@@ -6588,23 +7272,23 @@ static PyObject *__pyx_pw_15simuclustfactor_6tandem_6TWFCTA_3fit(PyObject *__pyx
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_X_i_jk)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("fit", 1, 4, 4, 1); __PYX_ERR(0, 419, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fit", 1, 4, 4, 1); __PYX_ERR(0, 462, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_full_tensor_shape)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("fit", 1, 4, 4, 2); __PYX_ERR(0, 419, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fit", 1, 4, 4, 2); __PYX_ERR(0, 462, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_reduced_tensor_shape)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("fit", 1, 4, 4, 3); __PYX_ERR(0, 419, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fit", 1, 4, 4, 3); __PYX_ERR(0, 462, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fit") < 0)) __PYX_ERR(0, 419, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fit") < 0)) __PYX_ERR(0, 462, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -6621,7 +7305,7 @@ static PyObject *__pyx_pw_15simuclustfactor_6tandem_6TWFCTA_3fit(PyObject *__pyx
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fit", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 419, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("fit", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 462, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("simuclustfactor.tandem.TWFCTA.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6651,7 +7335,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   PyObject *__pyx_v_start_time = NULL;
   PyObject *__pyx_v_fa_iter = NULL;
   PyObject *__pyx_v_Fs_fa = NULL;
-  int __pyx_v_converged;
+  CYTHON_UNUSED int __pyx_v_converged;
   PyObject *__pyx_v_B_j_q0 = NULL;
   PyObject *__pyx_v_C_k_r0 = NULL;
   PyObject *__pyx_v_B_j_q_init = NULL;
@@ -6660,6 +7344,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   PyObject *__pyx_v_F0 = NULL;
   PyObject *__pyx_v_conv = NULL;
   int __pyx_v_fa_converged;
+  PyObject *__pyx_v_best_fa_iter = NULL;
+  PyObject *__pyx_v_best_B_j_q = NULL;
+  PyObject *__pyx_v_best_C_k_r = NULL;
   PyObject *__pyx_v_B_j_j = NULL;
   PyObject *__pyx_v_B_j_q = NULL;
   PyObject *__pyx_v_C_k_k = NULL;
@@ -6671,34 +7358,44 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   PyObject *__pyx_v_U_i_g0 = NULL;
   PyObject *__pyx_v_U_i_g_init = NULL;
   PyObject *__pyx_v_Y_g_qr0 = NULL;
+  PyObject *__pyx_v_best_km_iter = NULL;
+  PyObject *__pyx_v_best_U_i_g = NULL;
   PyObject *__pyx_v_U_i_g = NULL;
-  PyObject *__pyx_v_Y_g_qr = NULL;
-  PyObject *__pyx_v_time_elapsed = NULL;
   PyObject *__pyx_v_Z_i_qr = NULL;
-  PyObject *__pyx_v_TSS = NULL;
-  PyObject *__pyx_v_BSS = NULL;
-  PyObject *__pyx_v_RSS = NULL;
-  PyObject *__pyx_v_BSS_percent = NULL;
-  PyObject *__pyx_v_pseudoF = NULL;
+  PyObject *__pyx_v_time_elapsed = NULL;
+  PyObject *__pyx_v_Y_g_qr = NULL;
+  PyObject *__pyx_v_Z_i_jk = NULL;
+  PyObject *__pyx_v_TSS_full = NULL;
+  PyObject *__pyx_v_BSS_full = NULL;
+  PyObject *__pyx_v_RSS_full = NULL;
+  PyObject *__pyx_v_TSS_reduced = NULL;
+  PyObject *__pyx_v_BSS_reduced = NULL;
+  PyObject *__pyx_v_RSS_reduced = NULL;
+  PyObject *__pyx_v_BSS_percent_full = NULL;
+  PyObject *__pyx_v_BSS_percent_reduced = NULL;
+  PyObject *__pyx_v_pseudoF_full = NULL;
+  PyObject *__pyx_v_pseudoF_reduced = NULL;
   PyObject *__pyx_v_B_j_q_simu = NULL;
   PyObject *__pyx_v_C_k_r_simu = NULL;
   PyObject *__pyx_v_U_i_g_simu = NULL;
-  PyObject *__pyx_v_Y_g_qr_simu = NULL;
   PyObject *__pyx_v_km_iter_simu = NULL;
   PyObject *__pyx_v_fa_iter_simu = NULL;
   PyObject *__pyx_v_loop_simu = NULL;
   int __pyx_v_km_converged_simu;
   int __pyx_v_fa_converged_simu;
-  PyObject *__pyx_v_BSS_per_simu = NULL;
-  PyObject *__pyx_v_TSS_simu = NULL;
-  PyObject *__pyx_v_BSS_simu = NULL;
-  PyObject *__pyx_v_RSS_simu = NULL;
-  PyObject *__pyx_v_pseudoF_simu = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_pseudoF_full_simu = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_pseudoF_reduced_simu = NULL;
+  PyObject *__pyx_v_BSS_per = NULL;
+  PyObject *__pyx_v_TSS_full_simu = NULL;
+  PyObject *__pyx_v_BSS_full_simu = NULL;
+  PyObject *__pyx_v_RSS_full_simu = NULL;
+  PyObject *__pyx_v_TSS_reduced_simu = NULL;
+  PyObject *__pyx_v_BSS_reduced_simu = NULL;
+  PyObject *__pyx_v_RSS_reduced_simu = NULL;
   PyObject *__pyx_v_U_i_g_init_simu = NULL;
   PyObject *__pyx_v_B_j_q_init_simu = NULL;
   PyObject *__pyx_v_C_k_r_init_simu = NULL;
   PyObject *__pyx_v_best_time_elapsed_simu = NULL;
-  CYTHON_UNUSED int __pyx_v_converged_simu;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6717,28 +7414,29 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   PyObject *__pyx_t_14 = NULL;
   PyObject *__pyx_t_15 = NULL;
   PyObject *__pyx_t_16 = NULL;
+  PyObject *__pyx_t_17 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("fit", 0);
   __Pyx_INCREF(__pyx_v_X_i_jk);
 
-  /* "simuclustfactor/tandem.py":431
+  /* "simuclustfactor/tandem.py":474
  * 
  * 		# initializing basic config
  * 		rng = np.random.default_rng(self.random_state)  # random number generator             # <<<<<<<<<<<<<<
  * 		self.reduced_tensor_shape = reduced_tensor_shape  # (I,J,K) tensor shape
  * 		self.full_tensor_shape = full_tensor_shape  # (G,Q,R) core tensor shape
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_default_rng); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_default_rng); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_random_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_random_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6753,38 +7451,38 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_rng = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "simuclustfactor/tandem.py":432
+  /* "simuclustfactor/tandem.py":475
  * 		# initializing basic config
  * 		rng = np.random.default_rng(self.random_state)  # random number generator
  * 		self.reduced_tensor_shape = reduced_tensor_shape  # (I,J,K) tensor shape             # <<<<<<<<<<<<<<
  * 		self.full_tensor_shape = full_tensor_shape  # (G,Q,R) core tensor shape
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_reduced_tensor_shape, __pyx_v_reduced_tensor_shape) < 0) __PYX_ERR(0, 432, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_reduced_tensor_shape, __pyx_v_reduced_tensor_shape) < 0) __PYX_ERR(0, 475, __pyx_L1_error)
 
-  /* "simuclustfactor/tandem.py":433
+  /* "simuclustfactor/tandem.py":476
  * 		rng = np.random.default_rng(self.random_state)  # random number generator
  * 		self.reduced_tensor_shape = reduced_tensor_shape  # (I,J,K) tensor shape
  * 		self.full_tensor_shape = full_tensor_shape  # (G,Q,R) core tensor shape             # <<<<<<<<<<<<<<
  * 
  * 		# check parameters and arguments
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_full_tensor_shape, __pyx_v_full_tensor_shape) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_full_tensor_shape, __pyx_v_full_tensor_shape) < 0) __PYX_ERR(0, 476, __pyx_L1_error)
 
-  /* "simuclustfactor/tandem.py":436
+  /* "simuclustfactor/tandem.py":479
  * 
  * 		# check parameters and arguments
  * 		self._check_params()             # <<<<<<<<<<<<<<
  * 		self._check_initialized_components()
  * 		X_i_jk = np.array(X_i_jk)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_check_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 436, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_check_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6798,19 +7496,19 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 436, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 479, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "simuclustfactor/tandem.py":437
+  /* "simuclustfactor/tandem.py":480
  * 		# check parameters and arguments
  * 		self._check_params()
  * 		self._check_initialized_components()             # <<<<<<<<<<<<<<
  * 		X_i_jk = np.array(X_i_jk)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_check_initialized_components); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 437, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_check_initialized_components); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 480, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6824,21 +7522,21 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 437, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 480, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "simuclustfactor/tandem.py":438
+  /* "simuclustfactor/tandem.py":481
  * 		self._check_params()
  * 		self._check_initialized_components()
  * 		X_i_jk = np.array(X_i_jk)             # <<<<<<<<<<<<<<
  * 
  * 		# scaling X_i_jk
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 481, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 481, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -6853,50 +7551,50 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_v_X_i_jk) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_X_i_jk);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 438, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 481, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF_SET(__pyx_v_X_i_jk, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "simuclustfactor/tandem.py":441
+  /* "simuclustfactor/tandem.py":484
  * 
  * 		# scaling X_i_jk
  * 		X_i_jk = (X_i_jk - X_i_jk.mean(axis=0, keepdims=True))/X_i_jk.std(axis=0, keepdims=True)             # <<<<<<<<<<<<<<
  * 
  * 		# declaring I,J,K and G,Q,R
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_mean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_mean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_keepdims, Py_True) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 484, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_keepdims, Py_True) < 0) __PYX_ERR(0, 484, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_std); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_std); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_keepdims, Py_True) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 484, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_keepdims, Py_True) < 0) __PYX_ERR(0, 484, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF_SET(__pyx_v_X_i_jk, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "simuclustfactor/tandem.py":444
+  /* "simuclustfactor/tandem.py":487
  * 
  * 		# declaring I,J,K and G,Q,R
  * 		I,J,K = full_tensor_shape             # <<<<<<<<<<<<<<
@@ -6909,7 +7607,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 444, __pyx_L1_error)
+      __PYX_ERR(0, 487, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -6925,16 +7623,16 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_INCREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_t_3);
     #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 444, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 487, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 444, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 487, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 444, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 487, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_2 = PyObject_GetIter(__pyx_v_full_tensor_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 444, __pyx_L1_error)
+    __pyx_t_2 = PyObject_GetIter(__pyx_v_full_tensor_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 487, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext;
     index = 0; __pyx_t_1 = __pyx_t_5(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
@@ -6943,7 +7641,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_GOTREF(__pyx_t_4);
     index = 2; __pyx_t_3 = __pyx_t_5(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_2), 3) < 0) __PYX_ERR(0, 444, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_2), 3) < 0) __PYX_ERR(0, 487, __pyx_L1_error)
     __pyx_t_5 = NULL;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     goto __pyx_L4_unpacking_done;
@@ -6951,7 +7649,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 444, __pyx_L1_error)
+    __PYX_ERR(0, 487, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_I = __pyx_t_1;
@@ -6961,7 +7659,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_v_K = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "simuclustfactor/tandem.py":445
+  /* "simuclustfactor/tandem.py":488
  * 		# declaring I,J,K and G,Q,R
  * 		I,J,K = full_tensor_shape
  * 		G,Q,R = reduced_tensor_shape             # <<<<<<<<<<<<<<
@@ -6974,7 +7672,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 445, __pyx_L1_error)
+      __PYX_ERR(0, 488, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -6990,16 +7688,16 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_INCREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_t_1);
     #else
-    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 445, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 488, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 445, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 488, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 445, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 488, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     #endif
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_2 = PyObject_GetIter(__pyx_v_reduced_tensor_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 445, __pyx_L1_error)
+    __pyx_t_2 = PyObject_GetIter(__pyx_v_reduced_tensor_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 488, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext;
     index = 0; __pyx_t_3 = __pyx_t_5(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L5_unpacking_failed;
@@ -7008,7 +7706,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_GOTREF(__pyx_t_4);
     index = 2; __pyx_t_1 = __pyx_t_5(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L5_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_1);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_2), 3) < 0) __PYX_ERR(0, 445, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_2), 3) < 0) __PYX_ERR(0, 488, __pyx_L1_error)
     __pyx_t_5 = NULL;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     goto __pyx_L6_unpacking_done;
@@ -7016,7 +7714,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 445, __pyx_L1_error)
+    __PYX_ERR(0, 488, __pyx_L1_error)
     __pyx_L6_unpacking_done:;
   }
   __pyx_v_G = __pyx_t_3;
@@ -7026,24 +7724,24 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_v_R = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "simuclustfactor/tandem.py":448
+  /* "simuclustfactor/tandem.py":491
  * 
  * 		# matricize centroid tensor
  * 		X_k_i_j = Fold(X_i_jk, mode=1, shape=(K,I,J))             # <<<<<<<<<<<<<<
  * 		X_j_ki = Unfold(X_k_i_j, mode=2)
  * 		X_k_ij = Unfold(X_k_i_j, mode=0)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Fold); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Fold); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_X_i_jk);
   __Pyx_GIVEREF(__pyx_v_X_i_jk);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_X_i_jk);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mode, __pyx_int_1) < 0) __PYX_ERR(0, 448, __pyx_L1_error)
-  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 448, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mode, __pyx_int_1) < 0) __PYX_ERR(0, 491, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_K);
   __Pyx_GIVEREF(__pyx_v_K);
@@ -7054,9 +7752,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __Pyx_INCREF(__pyx_v_J);
   __Pyx_GIVEREF(__pyx_v_J);
   PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_J);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_shape, __pyx_t_2) < 0) __PYX_ERR(0, 448, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_shape, __pyx_t_2) < 0) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7064,24 +7762,24 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_v_X_k_i_j = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "simuclustfactor/tandem.py":449
+  /* "simuclustfactor/tandem.py":492
  * 		# matricize centroid tensor
  * 		X_k_i_j = Fold(X_i_jk, mode=1, shape=(K,I,J))
  * 		X_j_ki = Unfold(X_k_i_j, mode=2)             # <<<<<<<<<<<<<<
  * 		X_k_ij = Unfold(X_k_i_j, mode=0)
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Unfold); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 449, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Unfold); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 492, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 449, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 492, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_X_k_i_j);
   __Pyx_GIVEREF(__pyx_v_X_k_i_j);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_X_k_i_j);
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 449, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 492, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_mode, __pyx_int_2) < 0) __PYX_ERR(0, 449, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 449, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_mode, __pyx_int_2) < 0) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7089,24 +7787,24 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_v_X_j_ki = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "simuclustfactor/tandem.py":450
+  /* "simuclustfactor/tandem.py":493
  * 		X_k_i_j = Fold(X_i_jk, mode=1, shape=(K,I,J))
  * 		X_j_ki = Unfold(X_k_i_j, mode=2)
  * 		X_k_ij = Unfold(X_k_i_j, mode=0)             # <<<<<<<<<<<<<<
  * 
  * 		I_i_i = np.diag(np.ones(I))  # identity matrix
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Unfold); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Unfold); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_X_k_i_j);
   __Pyx_GIVEREF(__pyx_v_X_k_i_j);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_X_k_i_j);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mode, __pyx_int_0) < 0) __PYX_ERR(0, 450, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 450, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mode, __pyx_int_0) < 0) __PYX_ERR(0, 493, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7114,21 +7812,21 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_v_X_k_ij = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "simuclustfactor/tandem.py":452
+  /* "simuclustfactor/tandem.py":495
  * 		X_k_ij = Unfold(X_k_i_j, mode=0)
  * 
  * 		I_i_i = np.diag(np.ones(I))  # identity matrix             # <<<<<<<<<<<<<<
  * 
- * 		headers = ['Loop','KM Iter','FA Iter','Loop time','BSS (%)','PseudoF','KM_Converged','FA_Converged']
+ * 		headers = ['Loop', 'FA Iter', 'KM Iter', 'Loop time', 'BSS Full (%)', 'BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced', 'FA Converged', 'KM Converged']
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 452, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 495, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diag); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 452, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diag); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 495, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 452, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 495, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ones); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 452, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ones); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 495, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -7143,7 +7841,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   }
   __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_1, __pyx_v_I) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_v_I);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 452, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 495, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -7159,98 +7857,104 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_6, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 452, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 495, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_I_i_i = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "simuclustfactor/tandem.py":454
+  /* "simuclustfactor/tandem.py":497
  * 		I_i_i = np.diag(np.ones(I))  # identity matrix
  * 
- * 		headers = ['Loop','KM Iter','FA Iter','Loop time','BSS (%)','PseudoF','KM_Converged','FA_Converged']             # <<<<<<<<<<<<<<
+ * 		headers = ['Loop', 'FA Iter', 'KM Iter', 'Loop time', 'BSS Full (%)', 'BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced', 'FA Converged', 'KM Converged']             # <<<<<<<<<<<<<<
  * 		if self.verbose == True: print(tabulate([],headers=headers))
  * 
  */
-  __pyx_t_2 = PyList_New(8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_u_Loop);
   __Pyx_GIVEREF(__pyx_n_u_Loop);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_u_Loop);
-  __Pyx_INCREF(__pyx_kp_u_KM_Iter);
-  __Pyx_GIVEREF(__pyx_kp_u_KM_Iter);
-  PyList_SET_ITEM(__pyx_t_2, 1, __pyx_kp_u_KM_Iter);
   __Pyx_INCREF(__pyx_kp_u_FA_Iter);
   __Pyx_GIVEREF(__pyx_kp_u_FA_Iter);
-  PyList_SET_ITEM(__pyx_t_2, 2, __pyx_kp_u_FA_Iter);
+  PyList_SET_ITEM(__pyx_t_2, 1, __pyx_kp_u_FA_Iter);
+  __Pyx_INCREF(__pyx_kp_u_KM_Iter);
+  __Pyx_GIVEREF(__pyx_kp_u_KM_Iter);
+  PyList_SET_ITEM(__pyx_t_2, 2, __pyx_kp_u_KM_Iter);
   __Pyx_INCREF(__pyx_kp_u_Loop_time);
   __Pyx_GIVEREF(__pyx_kp_u_Loop_time);
   PyList_SET_ITEM(__pyx_t_2, 3, __pyx_kp_u_Loop_time);
-  __Pyx_INCREF(__pyx_kp_u_BSS);
-  __Pyx_GIVEREF(__pyx_kp_u_BSS);
-  PyList_SET_ITEM(__pyx_t_2, 4, __pyx_kp_u_BSS);
-  __Pyx_INCREF(__pyx_n_u_PseudoF);
-  __Pyx_GIVEREF(__pyx_n_u_PseudoF);
-  PyList_SET_ITEM(__pyx_t_2, 5, __pyx_n_u_PseudoF);
-  __Pyx_INCREF(__pyx_n_u_KM_Converged);
-  __Pyx_GIVEREF(__pyx_n_u_KM_Converged);
-  PyList_SET_ITEM(__pyx_t_2, 6, __pyx_n_u_KM_Converged);
-  __Pyx_INCREF(__pyx_n_u_FA_Converged);
-  __Pyx_GIVEREF(__pyx_n_u_FA_Converged);
-  PyList_SET_ITEM(__pyx_t_2, 7, __pyx_n_u_FA_Converged);
+  __Pyx_INCREF(__pyx_kp_u_BSS_Full);
+  __Pyx_GIVEREF(__pyx_kp_u_BSS_Full);
+  PyList_SET_ITEM(__pyx_t_2, 4, __pyx_kp_u_BSS_Full);
+  __Pyx_INCREF(__pyx_kp_u_BSS_Reduced);
+  __Pyx_GIVEREF(__pyx_kp_u_BSS_Reduced);
+  PyList_SET_ITEM(__pyx_t_2, 5, __pyx_kp_u_BSS_Reduced);
+  __Pyx_INCREF(__pyx_kp_u_PseudoF_Full);
+  __Pyx_GIVEREF(__pyx_kp_u_PseudoF_Full);
+  PyList_SET_ITEM(__pyx_t_2, 6, __pyx_kp_u_PseudoF_Full);
+  __Pyx_INCREF(__pyx_kp_u_PseudoF_Reduced);
+  __Pyx_GIVEREF(__pyx_kp_u_PseudoF_Reduced);
+  PyList_SET_ITEM(__pyx_t_2, 7, __pyx_kp_u_PseudoF_Reduced);
+  __Pyx_INCREF(__pyx_kp_u_FA_Converged);
+  __Pyx_GIVEREF(__pyx_kp_u_FA_Converged);
+  PyList_SET_ITEM(__pyx_t_2, 8, __pyx_kp_u_FA_Converged);
+  __Pyx_INCREF(__pyx_kp_u_KM_Converged);
+  __Pyx_GIVEREF(__pyx_kp_u_KM_Converged);
+  PyList_SET_ITEM(__pyx_t_2, 9, __pyx_kp_u_KM_Converged);
   __pyx_v_headers = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "simuclustfactor/tandem.py":455
+  /* "simuclustfactor/tandem.py":498
  * 
- * 		headers = ['Loop','KM Iter','FA Iter','Loop time','BSS (%)','PseudoF','KM_Converged','FA_Converged']
+ * 		headers = ['Loop', 'FA Iter', 'KM Iter', 'Loop time', 'BSS Full (%)', 'BSS Reduced (%)', 'PseudoF Full', 'PseudoF Reduced', 'FA Converged', 'KM Converged']
  * 		if self.verbose == True: print(tabulate([],headers=headers))             # <<<<<<<<<<<<<<
  * 
  * 		# number of loops
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_2, Py_True, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 455, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_2, Py_True, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 455, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_7) {
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_tabulate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 455, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_tabulate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 498, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 455, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 498, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
     __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_headers, __pyx_v_headers) < 0) __PYX_ERR(0, 455, __pyx_L1_error)
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 455, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_headers, __pyx_v_headers) < 0) __PYX_ERR(0, 498, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 498, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
 
-  /* "simuclustfactor/tandem.py":458
+  /* "simuclustfactor/tandem.py":501
  * 
  * 		# number of loops
  * 		for loop in range(1, self.n_loops+1):             # <<<<<<<<<<<<<<
  * 
  * 			start_time = time()
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_loops); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_loops); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_int_1);
   __Pyx_GIVEREF(__pyx_int_1);
@@ -7258,16 +7962,16 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_6);
   __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (likely(PyList_CheckExact(__pyx_t_6)) || PyTuple_CheckExact(__pyx_t_6)) {
     __pyx_t_2 = __pyx_t_6; __Pyx_INCREF(__pyx_t_2); __pyx_t_8 = 0;
     __pyx_t_9 = NULL;
   } else {
-    __pyx_t_8 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 458, __pyx_L1_error)
+    __pyx_t_8 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_9 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 458, __pyx_L1_error)
+    __pyx_t_9 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 501, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   for (;;) {
@@ -7275,17 +7979,17 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_8); __Pyx_INCREF(__pyx_t_6); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 458, __pyx_L1_error)
+        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_8); __Pyx_INCREF(__pyx_t_6); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 501, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 501, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       } else {
         if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_8); __Pyx_INCREF(__pyx_t_6); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 458, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_8); __Pyx_INCREF(__pyx_t_6); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 501, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 501, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       }
@@ -7295,7 +7999,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 458, __pyx_L1_error)
+          else __PYX_ERR(0, 501, __pyx_L1_error)
         }
         break;
       }
@@ -7304,14 +8008,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_XDECREF_SET(__pyx_v_loop, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "simuclustfactor/tandem.py":460
+    /* "simuclustfactor/tandem.py":503
  * 		for loop in range(1, self.n_loops+1):
  * 
  * 			start_time = time()             # <<<<<<<<<<<<<<
  * 
  * 			if self.init == 'svd':
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 460, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 503, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -7325,41 +8029,41 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     }
     __pyx_t_6 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 460, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 503, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF_SET(__pyx_v_start_time, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "simuclustfactor/tandem.py":462
+    /* "simuclustfactor/tandem.py":505
  * 			start_time = time()
  * 
  * 			if self.init == 'svd':             # <<<<<<<<<<<<<<
  * 				if loop == 2: break
  * 
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_init_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 462, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_init_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 505, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = (__Pyx_PyUnicode_Equals(__pyx_t_6, __pyx_n_u_svd, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 462, __pyx_L1_error)
+    __pyx_t_7 = (__Pyx_PyUnicode_Equals(__pyx_t_6, __pyx_n_u_svd, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 505, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_7) {
 
-      /* "simuclustfactor/tandem.py":463
+      /* "simuclustfactor/tandem.py":506
  * 
  * 			if self.init == 'svd':
  * 				if loop == 2: break             # <<<<<<<<<<<<<<
  * 
  * 			# ------------ Start of initialization for FA ------------
  */
-      __pyx_t_6 = __Pyx_PyInt_EqObjC(__pyx_v_loop, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 463, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_EqObjC(__pyx_v_loop, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 506, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 463, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 506, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       if (__pyx_t_7) {
         goto __pyx_L9_break;
       }
 
-      /* "simuclustfactor/tandem.py":462
+      /* "simuclustfactor/tandem.py":505
  * 			start_time = time()
  * 
  * 			if self.init == 'svd':             # <<<<<<<<<<<<<<
@@ -7368,7 +8072,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
  */
     }
 
-    /* "simuclustfactor/tandem.py":467
+    /* "simuclustfactor/tandem.py":510
  * 			# ------------ Start of initialization for FA ------------
  * 
  * 			fa_iter = 0             # <<<<<<<<<<<<<<
@@ -7378,19 +8082,19 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_XDECREF_SET(__pyx_v_fa_iter, __pyx_int_0);
 
-    /* "simuclustfactor/tandem.py":468
+    /* "simuclustfactor/tandem.py":511
  * 
  * 			fa_iter = 0
  * 			Fs_fa = []  # objective function values             # <<<<<<<<<<<<<<
  * 			converged = False
  * 
  */
-    __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 468, __pyx_L1_error)
+    __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 511, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_XDECREF_SET(__pyx_v_Fs_fa, ((PyObject*)__pyx_t_6));
     __pyx_t_6 = 0;
 
-    /* "simuclustfactor/tandem.py":469
+    /* "simuclustfactor/tandem.py":512
  * 			fa_iter = 0
  * 			Fs_fa = []  # objective function values
  * 			converged = False             # <<<<<<<<<<<<<<
@@ -7399,44 +8103,44 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
  */
     __pyx_v_converged = 0;
 
-    /* "simuclustfactor/tandem.py":472
+    /* "simuclustfactor/tandem.py":515
  * 
  * 			# as direct input
  * 			B_j_q0 = self.B_j_q             # <<<<<<<<<<<<<<
  * 			C_k_r0 = self.C_k_r
  * 
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 472, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 515, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_XDECREF_SET(__pyx_v_B_j_q0, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "simuclustfactor/tandem.py":473
+    /* "simuclustfactor/tandem.py":516
  * 			# as direct input
  * 			B_j_q0 = self.B_j_q
  * 			C_k_r0 = self.C_k_r             # <<<<<<<<<<<<<<
  * 
  * 			# initialize B and C
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 473, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 516, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_XDECREF_SET(__pyx_v_C_k_r0, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "simuclustfactor/tandem.py":476
+    /* "simuclustfactor/tandem.py":519
  * 
  * 			# initialize B and C
  * 			if self.init == 'svd':             # <<<<<<<<<<<<<<
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(X_j_ki@X_j_ki.T, Q)
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(X_k_ij@X_k_ij.T, R)
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_init_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 476, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_init_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 519, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = (__Pyx_PyUnicode_Equals(__pyx_t_6, __pyx_n_u_svd, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 476, __pyx_L1_error)
+    __pyx_t_7 = (__Pyx_PyUnicode_Equals(__pyx_t_6, __pyx_n_u_svd, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 519, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_7) {
 
-      /* "simuclustfactor/tandem.py":477
+      /* "simuclustfactor/tandem.py":520
  * 			# initialize B and C
  * 			if self.init == 'svd':
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(X_j_ki@X_j_ki.T, Q)             # <<<<<<<<<<<<<<
@@ -7446,11 +8150,11 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __pyx_t_7 = (__pyx_v_B_j_q0 == Py_None);
       __pyx_t_10 = (__pyx_t_7 != 0);
       if (__pyx_t_10) {
-        __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 477, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 520, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_j_ki, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 477, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_j_ki, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 520, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_j_ki, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 477, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_j_ki, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 520, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_4 = NULL;
@@ -7468,7 +8172,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_3)) {
           PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_1, __pyx_v_Q};
-          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 477, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 520, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7477,14 +8181,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
           PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_1, __pyx_v_Q};
-          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 477, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 520, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         } else
         #endif
         {
-          __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 477, __pyx_L1_error)
+          __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 520, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           if (__pyx_t_4) {
             __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -7495,7 +8199,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
           __Pyx_GIVEREF(__pyx_v_Q);
           PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_v_Q);
           __pyx_t_1 = 0;
-          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_12, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 477, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_12, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 520, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         }
@@ -7504,7 +8208,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __pyx_t_6 = 0;
       }
 
-      /* "simuclustfactor/tandem.py":478
+      /* "simuclustfactor/tandem.py":521
  * 			if self.init == 'svd':
  * 				if B_j_q0 is None: B_j_q0 = SingularVectors(X_j_ki@X_j_ki.T, Q)
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(X_k_ij@X_k_ij.T, R)             # <<<<<<<<<<<<<<
@@ -7514,11 +8218,11 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __pyx_t_10 = (__pyx_v_C_k_r0 == Py_None);
       __pyx_t_7 = (__pyx_t_10 != 0);
       if (__pyx_t_7) {
-        __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 478, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 521, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_k_ij, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 478, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_k_ij, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 521, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_k_ij, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 478, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_k_ij, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 521, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __pyx_t_12 = NULL;
@@ -7536,7 +8240,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_3)) {
           PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_1, __pyx_v_R};
-          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 478, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 521, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7545,14 +8249,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
           PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_1, __pyx_v_R};
-          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 478, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 521, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         } else
         #endif
         {
-          __pyx_t_4 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 478, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 521, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           if (__pyx_t_12) {
             __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_12); __pyx_t_12 = NULL;
@@ -7563,7 +8267,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
           __Pyx_GIVEREF(__pyx_v_R);
           PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_11, __pyx_v_R);
           __pyx_t_1 = 0;
-          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 478, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 521, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         }
@@ -7572,7 +8276,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __pyx_t_6 = 0;
       }
 
-      /* "simuclustfactor/tandem.py":476
+      /* "simuclustfactor/tandem.py":519
  * 
  * 			# initialize B and C
  * 			if self.init == 'svd':             # <<<<<<<<<<<<<<
@@ -7582,7 +8286,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       goto __pyx_L12;
     }
 
-    /* "simuclustfactor/tandem.py":480
+    /* "simuclustfactor/tandem.py":523
  * 				if C_k_r0 is None: C_k_r0 = SingularVectors(X_k_ij@X_k_ij.T, R)
  * 			else:  # random initialization
  * 				if B_j_q0 is None: B_j_q0 = rng.random([J,Q])             # <<<<<<<<<<<<<<
@@ -7593,9 +8297,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __pyx_t_7 = (__pyx_v_B_j_q0 == Py_None);
       __pyx_t_10 = (__pyx_t_7 != 0);
       if (__pyx_t_10) {
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_rng, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 480, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_rng, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 523, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 480, __pyx_L1_error)
+        __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 523, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_v_J);
         __Pyx_GIVEREF(__pyx_v_J);
@@ -7616,14 +8320,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __pyx_t_6 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_1, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4);
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 480, __pyx_L1_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 523, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF_SET(__pyx_v_B_j_q0, __pyx_t_6);
         __pyx_t_6 = 0;
       }
 
-      /* "simuclustfactor/tandem.py":481
+      /* "simuclustfactor/tandem.py":524
  * 			else:  # random initialization
  * 				if B_j_q0 is None: B_j_q0 = rng.random([J,Q])
  * 				if C_k_r0 is None: C_k_r0 = rng.random([K,R])             # <<<<<<<<<<<<<<
@@ -7633,9 +8337,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __pyx_t_10 = (__pyx_v_C_k_r0 == Py_None);
       __pyx_t_7 = (__pyx_t_10 != 0);
       if (__pyx_t_7) {
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_rng, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 481, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_rng, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 524, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 481, __pyx_L1_error)
+        __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 524, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_v_K);
         __Pyx_GIVEREF(__pyx_v_K);
@@ -7656,7 +8360,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __pyx_t_6 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_1, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4);
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 481, __pyx_L1_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 524, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF_SET(__pyx_v_C_k_r0, __pyx_t_6);
@@ -7665,9 +8369,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     }
     __pyx_L12:;
 
-    /* "simuclustfactor/tandem.py":487
- * 			# ----------- Start of objective function --------------
+    /* "simuclustfactor/tandem.py":531
  * 
+ * 			# to return as initializers
  * 			B_j_q_init = B_j_q0             # <<<<<<<<<<<<<<
  * 			C_k_r_init = C_k_r0
  * 
@@ -7675,8 +8379,8 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_INCREF(__pyx_v_B_j_q0);
     __Pyx_XDECREF_SET(__pyx_v_B_j_q_init, __pyx_v_B_j_q0);
 
-    /* "simuclustfactor/tandem.py":488
- * 
+    /* "simuclustfactor/tandem.py":532
+ * 			# to return as initializers
  * 			B_j_q_init = B_j_q0
  * 			C_k_r_init = C_k_r0             # <<<<<<<<<<<<<<
  * 
@@ -7685,16 +8389,16 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_INCREF(__pyx_v_C_k_r0);
     __Pyx_XDECREF_SET(__pyx_v_C_k_r_init, __pyx_v_C_k_r0);
 
-    /* "simuclustfactor/tandem.py":491
+    /* "simuclustfactor/tandem.py":535
  * 
  * 			# updated centroids matrix
  * 			Y_i_qr = X_i_jk @ np.kron(C_k_r0, B_j_q0)             # <<<<<<<<<<<<<<
  * 
  * 			F0 = np.linalg.norm(Y_i_qr,2)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 535, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_kron); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_kron); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 535, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -7712,7 +8416,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_C_k_r0, __pyx_v_B_j_q0};
-      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 535, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_6);
     } else
@@ -7720,13 +8424,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_C_k_r0, __pyx_v_B_j_q0};
-      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 535, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_6);
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 535, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (__pyx_t_3) {
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -7737,30 +8441,30 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_B_j_q0);
       __Pyx_GIVEREF(__pyx_v_B_j_q0);
       PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_11, __pyx_v_B_j_q0);
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 535, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 535, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_XDECREF_SET(__pyx_v_Y_i_qr, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "simuclustfactor/tandem.py":493
+    /* "simuclustfactor/tandem.py":537
  * 			Y_i_qr = X_i_jk @ np.kron(C_k_r0, B_j_q0)
  * 
  * 			F0 = np.linalg.norm(Y_i_qr,2)             # <<<<<<<<<<<<<<
  * 			conv = 2*self.tol
  * 			Fs_fa.append(F0)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 493, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 493, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_norm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 493, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_norm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = NULL;
@@ -7778,7 +8482,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_Y_i_qr, __pyx_int_2};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 537, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else
@@ -7786,13 +8490,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_Y_i_qr, __pyx_int_2};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 537, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 537, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       if (__pyx_t_1) {
         __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -7803,7 +8507,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_int_2);
       __Pyx_GIVEREF(__pyx_int_2);
       PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_int_2);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 537, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -7811,40 +8515,70 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_XDECREF_SET(__pyx_v_F0, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "simuclustfactor/tandem.py":494
+    /* "simuclustfactor/tandem.py":538
  * 
  * 			F0 = np.linalg.norm(Y_i_qr,2)
  * 			conv = 2*self.tol             # <<<<<<<<<<<<<<
  * 			Fs_fa.append(F0)
  * 			fa_converged = False
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 494, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 538, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = PyNumber_Multiply(__pyx_int_2, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 494, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Multiply(__pyx_int_2, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 538, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF_SET(__pyx_v_conv, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "simuclustfactor/tandem.py":495
+    /* "simuclustfactor/tandem.py":539
  * 			F0 = np.linalg.norm(Y_i_qr,2)
  * 			conv = 2*self.tol
  * 			Fs_fa.append(F0)             # <<<<<<<<<<<<<<
  * 			fa_converged = False
  * 
  */
-    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_fa, __pyx_v_F0); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 495, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_fa, __pyx_v_F0); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 539, __pyx_L1_error)
 
-    /* "simuclustfactor/tandem.py":496
+    /* "simuclustfactor/tandem.py":540
  * 			conv = 2*self.tol
  * 			Fs_fa.append(F0)
  * 			fa_converged = False             # <<<<<<<<<<<<<<
  * 
- * 			# ----------- End of Objective Function Definition --------------
+ * 			# iterates init
  */
     __pyx_v_fa_converged = 0;
 
-    /* "simuclustfactor/tandem.py":500
+    /* "simuclustfactor/tandem.py":543
+ * 
+ * 			# iterates init
+ * 			best_fa_iter = 1             # <<<<<<<<<<<<<<
+ * 			best_B_j_q = B_j_q0
+ * 			best_C_k_r = C_k_r0
+ */
+    __Pyx_INCREF(__pyx_int_1);
+    __Pyx_XDECREF_SET(__pyx_v_best_fa_iter, __pyx_int_1);
+
+    /* "simuclustfactor/tandem.py":544
+ * 			# iterates init
+ * 			best_fa_iter = 1
+ * 			best_B_j_q = B_j_q0             # <<<<<<<<<<<<<<
+ * 			best_C_k_r = C_k_r0
+ * 
+ */
+    __Pyx_INCREF(__pyx_v_B_j_q0);
+    __Pyx_XDECREF_SET(__pyx_v_best_B_j_q, __pyx_v_B_j_q0);
+
+    /* "simuclustfactor/tandem.py":545
+ * 			best_fa_iter = 1
+ * 			best_B_j_q = B_j_q0
+ * 			best_C_k_r = C_k_r0             # <<<<<<<<<<<<<<
+ * 
+ * 			# ----------- End of Objective Function Definition --------------
+ */
+    __Pyx_INCREF(__pyx_v_C_k_r0);
+    __Pyx_XDECREF_SET(__pyx_v_best_C_k_r, __pyx_v_C_k_r0);
+
+    /* "simuclustfactor/tandem.py":549
  * 			# ----------- End of Objective Function Definition --------------
  * 
  * 			while (conv > self.tol):             # <<<<<<<<<<<<<<
@@ -7852,41 +8586,41 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
  * 				fa_iter += 1
  */
     while (1) {
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 500, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_4 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_6, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 500, __pyx_L1_error)
+      __pyx_t_4 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_6, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 500, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (!__pyx_t_7) break;
 
-      /* "simuclustfactor/tandem.py":502
+      /* "simuclustfactor/tandem.py":551
  * 			while (conv > self.tol):
  * 
  * 				fa_iter += 1             # <<<<<<<<<<<<<<
  * 
  * 				# ----------- Start of factor matrices update --------------
  */
-      __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_v_fa_iter, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 502, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_v_fa_iter, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF_SET(__pyx_v_fa_iter, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "simuclustfactor/tandem.py":507
+      /* "simuclustfactor/tandem.py":556
  * 
  * 				# updating B_j_q
  * 				B_j_j = X_j_ki @ np.kron(I_i_i, C_k_r0@C_k_r0.T) @ X_j_ki.T             # <<<<<<<<<<<<<<
  * 				B_j_q = SingularVectors(B_j_j, Q)
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 507, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_kron); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 507, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_kron); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_C_k_r0, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 507, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_C_k_r0, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_C_k_r0, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 507, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_C_k_r0, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_6 = NULL;
@@ -7904,7 +8638,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_I_i_i, __pyx_t_1};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 507, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7913,14 +8647,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_I_i_i, __pyx_t_1};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 507, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else
       #endif
       {
-        __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 507, __pyx_L1_error)
+        __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         if (__pyx_t_6) {
           __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -7931,31 +8665,31 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __Pyx_GIVEREF(__pyx_t_1);
         PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_t_1);
         __pyx_t_1 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_12, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 507, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_12, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_j_ki, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 507, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_j_ki, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_j_ki, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 507, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_j_ki, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 507, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF_SET(__pyx_v_B_j_j, __pyx_t_12);
       __pyx_t_12 = 0;
 
-      /* "simuclustfactor/tandem.py":508
+      /* "simuclustfactor/tandem.py":557
  * 				# updating B_j_q
  * 				B_j_j = X_j_ki @ np.kron(I_i_i, C_k_r0@C_k_r0.T) @ X_j_ki.T
  * 				B_j_q = SingularVectors(B_j_j, Q)             # <<<<<<<<<<<<<<
  * 
  * 				# updating C_k_r
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 508, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 557, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_3 = NULL;
       __pyx_t_11 = 0;
@@ -7972,7 +8706,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_B_j_j, __pyx_v_Q};
-        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 508, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 557, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_12);
       } else
@@ -7980,13 +8714,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_B_j_j, __pyx_v_Q};
-        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 508, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 557, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_12);
       } else
       #endif
       {
-        __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 557, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         if (__pyx_t_3) {
           __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -7997,7 +8731,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_v_Q);
         __Pyx_GIVEREF(__pyx_v_Q);
         PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_11, __pyx_v_Q);
-        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 508, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 557, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       }
@@ -8005,21 +8739,21 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_XDECREF_SET(__pyx_v_B_j_q, __pyx_t_12);
       __pyx_t_12 = 0;
 
-      /* "simuclustfactor/tandem.py":511
+      /* "simuclustfactor/tandem.py":560
  * 
  * 				# updating C_k_r
  * 				C_k_k = X_k_ij @ np.kron(B_j_q@B_j_q.T, I_i_i) @ X_k_ij.T             # <<<<<<<<<<<<<<
  * 				C_k_r = SingularVectors(C_k_k, R)
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_kron); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 511, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_kron); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_B_j_q, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_B_j_q, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_B_j_q, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 511, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_B_j_q, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_t_4 = NULL;
@@ -8037,7 +8771,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_3, __pyx_v_I_i_i};
-        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -8046,14 +8780,14 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_3, __pyx_v_I_i_i};
-        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         if (__pyx_t_4) {
           __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -8064,31 +8798,31 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __Pyx_GIVEREF(__pyx_v_I_i_i);
         PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_11, __pyx_v_I_i_i);
         __pyx_t_3 = 0;
-        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_k_ij, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 511, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_k_ij, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_k_ij, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 511, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_k_ij, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 511, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_XDECREF_SET(__pyx_v_C_k_k, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "simuclustfactor/tandem.py":512
+      /* "simuclustfactor/tandem.py":561
  * 				# updating C_k_r
  * 				C_k_k = X_k_ij @ np.kron(B_j_q@B_j_q.T, I_i_i) @ X_k_ij.T
  * 				C_k_r = SingularVectors(C_k_k, R)             # <<<<<<<<<<<<<<
  * 
  * 				# ----------- End of factor matrices update --------------
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 512, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_SingularVectors); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 561, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __pyx_t_1 = NULL;
       __pyx_t_11 = 0;
@@ -8105,7 +8839,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_12)) {
         PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_C_k_k, __pyx_v_R};
-        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 512, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 561, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_6);
       } else
@@ -8113,13 +8847,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
         PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_C_k_k, __pyx_v_R};
-        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 512, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 561, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_6);
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 512, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 561, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         if (__pyx_t_1) {
           __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -8130,7 +8864,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_v_R);
         __Pyx_GIVEREF(__pyx_v_R);
         PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_v_R);
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 512, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 561, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
@@ -8138,16 +8872,16 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_XDECREF_SET(__pyx_v_C_k_r, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "simuclustfactor/tandem.py":519
+      /* "simuclustfactor/tandem.py":568
  * 
  * 				# updated centroids matrix
  * 				Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q)             # <<<<<<<<<<<<<<
  * 
  * 				# compute L2 norm of reconstruction error
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 519, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 568, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_kron); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 519, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_kron); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 568, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __pyx_t_12 = NULL;
@@ -8165,7 +8899,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_v_C_k_r, __pyx_v_B_j_q};
-        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 519, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 568, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_GOTREF(__pyx_t_6);
       } else
@@ -8173,13 +8907,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_v_C_k_r, __pyx_v_B_j_q};
-        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 519, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 568, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_GOTREF(__pyx_t_6);
       } else
       #endif
       {
-        __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 519, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 568, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         if (__pyx_t_12) {
           __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_12); __pyx_t_12 = NULL;
@@ -8190,30 +8924,30 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_v_B_j_q);
         __Pyx_GIVEREF(__pyx_v_B_j_q);
         PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_11, __pyx_v_B_j_q);
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 519, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 568, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 519, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 568, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF_SET(__pyx_v_Y_i_qr, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "simuclustfactor/tandem.py":522
+      /* "simuclustfactor/tandem.py":571
  * 
  * 				# compute L2 norm of reconstruction error
  * 				F = np.linalg.norm(Y_i_qr, 2)             # <<<<<<<<<<<<<<
- * 				conv = abs(F-Fs_fa[-1])
- * 				Fs_fa.append(F)
+ * 				conv = abs(F-F0)
+ * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 571, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 571, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_norm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_norm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 571, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_1 = NULL;
@@ -8231,7 +8965,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_6)) {
         PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_Y_i_qr, __pyx_int_2};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 522, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 571, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_3);
       } else
@@ -8239,13 +8973,13 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
         PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_Y_i_qr, __pyx_int_2};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 522, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 571, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_3);
       } else
       #endif
       {
-        __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 522, __pyx_L1_error)
+        __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 571, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         if (__pyx_t_1) {
           __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -8256,7 +8990,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_int_2);
         __Pyx_GIVEREF(__pyx_int_2);
         PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_int_2);
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 522, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 571, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       }
@@ -8264,175 +8998,244 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_XDECREF_SET(__pyx_v_F, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "simuclustfactor/tandem.py":523
+      /* "simuclustfactor/tandem.py":572
  * 				# compute L2 norm of reconstruction error
  * 				F = np.linalg.norm(Y_i_qr, 2)
- * 				conv = abs(F-Fs_fa[-1])             # <<<<<<<<<<<<<<
- * 				Fs_fa.append(F)
- * 
- */
-      __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_Fs_fa, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 523, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = PyNumber_Subtract(__pyx_v_F, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 523, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyNumber_Absolute(__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 523, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_3);
-      __pyx_t_3 = 0;
-
-      /* "simuclustfactor/tandem.py":524
- * 				F = np.linalg.norm(Y_i_qr, 2)
- * 				conv = abs(F-Fs_fa[-1])
- * 				Fs_fa.append(F)             # <<<<<<<<<<<<<<
+ * 				conv = abs(F-F0)             # <<<<<<<<<<<<<<
  * 
  * 				# ----------- End of objective functions update --------------
  */
-      __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_fa, __pyx_v_F); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 524, __pyx_L1_error)
+      __pyx_t_3 = PyNumber_Subtract(__pyx_v_F, __pyx_v_F0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 572, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_6 = __Pyx_PyNumber_Absolute(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 572, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_6);
+      __pyx_t_6 = 0;
 
-      /* "simuclustfactor/tandem.py":530
+      /* "simuclustfactor/tandem.py":578
  * 				# ----------- Start stopping criteria check --------------
  * 
- * 				if (fa_iter == self.n_max_iter):             # <<<<<<<<<<<<<<
- * 					if self.verbose == True: print("FA Maximum iterations reached.")
- * 					break
- */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_max_iter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 530, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = PyObject_RichCompare(__pyx_v_fa_iter, __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 530, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 530, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (__pyx_t_7) {
-
-        /* "simuclustfactor/tandem.py":531
- * 
- * 				if (fa_iter == self.n_max_iter):
- * 					if self.verbose == True: print("FA Maximum iterations reached.")             # <<<<<<<<<<<<<<
- * 					break
- * 
- */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 531, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_3 = PyObject_RichCompare(__pyx_t_6, Py_True, Py_EQ); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 531, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 531, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (__pyx_t_7) {
-          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 531, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        }
-
-        /* "simuclustfactor/tandem.py":532
- * 				if (fa_iter == self.n_max_iter):
- * 					if self.verbose == True: print("FA Maximum iterations reached.")
- * 					break             # <<<<<<<<<<<<<<
- * 
- * 				if (conv < self.tol):
- */
-        goto __pyx_L18_break;
-
-        /* "simuclustfactor/tandem.py":530
- * 				# ----------- Start stopping criteria check --------------
- * 
- * 				if (fa_iter == self.n_max_iter):             # <<<<<<<<<<<<<<
- * 					if self.verbose == True: print("FA Maximum iterations reached.")
- * 					break
- */
-      }
-
-      /* "simuclustfactor/tandem.py":534
- * 					break
- * 
- * 				if (conv < self.tol):             # <<<<<<<<<<<<<<
- * 					fa_converged = True
- * 				else:
- */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 534, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_3, Py_LT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 534, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 534, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (__pyx_t_7) {
-
-        /* "simuclustfactor/tandem.py":535
- * 
- * 				if (conv < self.tol):
- * 					fa_converged = True             # <<<<<<<<<<<<<<
- * 				else:
+ * 				if F >= F0:             # <<<<<<<<<<<<<<
+ * 					Fs_fa.append(F)
  * 					F0 = F
  */
-        __pyx_v_fa_converged = 1;
+      __pyx_t_6 = PyObject_RichCompare(__pyx_v_F, __pyx_v_F0, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 578, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 578, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      if (__pyx_t_7) {
 
-        /* "simuclustfactor/tandem.py":534
- * 					break
+        /* "simuclustfactor/tandem.py":579
  * 
- * 				if (conv < self.tol):             # <<<<<<<<<<<<<<
- * 					fa_converged = True
- * 				else:
+ * 				if F >= F0:
+ * 					Fs_fa.append(F)             # <<<<<<<<<<<<<<
+ * 					F0 = F
+ * 					best_B_j_q = B_j_q
  */
-        goto __pyx_L21;
-      }
+        __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_fa, __pyx_v_F); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 579, __pyx_L1_error)
 
-      /* "simuclustfactor/tandem.py":537
- * 					fa_converged = True
- * 				else:
+        /* "simuclustfactor/tandem.py":580
+ * 				if F >= F0:
+ * 					Fs_fa.append(F)
  * 					F0 = F             # <<<<<<<<<<<<<<
- * 					B_j_q0 = B_j_q
- * 					C_k_r0 = C_k_r
+ * 					best_B_j_q = B_j_q
+ * 					best_C_k_r = C_k_r
  */
-      /*else*/ {
         __Pyx_INCREF(__pyx_v_F);
         __Pyx_DECREF_SET(__pyx_v_F0, __pyx_v_F);
 
-        /* "simuclustfactor/tandem.py":538
- * 				else:
+        /* "simuclustfactor/tandem.py":581
+ * 					Fs_fa.append(F)
  * 					F0 = F
- * 					B_j_q0 = B_j_q             # <<<<<<<<<<<<<<
- * 					C_k_r0 = C_k_r
- * 
+ * 					best_B_j_q = B_j_q             # <<<<<<<<<<<<<<
+ * 					best_C_k_r = C_k_r
+ * 					best_fa_iter = fa_iter
  */
         __Pyx_INCREF(__pyx_v_B_j_q);
-        __Pyx_DECREF_SET(__pyx_v_B_j_q0, __pyx_v_B_j_q);
+        __Pyx_DECREF_SET(__pyx_v_best_B_j_q, __pyx_v_B_j_q);
 
-        /* "simuclustfactor/tandem.py":539
+        /* "simuclustfactor/tandem.py":582
  * 					F0 = F
- * 					B_j_q0 = B_j_q
- * 					C_k_r0 = C_k_r             # <<<<<<<<<<<<<<
+ * 					best_B_j_q = B_j_q
+ * 					best_C_k_r = C_k_r             # <<<<<<<<<<<<<<
+ * 					best_fa_iter = fa_iter
  * 
- * 				# ----------- End stopping criteria check --------------
  */
         __Pyx_INCREF(__pyx_v_C_k_r);
-        __Pyx_DECREF_SET(__pyx_v_C_k_r0, __pyx_v_C_k_r);
+        __Pyx_DECREF_SET(__pyx_v_best_C_k_r, __pyx_v_C_k_r);
+
+        /* "simuclustfactor/tandem.py":583
+ * 					best_B_j_q = B_j_q
+ * 					best_C_k_r = C_k_r
+ * 					best_fa_iter = fa_iter             # <<<<<<<<<<<<<<
+ * 
+ * 				if (conv < self.tol):
+ */
+        __Pyx_INCREF(__pyx_v_fa_iter);
+        __Pyx_DECREF_SET(__pyx_v_best_fa_iter, __pyx_v_fa_iter);
+
+        /* "simuclustfactor/tandem.py":578
+ * 				# ----------- Start stopping criteria check --------------
+ * 
+ * 				if F >= F0:             # <<<<<<<<<<<<<<
+ * 					Fs_fa.append(F)
+ * 					F0 = F
+ */
       }
-      __pyx_L21:;
+
+      /* "simuclustfactor/tandem.py":585
+ * 					best_fa_iter = fa_iter
+ * 
+ * 				if (conv < self.tol):             # <<<<<<<<<<<<<<
+ * 					fa_converged = True
+ * 					break
+ */
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 585, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_3 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_6, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 585, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 585, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (__pyx_t_7) {
+
+        /* "simuclustfactor/tandem.py":586
+ * 
+ * 				if (conv < self.tol):
+ * 					fa_converged = True             # <<<<<<<<<<<<<<
+ * 					break
+ * 
+ */
+        __pyx_v_fa_converged = 1;
+
+        /* "simuclustfactor/tandem.py":587
+ * 				if (conv < self.tol):
+ * 					fa_converged = True
+ * 					break             # <<<<<<<<<<<<<<
+ * 
+ * 				if (fa_iter == self.n_max_iter):
+ */
+        goto __pyx_L18_break;
+
+        /* "simuclustfactor/tandem.py":585
+ * 					best_fa_iter = fa_iter
+ * 
+ * 				if (conv < self.tol):             # <<<<<<<<<<<<<<
+ * 					fa_converged = True
+ * 					break
+ */
+      }
+
+      /* "simuclustfactor/tandem.py":589
+ * 					break
+ * 
+ * 				if (fa_iter == self.n_max_iter):             # <<<<<<<<<<<<<<
+ * 					if self.verbose: print("FA Maximum iterations reached.")
+ * 					break
+ */
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_max_iter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 589, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_6 = PyObject_RichCompare(__pyx_v_fa_iter, __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 589, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 589, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      if (__pyx_t_7) {
+
+        /* "simuclustfactor/tandem.py":590
+ * 
+ * 				if (fa_iter == self.n_max_iter):
+ * 					if self.verbose: print("FA Maximum iterations reached.")             # <<<<<<<<<<<<<<
+ * 					break
+ * 
+ */
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 590, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 590, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        if (__pyx_t_7) {
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 590, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        }
+
+        /* "simuclustfactor/tandem.py":591
+ * 				if (fa_iter == self.n_max_iter):
+ * 					if self.verbose: print("FA Maximum iterations reached.")
+ * 					break             # <<<<<<<<<<<<<<
+ * 
+ * 				B_j_q0 = B_j_q
+ */
+        goto __pyx_L18_break;
+
+        /* "simuclustfactor/tandem.py":589
+ * 					break
+ * 
+ * 				if (fa_iter == self.n_max_iter):             # <<<<<<<<<<<<<<
+ * 					if self.verbose: print("FA Maximum iterations reached.")
+ * 					break
+ */
+      }
+
+      /* "simuclustfactor/tandem.py":593
+ * 					break
+ * 
+ * 				B_j_q0 = B_j_q             # <<<<<<<<<<<<<<
+ * 				C_k_r0 = C_k_r
+ * 
+ */
+      __Pyx_INCREF(__pyx_v_B_j_q);
+      __Pyx_DECREF_SET(__pyx_v_B_j_q0, __pyx_v_B_j_q);
+
+      /* "simuclustfactor/tandem.py":594
+ * 
+ * 				B_j_q0 = B_j_q
+ * 				C_k_r0 = C_k_r             # <<<<<<<<<<<<<<
+ * 
+ * 			print('Fs_fa',Fs_fa)
+ */
+      __Pyx_INCREF(__pyx_v_C_k_r);
+      __Pyx_DECREF_SET(__pyx_v_C_k_r0, __pyx_v_C_k_r);
     }
     __pyx_L18_break:;
 
-    /* "simuclustfactor/tandem.py":545
+    /* "simuclustfactor/tandem.py":596
+ * 				C_k_r0 = C_k_r
+ * 
+ * 			print('Fs_fa',Fs_fa)             # <<<<<<<<<<<<<<
+ * 
+ * 				# ----------- End stopping criteria check --------------
+ */
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 596, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_INCREF(__pyx_n_u_Fs_fa);
+    __Pyx_GIVEREF(__pyx_n_u_Fs_fa);
+    PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_n_u_Fs_fa);
+    __Pyx_INCREF(__pyx_v_Fs_fa);
+    __Pyx_GIVEREF(__pyx_v_Fs_fa);
+    PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_Fs_fa);
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 596, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "simuclustfactor/tandem.py":602
  * 			# ----------- Start KMeans clustering applied to Y_i_qr --------------
  * 
- * 			Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q)             # <<<<<<<<<<<<<<
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)             # <<<<<<<<<<<<<<
  * 			km_iter = 0
  * 			km_converged = False
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 545, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_kron); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 545, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 602, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_kron); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 602, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_v_C_k_r)) { __Pyx_RaiseUnboundLocalError("C_k_r"); __PYX_ERR(0, 545, __pyx_L1_error) }
-    if (unlikely(!__pyx_v_B_j_q)) { __Pyx_RaiseUnboundLocalError("B_j_q"); __PYX_ERR(0, 545, __pyx_L1_error) }
-    __pyx_t_3 = NULL;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = NULL;
     __pyx_t_11 = 0;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_12);
-      if (likely(__pyx_t_3)) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_12);
+      if (likely(__pyx_t_6)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
-        __Pyx_INCREF(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_6);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_12, function);
         __pyx_t_11 = 1;
@@ -8440,46 +9243,46 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     }
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_12)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_C_k_r, __pyx_v_B_j_q};
-      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 545, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_6);
+      PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 602, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_3);
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_v_C_k_r, __pyx_v_B_j_q};
-      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 545, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_6);
+      PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 602, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_3);
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 602, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (__pyx_t_3) {
-        __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      if (__pyx_t_6) {
+        __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6); __pyx_t_6 = NULL;
       }
-      __Pyx_INCREF(__pyx_v_C_k_r);
-      __Pyx_GIVEREF(__pyx_v_C_k_r);
-      PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_11, __pyx_v_C_k_r);
-      __Pyx_INCREF(__pyx_v_B_j_q);
-      __Pyx_GIVEREF(__pyx_v_B_j_q);
-      PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_11, __pyx_v_B_j_q);
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 545, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_GIVEREF(__pyx_v_best_C_k_r);
+      PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_11, __pyx_v_best_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_GIVEREF(__pyx_v_best_B_j_q);
+      PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_11, __pyx_v_best_B_j_q);
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 602, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_6); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 545, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 602, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF_SET(__pyx_v_Y_i_qr, __pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "simuclustfactor/tandem.py":546
+    /* "simuclustfactor/tandem.py":603
  * 
- * 			Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q)
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)
  * 			km_iter = 0             # <<<<<<<<<<<<<<
  * 			km_converged = False
  * 			Fs_km = []
@@ -8487,8 +9290,8 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_XDECREF_SET(__pyx_v_km_iter, __pyx_int_0);
 
-    /* "simuclustfactor/tandem.py":547
- * 			Y_i_qr = X_i_jk @ np.kron(C_k_r, B_j_q)
+    /* "simuclustfactor/tandem.py":604
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)
  * 			km_iter = 0
  * 			km_converged = False             # <<<<<<<<<<<<<<
  * 			Fs_km = []
@@ -8496,168 +9299,168 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
  */
     __pyx_v_km_converged = 0;
 
-    /* "simuclustfactor/tandem.py":548
+    /* "simuclustfactor/tandem.py":605
  * 			km_iter = 0
  * 			km_converged = False
  * 			Fs_km = []             # <<<<<<<<<<<<<<
  * 
  * 			# given directly as paramters
  */
-    __pyx_t_12 = PyList_New(0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_12 = PyList_New(0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 605, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_XDECREF_SET(__pyx_v_Fs_km, ((PyObject*)__pyx_t_12));
     __pyx_t_12 = 0;
 
-    /* "simuclustfactor/tandem.py":551
+    /* "simuclustfactor/tandem.py":608
  * 
  * 			# given directly as paramters
  * 			U_i_g0 = self.U_i_g             # <<<<<<<<<<<<<<
  * 			if U_i_g0 is None:
- * 				U_i_g0 = RandomMembershipMatrix(I, G, rng=rng)
+ * 
  */
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 551, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 608, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_XDECREF_SET(__pyx_v_U_i_g0, __pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "simuclustfactor/tandem.py":552
+    /* "simuclustfactor/tandem.py":609
  * 			# given directly as paramters
  * 			U_i_g0 = self.U_i_g
  * 			if U_i_g0 is None:             # <<<<<<<<<<<<<<
- * 				U_i_g0 = RandomMembershipMatrix(I, G, rng=rng)
- * 				U_i_g_init = U_i_g0.copy()
+ * 
+ * 				# initialize U_i_g
  */
     __pyx_t_7 = (__pyx_v_U_i_g0 == Py_None);
     __pyx_t_10 = (__pyx_t_7 != 0);
     if (__pyx_t_10) {
 
-      /* "simuclustfactor/tandem.py":553
- * 			U_i_g0 = self.U_i_g
- * 			if U_i_g0 is None:
+      /* "simuclustfactor/tandem.py":612
+ * 
+ * 				# initialize U_i_g
  * 				U_i_g0 = RandomMembershipMatrix(I, G, rng=rng)             # <<<<<<<<<<<<<<
- * 				U_i_g_init = U_i_g0.copy()
+ * 				U_i_g_init = U_i_g0.copy()  # to return as U_i_g0
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_RandomMembershipMatrix); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 553, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_RandomMembershipMatrix); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 612, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 553, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_v_I);
       __Pyx_GIVEREF(__pyx_v_I);
-      PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_I);
+      PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_I);
       __Pyx_INCREF(__pyx_v_G);
       __Pyx_GIVEREF(__pyx_v_G);
-      PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_G);
-      __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 553, __pyx_L1_error)
+      PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_G);
+      __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 612, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_rng, __pyx_v_rng) < 0) __PYX_ERR(0, 553, __pyx_L1_error)
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 553, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
+      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_rng, __pyx_v_rng) < 0) __PYX_ERR(0, 612, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF_SET(__pyx_v_U_i_g0, __pyx_t_3);
-      __pyx_t_3 = 0;
+      __Pyx_DECREF_SET(__pyx_v_U_i_g0, __pyx_t_6);
+      __pyx_t_6 = 0;
 
-      /* "simuclustfactor/tandem.py":554
- * 			if U_i_g0 is None:
+      /* "simuclustfactor/tandem.py":613
+ * 				# initialize U_i_g
  * 				U_i_g0 = RandomMembershipMatrix(I, G, rng=rng)
- * 				U_i_g_init = U_i_g0.copy()             # <<<<<<<<<<<<<<
+ * 				U_i_g_init = U_i_g0.copy()  # to return as U_i_g0             # <<<<<<<<<<<<<<
  * 
  * 				# initial objective
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g0, __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 554, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g0, __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 613, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = NULL;
+      __pyx_t_3 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_6)) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+        if (likely(__pyx_t_3)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_6);
+          __Pyx_INCREF(__pyx_t_3);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_1, function);
         }
       }
-      __pyx_t_3 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 554, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_6 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 613, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_XDECREF_SET(__pyx_v_U_i_g_init, __pyx_t_3);
-      __pyx_t_3 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_U_i_g_init, __pyx_t_6);
+      __pyx_t_6 = 0;
 
-      /* "simuclustfactor/tandem.py":557
+      /* "simuclustfactor/tandem.py":616
  * 
  * 				# initial objective
  * 				Y_g_qr0 = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ Y_i_qr  # compute centroids matrix             # <<<<<<<<<<<<<<
  * 				F0 = np.linalg.norm(U_i_g0@Y_g_qr0,2)  # residual matrix
  * 				Fs_km.append(F0)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 616, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 557, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 616, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_inv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_inv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 616, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g0, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 557, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_6, __pyx_v_U_i_g0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g0, __pyx_n_s_T); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 616, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_v_U_i_g0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 616, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = NULL;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_6)) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+        if (likely(__pyx_t_3)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_6);
+          __Pyx_INCREF(__pyx_t_3);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_1, function);
         }
       }
-      __pyx_t_3 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_6, __pyx_t_12) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_12);
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_t_12) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_12);
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 557, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
+      if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 616, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g0, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g0, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 616, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 616, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_12, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_12, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 616, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_XDECREF_SET(__pyx_v_Y_g_qr0, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "simuclustfactor/tandem.py":558
+      /* "simuclustfactor/tandem.py":617
  * 				# initial objective
  * 				Y_g_qr0 = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ Y_i_qr  # compute centroids matrix
  * 				F0 = np.linalg.norm(U_i_g0@Y_g_qr0,2)  # residual matrix             # <<<<<<<<<<<<<<
  * 				Fs_km.append(F0)
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 558, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 617, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_linalg); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 558, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_linalg); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 617, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_norm); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 558, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_norm); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 617, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g0, __pyx_v_Y_g_qr0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 558, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = NULL;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g0, __pyx_v_Y_g_qr0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 617, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_3 = NULL;
       __pyx_t_11 = 0;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
-        __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_12);
-        if (likely(__pyx_t_6)) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_12);
+        if (likely(__pyx_t_3)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
-          __Pyx_INCREF(__pyx_t_6);
+          __Pyx_INCREF(__pyx_t_3);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_12, function);
           __pyx_t_11 = 1;
@@ -8665,35 +9468,35 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       }
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_12)) {
-        PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_int_2};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 558, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_6, __pyx_int_2};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 617, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
-        PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_int_2};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 558, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_6, __pyx_int_2};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 617, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       {
-        __pyx_t_4 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 617, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        if (__pyx_t_6) {
-          __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6); __pyx_t_6 = NULL;
+        if (__pyx_t_3) {
+          __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
         }
-        __Pyx_GIVEREF(__pyx_t_3);
-        PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_11, __pyx_t_3);
+        __Pyx_GIVEREF(__pyx_t_6);
+        PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_11, __pyx_t_6);
         __Pyx_INCREF(__pyx_int_2);
         __Pyx_GIVEREF(__pyx_int_2);
         PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_11, __pyx_int_2);
-        __pyx_t_3 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_6 = 0;
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 617, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
@@ -8701,68 +9504,88 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_DECREF_SET(__pyx_v_F0, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "simuclustfactor/tandem.py":559
+      /* "simuclustfactor/tandem.py":618
  * 				Y_g_qr0 = np.linalg.inv(U_i_g0.T@U_i_g0) @ U_i_g0.T @ Y_i_qr  # compute centroids matrix
  * 				F0 = np.linalg.norm(U_i_g0@Y_g_qr0,2)  # residual matrix
  * 				Fs_km.append(F0)             # <<<<<<<<<<<<<<
  * 
  * 				# clustering on objects (via KMeans applied to X_i_jk)
  */
-      __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_km, __pyx_v_F0); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 559, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_km, __pyx_v_F0); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 618, __pyx_L1_error)
 
-      /* "simuclustfactor/tandem.py":562
+      /* "simuclustfactor/tandem.py":621
  * 
  * 				# clustering on objects (via KMeans applied to X_i_jk)
  * 				conv = 2*self.tol             # <<<<<<<<<<<<<<
  * 
- * 				# print('initial',U_i_g0)
+ * 				# iterates init
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 562, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 621, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_12 = PyNumber_Multiply(__pyx_int_2, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 562, __pyx_L1_error)
+      __pyx_t_12 = PyNumber_Multiply(__pyx_int_2, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 621, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_12);
       __pyx_t_12 = 0;
 
-      /* "simuclustfactor/tandem.py":566
- * 				# print('initial',U_i_g0)
+      /* "simuclustfactor/tandem.py":624
  * 
+ * 				# iterates init
+ * 				best_km_iter = 1             # <<<<<<<<<<<<<<
+ * 				best_U_i_g = U_i_g0
+ * 
+ */
+      __Pyx_INCREF(__pyx_int_1);
+      __Pyx_XDECREF_SET(__pyx_v_best_km_iter, __pyx_int_1);
+
+      /* "simuclustfactor/tandem.py":625
+ * 				# iterates init
+ * 				best_km_iter = 1
+ * 				best_U_i_g = U_i_g0             # <<<<<<<<<<<<<<
+ * 
+ * 				# print('initial',U_i_g0)
+ */
+      __Pyx_INCREF(__pyx_v_U_i_g0);
+      __Pyx_XDECREF_SET(__pyx_v_best_U_i_g, __pyx_v_U_i_g0);
+
+      /* "simuclustfactor/tandem.py":628
+ * 
+ * 				# print('initial',U_i_g0)
  * 				while conv > self.tol:             # <<<<<<<<<<<<<<
  * 
  * 					km_iter += 1
  */
       while (1) {
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 566, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 628, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_1 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_12, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 566, __pyx_L1_error)
+        __pyx_t_1 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_12, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 628, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 566, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 628, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (!__pyx_t_10) break;
 
-        /* "simuclustfactor/tandem.py":568
+        /* "simuclustfactor/tandem.py":630
  * 				while conv > self.tol:
  * 
  * 					km_iter += 1             # <<<<<<<<<<<<<<
  * 
- * 					# get random centroids
+ * 					# centroids update
  */
-        __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_km_iter, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 568, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_km_iter, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 630, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF_SET(__pyx_v_km_iter, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "simuclustfactor/tandem.py":571
+        /* "simuclustfactor/tandem.py":633
  * 
- * 					# get random centroids
+ * 					# centroids update
  * 					U_i_g = OneKMeans(Y_i_qr, G, U_i_g=U_i_g0, rng=rng)  # updated membership matrix             # <<<<<<<<<<<<<<
- * 					Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr  # compute centroids matrix
+ * 					Z_i_qr = U_i_g @ np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr  # compute centroids matrix
  * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_OneKMeans); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 571, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_OneKMeans); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 633, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 571, __pyx_L1_error)
+        __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 633, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_INCREF(__pyx_v_Y_i_qr);
         __Pyx_GIVEREF(__pyx_v_Y_i_qr);
@@ -8770,36 +9593,36 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         __Pyx_INCREF(__pyx_v_G);
         __Pyx_GIVEREF(__pyx_v_G);
         PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_v_G);
-        __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 571, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 633, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_U_i_g, __pyx_v_U_i_g0) < 0) __PYX_ERR(0, 571, __pyx_L1_error)
-        if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_rng, __pyx_v_rng) < 0) __PYX_ERR(0, 571, __pyx_L1_error)
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 571, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_U_i_g, __pyx_v_U_i_g0) < 0) __PYX_ERR(0, 633, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_rng, __pyx_v_rng) < 0) __PYX_ERR(0, 633, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 633, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __Pyx_XDECREF_SET(__pyx_v_U_i_g, __pyx_t_3);
-        __pyx_t_3 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_U_i_g, __pyx_t_6);
+        __pyx_t_6 = 0;
 
-        /* "simuclustfactor/tandem.py":572
- * 					# get random centroids
+        /* "simuclustfactor/tandem.py":634
+ * 					# centroids update
  * 					U_i_g = OneKMeans(Y_i_qr, G, U_i_g=U_i_g0, rng=rng)  # updated membership matrix
- * 					Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr  # compute centroids matrix             # <<<<<<<<<<<<<<
+ * 					Z_i_qr = U_i_g @ np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr  # compute centroids matrix             # <<<<<<<<<<<<<<
  * 
- * 					# check if maximizes orbjective or minimizes the loss
+ * 					# check if maximizes objective
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 572, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 634, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_linalg); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 572, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_linalg); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 634, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_inv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 572, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_inv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 634, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 572, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 634, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_12, __pyx_v_U_i_g); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 572, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_12, __pyx_v_U_i_g); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 634, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __pyx_t_12 = NULL;
@@ -8812,48 +9635,49 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
             __Pyx_DECREF_SET(__pyx_t_4, function);
           }
         }
-        __pyx_t_3 = (__pyx_t_12) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_12, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1);
+        __pyx_t_6 = (__pyx_t_12) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_12, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1);
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 572, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 634, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 572, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 634, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 572, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 634, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 634, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 572, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 634, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_XDECREF_SET(__pyx_v_Y_g_qr, __pyx_t_4);
-        __pyx_t_4 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_Z_i_qr, __pyx_t_6);
+        __pyx_t_6 = 0;
 
-        /* "simuclustfactor/tandem.py":575
+        /* "simuclustfactor/tandem.py":637
  * 
- * 					# check if maximizes orbjective or minimizes the loss
- * 					F = np.linalg.norm(U_i_g@Y_g_qr, 2)  # residual matrix             # <<<<<<<<<<<<<<
- * 					conv = abs(F-Fs_km[-1])
- * 					Fs_km.append(F)
+ * 					# check if maximizes objective
+ * 					F = np.linalg.norm(Z_i_qr, 2)  # residual matrix             # <<<<<<<<<<<<<<
+ * 					conv = abs(F-F0)
+ * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 575, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 637, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 575, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 637, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 575, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 637, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 575, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_12 = NULL;
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = NULL;
         __pyx_t_11 = 0;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-          __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_1);
-          if (likely(__pyx_t_12)) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
+          if (likely(__pyx_t_4)) {
             PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-            __Pyx_INCREF(__pyx_t_12);
+            __Pyx_INCREF(__pyx_t_4);
             __Pyx_INCREF(function);
             __Pyx_DECREF_SET(__pyx_t_1, function);
             __pyx_t_11 = 1;
@@ -8861,771 +9685,1123 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
         }
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_1)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_3, __pyx_int_2};
-          __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 575, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-          __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_Z_i_qr, __pyx_int_2};
+          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 637, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_3, __pyx_int_2};
-          __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 575, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-          __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_Z_i_qr, __pyx_int_2};
+          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 637, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
         } else
         #endif
         {
-          __pyx_t_6 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 575, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          if (__pyx_t_12) {
-            __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_12); __pyx_t_12 = NULL;
+          __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 637, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          if (__pyx_t_4) {
+            __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_4); __pyx_t_4 = NULL;
           }
-          __Pyx_GIVEREF(__pyx_t_3);
-          PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_11, __pyx_t_3);
+          __Pyx_INCREF(__pyx_v_Z_i_qr);
+          __Pyx_GIVEREF(__pyx_v_Z_i_qr);
+          PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_11, __pyx_v_Z_i_qr);
           __Pyx_INCREF(__pyx_int_2);
           __Pyx_GIVEREF(__pyx_int_2);
-          PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_11, __pyx_int_2);
-          __pyx_t_3 = 0;
-          __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 575, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_int_2);
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 637, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_XDECREF_SET(__pyx_v_F, __pyx_t_4);
-        __pyx_t_4 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_F, __pyx_t_6);
+        __pyx_t_6 = 0;
 
-        /* "simuclustfactor/tandem.py":576
- * 					# check if maximizes orbjective or minimizes the loss
- * 					F = np.linalg.norm(U_i_g@Y_g_qr, 2)  # residual matrix
- * 					conv = abs(F-Fs_km[-1])             # <<<<<<<<<<<<<<
- * 					Fs_km.append(F)
+        /* "simuclustfactor/tandem.py":638
+ * 					# check if maximizes objective
+ * 					F = np.linalg.norm(Z_i_qr, 2)  # residual matrix
+ * 					conv = abs(F-F0)             # <<<<<<<<<<<<<<
  * 
+ * 					if F >= F0:
  */
-        __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_Fs_km, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 576, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_1 = PyNumber_Subtract(__pyx_v_F, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 576, __pyx_L1_error)
+        __pyx_t_6 = PyNumber_Subtract(__pyx_v_F, __pyx_v_F0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 638, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_1 = __Pyx_PyNumber_Absolute(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 638, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyNumber_Absolute(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 576, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_4);
-        __pyx_t_4 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_DECREF_SET(__pyx_v_conv, __pyx_t_1);
+        __pyx_t_1 = 0;
 
-        /* "simuclustfactor/tandem.py":577
- * 					F = np.linalg.norm(U_i_g@Y_g_qr, 2)  # residual matrix
- * 					conv = abs(F-Fs_km[-1])
- * 					Fs_km.append(F)             # <<<<<<<<<<<<<<
+        /* "simuclustfactor/tandem.py":640
+ * 					conv = abs(F-F0)
  * 
- * 					# not converged
- */
-        __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_km, __pyx_v_F); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 577, __pyx_L1_error)
-
-        /* "simuclustfactor/tandem.py":580
- * 
- * 					# not converged
- * 					if km_iter == self.n_max_iter:             # <<<<<<<<<<<<<<
- * 						if self.verbose == True: print("KM Maximum iterations reached.")
- * 						break
- */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_max_iter); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 580, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_1 = PyObject_RichCompare(__pyx_v_km_iter, __pyx_t_4, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 580, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 580, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (__pyx_t_10) {
-
-          /* "simuclustfactor/tandem.py":581
- * 					# not converged
- * 					if km_iter == self.n_max_iter:
- * 						if self.verbose == True: print("KM Maximum iterations reached.")             # <<<<<<<<<<<<<<
- * 						break
- * 
- */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 581, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, Py_True, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 581, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 581, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (__pyx_t_10) {
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 581, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          }
-
-          /* "simuclustfactor/tandem.py":582
- * 					if km_iter == self.n_max_iter:
- * 						if self.verbose == True: print("KM Maximum iterations reached.")
- * 						break             # <<<<<<<<<<<<<<
- * 
- * 					if conv < self.tol:
- */
-          goto __pyx_L24_break;
-
-          /* "simuclustfactor/tandem.py":580
- * 
- * 					# not converged
- * 					if km_iter == self.n_max_iter:             # <<<<<<<<<<<<<<
- * 						if self.verbose == True: print("KM Maximum iterations reached.")
- * 						break
- */
-        }
-
-        /* "simuclustfactor/tandem.py":584
- * 						break
- * 
- * 					if conv < self.tol:             # <<<<<<<<<<<<<<
- * 						km_converged = True
- * 					else:
- */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 584, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_1 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 584, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 584, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (__pyx_t_10) {
-
-          /* "simuclustfactor/tandem.py":585
- * 
- * 					if conv < self.tol:
- * 						km_converged = True             # <<<<<<<<<<<<<<
- * 					else:
+ * 					if F >= F0:             # <<<<<<<<<<<<<<
+ * 						Fs_km.append(F)
  * 						F0 = F
  */
-          __pyx_v_km_converged = 1;
+        __pyx_t_1 = PyObject_RichCompare(__pyx_v_F, __pyx_v_F0, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 640, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 640, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (__pyx_t_10) {
 
-          /* "simuclustfactor/tandem.py":584
- * 						break
+          /* "simuclustfactor/tandem.py":641
  * 
- * 					if conv < self.tol:             # <<<<<<<<<<<<<<
- * 						km_converged = True
- * 					else:
+ * 					if F >= F0:
+ * 						Fs_km.append(F)             # <<<<<<<<<<<<<<
+ * 						F0 = F
+ * 						best_U_i_g = U_i_g
  */
-          goto __pyx_L27;
-        }
+          __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_Fs_km, __pyx_v_F); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 641, __pyx_L1_error)
 
-        /* "simuclustfactor/tandem.py":587
- * 						km_converged = True
- * 					else:
+          /* "simuclustfactor/tandem.py":642
+ * 					if F >= F0:
+ * 						Fs_km.append(F)
  * 						F0 = F             # <<<<<<<<<<<<<<
- * 						U_i_g0 = U_i_g
- * 			else:
+ * 						best_U_i_g = U_i_g
+ * 						best_km_iter = km_iter
  */
-        /*else*/ {
           __Pyx_INCREF(__pyx_v_F);
           __Pyx_DECREF_SET(__pyx_v_F0, __pyx_v_F);
 
-          /* "simuclustfactor/tandem.py":588
- * 					else:
+          /* "simuclustfactor/tandem.py":643
+ * 						Fs_km.append(F)
  * 						F0 = F
- * 						U_i_g0 = U_i_g             # <<<<<<<<<<<<<<
- * 			else:
- * 				U_i_g_init = U_i_g0.copy()
+ * 						best_U_i_g = U_i_g             # <<<<<<<<<<<<<<
+ * 						best_km_iter = km_iter
+ * 
  */
           __Pyx_INCREF(__pyx_v_U_i_g);
-          __Pyx_DECREF_SET(__pyx_v_U_i_g0, __pyx_v_U_i_g);
-        }
-        __pyx_L27:;
-      }
-      __pyx_L24_break:;
+          __Pyx_DECREF_SET(__pyx_v_best_U_i_g, __pyx_v_U_i_g);
 
-      /* "simuclustfactor/tandem.py":552
+          /* "simuclustfactor/tandem.py":644
+ * 						F0 = F
+ * 						best_U_i_g = U_i_g
+ * 						best_km_iter = km_iter             # <<<<<<<<<<<<<<
+ * 
+ * 					if conv < self.tol:
+ */
+          __Pyx_INCREF(__pyx_v_km_iter);
+          __Pyx_DECREF_SET(__pyx_v_best_km_iter, __pyx_v_km_iter);
+
+          /* "simuclustfactor/tandem.py":640
+ * 					conv = abs(F-F0)
+ * 
+ * 					if F >= F0:             # <<<<<<<<<<<<<<
+ * 						Fs_km.append(F)
+ * 						F0 = F
+ */
+        }
+
+        /* "simuclustfactor/tandem.py":646
+ * 						best_km_iter = km_iter
+ * 
+ * 					if conv < self.tol:             # <<<<<<<<<<<<<<
+ * 						km_converged = True
+ * 						break
+ */
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tol); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 646, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_6 = PyObject_RichCompare(__pyx_v_conv, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 646, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 646, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        if (__pyx_t_10) {
+
+          /* "simuclustfactor/tandem.py":647
+ * 
+ * 					if conv < self.tol:
+ * 						km_converged = True             # <<<<<<<<<<<<<<
+ * 						break
+ * 
+ */
+          __pyx_v_km_converged = 1;
+
+          /* "simuclustfactor/tandem.py":648
+ * 					if conv < self.tol:
+ * 						km_converged = True
+ * 						break             # <<<<<<<<<<<<<<
+ * 
+ * 					if km_iter == self.n_max_iter:
+ */
+          goto __pyx_L25_break;
+
+          /* "simuclustfactor/tandem.py":646
+ * 						best_km_iter = km_iter
+ * 
+ * 					if conv < self.tol:             # <<<<<<<<<<<<<<
+ * 						km_converged = True
+ * 						break
+ */
+        }
+
+        /* "simuclustfactor/tandem.py":650
+ * 						break
+ * 
+ * 					if km_iter == self.n_max_iter:             # <<<<<<<<<<<<<<
+ * 						if self.verbose: print("KM Maximum iterations reached.")
+ * 						break
+ */
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_n_max_iter); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 650, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_1 = PyObject_RichCompare(__pyx_v_km_iter, __pyx_t_6, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 650, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 650, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (__pyx_t_10) {
+
+          /* "simuclustfactor/tandem.py":651
+ * 
+ * 					if km_iter == self.n_max_iter:
+ * 						if self.verbose: print("KM Maximum iterations reached.")             # <<<<<<<<<<<<<<
+ * 						break
+ * 
+ */
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 651, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 651, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          if (__pyx_t_10) {
+            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 651, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          }
+
+          /* "simuclustfactor/tandem.py":652
+ * 					if km_iter == self.n_max_iter:
+ * 						if self.verbose: print("KM Maximum iterations reached.")
+ * 						break             # <<<<<<<<<<<<<<
+ * 
+ * 					U_i_g0 = U_i_g  # perform computation with updated U
+ */
+          goto __pyx_L25_break;
+
+          /* "simuclustfactor/tandem.py":650
+ * 						break
+ * 
+ * 					if km_iter == self.n_max_iter:             # <<<<<<<<<<<<<<
+ * 						if self.verbose: print("KM Maximum iterations reached.")
+ * 						break
+ */
+        }
+
+        /* "simuclustfactor/tandem.py":654
+ * 						break
+ * 
+ * 					U_i_g0 = U_i_g  # perform computation with updated U             # <<<<<<<<<<<<<<
+ * 
+ * 			else:
+ */
+        __Pyx_INCREF(__pyx_v_U_i_g);
+        __Pyx_DECREF_SET(__pyx_v_U_i_g0, __pyx_v_U_i_g);
+      }
+      __pyx_L25_break:;
+
+      /* "simuclustfactor/tandem.py":609
  * 			# given directly as paramters
  * 			U_i_g0 = self.U_i_g
  * 			if U_i_g0 is None:             # <<<<<<<<<<<<<<
- * 				U_i_g0 = RandomMembershipMatrix(I, G, rng=rng)
- * 				U_i_g_init = U_i_g0.copy()
+ * 
+ * 				# initialize U_i_g
  */
-      goto __pyx_L22;
+      goto __pyx_L23;
     }
 
-    /* "simuclustfactor/tandem.py":590
- * 						U_i_g0 = U_i_g
+    /* "simuclustfactor/tandem.py":657
+ * 
  * 			else:
  * 				U_i_g_init = U_i_g0.copy()             # <<<<<<<<<<<<<<
- * 				U_i_g = U_i_g_init
+ * 				best_U_i_g = U_i_g_init
  * 
  */
     /*else*/ {
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g0, __pyx_n_s_copy); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 590, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_6 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-        __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
-        if (likely(__pyx_t_6)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-          __Pyx_INCREF(__pyx_t_6);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_4, function);
-        }
-      }
-      __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 590, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_XDECREF_SET(__pyx_v_U_i_g_init, __pyx_t_1);
-      __pyx_t_1 = 0;
-
-      /* "simuclustfactor/tandem.py":591
- * 			else:
- * 				U_i_g_init = U_i_g0.copy()
- * 				U_i_g = U_i_g_init             # <<<<<<<<<<<<<<
- * 
- * 			# print('final',U_i_g)
- */
-      __Pyx_INCREF(__pyx_v_U_i_g_init);
-      __Pyx_XDECREF_SET(__pyx_v_U_i_g, __pyx_v_U_i_g_init);
-    }
-    __pyx_L22:;
-
-    /* "simuclustfactor/tandem.py":599
- * 			# ----------- Start of results update for each loop --------------
- * 
- * 			time_elapsed = time()-start_time             # <<<<<<<<<<<<<<
- * 
- * 			Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ X_i_jk @ np.kron(C_k_r, B_j_q)
- */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_time); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 599, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = NULL;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_6)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_6);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-      }
-    }
-    __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 599, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_Subtract(__pyx_t_1, __pyx_v_start_time); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 599, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_time_elapsed, __pyx_t_4);
-    __pyx_t_4 = 0;
-
-    /* "simuclustfactor/tandem.py":601
- * 			time_elapsed = time()-start_time
- * 
- * 			Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ X_i_jk @ np.kron(C_k_r, B_j_q)             # <<<<<<<<<<<<<<
- * 			Z_i_qr = U_i_g @ Y_g_qr
- * 
- */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_inv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 601, __pyx_L1_error) }
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 601, __pyx_L1_error) }
-    __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_6, __pyx_v_U_i_g); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_6)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_6);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-      }
-    }
-    __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_6, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3);
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 601, __pyx_L1_error) }
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_3, __pyx_v_X_i_jk); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_kron); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_v_C_k_r)) { __Pyx_RaiseUnboundLocalError("C_k_r"); __PYX_ERR(0, 601, __pyx_L1_error) }
-    if (unlikely(!__pyx_v_B_j_q)) { __Pyx_RaiseUnboundLocalError("B_j_q"); __PYX_ERR(0, 601, __pyx_L1_error) }
-    __pyx_t_4 = NULL;
-    __pyx_t_11 = 0;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
-      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_6);
-      if (likely(__pyx_t_4)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-        __Pyx_INCREF(__pyx_t_4);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_6, function);
-        __pyx_t_11 = 1;
-      }
-    }
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_6)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_C_k_r, __pyx_v_B_j_q};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 601, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GOTREF(__pyx_t_3);
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_C_k_r, __pyx_v_B_j_q};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 601, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GOTREF(__pyx_t_3);
-    } else
-    #endif
-    {
-      __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 601, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      if (__pyx_t_4) {
-        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_4); __pyx_t_4 = NULL;
-      }
-      __Pyx_INCREF(__pyx_v_C_k_r);
-      __Pyx_GIVEREF(__pyx_v_C_k_r);
-      PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_11, __pyx_v_C_k_r);
-      __Pyx_INCREF(__pyx_v_B_j_q);
-      __Pyx_GIVEREF(__pyx_v_B_j_q);
-      PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_v_B_j_q);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 601, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    }
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 601, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_Y_g_qr, __pyx_t_6);
-    __pyx_t_6 = 0;
-
-    /* "simuclustfactor/tandem.py":602
- * 
- * 			Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ X_i_jk @ np.kron(C_k_r, B_j_q)
- * 			Z_i_qr = U_i_g @ Y_g_qr             # <<<<<<<<<<<<<<
- * 
- * 			TSS = Y_i_qr.var()*Y_i_qr.size
- */
-    if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 602, __pyx_L1_error) }
-    __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 602, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_XDECREF_SET(__pyx_v_Z_i_qr, __pyx_t_6);
-    __pyx_t_6 = 0;
-
-    /* "simuclustfactor/tandem.py":604
- * 			Z_i_qr = U_i_g @ Y_g_qr
- * 
- * 			TSS = Y_i_qr.var()*Y_i_qr.size             # <<<<<<<<<<<<<<
- * 			BSS = Z_i_qr.var()*Z_i_qr.size  # clustering + factor reduction
- * 			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size  # redsidual sum of squares
- */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_Y_i_qr, __pyx_n_s_var); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 604, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
-      if (likely(__pyx_t_1)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-        __Pyx_INCREF(__pyx_t_1);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_3, function);
-      }
-    }
-    __pyx_t_6 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 604, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_Y_i_qr, __pyx_n_s_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 604, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 604, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_TSS, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "simuclustfactor/tandem.py":605
- * 
- * 			TSS = Y_i_qr.var()*Y_i_qr.size
- * 			BSS = Z_i_qr.var()*Z_i_qr.size  # clustering + factor reduction             # <<<<<<<<<<<<<<
- * 			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size  # redsidual sum of squares
- * 
- */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_qr, __pyx_n_s_var); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 605, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
-      if (likely(__pyx_t_6)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-        __Pyx_INCREF(__pyx_t_6);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_3, function);
-      }
-    }
-    __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 605, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_qr, __pyx_n_s_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 605, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = PyNumber_Multiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 605, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_BSS, __pyx_t_6);
-    __pyx_t_6 = 0;
-
-    /* "simuclustfactor/tandem.py":606
- * 			TSS = Y_i_qr.var()*Y_i_qr.size
- * 			BSS = Z_i_qr.var()*Z_i_qr.size  # clustering + factor reduction
- * 			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size  # redsidual sum of squares             # <<<<<<<<<<<<<<
- * 
- * 			BSS_percent = (BSS/TSS)*100  # between cluster deviance
- */
-    __pyx_t_3 = PyNumber_Subtract(__pyx_v_Y_i_qr, __pyx_v_Z_i_qr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 606, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_var); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 606, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_3)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_3);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-      }
-    }
-    __pyx_t_6 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 606, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Subtract(__pyx_v_Y_i_qr, __pyx_v_Z_i_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 606, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 606, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 606, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_RSS, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "simuclustfactor/tandem.py":608
- * 			RSS = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size  # redsidual sum of squares
- * 
- * 			BSS_percent = (BSS/TSS)*100  # between cluster deviance             # <<<<<<<<<<<<<<
- * 
- * 			# pseudoF and output results
- */
-    __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_BSS, __pyx_v_TSS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 608, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_int_100); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 608, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_BSS_percent, __pyx_t_3);
-    __pyx_t_3 = 0;
-
-    /* "simuclustfactor/tandem.py":611
- * 
- * 			# pseudoF and output results
- * 			pseudoF = round(PseudoF(BSS, RSS, full_tensor_shape, reduced_tensor_shape), 4) if G not in [1,I] else None             # <<<<<<<<<<<<<<
- * 			if self.verbose: print(tabulate([[]], headers=[loop, km_iter, fa_iter, round(time_elapsed,4), round(BSS_percent,4), pseudoF, km_converged, fa_converged], tablefmt='plain'))
- * 
- */
-    __Pyx_INCREF(__pyx_v_G);
-    __pyx_t_1 = __pyx_v_G;
-    __pyx_t_6 = __Pyx_PyInt_NeObjC(__pyx_t_1, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 611, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 611, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (__pyx_t_7) {
-    } else {
-      __pyx_t_10 = __pyx_t_7;
-      goto __pyx_L28_bool_binop_done;
-    }
-    __pyx_t_6 = PyObject_RichCompare(__pyx_t_1, __pyx_v_I, Py_NE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 611, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 611, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_10 = __pyx_t_7;
-    __pyx_L28_bool_binop_done:;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if ((__pyx_t_10 != 0)) {
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_PseudoF); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 611, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g0, __pyx_n_s_copy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 657, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __pyx_t_12 = NULL;
-      __pyx_t_11 = 0;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
         __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_6);
         if (likely(__pyx_t_12)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
           __Pyx_INCREF(__pyx_t_12);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_6, function);
+        }
+      }
+      __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
+      __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 657, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_U_i_g_init, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "simuclustfactor/tandem.py":658
+ * 			else:
+ * 				U_i_g_init = U_i_g0.copy()
+ * 				best_U_i_g = U_i_g_init             # <<<<<<<<<<<<<<
+ * 
+ * 			print('Fs_km',Fs_km)
+ */
+      __Pyx_INCREF(__pyx_v_U_i_g_init);
+      __Pyx_XDECREF_SET(__pyx_v_best_U_i_g, __pyx_v_U_i_g_init);
+    }
+    __pyx_L23:;
+
+    /* "simuclustfactor/tandem.py":660
+ * 				best_U_i_g = U_i_g_init
+ * 
+ * 			print('Fs_km',Fs_km)             # <<<<<<<<<<<<<<
+ * 
+ * 			# ----------- End KMeans clustering applied to Y_i_qr --------------
+ */
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 660, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_n_u_Fs_km);
+    __Pyx_GIVEREF(__pyx_n_u_Fs_km);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_n_u_Fs_km);
+    __Pyx_INCREF(__pyx_v_Fs_km);
+    __Pyx_GIVEREF(__pyx_v_Fs_km);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_Fs_km);
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 660, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+    /* "simuclustfactor/tandem.py":666
+ * 			# ----------- Start of results update for each loop --------------
+ * 
+ * 			time_elapsed = time()-start_time             # <<<<<<<<<<<<<<
+ * 
+ * 			# updating X
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 666, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_12 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_12)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_12);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    __pyx_t_6 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
+    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 666, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Subtract(__pyx_t_6, __pyx_v_start_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 666, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_time_elapsed, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":669
+ * 
+ * 			# updating X
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)             # <<<<<<<<<<<<<<
+ * 			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+ * 			Z_i_qr = best_U_i_g @  Y_g_qr
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 669, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_kron); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 669, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = NULL;
+    __pyx_t_11 = 0;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_12);
+      if (likely(__pyx_t_6)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+        __Pyx_INCREF(__pyx_t_6);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_12, function);
+        __pyx_t_11 = 1;
+      }
+    }
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_12)) {
+      PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 669, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
+      PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 669, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+    } else
+    #endif
+    {
+      __pyx_t_4 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 669, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      if (__pyx_t_6) {
+        __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6); __pyx_t_6 = NULL;
+      }
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_GIVEREF(__pyx_v_best_C_k_r);
+      PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_11, __pyx_v_best_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_GIVEREF(__pyx_v_best_B_j_q);
+      PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_11, __pyx_v_best_B_j_q);
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 669, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 669, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF_SET(__pyx_v_Y_i_qr, __pyx_t_12);
+    __pyx_t_12 = 0;
+
+    /* "simuclustfactor/tandem.py":670
+ * 			# updating X
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)
+ * 			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr             # <<<<<<<<<<<<<<
+ * 			Z_i_qr = best_U_i_g @  Y_g_qr
+ * 			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_inv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_best_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_4, __pyx_v_best_U_i_g); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    __pyx_t_12 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_best_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_12, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_6, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_Y_g_qr, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":671
+ * 			Y_i_qr = X_i_jk @ np.kron(best_C_k_r, best_B_j_q)
+ * 			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+ * 			Z_i_qr = best_U_i_g @  Y_g_qr             # <<<<<<<<<<<<<<
+ * 			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
+ * 
+ */
+    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_best_U_i_g, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 671, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_XDECREF_SET(__pyx_v_Z_i_qr, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":672
+ * 			Y_g_qr = np.linalg.inv(best_U_i_g.T@best_U_i_g) @ best_U_i_g.T @ Y_i_qr
+ * 			Z_i_qr = best_U_i_g @  Y_g_qr
+ * 			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T             # <<<<<<<<<<<<<<
+ * 
+ * 			TSS_full = X_i_jk.var()*X_i_jk.size
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 672, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_kron); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 672, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = NULL;
+    __pyx_t_11 = 0;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_12);
+      if (likely(__pyx_t_6)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+        __Pyx_INCREF(__pyx_t_6);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_12, function);
+        __pyx_t_11 = 1;
+      }
+    }
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_12)) {
+      PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 672, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
+      PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_best_C_k_r, __pyx_v_best_B_j_q};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 672, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+    } else
+    #endif
+    {
+      __pyx_t_4 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 672, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      if (__pyx_t_6) {
+        __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6); __pyx_t_6 = NULL;
+      }
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_GIVEREF(__pyx_v_best_C_k_r);
+      PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_11, __pyx_v_best_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_GIVEREF(__pyx_v_best_B_j_q);
+      PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_11, __pyx_v_best_B_j_q);
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 672, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 672, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_Z_i_qr, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 672, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_Z_i_jk, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":674
+ * 			Z_i_jk = Z_i_qr @ np.kron(best_C_k_r, best_B_j_q).T
+ * 
+ * 			TSS_full = X_i_jk.var()*X_i_jk.size             # <<<<<<<<<<<<<<
+ * 			BSS_full = Z_i_jk.var()*Z_i_jk.size
+ * 			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
+ */
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_var); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 674, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_4 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_12);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_12, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 674, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_X_i_jk, __pyx_n_s_size); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 674, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 674, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_TSS_full, __pyx_t_4);
+    __pyx_t_4 = 0;
+
+    /* "simuclustfactor/tandem.py":675
+ * 
+ * 			TSS_full = X_i_jk.var()*X_i_jk.size
+ * 			BSS_full = Z_i_jk.var()*Z_i_jk.size             # <<<<<<<<<<<<<<
+ * 			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
+ * 
+ */
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_jk, __pyx_n_s_var); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 675, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_1 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_12);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_12, function);
+      }
+    }
+    __pyx_t_4 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 675, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_jk, __pyx_n_s_size); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 675, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_4, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 675, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_BSS_full, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":676
+ * 			TSS_full = X_i_jk.var()*X_i_jk.size
+ * 			BSS_full = Z_i_jk.var()*Z_i_jk.size
+ * 			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size             # <<<<<<<<<<<<<<
+ * 
+ * 			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+ */
+    __pyx_t_12 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_v_Z_i_jk); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_var); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_12)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_12);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_v_Z_i_jk); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_size); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_RSS_full, __pyx_t_4);
+    __pyx_t_4 = 0;
+
+    /* "simuclustfactor/tandem.py":678
+ * 			RSS_full = (X_i_jk-Z_i_jk).var()*(X_i_jk-Z_i_jk).size
+ * 
+ * 			TSS_reduced = Y_i_qr.var()*Y_i_qr.size             # <<<<<<<<<<<<<<
+ * 			BSS_reduced = Z_i_qr.var()*Z_i_qr.size
+ * 			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+ */
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_Y_i_qr, __pyx_n_s_var); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 678, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_1 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_12);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_12, function);
+      }
+    }
+    __pyx_t_4 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 678, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_Y_i_qr, __pyx_n_s_size); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 678, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_4, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 678, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_TSS_reduced, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":679
+ * 
+ * 			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+ * 			BSS_reduced = Z_i_qr.var()*Z_i_qr.size             # <<<<<<<<<<<<<<
+ * 			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+ * 
+ */
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_qr, __pyx_n_s_var); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 679, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_4 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_12);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_12, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 679, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_Z_i_qr, __pyx_n_s_size); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 679, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 679, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_BSS_reduced, __pyx_t_4);
+    __pyx_t_4 = 0;
+
+    /* "simuclustfactor/tandem.py":680
+ * 			TSS_reduced = Y_i_qr.var()*Y_i_qr.size
+ * 			BSS_reduced = Z_i_qr.var()*Z_i_qr.size
+ * 			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size             # <<<<<<<<<<<<<<
+ * 
+ * 			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+ */
+    __pyx_t_12 = PyNumber_Subtract(__pyx_v_Y_i_qr, __pyx_v_Z_i_qr); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 680, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_var); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 680, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_12)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_12);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    __pyx_t_4 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
+    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 680, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Subtract(__pyx_v_Y_i_qr, __pyx_v_Z_i_qr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 680, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_size); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 680, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_4, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 680, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_RSS_reduced, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":682
+ * 			RSS_reduced = (Y_i_qr-Z_i_qr).var()*(Y_i_qr-Z_i_qr).size
+ * 
+ * 			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance             # <<<<<<<<<<<<<<
+ * 			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+ * 			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+ */
+    __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_BSS_full, __pyx_v_TSS_full); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 682, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_12 = PyNumber_Multiply(__pyx_t_1, __pyx_int_100); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 682, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_BSS_percent_full, __pyx_t_12);
+    __pyx_t_12 = 0;
+
+    /* "simuclustfactor/tandem.py":683
+ * 
+ * 			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+ * 			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance             # <<<<<<<<<<<<<<
+ * 			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+ * 			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+ */
+    __pyx_t_12 = __Pyx_PyNumber_Divide(__pyx_v_BSS_reduced, __pyx_v_TSS_reduced); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 683, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_12, __pyx_int_100); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 683, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_BSS_percent_reduced, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":684
+ * 			BSS_percent_full = (BSS_full/TSS_full)*100  # between cluster deviance
+ * 			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+ * 			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None             # <<<<<<<<<<<<<<
+ * 			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+ * 
+ */
+    __Pyx_INCREF(__pyx_v_G);
+    __pyx_t_12 = __pyx_v_G;
+    __pyx_t_4 = __Pyx_PyInt_NeObjC(__pyx_t_12, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (__pyx_t_7) {
+    } else {
+      __pyx_t_10 = __pyx_t_7;
+      goto __pyx_L30_bool_binop_done;
+    }
+    __pyx_t_4 = PyObject_RichCompare(__pyx_t_12, __pyx_v_I, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_10 = __pyx_t_7;
+    __pyx_L30_bool_binop_done:;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if ((__pyx_t_10 != 0)) {
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_PseudoF); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 684, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_6 = NULL;
+      __pyx_t_11 = 0;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+        __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
+        if (likely(__pyx_t_6)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_6);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_4, function);
           __pyx_t_11 = 1;
         }
       }
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_6)) {
-        PyObject *__pyx_temp[5] = {__pyx_t_12, __pyx_v_BSS, __pyx_v_RSS, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 611, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __Pyx_GOTREF(__pyx_t_1);
+      if (PyFunction_Check(__pyx_t_4)) {
+        PyObject *__pyx_temp[5] = {__pyx_t_6, __pyx_v_BSS_full, __pyx_v_RSS_full, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
+        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 684, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_GOTREF(__pyx_t_12);
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-        PyObject *__pyx_temp[5] = {__pyx_t_12, __pyx_v_BSS, __pyx_v_RSS, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 611, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __Pyx_GOTREF(__pyx_t_1);
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
+        PyObject *__pyx_temp[5] = {__pyx_t_6, __pyx_v_BSS_full, __pyx_v_RSS_full, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
+        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 684, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_GOTREF(__pyx_t_12);
       } else
       #endif
       {
-        __pyx_t_4 = PyTuple_New(4+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 611, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        if (__pyx_t_12) {
-          __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_12); __pyx_t_12 = NULL;
+        __pyx_t_3 = PyTuple_New(4+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 684, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        if (__pyx_t_6) {
+          __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6); __pyx_t_6 = NULL;
         }
-        __Pyx_INCREF(__pyx_v_BSS);
-        __Pyx_GIVEREF(__pyx_v_BSS);
-        PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_11, __pyx_v_BSS);
-        __Pyx_INCREF(__pyx_v_RSS);
-        __Pyx_GIVEREF(__pyx_v_RSS);
-        PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_11, __pyx_v_RSS);
+        __Pyx_INCREF(__pyx_v_BSS_full);
+        __Pyx_GIVEREF(__pyx_v_BSS_full);
+        PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_11, __pyx_v_BSS_full);
+        __Pyx_INCREF(__pyx_v_RSS_full);
+        __Pyx_GIVEREF(__pyx_v_RSS_full);
+        PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_v_RSS_full);
         __Pyx_INCREF(__pyx_v_full_tensor_shape);
         __Pyx_GIVEREF(__pyx_v_full_tensor_shape);
-        PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_11, __pyx_v_full_tensor_shape);
+        PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_11, __pyx_v_full_tensor_shape);
         __Pyx_INCREF(__pyx_v_reduced_tensor_shape);
         __Pyx_GIVEREF(__pyx_v_reduced_tensor_shape);
-        PyTuple_SET_ITEM(__pyx_t_4, 3+__pyx_t_11, __pyx_v_reduced_tensor_shape);
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 611, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        PyTuple_SET_ITEM(__pyx_t_3, 3+__pyx_t_11, __pyx_v_reduced_tensor_shape);
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 684, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 611, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 684, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_12);
+      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_12);
+      __Pyx_INCREF(__pyx_int_4);
+      __Pyx_GIVEREF(__pyx_int_4);
+      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_int_4);
+      __pyx_t_12 = 0;
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_4, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 684, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_1 = __pyx_t_12;
+      __pyx_t_12 = 0;
+    } else {
+      __Pyx_INCREF(Py_None);
+      __pyx_t_1 = Py_None;
+    }
+    __Pyx_XDECREF_SET(__pyx_v_pseudoF_full, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":685
+ * 			BSS_percent_reduced = (BSS_reduced/TSS_reduced)*100  # between cluster deviance
+ * 			pseudoF_full = round(PseudoF(BSS_full, RSS_full, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None
+ * 			pseudoF_reduced = round(PseudoF(BSS_reduced, RSS_reduced, full_tensor_shape, reduced_tensor_shape),4) if G not in [1,I] else None             # <<<<<<<<<<<<<<
+ * 
+ * 			# pseudoF and output results
+ */
+    __Pyx_INCREF(__pyx_v_G);
+    __pyx_t_12 = __pyx_v_G;
+    __pyx_t_4 = __Pyx_PyInt_NeObjC(__pyx_t_12, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 685, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 685, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (__pyx_t_7) {
+    } else {
+      __pyx_t_10 = __pyx_t_7;
+      goto __pyx_L32_bool_binop_done;
+    }
+    __pyx_t_4 = PyObject_RichCompare(__pyx_t_12, __pyx_v_I, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 685, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 685, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_10 = __pyx_t_7;
+    __pyx_L32_bool_binop_done:;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if ((__pyx_t_10 != 0)) {
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_PseudoF); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 685, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_3 = NULL;
+      __pyx_t_11 = 0;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
+        if (likely(__pyx_t_3)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_3);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_4, function);
+          __pyx_t_11 = 1;
+        }
+      }
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_4)) {
+        PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_BSS_reduced, __pyx_v_RSS_reduced, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
+        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 685, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_GOTREF(__pyx_t_12);
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
+        PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_BSS_reduced, __pyx_v_RSS_reduced, __pyx_v_full_tensor_shape, __pyx_v_reduced_tensor_shape};
+        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 685, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_GOTREF(__pyx_t_12);
+      } else
+      #endif
+      {
+        __pyx_t_6 = PyTuple_New(4+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 685, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        if (__pyx_t_3) {
+          __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3); __pyx_t_3 = NULL;
+        }
+        __Pyx_INCREF(__pyx_v_BSS_reduced);
+        __Pyx_GIVEREF(__pyx_v_BSS_reduced);
+        PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_11, __pyx_v_BSS_reduced);
+        __Pyx_INCREF(__pyx_v_RSS_reduced);
+        __Pyx_GIVEREF(__pyx_v_RSS_reduced);
+        PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_11, __pyx_v_RSS_reduced);
+        __Pyx_INCREF(__pyx_v_full_tensor_shape);
+        __Pyx_GIVEREF(__pyx_v_full_tensor_shape);
+        PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_11, __pyx_v_full_tensor_shape);
+        __Pyx_INCREF(__pyx_v_reduced_tensor_shape);
+        __Pyx_GIVEREF(__pyx_v_reduced_tensor_shape);
+        PyTuple_SET_ITEM(__pyx_t_6, 3+__pyx_t_11, __pyx_v_reduced_tensor_shape);
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 685, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 685, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_12);
+      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_12);
+      __Pyx_INCREF(__pyx_int_4);
+      __Pyx_GIVEREF(__pyx_int_4);
+      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_int_4);
+      __pyx_t_12 = 0;
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_4, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 685, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_1 = __pyx_t_12;
+      __pyx_t_12 = 0;
+    } else {
+      __Pyx_INCREF(Py_None);
+      __pyx_t_1 = Py_None;
+    }
+    __Pyx_XDECREF_SET(__pyx_v_pseudoF_reduced, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "simuclustfactor/tandem.py":688
+ * 
+ * 			# pseudoF and output results
+ * 			if self.verbose: print(tabulate([[]], headers=[loop, best_fa_iter, best_km_iter, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, fa_converged, km_converged], tablefmt='plain'))             # <<<<<<<<<<<<<<
+ * 
+ * 			if (loop == 1):
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 688, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 688, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (__pyx_t_10) {
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_tabulate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_12 = PyList_New(0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_12);
+      PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_12);
+      __pyx_t_12 = 0;
+      __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      if (unlikely(!__pyx_v_best_km_iter)) { __Pyx_RaiseUnboundLocalError("best_km_iter"); __PYX_ERR(0, 688, __pyx_L1_error) }
+      __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 688, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_GIVEREF(__pyx_t_1);
-      PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
+      __Pyx_INCREF(__pyx_v_time_elapsed);
+      __Pyx_GIVEREF(__pyx_v_time_elapsed);
+      PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_time_elapsed);
       __Pyx_INCREF(__pyx_int_4);
       __Pyx_GIVEREF(__pyx_int_4);
       PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_int_4);
-      __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 611, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_3 = __pyx_t_1;
-      __pyx_t_1 = 0;
-    } else {
-      __Pyx_INCREF(Py_None);
-      __pyx_t_3 = Py_None;
-    }
-    __Pyx_XDECREF_SET(__pyx_v_pseudoF, __pyx_t_3);
-    __pyx_t_3 = 0;
-
-    /* "simuclustfactor/tandem.py":612
- * 			# pseudoF and output results
- * 			pseudoF = round(PseudoF(BSS, RSS, full_tensor_shape, reduced_tensor_shape), 4) if G not in [1,I] else None
- * 			if self.verbose: print(tabulate([[]], headers=[loop, km_iter, fa_iter, round(time_elapsed,4), round(BSS_percent,4), pseudoF, km_converged, fa_converged], tablefmt='plain'))             # <<<<<<<<<<<<<<
- * 
- * 			if (loop == 1):
- */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_verbose); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 612, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 612, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (__pyx_t_10) {
-      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_tabulate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 688, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = PyList_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 688, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_GIVEREF(__pyx_t_1);
-      PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
-      __pyx_t_1 = 0;
-      __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_GIVEREF(__pyx_t_6);
-      PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6);
-      __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_INCREF(__pyx_v_time_elapsed);
-      __Pyx_GIVEREF(__pyx_v_time_elapsed);
-      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_time_elapsed);
-      __Pyx_INCREF(__pyx_int_4);
-      __Pyx_GIVEREF(__pyx_int_4);
-      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_int_4);
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_4, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_INCREF(__pyx_v_BSS_percent);
-      __Pyx_GIVEREF(__pyx_v_BSS_percent);
-      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_BSS_percent);
-      __Pyx_INCREF(__pyx_int_4);
-      __Pyx_GIVEREF(__pyx_int_4);
-      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_int_4);
-      __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_4, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __Pyx_INCREF(__pyx_v_BSS_percent_full);
+      __Pyx_GIVEREF(__pyx_v_BSS_percent_full);
+      PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_BSS_percent_full);
+      __Pyx_INCREF(__pyx_int_2);
+      __Pyx_GIVEREF(__pyx_int_2);
+      PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_int_2);
+      __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_6, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 688, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyBool_FromLong(__pyx_v_km_converged); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_15 = __Pyx_PyBool_FromLong(__pyx_v_fa_converged); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_INCREF(__pyx_v_BSS_percent_reduced);
+      __Pyx_GIVEREF(__pyx_v_BSS_percent_reduced);
+      PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_BSS_percent_reduced);
+      __Pyx_INCREF(__pyx_int_2);
+      __Pyx_GIVEREF(__pyx_int_2);
+      PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_int_2);
+      __pyx_t_15 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_6, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 688, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
-      __pyx_t_16 = PyList_New(8); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = __Pyx_PyBool_FromLong(__pyx_v_fa_converged); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_16 = __Pyx_PyBool_FromLong(__pyx_v_km_converged); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 688, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
+      __pyx_t_17 = PyList_New(10); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
       __Pyx_INCREF(__pyx_v_loop);
       __Pyx_GIVEREF(__pyx_v_loop);
-      PyList_SET_ITEM(__pyx_t_16, 0, __pyx_v_loop);
-      __Pyx_INCREF(__pyx_v_km_iter);
-      __Pyx_GIVEREF(__pyx_v_km_iter);
-      PyList_SET_ITEM(__pyx_t_16, 1, __pyx_v_km_iter);
-      __Pyx_INCREF(__pyx_v_fa_iter);
-      __Pyx_GIVEREF(__pyx_v_fa_iter);
-      PyList_SET_ITEM(__pyx_t_16, 2, __pyx_v_fa_iter);
-      __Pyx_GIVEREF(__pyx_t_12);
-      PyList_SET_ITEM(__pyx_t_16, 3, __pyx_t_12);
+      PyList_SET_ITEM(__pyx_t_17, 0, __pyx_v_loop);
+      __Pyx_INCREF(__pyx_v_best_fa_iter);
+      __Pyx_GIVEREF(__pyx_v_best_fa_iter);
+      PyList_SET_ITEM(__pyx_t_17, 1, __pyx_v_best_fa_iter);
+      __Pyx_INCREF(__pyx_v_best_km_iter);
+      __Pyx_GIVEREF(__pyx_v_best_km_iter);
+      PyList_SET_ITEM(__pyx_t_17, 2, __pyx_v_best_km_iter);
+      __Pyx_GIVEREF(__pyx_t_3);
+      PyList_SET_ITEM(__pyx_t_17, 3, __pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_14);
-      PyList_SET_ITEM(__pyx_t_16, 4, __pyx_t_14);
-      __Pyx_INCREF(__pyx_v_pseudoF);
-      __Pyx_GIVEREF(__pyx_v_pseudoF);
-      PyList_SET_ITEM(__pyx_t_16, 5, __pyx_v_pseudoF);
-      __Pyx_GIVEREF(__pyx_t_4);
-      PyList_SET_ITEM(__pyx_t_16, 6, __pyx_t_4);
+      PyList_SET_ITEM(__pyx_t_17, 4, __pyx_t_14);
       __Pyx_GIVEREF(__pyx_t_15);
-      PyList_SET_ITEM(__pyx_t_16, 7, __pyx_t_15);
-      __pyx_t_12 = 0;
+      PyList_SET_ITEM(__pyx_t_17, 5, __pyx_t_15);
+      __Pyx_INCREF(__pyx_v_pseudoF_full);
+      __Pyx_GIVEREF(__pyx_v_pseudoF_full);
+      PyList_SET_ITEM(__pyx_t_17, 6, __pyx_v_pseudoF_full);
+      __Pyx_INCREF(__pyx_v_pseudoF_reduced);
+      __Pyx_GIVEREF(__pyx_v_pseudoF_reduced);
+      PyList_SET_ITEM(__pyx_t_17, 7, __pyx_v_pseudoF_reduced);
+      __Pyx_GIVEREF(__pyx_t_6);
+      PyList_SET_ITEM(__pyx_t_17, 8, __pyx_t_6);
+      __Pyx_GIVEREF(__pyx_t_16);
+      PyList_SET_ITEM(__pyx_t_17, 9, __pyx_t_16);
+      __pyx_t_3 = 0;
       __pyx_t_14 = 0;
-      __pyx_t_4 = 0;
       __pyx_t_15 = 0;
-      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_headers, __pyx_t_16) < 0) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_tablefmt, __pyx_n_u_plain) < 0) __PYX_ERR(0, 612, __pyx_L1_error)
-      __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_16);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_6 = 0;
+      __pyx_t_16 = 0;
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_headers, __pyx_t_17) < 0) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_tablefmt, __pyx_n_u_plain) < 0) __PYX_ERR(0, 688, __pyx_L1_error)
+      __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_16); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 612, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_17); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 688, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
 
-    /* "simuclustfactor/tandem.py":614
- * 			if self.verbose: print(tabulate([[]], headers=[loop, km_iter, fa_iter, round(time_elapsed,4), round(BSS_percent,4), pseudoF, km_converged, fa_converged], tablefmt='plain'))
+    /* "simuclustfactor/tandem.py":690
+ * 			if self.verbose: print(tabulate([[]], headers=[loop, best_fa_iter, best_km_iter, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, fa_converged, km_converged], tablefmt='plain'))
  * 
  * 			if (loop == 1):             # <<<<<<<<<<<<<<
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
  */
-    __pyx_t_6 = __Pyx_PyInt_EqObjC(__pyx_v_loop, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 614, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 614, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_v_loop, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 690, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 690, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (__pyx_t_10) {
 
-      /* "simuclustfactor/tandem.py":615
+      /* "simuclustfactor/tandem.py":691
  * 
  * 			if (loop == 1):
- * 				B_j_q_simu = B_j_q             # <<<<<<<<<<<<<<
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g
+ * 				B_j_q_simu = best_B_j_q             # <<<<<<<<<<<<<<
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g
  */
-      if (unlikely(!__pyx_v_B_j_q)) { __Pyx_RaiseUnboundLocalError("B_j_q"); __PYX_ERR(0, 615, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_B_j_q);
-      __Pyx_XDECREF_SET(__pyx_v_B_j_q_simu, __pyx_v_B_j_q);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_XDECREF_SET(__pyx_v_B_j_q_simu, __pyx_v_best_B_j_q);
 
-      /* "simuclustfactor/tandem.py":616
+      /* "simuclustfactor/tandem.py":692
  * 			if (loop == 1):
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r             # <<<<<<<<<<<<<<
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r             # <<<<<<<<<<<<<<
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter
  */
-      if (unlikely(!__pyx_v_C_k_r)) { __Pyx_RaiseUnboundLocalError("C_k_r"); __PYX_ERR(0, 616, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_C_k_r);
-      __Pyx_XDECREF_SET(__pyx_v_C_k_r_simu, __pyx_v_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_XDECREF_SET(__pyx_v_C_k_r_simu, __pyx_v_best_C_k_r);
 
-      /* "simuclustfactor/tandem.py":617
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g             # <<<<<<<<<<<<<<
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter
+      /* "simuclustfactor/tandem.py":693
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g             # <<<<<<<<<<<<<<
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter
  */
-      if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 617, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_U_i_g);
-      __Pyx_XDECREF_SET(__pyx_v_U_i_g_simu, __pyx_v_U_i_g);
+      __Pyx_INCREF(__pyx_v_best_U_i_g);
+      __Pyx_XDECREF_SET(__pyx_v_U_i_g_simu, __pyx_v_best_U_i_g);
 
-      /* "simuclustfactor/tandem.py":618
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr             # <<<<<<<<<<<<<<
- * 				km_iter_simu = km_iter
- * 				fa_iter_simu = fa_iter
- */
-      __Pyx_INCREF(__pyx_v_Y_g_qr);
-      __Pyx_XDECREF_SET(__pyx_v_Y_g_qr_simu, __pyx_v_Y_g_qr);
-
-      /* "simuclustfactor/tandem.py":619
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter             # <<<<<<<<<<<<<<
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":694
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter             # <<<<<<<<<<<<<<
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = 1
  */
-      __Pyx_INCREF(__pyx_v_km_iter);
-      __Pyx_XDECREF_SET(__pyx_v_km_iter_simu, __pyx_v_km_iter);
+      if (unlikely(!__pyx_v_best_km_iter)) { __Pyx_RaiseUnboundLocalError("best_km_iter"); __PYX_ERR(0, 694, __pyx_L1_error) }
+      __Pyx_INCREF(__pyx_v_best_km_iter);
+      __Pyx_XDECREF_SET(__pyx_v_km_iter_simu, __pyx_v_best_km_iter);
 
-      /* "simuclustfactor/tandem.py":620
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter
- * 				fa_iter_simu = fa_iter             # <<<<<<<<<<<<<<
+      /* "simuclustfactor/tandem.py":695
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter             # <<<<<<<<<<<<<<
  * 				loop_simu = 1
  * 				km_converged_simu = km_converged
  */
-      __Pyx_INCREF(__pyx_v_fa_iter);
-      __Pyx_XDECREF_SET(__pyx_v_fa_iter_simu, __pyx_v_fa_iter);
+      __Pyx_INCREF(__pyx_v_best_fa_iter);
+      __Pyx_XDECREF_SET(__pyx_v_fa_iter_simu, __pyx_v_best_fa_iter);
 
-      /* "simuclustfactor/tandem.py":621
- * 				km_iter_simu = km_iter
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":696
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = 1             # <<<<<<<<<<<<<<
  * 				km_converged_simu = km_converged
  * 				fa_converged_simu = fa_converged
@@ -9633,97 +10809,137 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_int_1);
       __Pyx_XDECREF_SET(__pyx_v_loop_simu, __pyx_int_1);
 
-      /* "simuclustfactor/tandem.py":622
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":697
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = 1
  * 				km_converged_simu = km_converged             # <<<<<<<<<<<<<<
  * 				fa_converged_simu = fa_converged
- * 				BSS_per_simu = BSS_percent
+ * 				Fs_fa = Fs_fa
  */
       __pyx_v_km_converged_simu = __pyx_v_km_converged;
 
-      /* "simuclustfactor/tandem.py":623
+      /* "simuclustfactor/tandem.py":698
  * 				loop_simu = 1
  * 				km_converged_simu = km_converged
  * 				fa_converged_simu = fa_converged             # <<<<<<<<<<<<<<
- * 				BSS_per_simu = BSS_percent
- * 				TSS_simu = TSS
+ * 				Fs_fa = Fs_fa
+ * 				Fs_km = Fs_km
  */
       __pyx_v_fa_converged_simu = __pyx_v_fa_converged;
 
-      /* "simuclustfactor/tandem.py":624
+      /* "simuclustfactor/tandem.py":699
  * 				km_converged_simu = km_converged
  * 				fa_converged_simu = fa_converged
- * 				BSS_per_simu = BSS_percent             # <<<<<<<<<<<<<<
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS
- */
-      __Pyx_INCREF(__pyx_v_BSS_percent);
-      __Pyx_XDECREF_SET(__pyx_v_BSS_per_simu, __pyx_v_BSS_percent);
-
-      /* "simuclustfactor/tandem.py":625
- * 				fa_converged_simu = fa_converged
- * 				BSS_per_simu = BSS_percent
- * 				TSS_simu = TSS             # <<<<<<<<<<<<<<
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS
- */
-      __Pyx_INCREF(__pyx_v_TSS);
-      __Pyx_XDECREF_SET(__pyx_v_TSS_simu, __pyx_v_TSS);
-
-      /* "simuclustfactor/tandem.py":626
- * 				BSS_per_simu = BSS_percent
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS             # <<<<<<<<<<<<<<
- * 				RSS_simu = RSS
- * 				Fs_fa = Fs_fa
- */
-      __Pyx_INCREF(__pyx_v_BSS);
-      __Pyx_XDECREF_SET(__pyx_v_BSS_simu, __pyx_v_BSS);
-
-      /* "simuclustfactor/tandem.py":627
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS             # <<<<<<<<<<<<<<
- * 				Fs_fa = Fs_fa
- * 				Fs_km = Fs_km
- */
-      __Pyx_INCREF(__pyx_v_RSS);
-      __Pyx_XDECREF_SET(__pyx_v_RSS_simu, __pyx_v_RSS);
-
-      /* "simuclustfactor/tandem.py":628
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS
  * 				Fs_fa = Fs_fa             # <<<<<<<<<<<<<<
  * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF
+ * 				pseudoF_full_simu = pseudoF_full
  */
       __Pyx_INCREF(__pyx_v_Fs_fa);
       __Pyx_DECREF_SET(__pyx_v_Fs_fa, __pyx_v_Fs_fa);
 
-      /* "simuclustfactor/tandem.py":629
- * 				RSS_simu = RSS
+      /* "simuclustfactor/tandem.py":700
+ * 				fa_converged_simu = fa_converged
  * 				Fs_fa = Fs_fa
  * 				Fs_km = Fs_km             # <<<<<<<<<<<<<<
- * 				pseudoF_simu = pseudoF
- * 				U_i_g_init_simu = U_i_g_init
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced
  */
       __Pyx_INCREF(__pyx_v_Fs_km);
       __Pyx_DECREF_SET(__pyx_v_Fs_km, __pyx_v_Fs_km);
 
-      /* "simuclustfactor/tandem.py":630
+      /* "simuclustfactor/tandem.py":701
  * 				Fs_fa = Fs_fa
  * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF             # <<<<<<<<<<<<<<
+ * 				pseudoF_full_simu = pseudoF_full             # <<<<<<<<<<<<<<
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_reduced
+ */
+      __Pyx_INCREF(__pyx_v_pseudoF_full);
+      __Pyx_XDECREF_SET(__pyx_v_pseudoF_full_simu, __pyx_v_pseudoF_full);
+
+      /* "simuclustfactor/tandem.py":702
+ * 				Fs_km = Fs_km
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced             # <<<<<<<<<<<<<<
+ * 				BSS_per = BSS_percent_reduced
+ * 				TSS_full_simu = TSS_full
+ */
+      __Pyx_INCREF(__pyx_v_pseudoF_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_pseudoF_reduced_simu, __pyx_v_pseudoF_reduced);
+
+      /* "simuclustfactor/tandem.py":703
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_reduced             # <<<<<<<<<<<<<<
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full
+ */
+      __Pyx_INCREF(__pyx_v_BSS_percent_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_per, __pyx_v_BSS_percent_reduced);
+
+      /* "simuclustfactor/tandem.py":704
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_reduced
+ * 				TSS_full_simu = TSS_full             # <<<<<<<<<<<<<<
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full
+ */
+      __Pyx_INCREF(__pyx_v_TSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_TSS_full_simu, __pyx_v_TSS_full);
+
+      /* "simuclustfactor/tandem.py":705
+ * 				BSS_per = BSS_percent_reduced
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full             # <<<<<<<<<<<<<<
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_BSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_full_simu, __pyx_v_BSS_full);
+
+      /* "simuclustfactor/tandem.py":706
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full             # <<<<<<<<<<<<<<
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_RSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_RSS_full_simu, __pyx_v_RSS_full);
+
+      /* "simuclustfactor/tandem.py":707
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced             # <<<<<<<<<<<<<<
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_TSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_TSS_reduced_simu, __pyx_v_TSS_reduced);
+
+      /* "simuclustfactor/tandem.py":708
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced             # <<<<<<<<<<<<<<
+ * 				RSS_reduced_simu = RSS_reduced
+ * 				U_i_g_init_simu = U_i_g_init
+ */
+      __Pyx_INCREF(__pyx_v_BSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_reduced_simu, __pyx_v_BSS_reduced);
+
+      /* "simuclustfactor/tandem.py":709
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced             # <<<<<<<<<<<<<<
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init
  */
-      __Pyx_INCREF(__pyx_v_pseudoF);
-      __Pyx_XDECREF_SET(__pyx_v_pseudoF_simu, __pyx_v_pseudoF);
+      __Pyx_INCREF(__pyx_v_RSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_RSS_reduced_simu, __pyx_v_RSS_reduced);
 
-      /* "simuclustfactor/tandem.py":631
- * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF
+      /* "simuclustfactor/tandem.py":710
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced
  * 				U_i_g_init_simu = U_i_g_init             # <<<<<<<<<<<<<<
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init
@@ -9731,8 +10947,8 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_U_i_g_init);
       __Pyx_XDECREF_SET(__pyx_v_U_i_g_init_simu, __pyx_v_U_i_g_init);
 
-      /* "simuclustfactor/tandem.py":632
- * 				pseudoF_simu = pseudoF
+      /* "simuclustfactor/tandem.py":711
+ * 				RSS_reduced_simu = RSS_reduced
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init             # <<<<<<<<<<<<<<
  * 				C_k_r_init_simu = C_k_r_init
@@ -9741,7 +10957,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_B_j_q_init);
       __Pyx_XDECREF_SET(__pyx_v_B_j_q_init_simu, __pyx_v_B_j_q_init);
 
-      /* "simuclustfactor/tandem.py":633
+      /* "simuclustfactor/tandem.py":712
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init             # <<<<<<<<<<<<<<
@@ -9751,7 +10967,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_C_k_r_init);
       __Pyx_XDECREF_SET(__pyx_v_C_k_r_init_simu, __pyx_v_C_k_r_init);
 
-      /* "simuclustfactor/tandem.py":634
+      /* "simuclustfactor/tandem.py":713
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init
  * 				best_time_elapsed_simu = time_elapsed             # <<<<<<<<<<<<<<
@@ -9761,94 +10977,82 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_time_elapsed);
       __Pyx_XDECREF_SET(__pyx_v_best_time_elapsed_simu, __pyx_v_time_elapsed);
 
-      /* "simuclustfactor/tandem.py":614
- * 			if self.verbose: print(tabulate([[]], headers=[loop, km_iter, fa_iter, round(time_elapsed,4), round(BSS_percent,4), pseudoF, km_converged, fa_converged], tablefmt='plain'))
+      /* "simuclustfactor/tandem.py":690
+ * 			if self.verbose: print(tabulate([[]], headers=[loop, best_fa_iter, best_km_iter, round(time_elapsed,4), round(BSS_percent_full,2), round(BSS_percent_reduced,2), pseudoF_full, pseudoF_reduced, fa_converged, km_converged], tablefmt='plain'))
  * 
  * 			if (loop == 1):             # <<<<<<<<<<<<<<
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
  */
     }
 
-    /* "simuclustfactor/tandem.py":637
+    /* "simuclustfactor/tandem.py":716
  * 
  * 
- * 			if (BSS_percent > BSS_per_simu):             # <<<<<<<<<<<<<<
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
+ * 			if (BSS_percent_reduced > BSS_per):             # <<<<<<<<<<<<<<
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
  */
-    if (unlikely(!__pyx_v_BSS_per_simu)) { __Pyx_RaiseUnboundLocalError("BSS_per_simu"); __PYX_ERR(0, 637, __pyx_L1_error) }
-    __pyx_t_6 = PyObject_RichCompare(__pyx_v_BSS_percent, __pyx_v_BSS_per_simu, Py_GT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 637, __pyx_L1_error)
-    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 637, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_v_BSS_per)) { __Pyx_RaiseUnboundLocalError("BSS_per"); __PYX_ERR(0, 716, __pyx_L1_error) }
+    __pyx_t_4 = PyObject_RichCompare(__pyx_v_BSS_percent_reduced, __pyx_v_BSS_per, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 716, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 716, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (__pyx_t_10) {
 
-      /* "simuclustfactor/tandem.py":638
+      /* "simuclustfactor/tandem.py":717
  * 
- * 			if (BSS_percent > BSS_per_simu):
- * 				B_j_q_simu = B_j_q             # <<<<<<<<<<<<<<
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g
+ * 			if (BSS_percent_reduced > BSS_per):
+ * 				B_j_q_simu = best_B_j_q             # <<<<<<<<<<<<<<
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g
  */
-      if (unlikely(!__pyx_v_B_j_q)) { __Pyx_RaiseUnboundLocalError("B_j_q"); __PYX_ERR(0, 638, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_B_j_q);
-      __Pyx_XDECREF_SET(__pyx_v_B_j_q_simu, __pyx_v_B_j_q);
+      __Pyx_INCREF(__pyx_v_best_B_j_q);
+      __Pyx_XDECREF_SET(__pyx_v_B_j_q_simu, __pyx_v_best_B_j_q);
 
-      /* "simuclustfactor/tandem.py":639
- * 			if (BSS_percent > BSS_per_simu):
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r             # <<<<<<<<<<<<<<
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr
+      /* "simuclustfactor/tandem.py":718
+ * 			if (BSS_percent_reduced > BSS_per):
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r             # <<<<<<<<<<<<<<
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter
  */
-      if (unlikely(!__pyx_v_C_k_r)) { __Pyx_RaiseUnboundLocalError("C_k_r"); __PYX_ERR(0, 639, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_C_k_r);
-      __Pyx_XDECREF_SET(__pyx_v_C_k_r_simu, __pyx_v_C_k_r);
+      __Pyx_INCREF(__pyx_v_best_C_k_r);
+      __Pyx_XDECREF_SET(__pyx_v_C_k_r_simu, __pyx_v_best_C_k_r);
 
-      /* "simuclustfactor/tandem.py":640
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g             # <<<<<<<<<<<<<<
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter  # number of iterations until convergence
+      /* "simuclustfactor/tandem.py":719
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g             # <<<<<<<<<<<<<<
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter
  */
-      if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 640, __pyx_L1_error) }
-      __Pyx_INCREF(__pyx_v_U_i_g);
-      __Pyx_XDECREF_SET(__pyx_v_U_i_g_simu, __pyx_v_U_i_g);
+      __Pyx_INCREF(__pyx_v_best_U_i_g);
+      __Pyx_XDECREF_SET(__pyx_v_U_i_g_simu, __pyx_v_best_U_i_g);
 
-      /* "simuclustfactor/tandem.py":641
- * 				C_k_r_simu = C_k_r
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr             # <<<<<<<<<<<<<<
- * 				km_iter_simu = km_iter  # number of iterations until convergence
- * 				fa_iter_simu = fa_iter
- */
-      __Pyx_INCREF(__pyx_v_Y_g_qr);
-      __Pyx_XDECREF_SET(__pyx_v_Y_g_qr_simu, __pyx_v_Y_g_qr);
-
-      /* "simuclustfactor/tandem.py":642
- * 				U_i_g_simu = U_i_g
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter  # number of iterations until convergence             # <<<<<<<<<<<<<<
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":720
+ * 				C_k_r_simu = best_C_k_r
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter             # <<<<<<<<<<<<<<
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = loop  # best loop so far
  */
-      __Pyx_INCREF(__pyx_v_km_iter);
-      __Pyx_XDECREF_SET(__pyx_v_km_iter_simu, __pyx_v_km_iter);
+      if (unlikely(!__pyx_v_best_km_iter)) { __Pyx_RaiseUnboundLocalError("best_km_iter"); __PYX_ERR(0, 720, __pyx_L1_error) }
+      __Pyx_INCREF(__pyx_v_best_km_iter);
+      __Pyx_XDECREF_SET(__pyx_v_km_iter_simu, __pyx_v_best_km_iter);
 
-      /* "simuclustfactor/tandem.py":643
- * 				Y_g_qr_simu = Y_g_qr
- * 				km_iter_simu = km_iter  # number of iterations until convergence
- * 				fa_iter_simu = fa_iter             # <<<<<<<<<<<<<<
+      /* "simuclustfactor/tandem.py":721
+ * 				U_i_g_simu = best_U_i_g
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter             # <<<<<<<<<<<<<<
  * 				loop_simu = loop  # best loop so far
  * 				km_converged_simu = km_converged  # if there was a convergence
  */
-      __Pyx_INCREF(__pyx_v_fa_iter);
-      __Pyx_XDECREF_SET(__pyx_v_fa_iter_simu, __pyx_v_fa_iter);
+      __Pyx_INCREF(__pyx_v_best_fa_iter);
+      __Pyx_XDECREF_SET(__pyx_v_fa_iter_simu, __pyx_v_best_fa_iter);
 
-      /* "simuclustfactor/tandem.py":644
- * 				km_iter_simu = km_iter  # number of iterations until convergence
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":722
+ * 				km_iter_simu = best_km_iter
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = loop  # best loop so far             # <<<<<<<<<<<<<<
  * 				km_converged_simu = km_converged  # if there was a convergence
  * 				fa_converged_simu = fa_converged  # if there was a convergence
@@ -9856,106 +11060,137 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_loop);
       __Pyx_XDECREF_SET(__pyx_v_loop_simu, __pyx_v_loop);
 
-      /* "simuclustfactor/tandem.py":645
- * 				fa_iter_simu = fa_iter
+      /* "simuclustfactor/tandem.py":723
+ * 				fa_iter_simu = best_fa_iter
  * 				loop_simu = loop  # best loop so far
  * 				km_converged_simu = km_converged  # if there was a convergence             # <<<<<<<<<<<<<<
  * 				fa_converged_simu = fa_converged  # if there was a convergence
- * 				converged_simu = converged  # if there was a convergence
+ * 				Fs_fa = Fs_fa  # objective function values for FA
  */
       __pyx_v_km_converged_simu = __pyx_v_km_converged;
 
-      /* "simuclustfactor/tandem.py":646
+      /* "simuclustfactor/tandem.py":724
  * 				loop_simu = loop  # best loop so far
  * 				km_converged_simu = km_converged  # if there was a convergence
  * 				fa_converged_simu = fa_converged  # if there was a convergence             # <<<<<<<<<<<<<<
- * 				converged_simu = converged  # if there was a convergence
- * 				BSS_per_simu = BSS_percent  # best objective functional value
+ * 				Fs_fa = Fs_fa  # objective function values for FA
+ * 				Fs_km = Fs_km
  */
       __pyx_v_fa_converged_simu = __pyx_v_fa_converged;
 
-      /* "simuclustfactor/tandem.py":647
+      /* "simuclustfactor/tandem.py":725
  * 				km_converged_simu = km_converged  # if there was a convergence
  * 				fa_converged_simu = fa_converged  # if there was a convergence
- * 				converged_simu = converged  # if there was a convergence             # <<<<<<<<<<<<<<
- * 				BSS_per_simu = BSS_percent  # best objective functional value
- * 				TSS_simu = TSS
- */
-      __pyx_v_converged_simu = __pyx_v_converged;
-
-      /* "simuclustfactor/tandem.py":648
- * 				fa_converged_simu = fa_converged  # if there was a convergence
- * 				converged_simu = converged  # if there was a convergence
- * 				BSS_per_simu = BSS_percent  # best objective functional value             # <<<<<<<<<<<<<<
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS
- */
-      __Pyx_INCREF(__pyx_v_BSS_percent);
-      __Pyx_XDECREF_SET(__pyx_v_BSS_per_simu, __pyx_v_BSS_percent);
-
-      /* "simuclustfactor/tandem.py":649
- * 				converged_simu = converged  # if there was a convergence
- * 				BSS_per_simu = BSS_percent  # best objective functional value
- * 				TSS_simu = TSS             # <<<<<<<<<<<<<<
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS
- */
-      __Pyx_INCREF(__pyx_v_TSS);
-      __Pyx_XDECREF_SET(__pyx_v_TSS_simu, __pyx_v_TSS);
-
-      /* "simuclustfactor/tandem.py":650
- * 				BSS_per_simu = BSS_percent  # best objective functional value
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS             # <<<<<<<<<<<<<<
- * 				RSS_simu = RSS
- * 				Fs_fa = Fs_fa  # objective function values for FA
- */
-      __Pyx_INCREF(__pyx_v_BSS);
-      __Pyx_XDECREF_SET(__pyx_v_BSS_simu, __pyx_v_BSS);
-
-      /* "simuclustfactor/tandem.py":651
- * 				TSS_simu = TSS
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS             # <<<<<<<<<<<<<<
- * 				Fs_fa = Fs_fa  # objective function values for FA
- * 				Fs_km = Fs_km
- */
-      __Pyx_INCREF(__pyx_v_RSS);
-      __Pyx_XDECREF_SET(__pyx_v_RSS_simu, __pyx_v_RSS);
-
-      /* "simuclustfactor/tandem.py":652
- * 				BSS_simu = BSS
- * 				RSS_simu = RSS
  * 				Fs_fa = Fs_fa  # objective function values for FA             # <<<<<<<<<<<<<<
  * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF
+ * 				pseudoF_full_simu = pseudoF_full
  */
       __Pyx_INCREF(__pyx_v_Fs_fa);
       __Pyx_DECREF_SET(__pyx_v_Fs_fa, __pyx_v_Fs_fa);
 
-      /* "simuclustfactor/tandem.py":653
- * 				RSS_simu = RSS
+      /* "simuclustfactor/tandem.py":726
+ * 				fa_converged_simu = fa_converged  # if there was a convergence
  * 				Fs_fa = Fs_fa  # objective function values for FA
  * 				Fs_km = Fs_km             # <<<<<<<<<<<<<<
- * 				pseudoF_simu = pseudoF
- * 				U_i_g_init_simu = U_i_g_init
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced
  */
       __Pyx_INCREF(__pyx_v_Fs_km);
       __Pyx_DECREF_SET(__pyx_v_Fs_km, __pyx_v_Fs_km);
 
-      /* "simuclustfactor/tandem.py":654
+      /* "simuclustfactor/tandem.py":727
  * 				Fs_fa = Fs_fa  # objective function values for FA
  * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF             # <<<<<<<<<<<<<<
+ * 				pseudoF_full_simu = pseudoF_full             # <<<<<<<<<<<<<<
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_reduced
+ */
+      __Pyx_INCREF(__pyx_v_pseudoF_full);
+      __Pyx_XDECREF_SET(__pyx_v_pseudoF_full_simu, __pyx_v_pseudoF_full);
+
+      /* "simuclustfactor/tandem.py":728
+ * 				Fs_km = Fs_km
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced             # <<<<<<<<<<<<<<
+ * 				BSS_per = BSS_percent_reduced
+ * 				TSS_full_simu = TSS_full
+ */
+      __Pyx_INCREF(__pyx_v_pseudoF_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_pseudoF_reduced_simu, __pyx_v_pseudoF_reduced);
+
+      /* "simuclustfactor/tandem.py":729
+ * 				pseudoF_full_simu = pseudoF_full
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_reduced             # <<<<<<<<<<<<<<
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full
+ */
+      __Pyx_INCREF(__pyx_v_BSS_percent_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_per, __pyx_v_BSS_percent_reduced);
+
+      /* "simuclustfactor/tandem.py":730
+ * 				pseudoF_reduced_simu = pseudoF_reduced
+ * 				BSS_per = BSS_percent_reduced
+ * 				TSS_full_simu = TSS_full             # <<<<<<<<<<<<<<
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full
+ */
+      __Pyx_INCREF(__pyx_v_TSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_TSS_full_simu, __pyx_v_TSS_full);
+
+      /* "simuclustfactor/tandem.py":731
+ * 				BSS_per = BSS_percent_reduced
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full             # <<<<<<<<<<<<<<
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_BSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_full_simu, __pyx_v_BSS_full);
+
+      /* "simuclustfactor/tandem.py":732
+ * 				TSS_full_simu = TSS_full
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full             # <<<<<<<<<<<<<<
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_RSS_full);
+      __Pyx_XDECREF_SET(__pyx_v_RSS_full_simu, __pyx_v_RSS_full);
+
+      /* "simuclustfactor/tandem.py":733
+ * 				BSS_full_simu = BSS_full
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced             # <<<<<<<<<<<<<<
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced
+ */
+      __Pyx_INCREF(__pyx_v_TSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_TSS_reduced_simu, __pyx_v_TSS_reduced);
+
+      /* "simuclustfactor/tandem.py":734
+ * 				RSS_full_simu = RSS_full
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced             # <<<<<<<<<<<<<<
+ * 				RSS_reduced_simu = RSS_reduced
+ * 				U_i_g_init_simu = U_i_g_init
+ */
+      __Pyx_INCREF(__pyx_v_BSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_BSS_reduced_simu, __pyx_v_BSS_reduced);
+
+      /* "simuclustfactor/tandem.py":735
+ * 				TSS_reduced_simu = TSS_reduced
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced             # <<<<<<<<<<<<<<
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init
  */
-      __Pyx_INCREF(__pyx_v_pseudoF);
-      __Pyx_XDECREF_SET(__pyx_v_pseudoF_simu, __pyx_v_pseudoF);
+      __Pyx_INCREF(__pyx_v_RSS_reduced);
+      __Pyx_XDECREF_SET(__pyx_v_RSS_reduced_simu, __pyx_v_RSS_reduced);
 
-      /* "simuclustfactor/tandem.py":655
- * 				Fs_km = Fs_km
- * 				pseudoF_simu = pseudoF
+      /* "simuclustfactor/tandem.py":736
+ * 				BSS_reduced_simu = BSS_reduced
+ * 				RSS_reduced_simu = RSS_reduced
  * 				U_i_g_init_simu = U_i_g_init             # <<<<<<<<<<<<<<
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init
@@ -9963,8 +11198,8 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_U_i_g_init);
       __Pyx_XDECREF_SET(__pyx_v_U_i_g_init_simu, __pyx_v_U_i_g_init);
 
-      /* "simuclustfactor/tandem.py":656
- * 				pseudoF_simu = pseudoF
+      /* "simuclustfactor/tandem.py":737
+ * 				RSS_reduced_simu = RSS_reduced
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init             # <<<<<<<<<<<<<<
  * 				C_k_r_init_simu = C_k_r_init
@@ -9973,7 +11208,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_B_j_q_init);
       __Pyx_XDECREF_SET(__pyx_v_B_j_q_init_simu, __pyx_v_B_j_q_init);
 
-      /* "simuclustfactor/tandem.py":657
+      /* "simuclustfactor/tandem.py":738
  * 				U_i_g_init_simu = U_i_g_init
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init             # <<<<<<<<<<<<<<
@@ -9983,7 +11218,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_C_k_r_init);
       __Pyx_XDECREF_SET(__pyx_v_C_k_r_init_simu, __pyx_v_C_k_r_init);
 
-      /* "simuclustfactor/tandem.py":658
+      /* "simuclustfactor/tandem.py":739
  * 				B_j_q_init_simu = B_j_q_init
  * 				C_k_r_init_simu = C_k_r_init
  * 				best_time_elapsed_simu = time_elapsed             # <<<<<<<<<<<<<<
@@ -9993,16 +11228,16 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_v_time_elapsed);
       __Pyx_XDECREF_SET(__pyx_v_best_time_elapsed_simu, __pyx_v_time_elapsed);
 
-      /* "simuclustfactor/tandem.py":637
+      /* "simuclustfactor/tandem.py":716
  * 
  * 
- * 			if (BSS_percent > BSS_per_simu):             # <<<<<<<<<<<<<<
- * 				B_j_q_simu = B_j_q
- * 				C_k_r_simu = C_k_r
+ * 			if (BSS_percent_reduced > BSS_per):             # <<<<<<<<<<<<<<
+ * 				B_j_q_simu = best_B_j_q
+ * 				C_k_r_simu = best_C_k_r
  */
     }
 
-    /* "simuclustfactor/tandem.py":458
+    /* "simuclustfactor/tandem.py":501
  * 
  * 		# number of loops
  * 		for loop in range(1, self.n_loops+1):             # <<<<<<<<<<<<<<
@@ -10013,27 +11248,408 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_L9_break:;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "simuclustfactor/tandem.py":664
+  /* "simuclustfactor/tandem.py":745
  * 		# ----------- Start of result update for best loop --------------
  * 
  * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)             # <<<<<<<<<<<<<<
- * 		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr
+ * 		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu)@U_i_g_simu.T@Y_i_qr
  * 		Z_i_qr = U_i_g_simu @ Y_g_qr
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 664, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_kron); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 664, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 745, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_kron); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 745, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 745, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 745, __pyx_L1_error) }
+  __pyx_t_4 = NULL;
+  __pyx_t_11 = 0;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_17);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_17, function);
+      __pyx_t_11 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_17)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 745, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 745, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+  } else
+  #endif
+  {
+    __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 745, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    if (__pyx_t_4) {
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_C_k_r_simu);
+    __Pyx_GIVEREF(__pyx_v_C_k_r_simu);
+    PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_11, __pyx_v_C_k_r_simu);
+    __Pyx_INCREF(__pyx_v_B_j_q_simu);
+    __Pyx_GIVEREF(__pyx_v_B_j_q_simu);
+    PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_v_B_j_q_simu);
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 745, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  __pyx_t_17 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 745, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_XDECREF_SET(__pyx_v_Y_i_qr, __pyx_t_17);
+  __pyx_t_17 = 0;
+
+  /* "simuclustfactor/tandem.py":746
+ * 
+ * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
+ * 		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu)@U_i_g_simu.T@Y_i_qr             # <<<<<<<<<<<<<<
+ * 		Z_i_qr = U_i_g_simu @ Y_g_qr
+ * 
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linalg); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_12);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_inv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 746, __pyx_L1_error) }
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g_simu, __pyx_n_s_T); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_12);
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 746, __pyx_L1_error) }
+  __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_12, __pyx_v_U_i_g_simu); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  __pyx_t_12 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_12)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_12);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_17 = (__pyx_t_12) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_12, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 746, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g_simu, __pyx_n_s_T); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_17, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_4, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 746, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_XDECREF_SET(__pyx_v_Y_g_qr, __pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "simuclustfactor/tandem.py":747
+ * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
+ * 		Y_g_qr = np.linalg.inv(U_i_g_simu.T@U_i_g_simu)@U_i_g_simu.T@Y_i_qr
+ * 		Z_i_qr = U_i_g_simu @ Y_g_qr             # <<<<<<<<<<<<<<
+ * 
+ * 		# factor matrices and centroid matrices
+ */
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 747, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g_simu, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 747, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_XDECREF_SET(__pyx_v_Z_i_qr, __pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "simuclustfactor/tandem.py":750
+ * 
+ * 		# factor matrices and centroid matrices
+ * 		self.U_i_g = U_i_g_simu             # <<<<<<<<<<<<<<
+ * 		self.U_i_g0 = U_i_g_init_simu
+ * 		self.B_j_q0 = B_j_q_init_simu
+ */
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 750, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g, __pyx_v_U_i_g_simu) < 0) __PYX_ERR(0, 750, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":751
+ * 		# factor matrices and centroid matrices
+ * 		self.U_i_g = U_i_g_simu
+ * 		self.U_i_g0 = U_i_g_init_simu             # <<<<<<<<<<<<<<
+ * 		self.B_j_q0 = B_j_q_init_simu
+ * 		self.C_k_r0 = C_k_r_init_simu
+ */
+  if (unlikely(!__pyx_v_U_i_g_init_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_init_simu"); __PYX_ERR(0, 751, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g0, __pyx_v_U_i_g_init_simu) < 0) __PYX_ERR(0, 751, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":752
+ * 		self.U_i_g = U_i_g_simu
+ * 		self.U_i_g0 = U_i_g_init_simu
+ * 		self.B_j_q0 = B_j_q_init_simu             # <<<<<<<<<<<<<<
+ * 		self.C_k_r0 = C_k_r_init_simu
+ * 		self.B_j_q = B_j_q_simu
+ */
+  if (unlikely(!__pyx_v_B_j_q_init_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_init_simu"); __PYX_ERR(0, 752, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q0, __pyx_v_B_j_q_init_simu) < 0) __PYX_ERR(0, 752, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":753
+ * 		self.U_i_g0 = U_i_g_init_simu
+ * 		self.B_j_q0 = B_j_q_init_simu
+ * 		self.C_k_r0 = C_k_r_init_simu             # <<<<<<<<<<<<<<
+ * 		self.B_j_q = B_j_q_simu
+ * 		self.C_k_r = C_k_r_simu
+ */
+  if (unlikely(!__pyx_v_C_k_r_init_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_init_simu"); __PYX_ERR(0, 753, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r0, __pyx_v_C_k_r_init_simu) < 0) __PYX_ERR(0, 753, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":754
+ * 		self.B_j_q0 = B_j_q_init_simu
+ * 		self.C_k_r0 = C_k_r_init_simu
+ * 		self.B_j_q = B_j_q_simu             # <<<<<<<<<<<<<<
+ * 		self.C_k_r = C_k_r_simu
+ * 		self.Y_g_qr = Y_g_qr
+ */
+  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 754, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q, __pyx_v_B_j_q_simu) < 0) __PYX_ERR(0, 754, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":755
+ * 		self.C_k_r0 = C_k_r_init_simu
+ * 		self.B_j_q = B_j_q_simu
+ * 		self.C_k_r = C_k_r_simu             # <<<<<<<<<<<<<<
+ * 		self.Y_g_qr = Y_g_qr
+ * 		self.X_i_jk_scaled = X_i_jk
+ */
+  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 755, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r, __pyx_v_C_k_r_simu) < 0) __PYX_ERR(0, 755, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":756
+ * 		self.B_j_q = B_j_q_simu
+ * 		self.C_k_r = C_k_r_simu
+ * 		self.Y_g_qr = Y_g_qr             # <<<<<<<<<<<<<<
+ * 		self.X_i_jk_scaled = X_i_jk
+ * 
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Y_g_qr, __pyx_v_Y_g_qr) < 0) __PYX_ERR(0, 756, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":757
+ * 		self.C_k_r = C_k_r_simu
+ * 		self.Y_g_qr = Y_g_qr
+ * 		self.X_i_jk_scaled = X_i_jk             # <<<<<<<<<<<<<<
+ * 
+ * 		# total time taken
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_X_i_jk_scaled, __pyx_v_X_i_jk) < 0) __PYX_ERR(0, 757, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":760
+ * 
+ * 		# total time taken
+ * 		self.BestTimeElapsed = best_time_elapsed_simu             # <<<<<<<<<<<<<<
+ * 		self.BestLoop = loop_simu
+ * 		self.BestKMIteration = km_iter_simu
+ */
+  if (unlikely(!__pyx_v_best_time_elapsed_simu)) { __Pyx_RaiseUnboundLocalError("best_time_elapsed_simu"); __PYX_ERR(0, 760, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestTimeElapsed, __pyx_v_best_time_elapsed_simu) < 0) __PYX_ERR(0, 760, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":761
+ * 		# total time taken
+ * 		self.BestTimeElapsed = best_time_elapsed_simu
+ * 		self.BestLoop = loop_simu             # <<<<<<<<<<<<<<
+ * 		self.BestKMIteration = km_iter_simu
+ * 		self.BestFAIteration = fa_iter_simu
+ */
+  if (unlikely(!__pyx_v_loop_simu)) { __Pyx_RaiseUnboundLocalError("loop_simu"); __PYX_ERR(0, 761, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestLoop, __pyx_v_loop_simu) < 0) __PYX_ERR(0, 761, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":762
+ * 		self.BestTimeElapsed = best_time_elapsed_simu
+ * 		self.BestLoop = loop_simu
+ * 		self.BestKMIteration = km_iter_simu             # <<<<<<<<<<<<<<
+ * 		self.BestFAIteration = fa_iter_simu
+ * 		self.FaConverged = fa_converged_simu
+ */
+  if (unlikely(!__pyx_v_km_iter_simu)) { __Pyx_RaiseUnboundLocalError("km_iter_simu"); __PYX_ERR(0, 762, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestKMIteration, __pyx_v_km_iter_simu) < 0) __PYX_ERR(0, 762, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":763
+ * 		self.BestLoop = loop_simu
+ * 		self.BestKMIteration = km_iter_simu
+ * 		self.BestFAIteration = fa_iter_simu             # <<<<<<<<<<<<<<
+ * 		self.FaConverged = fa_converged_simu
+ * 		self.KmConverged = km_converged_simu
+ */
+  if (unlikely(!__pyx_v_fa_iter_simu)) { __Pyx_RaiseUnboundLocalError("fa_iter_simu"); __PYX_ERR(0, 763, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestFAIteration, __pyx_v_fa_iter_simu) < 0) __PYX_ERR(0, 763, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":764
+ * 		self.BestKMIteration = km_iter_simu
+ * 		self.BestFAIteration = fa_iter_simu
+ * 		self.FaConverged = fa_converged_simu             # <<<<<<<<<<<<<<
+ * 		self.KmConverged = km_converged_simu
+ * 
+ */
+  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_v_fa_converged_simu); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 764, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_FaConverged, __pyx_t_2) < 0) __PYX_ERR(0, 764, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "simuclustfactor/tandem.py":765
+ * 		self.BestFAIteration = fa_iter_simu
+ * 		self.FaConverged = fa_converged_simu
+ * 		self.KmConverged = km_converged_simu             # <<<<<<<<<<<<<<
+ * 
+ * 		# maximum between cluster deviance
+ */
+  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_v_km_converged_simu); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 765, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_KmConverged, __pyx_t_2) < 0) __PYX_ERR(0, 765, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "simuclustfactor/tandem.py":768
+ * 
+ * 		# maximum between cluster deviance
+ * 		self.TSS_full = TSS_full_simu             # <<<<<<<<<<<<<<
+ * 		self.BSS_full = BSS_full_simu
+ * 		self.RSS_full = RSS_full_simu
+ */
+  if (unlikely(!__pyx_v_TSS_full_simu)) { __Pyx_RaiseUnboundLocalError("TSS_full_simu"); __PYX_ERR(0, 768, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TSS_full, __pyx_v_TSS_full_simu) < 0) __PYX_ERR(0, 768, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":769
+ * 		# maximum between cluster deviance
+ * 		self.TSS_full = TSS_full_simu
+ * 		self.BSS_full = BSS_full_simu             # <<<<<<<<<<<<<<
+ * 		self.RSS_full = RSS_full_simu
+ * 		self.TSS_reduced = TSS_reduced_simu
+ */
+  if (unlikely(!__pyx_v_BSS_full_simu)) { __Pyx_RaiseUnboundLocalError("BSS_full_simu"); __PYX_ERR(0, 769, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BSS_full, __pyx_v_BSS_full_simu) < 0) __PYX_ERR(0, 769, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":770
+ * 		self.TSS_full = TSS_full_simu
+ * 		self.BSS_full = BSS_full_simu
+ * 		self.RSS_full = RSS_full_simu             # <<<<<<<<<<<<<<
+ * 		self.TSS_reduced = TSS_reduced_simu
+ * 		self.BSS_reduced = BSS_reduced_simu
+ */
+  if (unlikely(!__pyx_v_RSS_full_simu)) { __Pyx_RaiseUnboundLocalError("RSS_full_simu"); __PYX_ERR(0, 770, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RSS_full, __pyx_v_RSS_full_simu) < 0) __PYX_ERR(0, 770, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":771
+ * 		self.BSS_full = BSS_full_simu
+ * 		self.RSS_full = RSS_full_simu
+ * 		self.TSS_reduced = TSS_reduced_simu             # <<<<<<<<<<<<<<
+ * 		self.BSS_reduced = BSS_reduced_simu
+ * 		self.RSS_reduced = RSS_reduced_simu
+ */
+  if (unlikely(!__pyx_v_TSS_reduced_simu)) { __Pyx_RaiseUnboundLocalError("TSS_reduced_simu"); __PYX_ERR(0, 771, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TSS_reduced, __pyx_v_TSS_reduced_simu) < 0) __PYX_ERR(0, 771, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":772
+ * 		self.RSS_full = RSS_full_simu
+ * 		self.TSS_reduced = TSS_reduced_simu
+ * 		self.BSS_reduced = BSS_reduced_simu             # <<<<<<<<<<<<<<
+ * 		self.RSS_reduced = RSS_reduced_simu
+ * 		self.PseudoF_full = pseudoF_full
+ */
+  if (unlikely(!__pyx_v_BSS_reduced_simu)) { __Pyx_RaiseUnboundLocalError("BSS_reduced_simu"); __PYX_ERR(0, 772, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BSS_reduced, __pyx_v_BSS_reduced_simu) < 0) __PYX_ERR(0, 772, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":773
+ * 		self.TSS_reduced = TSS_reduced_simu
+ * 		self.BSS_reduced = BSS_reduced_simu
+ * 		self.RSS_reduced = RSS_reduced_simu             # <<<<<<<<<<<<<<
+ * 		self.PseudoF_full = pseudoF_full
+ * 		self.PseudoF_reduced = pseudoF_reduced
+ */
+  if (unlikely(!__pyx_v_RSS_reduced_simu)) { __Pyx_RaiseUnboundLocalError("RSS_reduced_simu"); __PYX_ERR(0, 773, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RSS_reduced, __pyx_v_RSS_reduced_simu) < 0) __PYX_ERR(0, 773, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":774
+ * 		self.BSS_reduced = BSS_reduced_simu
+ * 		self.RSS_reduced = RSS_reduced_simu
+ * 		self.PseudoF_full = pseudoF_full             # <<<<<<<<<<<<<<
+ * 		self.PseudoF_reduced = pseudoF_reduced
+ * 
+ */
+  if (unlikely(!__pyx_v_pseudoF_full)) { __Pyx_RaiseUnboundLocalError("pseudoF_full"); __PYX_ERR(0, 774, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_PseudoF_full, __pyx_v_pseudoF_full) < 0) __PYX_ERR(0, 774, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":775
+ * 		self.RSS_reduced = RSS_reduced_simu
+ * 		self.PseudoF_full = pseudoF_full
+ * 		self.PseudoF_reduced = pseudoF_reduced             # <<<<<<<<<<<<<<
+ * 
+ * 		# Error in model
+ */
+  if (unlikely(!__pyx_v_pseudoF_reduced)) { __Pyx_RaiseUnboundLocalError("pseudoF_reduced"); __PYX_ERR(0, 775, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_PseudoF_reduced, __pyx_v_pseudoF_reduced) < 0) __PYX_ERR(0, 775, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":778
+ * 
+ * 		# Error in model
+ * 		self.Fs_km = Fs_km  # all error norms             # <<<<<<<<<<<<<<
+ * 		self.Fs_fa = Fs_fa  # all error norms
+ * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
+ */
+  if (unlikely(!__pyx_v_Fs_km)) { __Pyx_RaiseUnboundLocalError("Fs_km"); __PYX_ERR(0, 778, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Fs_km, __pyx_v_Fs_km) < 0) __PYX_ERR(0, 778, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":779
+ * 		# Error in model
+ * 		self.Fs_km = Fs_km  # all error norms
+ * 		self.Fs_fa = Fs_fa  # all error norms             # <<<<<<<<<<<<<<
+ * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
+ * 
+ */
+  if (unlikely(!__pyx_v_Fs_fa)) { __Pyx_RaiseUnboundLocalError("Fs_fa"); __PYX_ERR(0, 779, __pyx_L1_error) }
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Fs_fa, __pyx_v_Fs_fa) < 0) __PYX_ERR(0, 779, __pyx_L1_error)
+
+  /* "simuclustfactor/tandem.py":780
+ * 		self.Fs_km = Fs_km  # all error norms
+ * 		self.Fs_fa = Fs_fa  # all error norms
+ * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)             # <<<<<<<<<<<<<<
+ * 
+ * 		# classification of objects (labels)
+ */
+  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_int_1, __pyx_v_I); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_np); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_linalg); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_12);
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_norm); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_kron); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 780, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 664, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 664, __pyx_L1_error) }
-  __pyx_t_6 = NULL;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 780, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 780, __pyx_L1_error) }
+  __pyx_t_1 = NULL;
   __pyx_t_11 = 0;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_16);
-    if (likely(__pyx_t_6)) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_16);
+    if (likely(__pyx_t_1)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-      __Pyx_INCREF(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_16, function);
       __pyx_t_11 = 1;
@@ -10041,482 +11657,135 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_16)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 664, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_GOTREF(__pyx_t_2);
+    PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
+    __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 780, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GOTREF(__pyx_t_12);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 664, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_GOTREF(__pyx_t_2);
+    PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
+    __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 780, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GOTREF(__pyx_t_12);
   } else
   #endif
   {
-    __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 664, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    if (__pyx_t_6) {
-      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6); __pyx_t_6 = NULL;
+    __pyx_t_6 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 780, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    if (__pyx_t_1) {
+      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1); __pyx_t_1 = NULL;
     }
     __Pyx_INCREF(__pyx_v_C_k_r_simu);
     __Pyx_GIVEREF(__pyx_v_C_k_r_simu);
-    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_11, __pyx_v_C_k_r_simu);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_11, __pyx_v_C_k_r_simu);
     __Pyx_INCREF(__pyx_v_B_j_q_simu);
     __Pyx_GIVEREF(__pyx_v_B_j_q_simu);
-    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_11, __pyx_v_B_j_q_simu);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 664, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_11, __pyx_v_B_j_q_simu);
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_6, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 780, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_16 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_X_i_jk, __pyx_t_2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 664, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_T); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 780, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_XDECREF_SET(__pyx_v_Y_i_qr, __pyx_t_16);
-  __pyx_t_16 = 0;
-
-  /* "simuclustfactor/tandem.py":665
- * 
- * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
- * 		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr             # <<<<<<<<<<<<<<
- * 		Z_i_qr = U_i_g_simu @ Y_g_qr
- * 
- */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_inv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 665, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 665, __pyx_L1_error) }
-  __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_v_U_i_g); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  __pyx_t_12 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_Z_i_qr, __pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_12);
+  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  __pyx_t_16 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_t_12); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_16);
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  __pyx_t_12 = NULL;
+  __pyx_t_11 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_17))) {
+    __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_17);
+    if (likely(__pyx_t_12)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
+      __Pyx_INCREF(__pyx_t_12);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_17, function);
+      __pyx_t_11 = 1;
     }
   }
-  __pyx_t_16 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_1, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_17)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_16, __pyx_int_2};
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 780, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_16, __pyx_int_2};
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 780, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  } else
+  #endif
+  {
+    __pyx_t_6 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 780, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    if (__pyx_t_12) {
+      __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_12); __pyx_t_12 = NULL;
+    }
+    __Pyx_GIVEREF(__pyx_t_16);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_11, __pyx_t_16);
+    __Pyx_INCREF(__pyx_int_2);
+    __Pyx_GIVEREF(__pyx_int_2);
+    PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_11, __pyx_int_2);
+    __pyx_t_16 = 0;
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 780, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  __pyx_t_17 = PyNumber_Multiply(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_v_U_i_g)) { __Pyx_RaiseUnboundLocalError("U_i_g"); __PYX_ERR(0, 665, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_U_i_g, __pyx_n_s_T); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_16, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_6, __pyx_v_Y_i_qr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 665, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_XDECREF_SET(__pyx_v_Y_g_qr, __pyx_t_2);
-  __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Enorm, __pyx_t_17) < 0) __PYX_ERR(0, 780, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "simuclustfactor/tandem.py":666
- * 		Y_i_qr = X_i_jk @ np.kron(C_k_r_simu, B_j_q_simu)
- * 		Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g)@U_i_g.T@Y_i_qr
- * 		Z_i_qr = U_i_g_simu @ Y_g_qr             # <<<<<<<<<<<<<<
- * 
- * 		# factor matrices and centroid matrices
- */
-  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 666, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g_simu, __pyx_v_Y_g_qr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 666, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_XDECREF_SET(__pyx_v_Z_i_qr, __pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "simuclustfactor/tandem.py":669
- * 
- * 		# factor matrices and centroid matrices
- * 		self.U_i_g = U_i_g_simu             # <<<<<<<<<<<<<<
- * 		self.U_i_g0 = U_i_g_init_simu
- * 		self.B_j_q0 = B_j_q_init_simu
- */
-  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 669, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g, __pyx_v_U_i_g_simu) < 0) __PYX_ERR(0, 669, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":670
- * 		# factor matrices and centroid matrices
- * 		self.U_i_g = U_i_g_simu
- * 		self.U_i_g0 = U_i_g_init_simu             # <<<<<<<<<<<<<<
- * 		self.B_j_q0 = B_j_q_init_simu
- * 		self.C_k_r0 = C_k_r_init_simu
- */
-  if (unlikely(!__pyx_v_U_i_g_init_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_init_simu"); __PYX_ERR(0, 670, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_U_i_g0, __pyx_v_U_i_g_init_simu) < 0) __PYX_ERR(0, 670, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":671
- * 		self.U_i_g = U_i_g_simu
- * 		self.U_i_g0 = U_i_g_init_simu
- * 		self.B_j_q0 = B_j_q_init_simu             # <<<<<<<<<<<<<<
- * 		self.C_k_r0 = C_k_r_init_simu
- * 		self.B_j_q = B_j_q_simu
- */
-  if (unlikely(!__pyx_v_B_j_q_init_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_init_simu"); __PYX_ERR(0, 671, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q0, __pyx_v_B_j_q_init_simu) < 0) __PYX_ERR(0, 671, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":672
- * 		self.U_i_g0 = U_i_g_init_simu
- * 		self.B_j_q0 = B_j_q_init_simu
- * 		self.C_k_r0 = C_k_r_init_simu             # <<<<<<<<<<<<<<
- * 		self.B_j_q = B_j_q_simu
- * 		self.C_k_r = C_k_r_simu
- */
-  if (unlikely(!__pyx_v_C_k_r_init_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_init_simu"); __PYX_ERR(0, 672, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r0, __pyx_v_C_k_r_init_simu) < 0) __PYX_ERR(0, 672, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":673
- * 		self.B_j_q0 = B_j_q_init_simu
- * 		self.C_k_r0 = C_k_r_init_simu
- * 		self.B_j_q = B_j_q_simu             # <<<<<<<<<<<<<<
- * 		self.C_k_r = C_k_r_simu
- * 		self.Y_g_qr = Y_g_qr_simu
- */
-  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 673, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B_j_q, __pyx_v_B_j_q_simu) < 0) __PYX_ERR(0, 673, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":674
- * 		self.C_k_r0 = C_k_r_init_simu
- * 		self.B_j_q = B_j_q_simu
- * 		self.C_k_r = C_k_r_simu             # <<<<<<<<<<<<<<
- * 		self.Y_g_qr = Y_g_qr_simu
- * 		self.X_i_jk_scaled = X_i_jk
- */
-  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 674, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_C_k_r, __pyx_v_C_k_r_simu) < 0) __PYX_ERR(0, 674, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":675
- * 		self.B_j_q = B_j_q_simu
- * 		self.C_k_r = C_k_r_simu
- * 		self.Y_g_qr = Y_g_qr_simu             # <<<<<<<<<<<<<<
- * 		self.X_i_jk_scaled = X_i_jk
- * 
- */
-  if (unlikely(!__pyx_v_Y_g_qr_simu)) { __Pyx_RaiseUnboundLocalError("Y_g_qr_simu"); __PYX_ERR(0, 675, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Y_g_qr, __pyx_v_Y_g_qr_simu) < 0) __PYX_ERR(0, 675, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":676
- * 		self.C_k_r = C_k_r_simu
- * 		self.Y_g_qr = Y_g_qr_simu
- * 		self.X_i_jk_scaled = X_i_jk             # <<<<<<<<<<<<<<
- * 
- * 		# total time taken
- */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_X_i_jk_scaled, __pyx_v_X_i_jk) < 0) __PYX_ERR(0, 676, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":679
- * 
- * 		# total time taken
- * 		self.BestTimeElapsed = best_time_elapsed_simu             # <<<<<<<<<<<<<<
- * 		self.BestLoop = loop_simu
- * 		self.BestKMIteration = km_iter_simu
- */
-  if (unlikely(!__pyx_v_best_time_elapsed_simu)) { __Pyx_RaiseUnboundLocalError("best_time_elapsed_simu"); __PYX_ERR(0, 679, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestTimeElapsed, __pyx_v_best_time_elapsed_simu) < 0) __PYX_ERR(0, 679, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":680
- * 		# total time taken
- * 		self.BestTimeElapsed = best_time_elapsed_simu
- * 		self.BestLoop = loop_simu             # <<<<<<<<<<<<<<
- * 		self.BestKMIteration = km_iter_simu
- * 		self.BestFAIteration = fa_iter_simu
- */
-  if (unlikely(!__pyx_v_loop_simu)) { __Pyx_RaiseUnboundLocalError("loop_simu"); __PYX_ERR(0, 680, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestLoop, __pyx_v_loop_simu) < 0) __PYX_ERR(0, 680, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":681
- * 		self.BestTimeElapsed = best_time_elapsed_simu
- * 		self.BestLoop = loop_simu
- * 		self.BestKMIteration = km_iter_simu             # <<<<<<<<<<<<<<
- * 		self.BestFAIteration = fa_iter_simu
- * 		self.FaConverged = fa_converged_simu
- */
-  if (unlikely(!__pyx_v_km_iter_simu)) { __Pyx_RaiseUnboundLocalError("km_iter_simu"); __PYX_ERR(0, 681, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestKMIteration, __pyx_v_km_iter_simu) < 0) __PYX_ERR(0, 681, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":682
- * 		self.BestLoop = loop_simu
- * 		self.BestKMIteration = km_iter_simu
- * 		self.BestFAIteration = fa_iter_simu             # <<<<<<<<<<<<<<
- * 		self.FaConverged = fa_converged_simu
- * 		self.KmConverged = km_converged_simu
- */
-  if (unlikely(!__pyx_v_fa_iter_simu)) { __Pyx_RaiseUnboundLocalError("fa_iter_simu"); __PYX_ERR(0, 682, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BestFAIteration, __pyx_v_fa_iter_simu) < 0) __PYX_ERR(0, 682, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":683
- * 		self.BestKMIteration = km_iter_simu
- * 		self.BestFAIteration = fa_iter_simu
- * 		self.FaConverged = fa_converged_simu             # <<<<<<<<<<<<<<
- * 		self.KmConverged = km_converged_simu
- * 
- */
-  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_v_fa_converged_simu); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 683, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_FaConverged, __pyx_t_2) < 0) __PYX_ERR(0, 683, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "simuclustfactor/tandem.py":684
- * 		self.BestFAIteration = fa_iter_simu
- * 		self.FaConverged = fa_converged_simu
- * 		self.KmConverged = km_converged_simu             # <<<<<<<<<<<<<<
- * 
- * 		# maximum between cluster deviance
- */
-  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_v_km_converged_simu); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 684, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_KmConverged, __pyx_t_2) < 0) __PYX_ERR(0, 684, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "simuclustfactor/tandem.py":687
- * 
- * 		# maximum between cluster deviance
- * 		self.TSS = TSS_simu             # <<<<<<<<<<<<<<
- * 		self.BSS = BSS_simu
- * 		self.RSS = RSS_simu
- */
-  if (unlikely(!__pyx_v_TSS_simu)) { __Pyx_RaiseUnboundLocalError("TSS_simu"); __PYX_ERR(0, 687, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TSS, __pyx_v_TSS_simu) < 0) __PYX_ERR(0, 687, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":688
- * 		# maximum between cluster deviance
- * 		self.TSS = TSS_simu
- * 		self.BSS = BSS_simu             # <<<<<<<<<<<<<<
- * 		self.RSS = RSS_simu
- * 		self.PseudoF = pseudoF_simu
- */
-  if (unlikely(!__pyx_v_BSS_simu)) { __Pyx_RaiseUnboundLocalError("BSS_simu"); __PYX_ERR(0, 688, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_BSS_2, __pyx_v_BSS_simu) < 0) __PYX_ERR(0, 688, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":689
- * 		self.TSS = TSS_simu
- * 		self.BSS = BSS_simu
- * 		self.RSS = RSS_simu             # <<<<<<<<<<<<<<
- * 		self.PseudoF = pseudoF_simu
- * 
- */
-  if (unlikely(!__pyx_v_RSS_simu)) { __Pyx_RaiseUnboundLocalError("RSS_simu"); __PYX_ERR(0, 689, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RSS, __pyx_v_RSS_simu) < 0) __PYX_ERR(0, 689, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":690
- * 		self.BSS = BSS_simu
- * 		self.RSS = RSS_simu
- * 		self.PseudoF = pseudoF_simu             # <<<<<<<<<<<<<<
- * 
- * 		# classification of objects (labels)
- */
-  if (unlikely(!__pyx_v_pseudoF_simu)) { __Pyx_RaiseUnboundLocalError("pseudoF_simu"); __PYX_ERR(0, 690, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_PseudoF, __pyx_v_pseudoF_simu) < 0) __PYX_ERR(0, 690, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":693
+  /* "simuclustfactor/tandem.py":783
  * 
  * 		# classification of objects (labels)
  * 		self.Labels = np.where(U_i_g_simu)[1]             # <<<<<<<<<<<<<<
  * 
- * 		# Error in model
- */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 693, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_where); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 693, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 693, __pyx_L1_error) }
-  __pyx_t_6 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_16);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-      __Pyx_INCREF(__pyx_t_6);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_16, function);
-    }
-  }
-  __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_16, __pyx_t_6, __pyx_v_U_i_g_simu) : __Pyx_PyObject_CallOneArg(__pyx_t_16, __pyx_v_U_i_g_simu);
-  __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 693, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_16 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 693, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Labels, __pyx_t_16) < 0) __PYX_ERR(0, 693, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-
-  /* "simuclustfactor/tandem.py":696
- * 
- * 		# Error in model
- * 		self.Fs_km = Fs_km  # all error norms             # <<<<<<<<<<<<<<
- * 		self.Fs_fa = Fs_fa  # all error norms
- * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - U_i_g_simu@Y_g_qr_simu @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
- */
-  if (unlikely(!__pyx_v_Fs_km)) { __Pyx_RaiseUnboundLocalError("Fs_km"); __PYX_ERR(0, 696, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Fs_km, __pyx_v_Fs_km) < 0) __PYX_ERR(0, 696, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":697
- * 		# Error in model
- * 		self.Fs_km = Fs_km  # all error norms
- * 		self.Fs_fa = Fs_fa  # all error norms             # <<<<<<<<<<<<<<
- * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - U_i_g_simu@Y_g_qr_simu @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
- * 
- */
-  if (unlikely(!__pyx_v_Fs_fa)) { __Pyx_RaiseUnboundLocalError("Fs_fa"); __PYX_ERR(0, 697, __pyx_L1_error) }
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Fs_fa, __pyx_v_Fs_fa) < 0) __PYX_ERR(0, 697, __pyx_L1_error)
-
-  /* "simuclustfactor/tandem.py":698
- * 		self.Fs_km = Fs_km  # all error norms
- * 		self.Fs_fa = Fs_fa  # all error norms
- * 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - U_i_g_simu@Y_g_qr_simu @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)             # <<<<<<<<<<<<<<
- * 
  * 		# ----------- End of result update for best loop --------------
  */
-  __pyx_t_16 = __Pyx_PyNumber_Divide(__pyx_int_1, __pyx_v_I); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_norm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 698, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_Y_g_qr_simu)) { __Pyx_RaiseUnboundLocalError("Y_g_qr_simu"); __PYX_ERR(0, 698, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyNumber_MatrixMultiply(__pyx_v_U_i_g_simu, __pyx_v_Y_g_qr_simu); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_15, __pyx_n_s_np); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_kron); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 698, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 783, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-  if (unlikely(!__pyx_v_C_k_r_simu)) { __Pyx_RaiseUnboundLocalError("C_k_r_simu"); __PYX_ERR(0, 698, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_B_j_q_simu)) { __Pyx_RaiseUnboundLocalError("B_j_q_simu"); __PYX_ERR(0, 698, __pyx_L1_error) }
-  __pyx_t_15 = NULL;
-  __pyx_t_11 = 0;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_15)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_15);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-      __pyx_t_11 = 1;
-    }
-  }
-  #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_4)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_15, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
-    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 698, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __Pyx_GOTREF(__pyx_t_3);
-  } else
-  #endif
-  #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_15, __pyx_v_C_k_r_simu, __pyx_v_B_j_q_simu};
-    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 698, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __Pyx_GOTREF(__pyx_t_3);
-  } else
-  #endif
-  {
-    __pyx_t_14 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 698, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_14);
-    if (__pyx_t_15) {
-      __Pyx_GIVEREF(__pyx_t_15); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_15); __pyx_t_15 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_C_k_r_simu);
-    __Pyx_GIVEREF(__pyx_v_C_k_r_simu);
-    PyTuple_SET_ITEM(__pyx_t_14, 0+__pyx_t_11, __pyx_v_C_k_r_simu);
-    __Pyx_INCREF(__pyx_v_B_j_q_simu);
-    __Pyx_GIVEREF(__pyx_v_B_j_q_simu);
-    PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_11, __pyx_v_B_j_q_simu);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 698, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_where); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 783, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyNumber_MatrixMultiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Subtract(__pyx_v_X_i_jk, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
-  __pyx_t_11 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_6);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-      __Pyx_INCREF(__pyx_t_3);
+  if (unlikely(!__pyx_v_U_i_g_simu)) { __Pyx_RaiseUnboundLocalError("U_i_g_simu"); __PYX_ERR(0, 783, __pyx_L1_error) }
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_6, function);
-      __pyx_t_11 = 1;
+      __Pyx_DECREF_SET(__pyx_t_2, function);
     }
   }
-  #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_6)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_4, __pyx_int_2};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 698, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  } else
-  #endif
-  #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_4, __pyx_int_2};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 698, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  } else
-  #endif
-  {
-    __pyx_t_1 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 698, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    if (__pyx_t_3) {
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3); __pyx_t_3 = NULL;
-    }
-    __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_11, __pyx_t_4);
-    __Pyx_INCREF(__pyx_int_2);
-    __Pyx_GIVEREF(__pyx_int_2);
-    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_11, __pyx_int_2);
-    __pyx_t_4 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 698, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Multiply(__pyx_t_16, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  __pyx_t_17 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_v_U_i_g_simu) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_U_i_g_simu);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 783, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Enorm, __pyx_t_6) < 0) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_17, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 783, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Labels, __pyx_t_2) < 0) __PYX_ERR(0, 783, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "simuclustfactor/tandem.py":702
+  /* "simuclustfactor/tandem.py":787
  * 		# ----------- End of result update for best loop --------------
  * 
  * 		return self             # <<<<<<<<<<<<<<
@@ -10526,7 +11795,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __pyx_r = __pyx_v_self;
   goto __pyx_L0;
 
-  /* "simuclustfactor/tandem.py":419
+  /* "simuclustfactor/tandem.py":462
  * 
  * 	@_doc_formatter(_doc_init_attrs, _doc_refs)
  * 	def fit(self, X_i_jk, full_tensor_shape, reduced_tensor_shape):             # <<<<<<<<<<<<<<
@@ -10545,6 +11814,7 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __Pyx_XDECREF(__pyx_t_14);
   __Pyx_XDECREF(__pyx_t_15);
   __Pyx_XDECREF(__pyx_t_16);
+  __Pyx_XDECREF(__pyx_t_17);
   __Pyx_AddTraceback("simuclustfactor.tandem.TWFCTA.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -10571,6 +11841,9 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __Pyx_XDECREF(__pyx_v_Y_i_qr);
   __Pyx_XDECREF(__pyx_v_F0);
   __Pyx_XDECREF(__pyx_v_conv);
+  __Pyx_XDECREF(__pyx_v_best_fa_iter);
+  __Pyx_XDECREF(__pyx_v_best_B_j_q);
+  __Pyx_XDECREF(__pyx_v_best_C_k_r);
   __Pyx_XDECREF(__pyx_v_B_j_j);
   __Pyx_XDECREF(__pyx_v_B_j_q);
   __Pyx_XDECREF(__pyx_v_C_k_k);
@@ -10581,27 +11854,38 @@ static PyObject *__pyx_pf_15simuclustfactor_6tandem_6TWFCTA_2fit(CYTHON_UNUSED P
   __Pyx_XDECREF(__pyx_v_U_i_g0);
   __Pyx_XDECREF(__pyx_v_U_i_g_init);
   __Pyx_XDECREF(__pyx_v_Y_g_qr0);
+  __Pyx_XDECREF(__pyx_v_best_km_iter);
+  __Pyx_XDECREF(__pyx_v_best_U_i_g);
   __Pyx_XDECREF(__pyx_v_U_i_g);
-  __Pyx_XDECREF(__pyx_v_Y_g_qr);
-  __Pyx_XDECREF(__pyx_v_time_elapsed);
   __Pyx_XDECREF(__pyx_v_Z_i_qr);
-  __Pyx_XDECREF(__pyx_v_TSS);
-  __Pyx_XDECREF(__pyx_v_BSS);
-  __Pyx_XDECREF(__pyx_v_RSS);
-  __Pyx_XDECREF(__pyx_v_BSS_percent);
-  __Pyx_XDECREF(__pyx_v_pseudoF);
+  __Pyx_XDECREF(__pyx_v_time_elapsed);
+  __Pyx_XDECREF(__pyx_v_Y_g_qr);
+  __Pyx_XDECREF(__pyx_v_Z_i_jk);
+  __Pyx_XDECREF(__pyx_v_TSS_full);
+  __Pyx_XDECREF(__pyx_v_BSS_full);
+  __Pyx_XDECREF(__pyx_v_RSS_full);
+  __Pyx_XDECREF(__pyx_v_TSS_reduced);
+  __Pyx_XDECREF(__pyx_v_BSS_reduced);
+  __Pyx_XDECREF(__pyx_v_RSS_reduced);
+  __Pyx_XDECREF(__pyx_v_BSS_percent_full);
+  __Pyx_XDECREF(__pyx_v_BSS_percent_reduced);
+  __Pyx_XDECREF(__pyx_v_pseudoF_full);
+  __Pyx_XDECREF(__pyx_v_pseudoF_reduced);
   __Pyx_XDECREF(__pyx_v_B_j_q_simu);
   __Pyx_XDECREF(__pyx_v_C_k_r_simu);
   __Pyx_XDECREF(__pyx_v_U_i_g_simu);
-  __Pyx_XDECREF(__pyx_v_Y_g_qr_simu);
   __Pyx_XDECREF(__pyx_v_km_iter_simu);
   __Pyx_XDECREF(__pyx_v_fa_iter_simu);
   __Pyx_XDECREF(__pyx_v_loop_simu);
-  __Pyx_XDECREF(__pyx_v_BSS_per_simu);
-  __Pyx_XDECREF(__pyx_v_TSS_simu);
-  __Pyx_XDECREF(__pyx_v_BSS_simu);
-  __Pyx_XDECREF(__pyx_v_RSS_simu);
-  __Pyx_XDECREF(__pyx_v_pseudoF_simu);
+  __Pyx_XDECREF(__pyx_v_pseudoF_full_simu);
+  __Pyx_XDECREF(__pyx_v_pseudoF_reduced_simu);
+  __Pyx_XDECREF(__pyx_v_BSS_per);
+  __Pyx_XDECREF(__pyx_v_TSS_full_simu);
+  __Pyx_XDECREF(__pyx_v_BSS_full_simu);
+  __Pyx_XDECREF(__pyx_v_RSS_full_simu);
+  __Pyx_XDECREF(__pyx_v_TSS_reduced_simu);
+  __Pyx_XDECREF(__pyx_v_BSS_reduced_simu);
+  __Pyx_XDECREF(__pyx_v_RSS_reduced_simu);
   __Pyx_XDECREF(__pyx_v_U_i_g_init_simu);
   __Pyx_XDECREF(__pyx_v_B_j_q_init_simu);
   __Pyx_XDECREF(__pyx_v_C_k_r_init_simu);
@@ -10777,12 +12061,15 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Attributes_U_i_g0_I_G_initial_s, __pyx_k_Attributes_U_i_g0_I_G_initial_s, sizeof(__pyx_k_Attributes_U_i_g0_I_G_initial_s), 0, 1, 0, 0},
-  {&__pyx_kp_u_BSS, __pyx_k_BSS, sizeof(__pyx_k_BSS), 0, 1, 0, 0},
-  {&__pyx_n_s_BSS_2, __pyx_k_BSS_2, sizeof(__pyx_k_BSS_2), 0, 0, 1, 1},
+  {&__pyx_kp_u_BSS_Full, __pyx_k_BSS_Full, sizeof(__pyx_k_BSS_Full), 0, 1, 0, 0},
+  {&__pyx_kp_u_BSS_Reduced, __pyx_k_BSS_Reduced, sizeof(__pyx_k_BSS_Reduced), 0, 1, 0, 0},
+  {&__pyx_n_s_BSS_full, __pyx_k_BSS_full, sizeof(__pyx_k_BSS_full), 0, 0, 1, 1},
+  {&__pyx_n_s_BSS_full_simu, __pyx_k_BSS_full_simu, sizeof(__pyx_k_BSS_full_simu), 0, 0, 1, 1},
   {&__pyx_n_s_BSS_per, __pyx_k_BSS_per, sizeof(__pyx_k_BSS_per), 0, 0, 1, 1},
-  {&__pyx_n_s_BSS_per_simu, __pyx_k_BSS_per_simu, sizeof(__pyx_k_BSS_per_simu), 0, 0, 1, 1},
-  {&__pyx_n_s_BSS_percent, __pyx_k_BSS_percent, sizeof(__pyx_k_BSS_percent), 0, 0, 1, 1},
-  {&__pyx_n_s_BSS_simu, __pyx_k_BSS_simu, sizeof(__pyx_k_BSS_simu), 0, 0, 1, 1},
+  {&__pyx_n_s_BSS_percent_full, __pyx_k_BSS_percent_full, sizeof(__pyx_k_BSS_percent_full), 0, 0, 1, 1},
+  {&__pyx_n_s_BSS_percent_reduced, __pyx_k_BSS_percent_reduced, sizeof(__pyx_k_BSS_percent_reduced), 0, 0, 1, 1},
+  {&__pyx_n_s_BSS_reduced, __pyx_k_BSS_reduced, sizeof(__pyx_k_BSS_reduced), 0, 0, 1, 1},
+  {&__pyx_n_s_BSS_reduced_simu, __pyx_k_BSS_reduced_simu, sizeof(__pyx_k_BSS_reduced_simu), 0, 0, 1, 1},
   {&__pyx_n_s_B_j_j, __pyx_k_B_j_j, sizeof(__pyx_k_B_j_j), 0, 0, 1, 1},
   {&__pyx_n_s_B_j_q, __pyx_k_B_j_q, sizeof(__pyx_k_B_j_q), 0, 0, 1, 1},
   {&__pyx_n_s_B_j_q0, __pyx_k_B_j_q0, sizeof(__pyx_k_B_j_q0), 0, 0, 1, 1},
@@ -10791,9 +12078,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_B_j_q_simu, __pyx_k_B_j_q_simu, sizeof(__pyx_k_B_j_q_simu), 0, 0, 1, 1},
   {&__pyx_n_s_BaseClass, __pyx_k_BaseClass, sizeof(__pyx_k_BaseClass), 0, 0, 1, 1},
   {&__pyx_n_s_BestFAIteration, __pyx_k_BestFAIteration, sizeof(__pyx_k_BestFAIteration), 0, 0, 1, 1},
+  {&__pyx_n_s_BestFaIteration, __pyx_k_BestFaIteration, sizeof(__pyx_k_BestFaIteration), 0, 0, 1, 1},
   {&__pyx_n_s_BestKMIteration, __pyx_k_BestKMIteration, sizeof(__pyx_k_BestKMIteration), 0, 0, 1, 1},
+  {&__pyx_n_s_BestKmIteration, __pyx_k_BestKmIteration, sizeof(__pyx_k_BestKmIteration), 0, 0, 1, 1},
   {&__pyx_n_s_BestLoop, __pyx_k_BestLoop, sizeof(__pyx_k_BestLoop), 0, 0, 1, 1},
   {&__pyx_n_s_BestTimeElapsed, __pyx_k_BestTimeElapsed, sizeof(__pyx_k_BestTimeElapsed), 0, 0, 1, 1},
+  {&__pyx_kp_u_Best_FA_Iter, __pyx_k_Best_FA_Iter, sizeof(__pyx_k_Best_FA_Iter), 0, 1, 0, 0},
+  {&__pyx_kp_u_Best_KM_Iter, __pyx_k_Best_KM_Iter, sizeof(__pyx_k_Best_KM_Iter), 0, 1, 0, 0},
   {&__pyx_n_s_C_k_k, __pyx_k_C_k_k, sizeof(__pyx_k_C_k_k), 0, 0, 1, 1},
   {&__pyx_n_s_C_k_r, __pyx_k_C_k_r, sizeof(__pyx_k_C_k_r), 0, 0, 1, 1},
   {&__pyx_n_s_C_k_r0, __pyx_k_C_k_r0, sizeof(__pyx_k_C_k_r0), 0, 0, 1, 1},
@@ -10803,13 +12094,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Enorm, __pyx_k_Enorm, sizeof(__pyx_k_Enorm), 0, 0, 1, 1},
   {&__pyx_n_s_F, __pyx_k_F, sizeof(__pyx_k_F), 0, 0, 1, 1},
   {&__pyx_n_s_F0, __pyx_k_F0, sizeof(__pyx_k_F0), 0, 0, 1, 1},
-  {&__pyx_n_u_FA_Converged, __pyx_k_FA_Converged, sizeof(__pyx_k_FA_Converged), 0, 1, 0, 1},
+  {&__pyx_kp_u_FA_Converged, __pyx_k_FA_Converged, sizeof(__pyx_k_FA_Converged), 0, 1, 0, 0},
   {&__pyx_kp_u_FA_Iter, __pyx_k_FA_Iter, sizeof(__pyx_k_FA_Iter), 0, 1, 0, 0},
   {&__pyx_kp_u_FA_Maximum_iterations_reached, __pyx_k_FA_Maximum_iterations_reached, sizeof(__pyx_k_FA_Maximum_iterations_reached), 0, 1, 0, 0},
   {&__pyx_n_s_FaConverged, __pyx_k_FaConverged, sizeof(__pyx_k_FaConverged), 0, 0, 1, 1},
   {&__pyx_n_s_Fold, __pyx_k_Fold, sizeof(__pyx_k_Fold), 0, 0, 1, 1},
   {&__pyx_n_s_Fs_fa, __pyx_k_Fs_fa, sizeof(__pyx_k_Fs_fa), 0, 0, 1, 1},
+  {&__pyx_n_u_Fs_fa, __pyx_k_Fs_fa, sizeof(__pyx_k_Fs_fa), 0, 1, 0, 1},
   {&__pyx_n_s_Fs_km, __pyx_k_Fs_km, sizeof(__pyx_k_Fs_km), 0, 0, 1, 1},
+  {&__pyx_n_u_Fs_km, __pyx_k_Fs_km, sizeof(__pyx_k_Fs_km), 0, 1, 0, 1},
   {&__pyx_n_s_G, __pyx_k_G, sizeof(__pyx_k_G), 0, 0, 1, 1},
   {&__pyx_n_s_I, __pyx_k_I, sizeof(__pyx_k_I), 0, 0, 1, 1},
   {&__pyx_n_s_I_g_g, __pyx_k_I_g_g, sizeof(__pyx_k_I_g_g), 0, 0, 1, 1},
@@ -10817,7 +12110,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Initialization_Args_n_max_iter, __pyx_k_Initialization_Args_n_max_iter, sizeof(__pyx_k_Initialization_Args_n_max_iter), 0, 1, 0, 0},
   {&__pyx_n_s_J, __pyx_k_J, sizeof(__pyx_k_J), 0, 0, 1, 1},
   {&__pyx_n_s_K, __pyx_k_K, sizeof(__pyx_k_K), 0, 0, 1, 1},
-  {&__pyx_n_u_KM_Converged, __pyx_k_KM_Converged, sizeof(__pyx_k_KM_Converged), 0, 1, 0, 1},
+  {&__pyx_kp_u_KM_Converged, __pyx_k_KM_Converged, sizeof(__pyx_k_KM_Converged), 0, 1, 0, 0},
   {&__pyx_kp_u_KM_Iter, __pyx_k_KM_Iter, sizeof(__pyx_k_KM_Iter), 0, 1, 0, 0},
   {&__pyx_kp_u_KM_Maximum_iterations_reached, __pyx_k_KM_Maximum_iterations_reached, sizeof(__pyx_k_KM_Maximum_iterations_reached), 0, 1, 0, 0},
   {&__pyx_n_s_KmConverged, __pyx_k_KmConverged, sizeof(__pyx_k_KmConverged), 0, 0, 1, 1},
@@ -10827,17 +12120,24 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Model_Fitting_Args_X_i_jk_I_JK, __pyx_k_Model_Fitting_Args_X_i_jk_I_JK, sizeof(__pyx_k_Model_Fitting_Args_X_i_jk_I_JK), 0, 1, 0, 0},
   {&__pyx_n_s_OneKMeans, __pyx_k_OneKMeans, sizeof(__pyx_k_OneKMeans), 0, 0, 1, 1},
   {&__pyx_n_s_PseudoF, __pyx_k_PseudoF, sizeof(__pyx_k_PseudoF), 0, 0, 1, 1},
-  {&__pyx_n_u_PseudoF, __pyx_k_PseudoF, sizeof(__pyx_k_PseudoF), 0, 1, 0, 1},
+  {&__pyx_kp_u_PseudoF_Full, __pyx_k_PseudoF_Full, sizeof(__pyx_k_PseudoF_Full), 0, 1, 0, 0},
+  {&__pyx_kp_u_PseudoF_Reduced, __pyx_k_PseudoF_Reduced, sizeof(__pyx_k_PseudoF_Reduced), 0, 1, 0, 0},
+  {&__pyx_n_s_PseudoF_full, __pyx_k_PseudoF_full, sizeof(__pyx_k_PseudoF_full), 0, 0, 1, 1},
+  {&__pyx_n_s_PseudoF_reduced, __pyx_k_PseudoF_reduced, sizeof(__pyx_k_PseudoF_reduced), 0, 0, 1, 1},
   {&__pyx_n_s_Q, __pyx_k_Q, sizeof(__pyx_k_Q), 0, 0, 1, 1},
   {&__pyx_n_s_R, __pyx_k_R, sizeof(__pyx_k_R), 0, 0, 1, 1},
-  {&__pyx_n_s_RSS, __pyx_k_RSS, sizeof(__pyx_k_RSS), 0, 0, 1, 1},
-  {&__pyx_n_s_RSS_simu, __pyx_k_RSS_simu, sizeof(__pyx_k_RSS_simu), 0, 0, 1, 1},
+  {&__pyx_n_s_RSS_full, __pyx_k_RSS_full, sizeof(__pyx_k_RSS_full), 0, 0, 1, 1},
+  {&__pyx_n_s_RSS_full_simu, __pyx_k_RSS_full_simu, sizeof(__pyx_k_RSS_full_simu), 0, 0, 1, 1},
+  {&__pyx_n_s_RSS_reduced, __pyx_k_RSS_reduced, sizeof(__pyx_k_RSS_reduced), 0, 0, 1, 1},
+  {&__pyx_n_s_RSS_reduced_simu, __pyx_k_RSS_reduced_simu, sizeof(__pyx_k_RSS_reduced_simu), 0, 0, 1, 1},
   {&__pyx_n_s_RandomMembershipMatrix, __pyx_k_RandomMembershipMatrix, sizeof(__pyx_k_RandomMembershipMatrix), 0, 0, 1, 1},
   {&__pyx_kp_u_References_1_Vichi_Maurizio_Roc, __pyx_k_References_1_Vichi_Maurizio_Roc, sizeof(__pyx_k_References_1_Vichi_Maurizio_Roc), 0, 1, 0, 0},
   {&__pyx_n_s_SingularVectors, __pyx_k_SingularVectors, sizeof(__pyx_k_SingularVectors), 0, 0, 1, 1},
   {&__pyx_n_s_T, __pyx_k_T, sizeof(__pyx_k_T), 0, 0, 1, 1},
-  {&__pyx_n_s_TSS, __pyx_k_TSS, sizeof(__pyx_k_TSS), 0, 0, 1, 1},
-  {&__pyx_n_s_TSS_simu, __pyx_k_TSS_simu, sizeof(__pyx_k_TSS_simu), 0, 0, 1, 1},
+  {&__pyx_n_s_TSS_full, __pyx_k_TSS_full, sizeof(__pyx_k_TSS_full), 0, 0, 1, 1},
+  {&__pyx_n_s_TSS_full_simu, __pyx_k_TSS_full_simu, sizeof(__pyx_k_TSS_full_simu), 0, 0, 1, 1},
+  {&__pyx_n_s_TSS_reduced, __pyx_k_TSS_reduced, sizeof(__pyx_k_TSS_reduced), 0, 0, 1, 1},
+  {&__pyx_n_s_TSS_reduced_simu, __pyx_k_TSS_reduced_simu, sizeof(__pyx_k_TSS_reduced_simu), 0, 0, 1, 1},
   {&__pyx_n_s_TWCFTA, __pyx_k_TWCFTA, sizeof(__pyx_k_TWCFTA), 0, 0, 1, 1},
   {&__pyx_n_s_TWCFTA___init, __pyx_k_TWCFTA___init, sizeof(__pyx_k_TWCFTA___init), 0, 0, 1, 1},
   {&__pyx_n_s_TWCFTA_fit, __pyx_k_TWCFTA_fit, sizeof(__pyx_k_TWCFTA_fit), 0, 0, 1, 1},
@@ -10864,19 +12164,23 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_X_k_ij, __pyx_k_X_k_ij, sizeof(__pyx_k_X_k_ij), 0, 0, 1, 1},
   {&__pyx_n_s_Y_g_qr, __pyx_k_Y_g_qr, sizeof(__pyx_k_Y_g_qr), 0, 0, 1, 1},
   {&__pyx_n_s_Y_g_qr0, __pyx_k_Y_g_qr0, sizeof(__pyx_k_Y_g_qr0), 0, 0, 1, 1},
-  {&__pyx_n_s_Y_g_qr_simu, __pyx_k_Y_g_qr_simu, sizeof(__pyx_k_Y_g_qr_simu), 0, 0, 1, 1},
   {&__pyx_n_s_Y_i_qr, __pyx_k_Y_i_qr, sizeof(__pyx_k_Y_i_qr), 0, 0, 1, 1},
+  {&__pyx_n_s_Z_i_jk, __pyx_k_Z_i_jk, sizeof(__pyx_k_Z_i_jk), 0, 0, 1, 1},
   {&__pyx_n_s_Z_i_qr, __pyx_k_Z_i_qr, sizeof(__pyx_k_Z_i_qr), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_axis, __pyx_k_axis, sizeof(__pyx_k_axis), 0, 0, 1, 1},
+  {&__pyx_n_s_best_B_j_q, __pyx_k_best_B_j_q, sizeof(__pyx_k_best_B_j_q), 0, 0, 1, 1},
+  {&__pyx_n_s_best_C_k_r, __pyx_k_best_C_k_r, sizeof(__pyx_k_best_C_k_r), 0, 0, 1, 1},
+  {&__pyx_n_s_best_U_i_g, __pyx_k_best_U_i_g, sizeof(__pyx_k_best_U_i_g), 0, 0, 1, 1},
+  {&__pyx_n_s_best_fa_iter, __pyx_k_best_fa_iter, sizeof(__pyx_k_best_fa_iter), 0, 0, 1, 1},
+  {&__pyx_n_s_best_km_iter, __pyx_k_best_km_iter, sizeof(__pyx_k_best_km_iter), 0, 0, 1, 1},
   {&__pyx_n_s_best_time_elapsed_simu, __pyx_k_best_time_elapsed_simu, sizeof(__pyx_k_best_time_elapsed_simu), 0, 0, 1, 1},
   {&__pyx_n_s_check_initialized_components, __pyx_k_check_initialized_components, sizeof(__pyx_k_check_initialized_components), 0, 0, 1, 1},
   {&__pyx_n_s_check_params, __pyx_k_check_params, sizeof(__pyx_k_check_params), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_conv, __pyx_k_conv, sizeof(__pyx_k_conv), 0, 0, 1, 1},
   {&__pyx_n_s_converged, __pyx_k_converged, sizeof(__pyx_k_converged), 0, 0, 1, 1},
-  {&__pyx_n_s_converged_simu, __pyx_k_converged_simu, sizeof(__pyx_k_converged_simu), 0, 0, 1, 1},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_dec, __pyx_k_dec, sizeof(__pyx_k_dec), 0, 0, 1, 1},
   {&__pyx_n_s_default_rng, __pyx_k_default_rng, sizeof(__pyx_k_default_rng), 0, 0, 1, 1},
@@ -10929,8 +12233,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_u_plain, __pyx_k_plain, sizeof(__pyx_k_plain), 0, 1, 0, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
-  {&__pyx_n_s_pseudoF, __pyx_k_pseudoF, sizeof(__pyx_k_pseudoF), 0, 0, 1, 1},
-  {&__pyx_n_s_pseudoF_simu, __pyx_k_pseudoF_simu, sizeof(__pyx_k_pseudoF_simu), 0, 0, 1, 1},
+  {&__pyx_n_s_pseudoF_full, __pyx_k_pseudoF_full, sizeof(__pyx_k_pseudoF_full), 0, 0, 1, 1},
+  {&__pyx_n_s_pseudoF_full_simu, __pyx_k_pseudoF_full_simu, sizeof(__pyx_k_pseudoF_full_simu), 0, 0, 1, 1},
+  {&__pyx_n_s_pseudoF_reduced, __pyx_k_pseudoF_reduced, sizeof(__pyx_k_pseudoF_reduced), 0, 0, 1, 1},
+  {&__pyx_n_s_pseudoF_reduced_simu, __pyx_k_pseudoF_reduced_simu, sizeof(__pyx_k_pseudoF_reduced_simu), 0, 0, 1, 1},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
   {&__pyx_n_s_random_state, __pyx_k_random_state, sizeof(__pyx_k_random_state), 0, 0, 1, 1},
@@ -10966,7 +12272,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 106, __pyx_L1_error)
   __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 138, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 141, __pyx_L1_error)
-  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 330, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -10988,25 +12294,25 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple_);
   __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_simuclustfactor_tandem_py, __pyx_n_s_dec, 85, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 85, __pyx_L1_error)
 
-  /* "simuclustfactor/tandem.py":184
+  /* "simuclustfactor/tandem.py":197
  * 
  * 					if km_iter == self.n_max_iter:
  * 						if self.verbose: print("KM Maximum iterations reached.")             # <<<<<<<<<<<<<<
  * 						break
  * 
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_KM_Maximum_iterations_reached); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_KM_Maximum_iterations_reached); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "simuclustfactor/tandem.py":274
+  /* "simuclustfactor/tandem.py":301
  * 
  * 				if (fa_iter == self.n_max_iter):
  * 					if self.verbose: print("FA Maximum iterations reached.")             # <<<<<<<<<<<<<<
  * 					break
  * 
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_FA_Maximum_iterations_reached); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_FA_Maximum_iterations_reached); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 301, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
@@ -11041,34 +12347,34 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 		"""
  * 		{0}
  */
-  __pyx_tuple__9 = PyTuple_Pack(67, __pyx_n_s_self, __pyx_n_s_X_i_jk, __pyx_n_s_full_tensor_shape, __pyx_n_s_reduced_tensor_shape, __pyx_n_s_rng, __pyx_n_s_I, __pyx_n_s_J, __pyx_n_s_K, __pyx_n_s_G, __pyx_n_s_Q, __pyx_n_s_R, __pyx_n_s_headers, __pyx_n_s_loop, __pyx_n_s_start_time, __pyx_n_s_U_i_g0, __pyx_n_s_km_iter, __pyx_n_s_km_converged, __pyx_n_s_Fs_km, __pyx_n_s_U_i_g_init, __pyx_n_s_X_g_jk0, __pyx_n_s_F0, __pyx_n_s_conv, __pyx_n_s_U_i_g, __pyx_n_s_X_g_jk, __pyx_n_s_F, __pyx_n_s_fa_converged, __pyx_n_s_fa_iter, __pyx_n_s_Fs_fa, __pyx_n_s_X_k_g_j, __pyx_n_s_X_j_kg, __pyx_n_s_X_k_gj, __pyx_n_s_B_j_q0, __pyx_n_s_C_k_r0, __pyx_n_s_I_g_g, __pyx_n_s_B_j_q_init, __pyx_n_s_C_k_r_init, __pyx_n_s_Y_g_qr, __pyx_n_s_B_j_j, __pyx_n_s_B_j_q, __pyx_n_s_C_k_k, __pyx_n_s_C_k_r, __pyx_n_s_time_elapsed, __pyx_n_s_Y_i_qr, __pyx_n_s_Z_i_qr, __pyx_n_s_TSS, __pyx_n_s_BSS_2, __pyx_n_s_RSS, __pyx_n_s_BSS_percent, __pyx_n_s_pseudoF, __pyx_n_s_B_j_q_simu, __pyx_n_s_C_k_r_simu, __pyx_n_s_U_i_g_simu, __pyx_n_s_Y_g_qr_simu, __pyx_n_s_km_iter_simu, __pyx_n_s_fa_iter_simu, __pyx_n_s_loop_simu, __pyx_n_s_km_converged_simu, __pyx_n_s_fa_converged_simu, __pyx_n_s_BSS_per, __pyx_n_s_TSS_simu, __pyx_n_s_BSS_simu, __pyx_n_s_RSS_simu, __pyx_n_s_pseudoF_simu, __pyx_n_s_U_i_g_init_simu, __pyx_n_s_B_j_q_init_simu, __pyx_n_s_C_k_r_init_simu, __pyx_n_s_best_time_elapsed_simu); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(81, __pyx_n_s_self, __pyx_n_s_X_i_jk, __pyx_n_s_full_tensor_shape, __pyx_n_s_reduced_tensor_shape, __pyx_n_s_rng, __pyx_n_s_I, __pyx_n_s_J, __pyx_n_s_K, __pyx_n_s_G, __pyx_n_s_Q, __pyx_n_s_R, __pyx_n_s_headers, __pyx_n_s_loop, __pyx_n_s_start_time, __pyx_n_s_U_i_g0, __pyx_n_s_km_iter, __pyx_n_s_km_converged, __pyx_n_s_Fs_km, __pyx_n_s_U_i_g_init, __pyx_n_s_X_g_jk0, __pyx_n_s_F0, __pyx_n_s_conv, __pyx_n_s_best_km_iter, __pyx_n_s_best_U_i_g, __pyx_n_s_U_i_g, __pyx_n_s_X_g_jk, __pyx_n_s_F, __pyx_n_s_fa_converged, __pyx_n_s_fa_iter, __pyx_n_s_Fs_fa, __pyx_n_s_X_k_g_j, __pyx_n_s_X_j_kg, __pyx_n_s_X_k_gj, __pyx_n_s_B_j_q0, __pyx_n_s_C_k_r0, __pyx_n_s_I_g_g, __pyx_n_s_B_j_q_init, __pyx_n_s_C_k_r_init, __pyx_n_s_Y_g_qr, __pyx_n_s_best_fa_iter, __pyx_n_s_best_B_j_q, __pyx_n_s_best_C_k_r, __pyx_n_s_B_j_j, __pyx_n_s_B_j_q, __pyx_n_s_C_k_k, __pyx_n_s_C_k_r, __pyx_n_s_time_elapsed, __pyx_n_s_Y_i_qr, __pyx_n_s_Z_i_qr, __pyx_n_s_Z_i_jk, __pyx_n_s_TSS_full, __pyx_n_s_BSS_full, __pyx_n_s_RSS_full, __pyx_n_s_TSS_reduced, __pyx_n_s_BSS_reduced, __pyx_n_s_RSS_reduced, __pyx_n_s_BSS_percent_full, __pyx_n_s_BSS_percent_reduced, __pyx_n_s_pseudoF_full, __pyx_n_s_pseudoF_reduced, __pyx_n_s_B_j_q_simu, __pyx_n_s_C_k_r_simu, __pyx_n_s_U_i_g_simu, __pyx_n_s_km_iter_simu, __pyx_n_s_fa_iter_simu, __pyx_n_s_loop_simu, __pyx_n_s_km_converged_simu, __pyx_n_s_fa_converged_simu, __pyx_n_s_pseudoF_full_simu, __pyx_n_s_pseudoF_reduced_simu, __pyx_n_s_BSS_per, __pyx_n_s_TSS_full_simu, __pyx_n_s_BSS_full_simu, __pyx_n_s_RSS_full_simu, __pyx_n_s_TSS_reduced_simu, __pyx_n_s_BSS_reduced_simu, __pyx_n_s_RSS_reduced_simu, __pyx_n_s_U_i_g_init_simu, __pyx_n_s_B_j_q_init_simu, __pyx_n_s_C_k_r_init_simu, __pyx_n_s_best_time_elapsed_simu); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(4, 0, 67, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_simuclustfactor_tandem_py, __pyx_n_s_fit, 113, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(4, 0, 81, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_simuclustfactor_tandem_py, __pyx_n_s_fit, 113, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 113, __pyx_L1_error)
 
-  /* "simuclustfactor/tandem.py":408
+  /* "simuclustfactor/tandem.py":451
  * 	"""
  * 
  * 	def __init__(             # <<<<<<<<<<<<<<
  * 		self,
  * 		*args,
  */
-  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_args, __pyx_n_s_kwargs); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_args, __pyx_n_s_kwargs); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_simuclustfactor_tandem_py, __pyx_n_s_init, 408, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_simuclustfactor_tandem_py, __pyx_n_s_init, 451, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 451, __pyx_L1_error)
 
-  /* "simuclustfactor/tandem.py":419
+  /* "simuclustfactor/tandem.py":462
  * 
  * 	@_doc_formatter(_doc_init_attrs, _doc_refs)
  * 	def fit(self, X_i_jk, full_tensor_shape, reduced_tensor_shape):             # <<<<<<<<<<<<<<
  * 		"""
  * 		:Parameters:
  */
-  __pyx_tuple__13 = PyTuple_Pack(68, __pyx_n_s_self, __pyx_n_s_X_i_jk, __pyx_n_s_full_tensor_shape, __pyx_n_s_reduced_tensor_shape, __pyx_n_s_rng, __pyx_n_s_I, __pyx_n_s_J, __pyx_n_s_K, __pyx_n_s_G, __pyx_n_s_Q, __pyx_n_s_R, __pyx_n_s_X_k_i_j, __pyx_n_s_X_j_ki, __pyx_n_s_X_k_ij, __pyx_n_s_I_i_i, __pyx_n_s_headers, __pyx_n_s_loop, __pyx_n_s_start_time, __pyx_n_s_fa_iter, __pyx_n_s_Fs_fa, __pyx_n_s_converged, __pyx_n_s_B_j_q0, __pyx_n_s_C_k_r0, __pyx_n_s_B_j_q_init, __pyx_n_s_C_k_r_init, __pyx_n_s_Y_i_qr, __pyx_n_s_F0, __pyx_n_s_conv, __pyx_n_s_fa_converged, __pyx_n_s_B_j_j, __pyx_n_s_B_j_q, __pyx_n_s_C_k_k, __pyx_n_s_C_k_r, __pyx_n_s_F, __pyx_n_s_km_iter, __pyx_n_s_km_converged, __pyx_n_s_Fs_km, __pyx_n_s_U_i_g0, __pyx_n_s_U_i_g_init, __pyx_n_s_Y_g_qr0, __pyx_n_s_U_i_g, __pyx_n_s_Y_g_qr, __pyx_n_s_time_elapsed, __pyx_n_s_Z_i_qr, __pyx_n_s_TSS, __pyx_n_s_BSS_2, __pyx_n_s_RSS, __pyx_n_s_BSS_percent, __pyx_n_s_pseudoF, __pyx_n_s_B_j_q_simu, __pyx_n_s_C_k_r_simu, __pyx_n_s_U_i_g_simu, __pyx_n_s_Y_g_qr_simu, __pyx_n_s_km_iter_simu, __pyx_n_s_fa_iter_simu, __pyx_n_s_loop_simu, __pyx_n_s_km_converged_simu, __pyx_n_s_fa_converged_simu, __pyx_n_s_BSS_per_simu, __pyx_n_s_TSS_simu, __pyx_n_s_BSS_simu, __pyx_n_s_RSS_simu, __pyx_n_s_pseudoF_simu, __pyx_n_s_U_i_g_init_simu, __pyx_n_s_B_j_q_init_simu, __pyx_n_s_C_k_r_init_simu, __pyx_n_s_best_time_elapsed_simu, __pyx_n_s_converged_simu); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(81, __pyx_n_s_self, __pyx_n_s_X_i_jk, __pyx_n_s_full_tensor_shape, __pyx_n_s_reduced_tensor_shape, __pyx_n_s_rng, __pyx_n_s_I, __pyx_n_s_J, __pyx_n_s_K, __pyx_n_s_G, __pyx_n_s_Q, __pyx_n_s_R, __pyx_n_s_X_k_i_j, __pyx_n_s_X_j_ki, __pyx_n_s_X_k_ij, __pyx_n_s_I_i_i, __pyx_n_s_headers, __pyx_n_s_loop, __pyx_n_s_start_time, __pyx_n_s_fa_iter, __pyx_n_s_Fs_fa, __pyx_n_s_converged, __pyx_n_s_B_j_q0, __pyx_n_s_C_k_r0, __pyx_n_s_B_j_q_init, __pyx_n_s_C_k_r_init, __pyx_n_s_Y_i_qr, __pyx_n_s_F0, __pyx_n_s_conv, __pyx_n_s_fa_converged, __pyx_n_s_best_fa_iter, __pyx_n_s_best_B_j_q, __pyx_n_s_best_C_k_r, __pyx_n_s_B_j_j, __pyx_n_s_B_j_q, __pyx_n_s_C_k_k, __pyx_n_s_C_k_r, __pyx_n_s_F, __pyx_n_s_km_iter, __pyx_n_s_km_converged, __pyx_n_s_Fs_km, __pyx_n_s_U_i_g0, __pyx_n_s_U_i_g_init, __pyx_n_s_Y_g_qr0, __pyx_n_s_best_km_iter, __pyx_n_s_best_U_i_g, __pyx_n_s_U_i_g, __pyx_n_s_Z_i_qr, __pyx_n_s_time_elapsed, __pyx_n_s_Y_g_qr, __pyx_n_s_Z_i_jk, __pyx_n_s_TSS_full, __pyx_n_s_BSS_full, __pyx_n_s_RSS_full, __pyx_n_s_TSS_reduced, __pyx_n_s_BSS_reduced, __pyx_n_s_RSS_reduced, __pyx_n_s_BSS_percent_full, __pyx_n_s_BSS_percent_reduced, __pyx_n_s_pseudoF_full, __pyx_n_s_pseudoF_reduced, __pyx_n_s_B_j_q_simu, __pyx_n_s_C_k_r_simu, __pyx_n_s_U_i_g_simu, __pyx_n_s_km_iter_simu, __pyx_n_s_fa_iter_simu, __pyx_n_s_loop_simu, __pyx_n_s_km_converged_simu, __pyx_n_s_fa_converged_simu, __pyx_n_s_pseudoF_full_simu, __pyx_n_s_pseudoF_reduced_simu, __pyx_n_s_BSS_per, __pyx_n_s_TSS_full_simu, __pyx_n_s_BSS_full_simu, __pyx_n_s_RSS_full_simu, __pyx_n_s_TSS_reduced_simu, __pyx_n_s_BSS_reduced_simu, __pyx_n_s_RSS_reduced_simu, __pyx_n_s_U_i_g_init_simu, __pyx_n_s_B_j_q_init_simu, __pyx_n_s_C_k_r_init_simu, __pyx_n_s_best_time_elapsed_simu); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 462, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(4, 0, 68, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_simuclustfactor_tandem_py, __pyx_n_s_fit, 419, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(4, 0, 81, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_simuclustfactor_tandem_py, __pyx_n_s_fit, 462, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 462, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -11752,54 +13058,54 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "simuclustfactor/tandem.py":395
+  /* "simuclustfactor/tandem.py":438
  * # === The TWFCTA MODEL
  * @_doc_formatter(_doc_init_args)
  * class TWFCTA(_BaseClass):             # <<<<<<<<<<<<<<
  * 	"""
  * 	Three-way Factorial-Clustering Tandem model (TWFCTA).
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_BaseClass); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_BaseClass); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_TWFCTA, __pyx_n_s_TWFCTA, (PyObject *) NULL, __pyx_n_s_simuclustfactor_tandem, __pyx_kp_s_Three_way_Factorial_Clustering); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_TWFCTA, __pyx_n_s_TWFCTA, (PyObject *) NULL, __pyx_n_s_simuclustfactor_tandem, __pyx_kp_s_Three_way_Factorial_Clustering); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "simuclustfactor/tandem.py":408
+  /* "simuclustfactor/tandem.py":451
  * 	"""
  * 
  * 	def __init__(             # <<<<<<<<<<<<<<
  * 		self,
  * 		*args,
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_15simuclustfactor_6tandem_6TWFCTA_1__init__, 0, __pyx_n_s_TWFCTA___init, NULL, __pyx_n_s_simuclustfactor_tandem, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_15simuclustfactor_6tandem_6TWFCTA_1__init__, 0, __pyx_n_s_TWFCTA___init, NULL, __pyx_n_s_simuclustfactor_tandem, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_t_4);
   PyList_Append(__pyx_t_5, __pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "simuclustfactor/tandem.py":418
+  /* "simuclustfactor/tandem.py":461
  * 		)
  * 
  * 	@_doc_formatter(_doc_init_attrs, _doc_refs)             # <<<<<<<<<<<<<<
  * 	def fit(self, X_i_jk, full_tensor_shape, reduced_tensor_shape):
  * 		"""
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_doc_formatter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 418, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_doc_formatter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_doc_init_attrs); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 418, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_doc_init_attrs); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_doc_refs); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 418, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_doc_refs); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __pyx_t_9 = NULL;
   __pyx_t_12 = 0;
@@ -11816,7 +13122,7 @@ if (!__Pyx_RefNanny) {
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_13, __pyx_t_10};
-    __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_12, 2+__pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 418, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_12, 2+__pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 461, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -11826,7 +13132,7 @@ if (!__Pyx_RefNanny) {
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_13, __pyx_t_10};
-    __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_12, 2+__pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 418, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_12, 2+__pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 461, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -11834,7 +13140,7 @@ if (!__Pyx_RefNanny) {
   } else
   #endif
   {
-    __pyx_t_8 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 418, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 461, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     if (__pyx_t_9) {
       __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_9); __pyx_t_9 = NULL;
@@ -11845,20 +13151,20 @@ if (!__Pyx_RefNanny) {
     PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_12, __pyx_t_10);
     __pyx_t_13 = 0;
     __pyx_t_10 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 418, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 461, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "simuclustfactor/tandem.py":419
+  /* "simuclustfactor/tandem.py":462
  * 
  * 	@_doc_formatter(_doc_init_attrs, _doc_refs)
  * 	def fit(self, X_i_jk, full_tensor_shape, reduced_tensor_shape):             # <<<<<<<<<<<<<<
  * 		"""
  * 		:Parameters:
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_15simuclustfactor_6tandem_6TWFCTA_3fit, 0, __pyx_n_s_TWFCTA_fit, NULL, __pyx_n_s_simuclustfactor_tandem, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_15simuclustfactor_6tandem_6TWFCTA_3fit, 0, __pyx_n_s_TWFCTA_fit, NULL, __pyx_n_s_simuclustfactor_tandem, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 462, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -11873,22 +13179,22 @@ if (!__Pyx_RefNanny) {
   __pyx_t_4 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_8, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 418, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_fit, __pyx_t_4) < 0) __PYX_ERR(0, 419, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_fit, __pyx_t_4) < 0) __PYX_ERR(0, 462, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "simuclustfactor/tandem.py":394
+  /* "simuclustfactor/tandem.py":437
  * 
  * # === The TWFCTA MODEL
  * @_doc_formatter(_doc_init_args)             # <<<<<<<<<<<<<<
  * class TWFCTA(_BaseClass):
  * 	"""
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_doc_formatter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 394, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_doc_formatter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_doc_init_args); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 394, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_doc_init_args); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_10 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -11903,18 +13209,18 @@ if (!__Pyx_RefNanny) {
   __pyx_t_6 = (__pyx_t_10) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_10, __pyx_t_8) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8);
   __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 394, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "simuclustfactor/tandem.py":395
+  /* "simuclustfactor/tandem.py":438
  * # === The TWFCTA MODEL
  * @_doc_formatter(_doc_init_args)
  * class TWFCTA(_BaseClass):             # <<<<<<<<<<<<<<
  * 	"""
  * 	Three-way Factorial-Clustering Tandem model (TWFCTA).
  */
-  __pyx_t_7 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_TWFCTA, __pyx_t_1, __pyx_t_3, NULL, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_TWFCTA, __pyx_t_1, __pyx_t_3, NULL, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -11929,12 +13235,12 @@ if (!__Pyx_RefNanny) {
   __pyx_t_4 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_8, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 394, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (__Pyx_CyFunction_InitClassCell(__pyx_t_5, __pyx_t_4) < 0) __PYX_ERR(0, 395, __pyx_L1_error)
+  if (__Pyx_CyFunction_InitClassCell(__pyx_t_5, __pyx_t_4) < 0) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_TWFCTA, __pyx_t_4) < 0) __PYX_ERR(0, 395, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_TWFCTA, __pyx_t_4) < 0) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -13731,6 +15037,78 @@ static PyObject *__Pyx_PyLong_AbsNeg(PyObject *n) {
 }
 #endif
 
+/* PyIntCompare */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_NeObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED long inplace) {
+    if (op1 == op2) {
+        Py_RETURN_FALSE;
+    }
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long a = PyInt_AS_LONG(op1);
+        if (a != b) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+    }
+    #endif
+    #if CYTHON_USE_PYLONG_INTERNALS
+    if (likely(PyLong_CheckExact(op1))) {
+        int unequal;
+        unsigned long uintval;
+        Py_ssize_t size = Py_SIZE(op1);
+        const digit* digits = ((PyLongObject*)op1)->ob_digit;
+        if (intval == 0) {
+            if (size != 0) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+        } else if (intval < 0) {
+            if (size >= 0)
+                Py_RETURN_TRUE;
+            intval = -intval;
+            size = -size;
+        } else {
+            if (size <= 0)
+                Py_RETURN_TRUE;
+        }
+        uintval = (unsigned long) intval;
+#if PyLong_SHIFT * 4 < SIZEOF_LONG*8
+        if (uintval >> (PyLong_SHIFT * 4)) {
+            unequal = (size != 5) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
+                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[3] != ((uintval >> (3 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[4] != ((uintval >> (4 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
+        } else
+#endif
+#if PyLong_SHIFT * 3 < SIZEOF_LONG*8
+        if (uintval >> (PyLong_SHIFT * 3)) {
+            unequal = (size != 4) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
+                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[3] != ((uintval >> (3 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
+        } else
+#endif
+#if PyLong_SHIFT * 2 < SIZEOF_LONG*8
+        if (uintval >> (PyLong_SHIFT * 2)) {
+            unequal = (size != 3) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
+                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
+        } else
+#endif
+#if PyLong_SHIFT * 1 < SIZEOF_LONG*8
+        if (uintval >> (PyLong_SHIFT * 1)) {
+            unequal = (size != 2) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
+                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
+        } else
+#endif
+            unequal = (size != 1) || (((unsigned long) digits[0]) != (uintval & (unsigned long) PyLong_MASK));
+        if (unequal != 0) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+    }
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+        double a = PyFloat_AS_DOUBLE(op1);
+        if ((double)a != (double)b) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+    }
+    return (
+        PyObject_RichCompare(op1, op2, Py_NE));
+}
+
+/* None */
+static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
+    PyErr_Format(PyExc_UnboundLocalError, "local variable '%s' referenced before assignment", varname);
+}
+
 /* GetItemInt */
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
     PyObject *r;
@@ -13816,78 +15194,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
     }
 #endif
     return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
-
-/* None */
-static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
-    PyErr_Format(PyExc_UnboundLocalError, "local variable '%s' referenced before assignment", varname);
-}
-
-/* PyIntCompare */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_NeObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED long inplace) {
-    if (op1 == op2) {
-        Py_RETURN_FALSE;
-    }
-    #if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_CheckExact(op1))) {
-        const long b = intval;
-        long a = PyInt_AS_LONG(op1);
-        if (a != b) Py_RETURN_TRUE; else Py_RETURN_FALSE;
-    }
-    #endif
-    #if CYTHON_USE_PYLONG_INTERNALS
-    if (likely(PyLong_CheckExact(op1))) {
-        int unequal;
-        unsigned long uintval;
-        Py_ssize_t size = Py_SIZE(op1);
-        const digit* digits = ((PyLongObject*)op1)->ob_digit;
-        if (intval == 0) {
-            if (size != 0) Py_RETURN_TRUE; else Py_RETURN_FALSE;
-        } else if (intval < 0) {
-            if (size >= 0)
-                Py_RETURN_TRUE;
-            intval = -intval;
-            size = -size;
-        } else {
-            if (size <= 0)
-                Py_RETURN_TRUE;
-        }
-        uintval = (unsigned long) intval;
-#if PyLong_SHIFT * 4 < SIZEOF_LONG*8
-        if (uintval >> (PyLong_SHIFT * 4)) {
-            unequal = (size != 5) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
-                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[3] != ((uintval >> (3 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[4] != ((uintval >> (4 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
-        } else
-#endif
-#if PyLong_SHIFT * 3 < SIZEOF_LONG*8
-        if (uintval >> (PyLong_SHIFT * 3)) {
-            unequal = (size != 4) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
-                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[3] != ((uintval >> (3 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
-        } else
-#endif
-#if PyLong_SHIFT * 2 < SIZEOF_LONG*8
-        if (uintval >> (PyLong_SHIFT * 2)) {
-            unequal = (size != 3) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
-                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
-        } else
-#endif
-#if PyLong_SHIFT * 1 < SIZEOF_LONG*8
-        if (uintval >> (PyLong_SHIFT * 1)) {
-            unequal = (size != 2) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
-                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
-        } else
-#endif
-            unequal = (size != 1) || (((unsigned long) digits[0]) != (uintval & (unsigned long) PyLong_MASK));
-        if (unequal != 0) Py_RETURN_TRUE; else Py_RETURN_FALSE;
-    }
-    #endif
-    if (PyFloat_CheckExact(op1)) {
-        const long b = intval;
-        double a = PyFloat_AS_DOUBLE(op1);
-        if ((double)a != (double)b) Py_RETURN_TRUE; else Py_RETURN_FALSE;
-    }
-    return (
-        PyObject_RichCompare(op1, op2, Py_NE));
 }
 
 /* PyObject_GenericGetAttrNoDict */
