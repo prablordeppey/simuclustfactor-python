@@ -48,12 +48,12 @@ _doc_init_attrs = '''
 		:TSSFull: Total sum of squared deviations for best loop in the full space.
 		:BSSFull: Between sum of squared deviations for best loop in the full space.
 		:RSSFull: Residual sum of squared deviations for best loop in the full space.
-		:PseudofFull: PsuedoF score from the best loop in the full space.
+		:PFFull: PsuedoF score from the best loop in the full space.
 
 		:TSSReduced: Total sum of squared deviations for best loop in the reduced space.
 		:BSSReduced: Between sum of squared deviations for best loop in the reduced space.
 		:RSSReduced: Residual sum of squared deviations for best loop in the reduced space.
-		:PseudofReduced: PsuedoF score from the best loop in the reduced space.
+		:PFReduced: PsuedoF score from the best loop in the reduced space.
 		
 		:Labels: cluster labels for the best loop.
 
@@ -354,14 +354,14 @@ class T3Clus(_BaseClass):
 		self.BestIteration = iteration_simu
 
 		# maximum between cluster deviance
-		self.TSS_full = TSS_full_simu
-		self.BSS_full = BSS_full_simu
-		self.RSS_full = RSS_full_simu
-		self.TSS_reduced = TSS_reduced_simu
-		self.BSS_reduced = BSS_reduced_simu
-		self.RSS_reduced = RSS_reduced_simu
-		self.PseudoF_full = pseudoF_full
-		self.PseudoF_reduced = pseudoF_reduced
+		self.TSSFull = TSS_full_simu
+		self.BSSFull = BSS_full_simu
+		self.RSSFull = RSS_full_simu
+		self.TSSReduced = TSS_reduced_simu
+		self.BSSReduced = BSS_reduced_simu
+		self.RSSReduced = RSS_reduced_simu
+		self.PFFull = pseudoF_full
+		self.PFReduced = pseudoF_reduced
 
 		# Error in model
 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
@@ -657,14 +657,14 @@ class TFKMeans(_BaseClass):
 		self.BestIteration = iteration_simu
 
 		# maximum between cluster deviance
-		self.TSS_full = TSS_full_simu
-		self.BSS_full = BSS_full_simu
-		self.RSS_full = RSS_full_simu
-		self.TSS_reduced = TSS_reduced_simu
-		self.BSS_reduced = BSS_reduced_simu
-		self.RSS_reduced = RSS_reduced_simu
-		self.PseudoF_full = pseudoF_full
-		self.PseudoF_reduced = pseudoF_reduced
+		self.TSSFull = TSS_full_simu
+		self.BSSFull = BSS_full_simu
+		self.RSSFull = RSS_full_simu
+		self.TSSReduced = TSS_reduced_simu
+		self.BSSReduced = BSS_reduced_simu
+		self.RSSReduced = RSS_reduced_simu
+		self.PFFull = pseudoF_full
+		self.PFReduced = pseudoF_reduced
 
 		# Error in model
 		self.Enorm = 1/I*np.linalg.norm(X_i_jk_N - Z_i_qr@np.kron(C_k_r_simu, B_j_q_simu).T, 2)
@@ -977,14 +977,14 @@ class CT3Clus(_BaseClass):
 		self.BestIteration = iteration_simu
 
 		# maximum between cluster deviance
-		self.TSS_full = TSS_full_simu
-		self.BSS_full = BSS_full_simu
-		self.RSS_full = RSS_full_simu
-		self.TSS_reduced = TSS_reduced_simu
-		self.BSS_reduced = BSS_reduced_simu
-		self.RSS_reduced = RSS_reduced_simu
-		self.PseudoF_full = pseudoF_full
-		self.PseudoF_reduced = pseudoF_reduced
+		self.TSSFull = TSS_full_simu
+		self.BSSFull = BSS_full_simu
+		self.RSSFull = RSS_full_simu
+		self.TSSReduced = TSS_reduced_simu
+		self.BSSReduced = BSS_reduced_simu
+		self.RSSReduced = RSS_reduced_simu
+		self.PFFull = pseudoF_full
+		self.PFReduced = pseudoF_reduced
 
 		# convergence
 		self.Enorm = 1/I*np.linalg.norm(X_i_jk_N - Z_i_qr@np.kron(C_k_r_simu, B_j_q_simu).T, 2)

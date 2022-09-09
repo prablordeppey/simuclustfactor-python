@@ -43,23 +43,23 @@ _doc_init_attrs = '''
 		:BestLoop: Best loop for global result.
 		:BestKmIteration: Best iteration for convergence of the K-means procedure.
 		:BestFaIteration: Best iteration for convergence of the factor decomposition procedure.
-		:FaConverged: Whether the factorial decomposition proocedure converged or not. 
-		:KmConverged: Whether the K-means proocedure converged or not. 
+		:ConvergedFA: Whether the factorial decomposition proocedure converged or not. 
+		:ConvergedKM: Whether the K-means proocedure converged or not. 
 
 		:TSSFull: Total sum of squared deviations for best loop in the full space.
 		:BSSFull: Between sum of squared deviations for best loop in the full space.
 		:RSSFull: Residual sum of squared deviations for best loop in the full space.
-		:PseudofFull: PsuedoF score from the best loop in the full space.
+		:PFFull: PsuedoF score from the best loop in the full space.
 
 		:TSSReduced: Total sum of squared deviations for best loop in the reduced space.
 		:BSSReduced: Between sum of squared deviations for best loop in the reduced space.
 		:RSSReduced: Residual sum of squared deviations for best loop in the reduced space.
-		:PseudofReduced: PsuedoF score from the best loop in the reduced space.
+		:PFReduced: PsuedoF score from the best loop in the reduced space.
 
 		:Labels: Cluster labels for the best loop.
 
-		:Fs_km: a list of K-means clustering objective function values until stopping criteria.
-		:Fs_fa: A list of Factor decomposition objective function values until stopping criteria.
+		:FsKM: a list of K-means clustering objective function values until stopping criteria.
+		:FsFA: A list of Factor decomposition objective function values until stopping criteria.
 		:Enorm: Frobenius or L2 norm of residual term from the model.'''
 
 # === REFERENCES
@@ -416,19 +416,19 @@ class TWCFTA(_BaseClass):
 		self.KmConverged = km_converged_simu
 
 		# maximum between cluster deviance
-		self.TSS_full = TSS_full_simu
-		self.BSS_full = BSS_full_simu
-		self.RSS_full = RSS_full_simu
-		self.TSS_reduced = TSS_reduced_simu
-		self.BSS_reduced = BSS_reduced_simu
-		self.RSS_reduced = RSS_reduced_simu
-		self.PseudoF_full = pseudoF_full
-		self.PseudoF_reduced = pseudoF_reduced
+		self.TSSFull = TSS_full_simu
+		self.BSSFull = BSS_full_simu
+		self.RSSFull = RSS_full_simu
+		self.TSSReduced = TSS_reduced_simu
+		self.BSSReduced = BSS_reduced_simu
+		self.RSSReduced = RSS_reduced_simu
+		self.PFFull = pseudoF_full
+		self.PFReduced = pseudoF_reduced
 
 		# Error in model
 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
-		self.Fs_km = Fs_km  # objective values for kmeans
-		self.Fs_fa = Fs_fa  # objective values for factor decomposition
+		self.FsKM = Fs_km  # objective values for kmeans
+		self.FsFA = Fs_fa  # objective values for factor decomposition
 
 		# classification of objects (labels)
 		self.Labels = np.where(U_i_g_simu)[1]
@@ -766,22 +766,22 @@ class TWFCTA(_BaseClass):
 		self.BestLoop = loop_simu
 		self.BestKMIteration = km_iter_simu
 		self.BestFAIteration = fa_iter_simu
-		self.FaConverged = fa_converged_simu
-		self.KmConverged = km_converged_simu
+		self.ConvergedFA = fa_converged_simu
+		self.ConvergedKM = km_converged_simu
 
 		# maximum between cluster deviance
-		self.TSS_full = TSS_full_simu
-		self.BSS_full = BSS_full_simu
-		self.RSS_full = RSS_full_simu
-		self.TSS_reduced = TSS_reduced_simu
-		self.BSS_reduced = BSS_reduced_simu
-		self.RSS_reduced = RSS_reduced_simu
-		self.PseudoF_full = pseudoF_full
-		self.PseudoF_reduced = pseudoF_reduced		
+		self.TSSFull = TSS_full_simu
+		self.BSSFull = BSS_full_simu
+		self.RSSFull = RSS_full_simu
+		self.TSSReduced = TSS_reduced_simu
+		self.BSSReduced = BSS_reduced_simu
+		self.RSSReduced = RSS_reduced_simu
+		self.PFFull = pseudoF_full
+		self.PFReduced = pseudoF_reduced		
 
 		# Error in model
-		self.Fs_km = Fs_km  # all error norms
-		self.Fs_fa = Fs_fa  # all error norms
+		self.FsKM = Fs_km  # all objective values
+		self.FsFA = Fs_fa  # all objectiveh values for Factor Analysis
 		self.Enorm = 1/I*np.linalg.norm(X_i_jk - Z_i_qr @ np.kron(C_k_r_simu, B_j_q_simu).T, 2)
 		
 		# classification of objects (labels)
