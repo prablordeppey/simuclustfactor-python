@@ -25,28 +25,12 @@ def get_ext_paths(root_dir, exclude_files):
 
 # exclude files from cython compilation
 EXCLUDE_FILES = [
-    '__init__.py',
-    'version.py'
+    '__init__.py'
 ]
-
-def read(rel_path):
-    here = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(here, rel_path), 'r') as fp:
-        return fp.read()      
-
-# access the versioning file
-def get_version(rel_path):
-    for line in read(rel_path).splitlines():
-        if line.startswith('__version__'):
-            delim = '"' if '"' in line else "'"
-            return line.split(delim)[1]
-        else:
-            raise RuntimeError("Unable to find version string.")
-
 
 setuptools.setup(
     name="simuclustfactor",
-    version=get_version("__init__.py"),
+    version='0.0.1',
     author="Ablordeppey Prosper",
     author_email="prablordeppey@gmail.com",
     description="Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.",
