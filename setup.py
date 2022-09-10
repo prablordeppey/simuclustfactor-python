@@ -38,7 +38,7 @@ Options.docstrings = False
 
 setuptools.setup(
     name="simuclustfactor",
-    version='0.0.1',
+    version='0.0.2',
     author="Ablordeppey Prosper",
     author_email="prablordeppey@gmail.com",
     description="Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.",
