@@ -44,9 +44,9 @@ setuptools.setup(
     description="Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/prablordeppey/simuclustfactor",
+    url="https://github.com/prablordeppey/simuclustfactor-python",
     project_urls={
-        "Bug Tracker": "https://github.com/prablordeppey/simuclustfactor/issues",
+        "Bug Tracker": "https://github.com/prablordeppey/simuclustfactor-python/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -54,8 +54,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=setuptools.find_packages(where="simuclustfactor"),
-    # packages=['simuclustfactor'],
-    # package_dir={"": ""},
     python_requires=">=3.6",
     install_requires=['numpy>=1.19.2', 'tabulate>=0.8.9'],
     setup_requires=['pytest-runner'],
