@@ -30,7 +30,7 @@ EXCLUDE_FILES = [
 ]
 
 # access the versioning file
-exec(open('version.py').read())
+exec(open('simuclustfactor/version.py').read())
 
 setuptools.setup(
     name="simuclustfactor",
