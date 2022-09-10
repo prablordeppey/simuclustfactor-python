@@ -46,7 +46,7 @@ def get_version(rel_path):
 
 setuptools.setup(
     name="simuclustfactor",
-    version=get_version("simuclustfactor/__init__.py"),
+    version=get_version("__init__.py"),
     author="Ablordeppey Prosper",
     author_email="prablordeppey@gmail.com",
     description="Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.",
