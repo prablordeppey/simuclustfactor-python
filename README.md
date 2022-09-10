@@ -46,7 +46,7 @@ G,Q,R = 2,3,1  # dimension of tensor in the reduced space
 twcfta_res = TWCFTA().fit(X_i_jk=X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R))
 ``` -->
 
-```pycon
+```python
 import numpy as np
 from simuclustfactor import tandem
 from simuclustfactor import simultaneous
