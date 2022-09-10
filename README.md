@@ -31,8 +31,8 @@ Library usage
 -------------
 
 The package provides just two main modules namely,
-  `tandem`: 
-  `simultaneous`:
+  - `tandem`: encapsulating TWCFTA and TWFCTA
+  - `simultaneous`: encapsulating T3Clus, TFKMeans and CT3Clus
 
 <!-- ```pycon
 >>> from simuclustfactor import tandem
