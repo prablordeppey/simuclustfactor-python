@@ -26,11 +26,11 @@ def get_ext_paths(root_dir, exclude_files):
 # exclude files from cython compilation
 EXCLUDE_FILES = [
     '__init__.py',
-    '_version.py'
+    'version.py'
 ]
 
 # access the versioning file
-exec(open('_version.py').read())
+exec(open('version.py').read())
 
 setuptools.setup(
     name="simuclustfactor",
