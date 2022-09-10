@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>simuclustfactor.tandem &mdash; simuclustfactor 00.00.01 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> simuclustfactor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">simuclustfactor</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">simuclustfactor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>simuclustfactor.tandem</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for simuclustfactor.tandem</h1><div class="highlight"><pre>
+<span></span><span class="c1">### ---- IMPORTING MODULES</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.tensor</span> <span class="kn">import</span> <span class="n">Fold</span><span class="p">,</span> <span class="n">Unfold</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SingularVectors</span><span class="p">,</span> <span class="n">PseudoF</span><span class="p">,</span> <span class="n">_BaseClass</span><span class="p">,</span> <span class="n">OneKMeans</span><span class="p">,</span> <span class="n">RandomMembershipMatrix</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+
+
+<span class="c1"># === DOCUMENTATIONS</span>
+<span class="c1"># model initialization configs</span>
+<span class="n">_doc_init_args</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">	Args:</span>
+<span class="s1">		n_max_iter (integer): Maximum number of iterations. Defaults to 10.</span>
+<span class="s1">		n_loops (integer): Number of random initializations to gurantee global results. Defaults to 10.</span>
+<span class="s1">		tol (float): Tolerance level/acceptable error. Defaults to 1e-3.</span>
+<span class="s1">		random_state (boolean): Seed for random sequence generation. Defaults to None.</span>
+<span class="s1">		verbose (boolean): Whether to display executions output or not. Defaults to False.</span>
+<span class="s1">		U_i_g0 (ndarray): (I,G) initial stochastic membership function matrix.</span>
+<span class="s1">		B_j_q0 (ndarray): (J,Q) initial component weight matrix for variables.</span>
+<span class="s1">		C_k_r0 (ndarray): (K,R) initial component weight matrix for occasions.</span>
+<span class="s1">	&#39;&#39;&#39;</span>
+
+<span class="c1"># inputs to the model</span>
+<span class="n">_doc_fit_args</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">	Fit Args</span>
+<span class="s1">		:X_i_jk (ndarray): (I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</span>
+<span class="s1">		:full_tensor_shape (tuple): (I,J,K) dimensions of the original tensor.</span>
+<span class="s1">		:reduced_tensor_shape (tuple): (G,Q,R) dimensions of centroids tensor.</span>
+<span class="s1">	&#39;&#39;&#39;</span>
+
+<span class="c1"># accessible result/outputs</span>
+<span class="n">_doc_init_attrs</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">	Attrs:</span>
+<span class="s1">		- U_i_g0 (ndarray): (I,G) initial stochastic membership function matrix.</span>
+<span class="s1">		- B_j_q0 (ndarray): (J,Q) initial component weight matrix for variables.</span>
+<span class="s1">		- C_k_r0 (ndarray): (K,R) initial component weight matrix for occasions.</span>
+<span class="s1">		- U_i_g (ndarray): (I,G) final iterate stochastic membership function matrix.</span>
+<span class="s1">		- B_j_q (ndarray): (J,Q) final iterate component weight matrix for variables.</span>
+<span class="s1">		- C_k_r (ndarray): (K,R) final iterate component weight matrix for occasions.</span>
+<span class="s1">		- Y_g_qr (ndarray): (G,QR) matricized version of three-way core tensor.</span>
+<span class="s1">		- X_i_jk_scaled (ndarray): Scaled X_i_jk</span>
+<span class="s1">	</span>
+<span class="s1">		- BestTimeElapsed: Time taken for the best iterate.</span>
+<span class="s1">		- BestLoop: Best loop for global result.</span>
+<span class="s1">		- BestKmIteration: Best iteration for convergence of the K-means procedure.</span>
+<span class="s1">		- BestFaIteration: Best iteration for convergence of the factor decomposition procedure.</span>
+<span class="s1">		- ConvergedFA: Whether the factorial decomposition proocedure converged or not. </span>
+<span class="s1">		- ConvergedKM: Whether the K-means proocedure converged or not. </span>
+
+<span class="s1">		- TSSFull: Total sum of squared deviations for best loop in the full space.</span>
+<span class="s1">		- BSSFull: Between sum of squared deviations for best loop in the full space.</span>
+<span class="s1">		- RSSFull: Residual sum of squared deviations for best loop in the full space.</span>
+<span class="s1">		- PFFull: PsuedoF score from the best loop in the full space.</span>
+
+<span class="s1">		- TSSReduced: Total sum of squared deviations for best loop in the reduced space.</span>
+<span class="s1">		- BSSReduced: Between sum of squared deviations for best loop in the reduced space.</span>
+<span class="s1">		- RSSReduced: Residual sum of squared deviations for best loop in the reduced space.</span>
+<span class="s1">		- PFReduced: PsuedoF score from the best loop in the reduced space.</span>
+
+<span class="s1">		- Labels: Cluster labels for the best loop.</span>
+
+<span class="s1">		- FsKM: a list of K-means clustering objective function values until stopping criteria.</span>
+<span class="s1">		- FsFA: A list of Factor decomposition objective function values until stopping criteria.</span>
+<span class="s1">		- Enorm: Frobenius or L2 norm of residual term from the model.</span>
+<span class="s1">		&#39;&#39;&#39;</span>
+
+<span class="c1"># === REFERENCES</span>
+<span class="n">_doc_refs</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">	References:</span>
+<span class="s1">		[1] Vichi, Maurizio &amp; Rocci, Roberto &amp; Kiers, Henk. (2007).</span>
+<span class="s1">		Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.</span>
+<span class="s1">		Journal of Classification. 24. 71-98. 10.1007/s00357-007-0006-x. </span>
+
+<span class="s1">		[2] Bro, R. (1998).</span>
+<span class="s1">		Multi-way analysis in the food industry: models, algorithms, and applications.</span>
+<span class="s1">		Universiteit van Amsterdam.</span>
+<span class="s1">		</span>
+<span class="s1">		[3] P. Arabie and L. Hubert.</span>
+<span class="s1">		Advances in cluster analysis relevant to marketing research.</span>
+<span class="s1">		In Wolfgang Gaul and Dietmar Pfeifer, editors, From Data to Knowledge, pages 3–19,</span>
+<span class="s1">		Berlin, Heidelberg, 1996. Springer Berlin Heidelberg.</span>
+<span class="s1">		</span>
+<span class="s1">		[4] Ledyard Tucker.</span>
+<span class="s1">		Some mathematical notes on three-mode factor analysis.</span>
+<span class="s1">		Psychometrika, 31(3):279–311, September 1966.&#39;&#39;&#39;</span>
+
+<span class="c1"># === DOCUMENTATION FORMATTER FOR METHODS</span>
+<span class="k">def</span> <span class="nf">_doc_formatter</span><span class="p">(</span><span class="o">*</span><span class="n">sub</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	elegant docstring formatter</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">def</span> <span class="nf">dec</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+		<span class="n">obj</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">sub</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">obj</span>
+	<span class="k">return</span> <span class="n">dec</span>
+
+
+<span class="c1"># === The TWCFTA MODEL</span>
+<div class="viewcode-block" id="TWCFTA"><a class="viewcode-back" href="../../simuclustfactor.html#simuclustfactor.tandem.TWCFTA">[docs]</a><span class="nd">@_doc_formatter</span><span class="p">(</span><span class="n">_doc_init_args</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TWCFTA</span><span class="p">(</span><span class="n">_BaseClass</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Three-way Clustering-Factorial Tandem model (TWCFTA).</span>
+<span class="sd">		- Perform KMeans on X_i_jk to obtain membership matrix U_i_g and centroids X_g_jk in full space.</span>
+<span class="sd">		- Obtain Y_g_qr and C_k_r &amp; B_j_q factor matrices that maximizes the reconstruction of U_i_g.X_g_jk via Tucker2.</span>
+<span class="sd">	{0}</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+		<span class="bp">self</span><span class="p">,</span>
+		<span class="o">*</span><span class="n">args</span><span class="p">,</span>
+		<span class="o">**</span><span class="n">kwargs</span>
+	<span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+			<span class="o">*</span><span class="n">args</span><span class="p">,</span>
+			<span class="o">**</span><span class="n">kwargs</span>
+		<span class="p">)</span>
+
+	<span class="c1"># Fitting the model &amp; estimating parameters.</span>
+<div class="viewcode-block" id="TWCFTA.fit"><a class="viewcode-back" href="../../simuclustfactor.html#simuclustfactor.tandem.TWCFTA.fit">[docs]</a>	<span class="nd">@_doc_formatter</span><span class="p">(</span><span class="n">_doc_fit_args</span><span class="p">,</span> <span class="n">_doc_init_attrs</span><span class="p">,</span> <span class="n">_doc_refs</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_i_jk</span><span class="p">,</span> <span class="n">full_tensor_shape</span><span class="p">,</span> <span class="n">reduced_tensor_shape</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		{0}</span>
+<span class="sd">		{1}</span>
+<span class="sd">		{2}</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="c1"># initializing basic config</span>
+		<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>  <span class="c1"># random number generator</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">reduced_tensor_shape</span> <span class="o">=</span> <span class="n">reduced_tensor_shape</span>  <span class="c1"># (I,J,K) tensor shape</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">full_tensor_shape</span> <span class="o">=</span> <span class="n">full_tensor_shape</span>  <span class="c1"># (G,Q,R) core tensor shape</span>
+
+		<span class="c1"># check parameters and arguments</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_check_params</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_check_initialized_components</span><span class="p">()</span>
+		<span class="n">X_i_jk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_i_jk</span><span class="p">)</span>
+		
+		<span class="c1"># Declaring I,J,K and G,Q,R</span>
+		<span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">,</span><span class="n">K</span> <span class="o">=</span> <span class="n">full_tensor_shape</span>
+		<span class="n">G</span><span class="p">,</span><span class="n">Q</span><span class="p">,</span><span class="n">R</span> <span class="o">=</span> <span class="n">reduced_tensor_shape</span>
+
+		<span class="c1"># standardizing the dataset X_i_jk</span>
+		<span class="n">X_i_jk</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_i_jk</span> <span class="o">-</span> <span class="n">X_i_jk</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span><span class="o">/</span><span class="n">X_i_jk</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Loop&#39;</span><span class="p">,</span><span class="s1">&#39;Best KM Iter&#39;</span><span class="p">,</span><span class="s1">&#39;Best FA Iter&#39;</span><span class="p">,</span><span class="s1">&#39;Loop time&#39;</span><span class="p">,</span><span class="s1">&#39;BSS Full (%)&#39;</span><span class="p">,</span> <span class="s1">&#39;BSS Reduced (%)&#39;</span><span class="p">,</span> <span class="s1">&#39;PseudoF Full&#39;</span><span class="p">,</span> <span class="s1">&#39;PseudoF Reduced&#39;</span><span class="p">,</span> <span class="s1">&#39;KM Converged&#39;</span><span class="p">,</span><span class="s1">&#39;FA Converged&#39;</span><span class="p">]</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">([],</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">))</span>
+
+		<span class="c1"># Factorial reduction on centroids (via T2 applied to the centroids matrix X_g_jk_bar)</span>
+		<span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_loops</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+			
+			<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s1">&#39;svd&#39;</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">loop</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="k">break</span>
+
+			<span class="c1"># ------------ Start KMeans Clustering ------------</span>
+			
+			<span class="c1"># given directly as paramters</span>
+			<span class="n">U_i_g0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">U_i_g</span>
+			<span class="n">km_iter</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">km_converged</span> <span class="o">=</span> <span class="kc">False</span>
+			<span class="n">Fs_km</span> <span class="o">=</span> <span class="p">[]</span>
+
+			<span class="k">if</span> <span class="n">U_i_g0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+				<span class="n">U_i_g0</span> <span class="o">=</span> <span class="n">RandomMembershipMatrix</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+				<span class="n">U_i_g_init</span> <span class="o">=</span> <span class="n">U_i_g0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+				<span class="c1"># initial objective</span>
+				<span class="n">X_g_jk0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">U_i_g0</span><span class="o">.</span><span class="n">T</span><span class="nd">@U_i_g0</span><span class="p">)</span> <span class="o">@</span> <span class="n">U_i_g0</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X_i_jk</span>  <span class="c1"># compute centroids matrix</span>
+				<span class="n">F0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">U_i_g0</span><span class="nd">@X_g_jk0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># residual matrix</span>
+				<span class="n">Fs_km</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F0</span><span class="p">)</span>		
+
+				<span class="c1"># clustering on objects (via KMeans applied to X_i_jk)</span>
+				<span class="n">conv</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span>
+				
+				<span class="c1"># iterates init</span>
+				<span class="n">best_km_iter</span> <span class="o">=</span> <span class="mi">1</span>
+				<span class="n">best_U_i_g</span> <span class="o">=</span> <span class="n">U_i_g0</span>
+
+				<span class="c1"># print(&#39;initial&#39;,U_i_g0)</span>
+				<span class="k">while</span> <span class="n">conv</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+					
+					<span class="n">km_iter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+					<span class="c1"># get random centroids</span>
+					<span class="n">U_i_g</span> <span class="o">=</span> <span class="n">OneKMeans</span><span class="p">(</span><span class="n">X_i_jk</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">U_i_g</span><span class="o">=</span><span class="n">U_i_g0</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>  <span class="c1"># updated membership matrix</span>
+					<span class="n">X_g_jk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">U_i_g</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">U_i_g</span><span class="p">)</span> <span class="o">@</span> <span class="n">U_i_g</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X_i_jk</span>  <span class="c1"># compute centroids matrix</span>
+					
+					<span class="c1"># check if maximizes orbjective or minimizes the loss</span>
+					<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">U_i_g</span> <span class="o">@</span> <span class="n">X_g_jk</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># residual matrix					</span>
+					<span class="n">conv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">F</span><span class="o">-</span><span class="n">F0</span><span class="p">)</span>
+
+					<span class="k">if</span> <span class="n">F</span> <span class="o">&gt;=</span> <span class="n">F0</span><span class="p">:</span>
+						<span class="n">F0</span> <span class="o">=</span> <span class="n">F</span>
+						<span class="n">Fs_km</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>						
+						<span class="n">best_U_i_g</span> <span class="o">=</span> <span class="n">U_i_g</span>
+						<span class="n">best_km_iter</span> <span class="o">=</span> <span class="n">km_iter</span>				
+
+					<span class="k">if</span> <span class="n">conv</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+						<span class="n">km_converged</span> <span class="o">=</span> <span class="kc">True</span>
+						<span class="k">break</span>
+
+					<span class="k">if</span> <span class="n">km_iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_max_iter</span><span class="p">:</span>
+						<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KM Maximum iterations reached.&quot;</span><span class="p">)</span>
+						<span class="k">break</span>
+
+					<span class="n">U_i_g0</span> <span class="o">=</span> <span class="n">U_i_g</span>
+
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">U_i_g_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">U_i_g0</span><span class="p">)</span>
+				<span class="n">best_U_i_g</span> <span class="o">=</span> <span class="n">U_i_g_init</span>
+			
+			<span class="c1"># updated centroids</span>
+			<span class="n">X_g_jk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">best_U_i_g</span><span class="o">.</span><span class="n">T</span><span class="nd">@best_U_i_g</span><span class="p">)</span> <span class="o">@</span> <span class="n">best_U_i_g</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X_i_jk</span>  <span class="c1"># compute centroids matrix			</span>
+
+			<span class="c1"># ------------ End KMeans Clustering ------------</span>
+			
+			<span class="c1"># ------------ Start of initialization for FA ------------</span>
+
+			<span class="n">fa_converged</span> <span class="o">=</span> <span class="kc">False</span>
+			<span class="n">fa_iter</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">Fs_fa</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># objective function values</span>
+
+			<span class="c1"># matricize centroid tensor</span>
+			<span class="n">X_k_g_j</span> <span class="o">=</span> <span class="n">Fold</span><span class="p">(</span><span class="n">X_g_jk</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">G</span><span class="p">,</span><span class="n">J</span><span class="p">))</span>
+			<span class="n">X_j_kg</span> <span class="o">=</span> <span class="n">Unfold</span><span class="p">(</span><span class="n">X_k_g_j</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+			<span class="n">X_k_gj</span> <span class="o">=</span> <span class="n">Unfold</span><span class="p">(</span><span class="n">X_k_g_j</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+			<span class="c1"># as direct input</span>
+			<span class="n">B_j_q0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_j_q</span>
+			<span class="n">C_k_r0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">C_k_r</span>
+
+			<span class="c1"># initialize B and C</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s1">&#39;svd&#39;</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">B_j_q0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">B_j_q0</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">X_j_kg</span><span class="nd">@X_j_kg</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+				<span class="k">if</span> <span class="n">C_k_r0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">C_k_r0</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">X_k_gj</span><span class="nd">@X_k_gj</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>  <span class="c1"># random initialization</span>
+				<span class="k">if</span> <span class="n">B_j_q0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">B_j_q0</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">([</span><span class="n">J</span><span class="p">,</span><span class="n">J</span><span class="p">]),</span> <span class="n">Q</span><span class="p">)</span>
+				<span class="k">if</span> <span class="n">C_k_r0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">C_k_r0</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">([</span><span class="n">K</span><span class="p">,</span><span class="n">K</span><span class="p">]),</span> <span class="n">R</span><span class="p">)</span>
+			
+			<span class="n">I_g_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+			<span class="c1"># ----------- End of initialization --------------</span>
+
+			<span class="c1"># ----------- Start of objective function --------------</span>
+			
+			<span class="c1"># to return as initializers</span>
+			<span class="n">B_j_q_init</span> <span class="o">=</span> <span class="n">B_j_q0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+			<span class="n">C_k_r_init</span> <span class="o">=</span> <span class="n">C_k_r0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+			<span class="c1"># updated centroids matrix</span>
+			<span class="n">Y_g_qr</span> <span class="o">=</span> <span class="n">X_g_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">C_k_r0</span><span class="p">,</span> <span class="n">B_j_q0</span><span class="p">)</span>
+
+			<span class="n">F0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Y_g_qr</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+			<span class="n">Fs_fa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F0</span><span class="p">)</span>
+			<span class="n">conv</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span>
+			
+			<span class="c1"># iterates init</span>
+			<span class="n">best_fa_iter</span> <span class="o">=</span> <span class="mi">1</span>
+			<span class="n">best_B_j_q</span> <span class="o">=</span> <span class="n">B_j_q0</span>
+			<span class="n">best_C_k_r</span> <span class="o">=</span> <span class="n">C_k_r0</span>
+
+			<span class="c1"># ----------- End of Objective Function Definition --------------</span>
+
+			<span class="k">while</span> <span class="p">(</span><span class="n">conv</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">):</span>				
+
+				<span class="n">fa_iter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+				<span class="c1"># ----------- Start of factor matrices update --------------</span>
+
+				<span class="c1"># updating B_j_q</span>
+				<span class="n">B_j_j</span> <span class="o">=</span> <span class="n">X_j_kg</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">I_g_g</span><span class="p">,</span> <span class="n">C_k_r0</span><span class="nd">@C_k_r0</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_j_kg</span><span class="o">.</span><span class="n">T</span>
+				<span class="n">B_j_q</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">B_j_j</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+
+				<span class="c1"># updating C_k_r</span>
+				<span class="n">C_k_k</span> <span class="o">=</span> <span class="n">X_k_gj</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">B_j_q</span><span class="nd">@B_j_q</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">I_g_g</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_k_gj</span><span class="o">.</span><span class="n">T</span>
+				<span class="n">C_k_r</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">C_k_k</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+
+				<span class="c1"># ----------- End of factor matrices update --------------</span>
+
+				<span class="c1"># ----------- Start of objective functions update --------------</span>
+
+				<span class="c1"># updated centroids matrix</span>
+				<span class="n">Y_g_qr</span> <span class="o">=</span> <span class="n">X_g_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">C_k_r</span><span class="p">,</span> <span class="n">B_j_q</span><span class="p">)</span>
+
+				<span class="c1"># compute L2 norm of reconstruction error</span>
+				<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Y_g_qr</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>				
+				<span class="n">conv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">F</span><span class="o">-</span><span class="n">F0</span><span class="p">)</span>
+
+				<span class="c1"># ----------- End of objective functions update --------------</span>
+
+				<span class="c1"># ----------- Start of convergence test --------------</span>
+				
+				<span class="k">if</span> <span class="n">F</span> <span class="o">&gt;=</span> <span class="n">F0</span><span class="p">:</span>
+					<span class="n">Fs_fa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+					<span class="n">F0</span> <span class="o">=</span> <span class="n">F</span>
+					<span class="n">best_B_j_q</span> <span class="o">=</span> <span class="n">B_j_q</span>
+					<span class="n">best_C_k_r</span> <span class="o">=</span> <span class="n">C_k_r</span>
+					<span class="n">best_fa_iter</span> <span class="o">=</span> <span class="n">fa_iter</span>
+
+				<span class="k">if</span> <span class="p">(</span><span class="n">conv</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">):</span>
+					<span class="n">fa_converged</span> <span class="o">=</span> <span class="kc">True</span>
+					<span class="k">break</span>
+
+				<span class="k">if</span> <span class="p">(</span><span class="n">fa_iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_max_iter</span><span class="p">):</span>
+					<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FA Maximum iterations reached.&quot;</span><span class="p">)</span>
+					<span class="k">break</span>
+
+				<span class="n">B_j_q0</span> <span class="o">=</span> <span class="n">B_j_q</span>
+				<span class="n">C_k_r0</span> <span class="o">=</span> <span class="n">C_k_r</span>
+
+				<span class="c1"># ----------- End of convergence test --------------</span>
+
+			<span class="c1"># ----------- Start of results update for each loop --------------</span>
+
+			<span class="n">time_elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_time</span>
+
+			<span class="c1"># updating X</span>
+			<span class="n">Y_i_qr</span> <span class="o">=</span> <span class="n">X_i_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">best_C_k_r</span><span class="p">,</span> <span class="n">best_B_j_q</span><span class="p">)</span>
+			<span class="n">Y_g_qr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">best_U_i_g</span><span class="o">.</span><span class="n">T</span><span class="nd">@best_U_i_g</span><span class="p">)</span> <span class="o">@</span> <span class="n">best_U_i_g</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Y_i_qr</span>
+			<span class="n">Z_i_qr</span> <span class="o">=</span> <span class="n">best_U_i_g</span> <span class="o">@</span>  <span class="n">Y_g_qr</span>
+			<span class="n">Z_i_jk</span> <span class="o">=</span> <span class="n">Z_i_qr</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">best_C_k_r</span><span class="p">,</span> <span class="n">best_B_j_q</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+			<span class="n">TSS_full</span> <span class="o">=</span> <span class="n">X_i_jk</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="n">X_i_jk</span><span class="o">.</span><span class="n">size</span>
+			<span class="n">BSS_full</span> <span class="o">=</span> <span class="n">Z_i_jk</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="n">Z_i_jk</span><span class="o">.</span><span class="n">size</span>
+			<span class="n">RSS_full</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_i_jk</span><span class="o">-</span><span class="n">Z_i_jk</span><span class="p">)</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">X_i_jk</span><span class="o">-</span><span class="n">Z_i_jk</span><span class="p">)</span><span class="o">.</span><span class="n">size</span>
+
+			<span class="n">TSS_reduced</span> <span class="o">=</span> <span class="n">Y_i_qr</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="n">Y_i_qr</span><span class="o">.</span><span class="n">size</span>
+			<span class="n">BSS_reduced</span> <span class="o">=</span> <span class="n">Z_i_qr</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="n">Z_i_qr</span><span class="o">.</span><span class="n">size</span>
+			<span class="n">RSS_reduced</span> <span class="o">=</span> <span class="p">(</span><span class="n">Y_i_qr</span><span class="o">-</span><span class="n">Z_i_qr</span><span class="p">)</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">Y_i_qr</span><span class="o">-</span><span class="n">Z_i_qr</span><span class="p">)</span><span class="o">.</span><span class="n">size</span>
+
+			<span class="n">BSS_percent_full</span> <span class="o">=</span> <span class="p">(</span><span class="n">BSS_full</span><span class="o">/</span><span class="n">TSS_full</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>  <span class="c1"># between cluster deviance</span>
+			<span class="n">BSS_percent_reduced</span> <span class="o">=</span> <span class="p">(</span><span class="n">BSS_reduced</span><span class="o">/</span><span class="n">TSS_reduced</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>  <span class="c1"># between cluster deviance</span>
+			<span class="n">pseudoF_full</span> <span class="o">=</span> <span class="n">PseudoF</span><span class="p">(</span><span class="n">BSS_full</span><span class="p">,</span> <span class="n">RSS_full</span><span class="p">,</span> <span class="n">full_tensor_shape</span><span class="p">,</span> <span class="n">reduced_tensor_shape</span><span class="p">)</span> <span class="k">if</span> <span class="n">G</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">I</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+			<span class="n">pseudoF_reduced</span> <span class="o">=</span> <span class="n">PseudoF</span><span class="p">(</span><span class="n">BSS_reduced</span><span class="p">,</span> <span class="n">RSS_reduced</span><span class="p">,</span> <span class="n">full_tensor_shape</span><span class="p">,</span> <span class="n">reduced_tensor_shape</span><span class="p">)</span> <span class="k">if</span> <span class="n">G</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">I</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+			<span class="n">best_PF</span> <span class="o">=</span> <span class="n">pseudoF_full</span>
+
+			<span class="c1"># pseudoF and output results</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">([[]],</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="n">loop</span><span class="p">,</span> <span class="n">best_km_iter</span><span class="p">,</span> <span class="n">best_fa_iter</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">time_elapsed</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">BSS_percent_full</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">BSS_percent_reduced</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">pseudoF_full</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">pseudoF_reduced</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">km_converged</span><span class="p">,</span> <span class="n">fa_converged</span><span class="p">],</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;plain&#39;</span><span class="p">))</span>
+
+			<span class="c1"># tracking the best loop iterates</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">loop</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+				<span class="n">B_j_q_simu</span> <span class="o">=</span> <span class="n">best_B_j_q</span>
+				<span class="n">C_k_r_simu</span> <span class="o">=</span> <span class="n">best_C_k_r</span>
+				<span class="n">U_i_g_simu</span> <span class="o">=</span> <span class="n">best_U_i_g</span>
+				<span class="n">km_iter_simu</span> <span class="o">=</span> <span class="n">best_km_iter</span>
+				<span class="n">fa_iter_simu</span> <span class="o">=</span> <span class="n">best_fa_iter</span>
+				<span class="n">loop_simu</span> <span class="o">=</span> <span class="mi">1</span>
+				<span class="n">km_converged_simu</span> <span class="o">=</span> <span class="n">km_converged</span>
+				<span class="n">fa_converged_simu</span> <span class="o">=</span> <span class="n">fa_converged</span>
+				<span class="n">Fs_fa</span> <span class="o">=</span> <span class="n">Fs_fa</span>
+				<span class="n">Fs_km</span> <span class="o">=</span> <span class="n">Fs_km</span>
+				<span class="n">pseudoF_full_simu</span> <span class="o">=</span> <span class="n">pseudoF_full</span>
+				<span class="n">pseudoF_reduced_simu</span> <span class="o">=</span> <span class="n">pseudoF_reduced</span>
+				<span class="n">best_PF_simu</span> <span class="o">=</span> <span class="n">best_PF</span>
+				<span class="n">TSS_full_simu</span> <span class="o">=</span> <span class="n">TSS_full</span>
+				<span class="n">BSS_full_simu</span> <span class="o">=</span> <span class="n">BSS_full</span>
+				<span class="n">RSS_full_simu</span> <span class="o">=</span> <span class="n">RSS_full</span>
+				<span class="n">TSS_reduced_simu</span> <span class="o">=</span> <span class="n">TSS_reduced</span>
+				<span class="n">BSS_reduced_simu</span> <span class="o">=</span> <span class="n">BSS_reduced</span>
+				<span class="n">RSS_reduced_simu</span> <span class="o">=</span> <span class="n">RSS_reduced</span>
+				<span class="n">U_i_g_init_simu</span> <span class="o">=</span> <span class="n">U_i_g_init</span>
+				<span class="n">B_j_q_init_simu</span> <span class="o">=</span> <span class="n">B_j_q_init</span>
+				<span class="n">C_k_r_init_simu</span> <span class="o">=</span> <span class="n">C_k_r_init</span>
+				<span class="n">best_time_elapsed_simu</span> <span class="o">=</span> <span class="n">time_elapsed</span>
+
+			<span class="k">if</span> <span class="p">(</span><span class="n">best_PF</span> <span class="o">&gt;</span> <span class="n">best_PF_simu</span><span class="p">):</span>
+				<span class="n">B_j_q_simu</span> <span class="o">=</span> <span class="n">best_B_j_q</span>
+				<span class="n">C_k_r_simu</span> <span class="o">=</span> <span class="n">best_C_k_r</span>
+				<span class="n">U_i_g_simu</span> <span class="o">=</span> <span class="n">best_U_i_g</span>
+				<span class="n">km_iter_simu</span> <span class="o">=</span> <span class="n">best_km_iter</span>  <span class="c1"># number of iterations until convergence</span>
+				<span class="n">fa_iter_simu</span> <span class="o">=</span> <span class="n">best_fa_iter</span>
+				<span class="n">loop_simu</span> <span class="o">=</span> <span class="n">loop</span>  <span class="c1"># best loop so far</span>
+				<span class="n">km_converged_simu</span> <span class="o">=</span> <span class="n">km_converged</span>  <span class="c1"># if there was a convergence</span>
+				<span class="n">fa_converged_simu</span> <span class="o">=</span> <span class="n">fa_converged</span>  <span class="c1"># if there was a convergence</span>
+				<span class="n">Fs_fa</span> <span class="o">=</span> <span class="n">Fs_fa</span>  <span class="c1"># objective function values for FA</span>
+				<span class="n">Fs_km</span> <span class="o">=</span> <span class="n">Fs_km</span>
+				<span class="n">pseudoF_full_simu</span> <span class="o">=</span> <span class="n">pseudoF_full</span>
+				<span class="n">pseudoF_reduced_simu</span> <span class="o">=</span> <span class="n">pseudoF_reduced</span>
+				<span class="n">best_PF_simu</span> <span class="o">=</span> <span class="n">best_PF</span>
+				<span class="n">TSS_full_simu</span> <span class="o">=</span> <span class="n">TSS_full</span>
+				<span class="n">BSS_full_simu</span> <span class="o">=</span> <span class="n">BSS_full</span>
+				<span class="n">RSS_full_simu</span> <span class="o">=</span> <span class="n">RSS_full</span>
+				<span class="n">TSS_reduced_simu</span> <span class="o">=</span> <span class="n">TSS_reduced</span>
+				<span class="n">BSS_reduced_simu</span> <span class="o">=</span> <span class="n">BSS_reduced</span>
+				<span class="n">RSS_reduced_simu</span> <span class="o">=</span> <span class="n">RSS_reduced</span>
+				<span class="n">U_i_g_init_simu</span> <span class="o">=</span> <span class="n">U_i_g_init</span>
+				<span class="n">B_j_q_init_simu</span> <span class="o">=</span> <span class="n">B_j_q_init</span>
+				<span class="n">C_k_r_init_simu</span> <span class="o">=</span> <span class="n">C_k_r_init</span>
+				<span class="n">best_time_elapsed_simu</span> <span class="o">=</span> <span class="n">time_elapsed</span>
+
+			<span class="c1"># ----------- End of results update for each loop --------------</span>
+
+		<span class="c1"># ----------- Start of result update for best loop --------------</span>
+
+		<span class="n">Y_i_qr</span> <span class="o">=</span> <span class="n">X_i_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">C_k_r_simu</span><span class="p">,</span> <span class="n">B_j_q_simu</span><span class="p">)</span>
+		<span class="n">Y_g_qr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">U_i_g_simu</span><span class="o">.</span><span class="n">T</span><span class="nd">@U_i_g_simu</span><span class="p">)</span><span class="nd">@U_i_g_simu</span><span class="o">.</span><span class="n">T</span><span class="nd">@Y_i_qr</span>
+		<span class="n">Z_i_qr</span> <span class="o">=</span> <span class="n">U_i_g_simu</span> <span class="o">@</span> <span class="n">Y_g_qr</span>
+
+		<span class="c1"># factor matrices and centroid matrices		</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">U_i_g0</span> <span class="o">=</span> <span class="n">U_i_g_init_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">B_j_q0</span> <span class="o">=</span> <span class="n">B_j_q_init_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">C_k_r0</span> <span class="o">=</span> <span class="n">C_k_r_init_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">U_i_g</span> <span class="o">=</span> <span class="n">U_i_g_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">B_j_q</span> <span class="o">=</span> <span class="n">B_j_q_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">C_k_r</span> <span class="o">=</span> <span class="n">C_k_r_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Y_g_qr</span> <span class="o">=</span> <span class="n">Y_g_qr</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">X_i_jk_scaled</span> <span class="o">=</span> <span class="n">X_i_jk</span>
+
+		<span class="c1"># total time taken</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BestTimeElapsed</span> <span class="o">=</span> <span class="n">best_time_elapsed_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BestLoop</span> <span class="o">=</span> <span class="n">loop_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BestKmIteration</span> <span class="o">=</span> <span class="n">km_iter_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BestFaIteration</span> <span class="o">=</span> <span class="n">fa_iter_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">FaConverged</span> <span class="o">=</span> <span class="n">fa_converged_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">KmConverged</span> <span class="o">=</span> <span class="n">km_converged_simu</span>
+
+		<span class="c1"># maximum between cluster deviance</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">TSSFull</span> <span class="o">=</span> <span class="n">TSS_full_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BSSFull</span> <span class="o">=</span> <span class="n">BSS_full_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">RSSFull</span> <span class="o">=</span> <span class="n">RSS_full_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">TSSReduced</span> <span class="o">=</span> <span class="n">TSS_reduced_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BSSReduced</span> <span class="o">=</span> <span class="n">BSS_reduced_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">RSSReduced</span> <span class="o">=</span> <span class="n">RSS_reduced_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">PFFull</span> <span class="o">=</span> <span class="n">pseudoF_full</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">PFReduced</span> <span class="o">=</span> <span class="n">pseudoF_reduced</span>
+
+		<span class="c1"># Error in model</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Enorm</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">I</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X_i_jk</span> <span class="o">-</span> <span class="n">Z_i_qr</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">C_k_r_simu</span><span class="p">,</span> <span class="n">B_j_q_simu</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">FsKM</span> <span class="o">=</span> <span class="n">Fs_km</span>  <span class="c1"># objective values for kmeans</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">FsFA</span> <span class="o">=</span> <span class="n">Fs_fa</span>  <span class="c1"># objective values for factor decomposition</span>
+
+		<span class="c1"># classification of objects (labels)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">U_i_g_simu</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="c1"># ----------- End of result update for best loop --------------</span>
+
+		<span class="k">return</span> <span class="bp">self</span></div></div>
+
+
+<span class="c1"># === The TWFCTA MODEL</span>
+<div class="viewcode-block" id="TWFCTA"><a class="viewcode-back" href="../../simuclustfactor.html#simuclustfactor.tandem.TWFCTA">[docs]</a><span class="nd">@_doc_formatter</span><span class="p">(</span><span class="n">_doc_init_args</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TWFCTA</span><span class="p">(</span><span class="n">_BaseClass</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Three-way Factorial-Clustering Tandem model (TWFCTA).</span>
+<span class="sd">		- Apply Factorial Decomposition (via Tucker2 applied to X_i_jk) to obtain C_k_r and B_j_q component factors.</span>
+<span class="sd">		- Then perform Clustering (via KMeans applied to Y_i_qr) to obtain U_i_g and Y_g_qr.</span>
+<span class="sd">	</span>
+<span class="sd">	:param X_i_jk: (I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</span>
+<span class="sd">	:param full_tensor_shape: (I,J,K) dimensions of the original tensor.</span>
+<span class="sd">	:param reduced_tensor_shape: (G,Q,R) dimensions of centroids tensor.</span>
+
+<span class="sd">	{0}</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+		<span class="bp">self</span><span class="p">,</span>
+		<span class="o">*</span><span class="n">args</span><span class="p">,</span>
+		<span class="o">**</span><span class="n">kwargs</span>
+	<span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+			<span class="o">*</span><span class="n">args</span><span class="p">,</span>
+			<span class="o">**</span><span class="n">kwargs</span>
+		<span class="p">)</span>
+
+<div class="viewcode-block" id="TWFCTA.fit"><a class="viewcode-back" href="../../simuclustfactor.html#simuclustfactor.tandem.TWFCTA.fit">[docs]</a>	<span class="nd">@_doc_formatter</span><span class="p">(</span><span class="n">_doc_init_attrs</span><span class="p">,</span> <span class="n">_doc_refs</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_i_jk</span><span class="p">,</span> <span class="n">full_tensor_shape</span><span class="p">,</span> <span class="n">reduced_tensor_shape</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Fit Args:</span>
+<span class="sd">			:X_i_jk (ndarray): (I,JK) mode-1 matricized three-way arrays with frontal slabs next to each other. It is column centered.</span>
+<span class="sd">			:full_tensor_shape (tuple): (I,J,K) dimensions of the original tensor.</span>
+<span class="sd">			:reduced_tensor_shape (tuple): (G,Q,R) dimensions of centroids tensor.</span>
+<span class="sd">		</span>
+<span class="sd">		{0}</span>
+<span class="sd">		{1}</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="c1"># initializing basic config</span>
+		<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>  <span class="c1"># random number generator</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">reduced_tensor_shape</span> <span class="o">=</span> <span class="n">reduced_tensor_shape</span>  <span class="c1"># (I,J,K) tensor shape</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">full_tensor_shape</span> <span class="o">=</span> <span class="n">full_tensor_shape</span>  <span class="c1"># (G,Q,R) core tensor shape</span>
+
+		<span class="c1"># check parameters and arguments</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_check_params</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_check_initialized_components</span><span class="p">()</span>
+		<span class="n">X_i_jk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_i_jk</span><span class="p">)</span>
+
+		<span class="c1"># scaling X_i_jk</span>
+		<span class="n">X_i_jk</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_i_jk</span> <span class="o">-</span> <span class="n">X_i_jk</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span><span class="o">/</span><span class="n">X_i_jk</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="c1"># declaring I,J,K and G,Q,R</span>
+		<span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">,</span><span class="n">K</span> <span class="o">=</span> <span class="n">full_tensor_shape</span>
+		<span class="n">G</span><span class="p">,</span><span class="n">Q</span><span class="p">,</span><span class="n">R</span> <span class="o">=</span> <span class="n">reduced_tensor_shape</span>
+
+		<span class="c1"># matricize centroid tensor</span>
+		<span class="n">X_k_i_j</span> <span class="o">=</span> <span class="n">Fold</span><span class="p">(</span><span class="n">X_i_jk</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">))</span>
+		<span class="n">X_j_ki</span> <span class="o">=</span> <span class="n">Unfold</span><span class="p">(</span><span class="n">X_k_i_j</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+		<span class="n">X_k_ij</span> <span class="o">=</span> <span class="n">Unfold</span><span class="p">(</span><span class="n">X_k_i_j</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+		<span class="n">I_i_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">I</span><span class="p">))</span>  <span class="c1"># identity matrix</span>
+
+		<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Loop&#39;</span><span class="p">,</span> <span class="s1">&#39;FA Iter&#39;</span><span class="p">,</span> <span class="s1">&#39;KM Iter&#39;</span><span class="p">,</span> <span class="s1">&#39;Loop time&#39;</span><span class="p">,</span> <span class="s1">&#39;BSS Full (%)&#39;</span><span class="p">,</span> <span class="s1">&#39;BSS Reduced (%)&#39;</span><span class="p">,</span> <span class="s1">&#39;PseudoF Full&#39;</span><span class="p">,</span> <span class="s1">&#39;PseudoF Reduced&#39;</span><span class="p">,</span> <span class="s1">&#39;FA Converged&#39;</span><span class="p">,</span> <span class="s1">&#39;KM Converged&#39;</span><span class="p">]</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">([],</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">))</span>
+
+		<span class="c1"># number of loops</span>
+		<span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_loops</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+			
+			<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s1">&#39;svd&#39;</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">loop</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="k">break</span>
+
+			<span class="c1"># ------------ Start of initialization for FA ------------</span>
+
+			<span class="n">fa_iter</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">Fs_fa</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># objective function values</span>
+			<span class="n">converged</span> <span class="o">=</span> <span class="kc">False</span>
+
+			<span class="c1"># as direct input</span>
+			<span class="n">B_j_q0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_j_q</span>
+			<span class="n">C_k_r0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">C_k_r</span>
+
+			<span class="c1"># initialize B and C</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s1">&#39;svd&#39;</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">B_j_q0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">B_j_q0</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">X_j_ki</span><span class="nd">@X_j_ki</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+				<span class="k">if</span> <span class="n">C_k_r0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">C_k_r0</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">X_k_ij</span><span class="nd">@X_k_ij</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>  <span class="c1"># random initialization</span>
+				<span class="k">if</span> <span class="n">B_j_q0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">B_j_q0</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">([</span><span class="n">J</span><span class="p">,</span><span class="n">Q</span><span class="p">])</span>
+				<span class="k">if</span> <span class="n">C_k_r0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">C_k_r0</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">([</span><span class="n">K</span><span class="p">,</span><span class="n">R</span><span class="p">])</span>
+
+			<span class="c1"># ----------- End of initialization --------------</span>
+
+			<span class="c1"># ----------- Start of objective function --------------</span>
+
+			<span class="c1"># to return as initializers</span>
+			<span class="n">B_j_q_init</span> <span class="o">=</span> <span class="n">B_j_q0</span>
+			<span class="n">C_k_r_init</span> <span class="o">=</span> <span class="n">C_k_r0</span>
+
+			<span class="c1"># updated centroids matrix</span>
+			<span class="n">Y_i_qr</span> <span class="o">=</span> <span class="n">X_i_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">C_k_r0</span><span class="p">,</span> <span class="n">B_j_q0</span><span class="p">)</span>
+
+			<span class="n">F0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Y_i_qr</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+			<span class="n">conv</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span>
+			<span class="n">Fs_fa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F0</span><span class="p">)</span>
+			<span class="n">fa_converged</span> <span class="o">=</span> <span class="kc">False</span>
+
+			<span class="c1"># iterates init</span>
+			<span class="n">best_fa_iter</span> <span class="o">=</span> <span class="mi">1</span>
+			<span class="n">best_B_j_q</span> <span class="o">=</span> <span class="n">B_j_q0</span>
+			<span class="n">best_C_k_r</span> <span class="o">=</span> <span class="n">C_k_r0</span>
+
+			<span class="c1"># ----------- End of Objective Function Definition --------------</span>
+
+			<span class="k">while</span> <span class="p">(</span><span class="n">conv</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">):</span>
+
+				<span class="n">fa_iter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+				<span class="c1"># ----------- Start of factor matrices update --------------</span>
+
+				<span class="c1"># updating B_j_q</span>
+				<span class="n">B_j_j</span> <span class="o">=</span> <span class="n">X_j_ki</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">I_i_i</span><span class="p">,</span> <span class="n">C_k_r0</span><span class="nd">@C_k_r0</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_j_ki</span><span class="o">.</span><span class="n">T</span>
+				<span class="n">B_j_q</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">B_j_j</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+
+				<span class="c1"># updating C_k_r</span>
+				<span class="n">C_k_k</span> <span class="o">=</span> <span class="n">X_k_ij</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">B_j_q</span><span class="nd">@B_j_q</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">I_i_i</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_k_ij</span><span class="o">.</span><span class="n">T</span>
+				<span class="n">C_k_r</span> <span class="o">=</span> <span class="n">SingularVectors</span><span class="p">(</span><span class="n">C_k_k</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+
+				<span class="c1"># ----------- End of factor matrices update --------------</span>
+
+				<span class="c1"># ----------- Start of objective functions update --------------</span>
+
+				<span class="c1"># updated centroids matrix</span>
+				<span class="n">Y_i_qr</span> <span class="o">=</span> <span class="n">X_i_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">C_k_r</span><span class="p">,</span> <span class="n">B_j_q</span><span class="p">)</span>
+
+				<span class="c1"># compute L2 norm of reconstruction error</span>
+				<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Y_i_qr</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+				<span class="n">conv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">F</span><span class="o">-</span><span class="n">F0</span><span class="p">)</span>
+
+				<span class="c1"># ----------- End of objective functions update --------------</span>
+
+				<span class="c1"># ----------- Start stopping criteria check --------------</span>
+				
+				<span class="k">if</span> <span class="n">F</span> <span class="o">&gt;=</span> <span class="n">F0</span><span class="p">:</span>
+					<span class="n">Fs_fa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+					<span class="n">F0</span> <span class="o">=</span> <span class="n">F</span>
+					<span class="n">best_B_j_q</span> <span class="o">=</span> <span class="n">B_j_q</span>
+					<span class="n">best_C_k_r</span> <span class="o">=</span> <span class="n">C_k_r</span>
+					<span class="n">best_fa_iter</span> <span class="o">=</span> <span class="n">fa_iter</span>
+
+				<span class="k">if</span> <span class="p">(</span><span class="n">conv</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">):</span>
+					<span class="n">fa_converged</span> <span class="o">=</span> <span class="kc">True</span>
+					<span class="k">break</span>
+
+				<span class="k">if</span> <span class="p">(</span><span class="n">fa_iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_max_iter</span><span class="p">):</span>
+					<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FA Maximum iterations reached.&quot;</span><span class="p">)</span>
+					<span class="k">break</span>
+
+				<span class="n">B_j_q0</span> <span class="o">=</span> <span class="n">B_j_q</span>
+				<span class="n">C_k_r0</span> <span class="o">=</span> <span class="n">C_k_r</span>
+
+				<span class="c1"># ----------- End stopping criteria check --------------</span>
+
+			<span class="c1"># ----------- Start KMeans clustering applied to Y_i_qr --------------</span>
+
+			<span class="n">Y_i_qr</span> <span class="o">=</span> <span class="n">X_i_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">best_C_k_r</span><span class="p">,</span> <span class="n">best_B_j_q</span><span class="p">)</span>
+			<span class="n">km_iter</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">km_converged</span> <span class="o">=</span> <span class="kc">False</span>
+			<span class="n">Fs_km</span> <span class="o">=</span> <span class="p">[]</span>
+
+			<span class="c1"># given directly as paramters</span>
+			<span class="n">U_i_g0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">U_i_g</span>
+			<span class="k">if</span> <span class="n">U_i_g0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+				<span class="c1"># initialize U_i_g</span>
+				<span class="n">U_i_g0</span> <span class="o">=</span> <span class="n">RandomMembershipMatrix</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+				<span class="n">U_i_g_init</span> <span class="o">=</span> <span class="n">U_i_g0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># to return as U_i_g0</span>
+
+				<span class="c1"># initial objective</span>
+				<span class="n">Y_g_qr0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">U_i_g0</span><span class="o">.</span><span class="n">T</span><span class="nd">@U_i_g0</span><span class="p">)</span> <span class="o">@</span> <span class="n">U_i_g0</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Y_i_qr</span>  <span class="c1"># compute centroids matrix</span>
+				<span class="n">F0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">U_i_g0</span><span class="nd">@Y_g_qr0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># residual matrix</span>
+				<span class="n">Fs_km</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F0</span><span class="p">)</span>
+
+				<span class="c1"># clustering on objects (via KMeans applied to X_i_jk)</span>
+				<span class="n">conv</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span>
+
+				<span class="c1"># iterates init</span>
+				<span class="n">best_km_iter</span> <span class="o">=</span> <span class="mi">1</span>
+				<span class="n">best_U_i_g</span> <span class="o">=</span> <span class="n">U_i_g0</span>
+				
+				<span class="c1"># print(&#39;initial&#39;,U_i_g0)</span>
+				<span class="k">while</span> <span class="n">conv</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+					
+					<span class="n">km_iter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+					<span class="c1"># centroids update</span>
+					<span class="n">U_i_g</span> <span class="o">=</span> <span class="n">OneKMeans</span><span class="p">(</span><span class="n">Y_i_qr</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">U_i_g</span><span class="o">=</span><span class="n">U_i_g0</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>  <span class="c1"># updated membership matrix</span>
+					<span class="n">Z_i_qr</span> <span class="o">=</span> <span class="n">U_i_g</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">U_i_g</span><span class="o">.</span><span class="n">T</span><span class="nd">@U_i_g</span><span class="p">)</span> <span class="o">@</span> <span class="n">U_i_g</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Y_i_qr</span>  <span class="c1"># compute centroids matrix</span>
+					
+					<span class="c1"># check if maximizes objective</span>
+					<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Z_i_qr</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># residual matrix</span>
+					<span class="n">conv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">F</span><span class="o">-</span><span class="n">F0</span><span class="p">)</span>
+					
+					<span class="k">if</span> <span class="n">F</span> <span class="o">&gt;=</span> <span class="n">F0</span><span class="p">:</span>
+						<span class="n">Fs_km</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+						<span class="n">F0</span> <span class="o">=</span> <span class="n">F</span>			
+						<span class="n">best_U_i_g</span> <span class="o">=</span> <span class="n">U_i_g</span>
+						<span class="n">best_km_iter</span> <span class="o">=</span> <span class="n">km_iter</span>
+
+					<span class="k">if</span> <span class="n">conv</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+						<span class="n">km_converged</span> <span class="o">=</span> <span class="kc">True</span>
+						<span class="k">break</span>
+
+					<span class="k">if</span> <span class="n">km_iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_max_iter</span><span class="p">:</span>
+						<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KM Maximum iterations reached.&quot;</span><span class="p">)</span>
+						<span class="k">break</span>
+
+					<span class="n">U_i_g0</span> <span class="o">=</span> <span class="n">U_i_g</span>  <span class="c1"># perform computation with updated U</span>
+
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">U_i_g_init</span> <span class="o">=</span> <span class="n">U_i_g0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  
+				<span class="n">best_U_i_g</span> <span class="o">=</span> <span class="n">U_i_g_init</span>
+			
+			<span class="c1"># ----------- End KMeans clustering applied to Y_i_qr --------------</span>
+
+			<span class="c1"># ----------- Start of results update for each loop --------------</span>
+
+			<span class="n">time_elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_time</span>
+
+			<span class="c1"># updating X</span>
+			<span class="n">Y_i_qr</span> <span class="o">=</span> <span class="n">X_i_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">best_C_k_r</span><span class="p">,</span> <span class="n">best_B_j_q</span><span class="p">)</span>
+			<span class="n">Y_g_qr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">best_U_i_g</span><span class="o">.</span><span class="n">T</span><span class="nd">@best_U_i_g</span><span class="p">)</span> <span class="o">@</span> <span class="n">best_U_i_g</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Y_i_qr</span>
+			<span class="n">Z_i_qr</span> <span class="o">=</span> <span class="n">best_U_i_g</span> <span class="o">@</span>  <span class="n">Y_g_qr</span>
+			<span class="n">Z_i_jk</span> <span class="o">=</span> <span class="n">Z_i_qr</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">best_C_k_r</span><span class="p">,</span> <span class="n">best_B_j_q</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+			<span class="n">TSS_full</span> <span class="o">=</span> <span class="n">X_i_jk</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="n">X_i_jk</span><span class="o">.</span><span class="n">size</span>
+			<span class="n">BSS_full</span> <span class="o">=</span> <span class="n">Z_i_jk</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="n">Z_i_jk</span><span class="o">.</span><span class="n">size</span>
+			<span class="n">RSS_full</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_i_jk</span><span class="o">-</span><span class="n">Z_i_jk</span><span class="p">)</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">X_i_jk</span><span class="o">-</span><span class="n">Z_i_jk</span><span class="p">)</span><span class="o">.</span><span class="n">size</span>
+
+			<span class="n">TSS_reduced</span> <span class="o">=</span> <span class="n">Y_i_qr</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="n">Y_i_qr</span><span class="o">.</span><span class="n">size</span>
+			<span class="n">BSS_reduced</span> <span class="o">=</span> <span class="n">Z_i_qr</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="n">Z_i_qr</span><span class="o">.</span><span class="n">size</span>
+			<span class="n">RSS_reduced</span> <span class="o">=</span> <span class="p">(</span><span class="n">Y_i_qr</span><span class="o">-</span><span class="n">Z_i_qr</span><span class="p">)</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">Y_i_qr</span><span class="o">-</span><span class="n">Z_i_qr</span><span class="p">)</span><span class="o">.</span><span class="n">size</span>
+
+			<span class="n">BSS_percent_full</span> <span class="o">=</span> <span class="p">(</span><span class="n">BSS_full</span><span class="o">/</span><span class="n">TSS_full</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>  <span class="c1"># between cluster deviance</span>
+			<span class="n">BSS_percent_reduced</span> <span class="o">=</span> <span class="p">(</span><span class="n">BSS_reduced</span><span class="o">/</span><span class="n">TSS_reduced</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>  <span class="c1"># between cluster deviance</span>
+			<span class="n">pseudoF_full</span> <span class="o">=</span> <span class="n">PseudoF</span><span class="p">(</span><span class="n">BSS_full</span><span class="p">,</span> <span class="n">RSS_full</span><span class="p">,</span> <span class="n">full_tensor_shape</span><span class="p">,</span> <span class="n">reduced_tensor_shape</span><span class="p">)</span> <span class="k">if</span> <span class="n">G</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">I</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+			<span class="n">pseudoF_reduced</span> <span class="o">=</span> <span class="n">PseudoF</span><span class="p">(</span><span class="n">BSS_reduced</span><span class="p">,</span> <span class="n">RSS_reduced</span><span class="p">,</span> <span class="n">full_tensor_shape</span><span class="p">,</span> <span class="n">reduced_tensor_shape</span><span class="p">)</span> <span class="k">if</span> <span class="n">G</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">I</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+			<span class="n">best_PF</span> <span class="o">=</span> <span class="n">pseudoF_reduced</span>
+
+			<span class="c1"># pseudoF and output results</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">([[]],</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="n">loop</span><span class="p">,</span> <span class="n">best_fa_iter</span><span class="p">,</span> <span class="n">best_km_iter</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">time_elapsed</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">BSS_percent_full</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">BSS_percent_reduced</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">pseudoF_full</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">pseudoF_reduced</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">fa_converged</span><span class="p">,</span> <span class="n">km_converged</span><span class="p">],</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;plain&#39;</span><span class="p">))</span>
+
+			<span class="c1"># tracking the best loop iterates</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">loop</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+				<span class="n">B_j_q_simu</span> <span class="o">=</span> <span class="n">best_B_j_q</span>
+				<span class="n">C_k_r_simu</span> <span class="o">=</span> <span class="n">best_C_k_r</span>
+				<span class="n">U_i_g_simu</span> <span class="o">=</span> <span class="n">best_U_i_g</span>
+				<span class="n">km_iter_simu</span> <span class="o">=</span> <span class="n">best_km_iter</span>
+				<span class="n">fa_iter_simu</span> <span class="o">=</span> <span class="n">best_fa_iter</span>
+				<span class="n">loop_simu</span> <span class="o">=</span> <span class="mi">1</span>
+				<span class="n">km_converged_simu</span> <span class="o">=</span> <span class="n">km_converged</span>
+				<span class="n">fa_converged_simu</span> <span class="o">=</span> <span class="n">fa_converged</span>
+				<span class="n">Fs_fa</span> <span class="o">=</span> <span class="n">Fs_fa</span>
+				<span class="n">Fs_km</span> <span class="o">=</span> <span class="n">Fs_km</span>
+				<span class="n">pseudoF_full_simu</span> <span class="o">=</span> <span class="n">pseudoF_full</span>
+				<span class="n">pseudoF_reduced_simu</span> <span class="o">=</span> <span class="n">pseudoF_reduced</span>
+				<span class="n">best_PF_simu</span> <span class="o">=</span> <span class="n">best_PF</span>
+				<span class="n">TSS_full_simu</span> <span class="o">=</span> <span class="n">TSS_full</span>
+				<span class="n">BSS_full_simu</span> <span class="o">=</span> <span class="n">BSS_full</span>
+				<span class="n">RSS_full_simu</span> <span class="o">=</span> <span class="n">RSS_full</span>
+				<span class="n">TSS_reduced_simu</span> <span class="o">=</span> <span class="n">TSS_reduced</span>
+				<span class="n">BSS_reduced_simu</span> <span class="o">=</span> <span class="n">BSS_reduced</span>
+				<span class="n">RSS_reduced_simu</span> <span class="o">=</span> <span class="n">RSS_reduced</span>
+				<span class="n">U_i_g_init_simu</span> <span class="o">=</span> <span class="n">U_i_g_init</span>
+				<span class="n">B_j_q_init_simu</span> <span class="o">=</span> <span class="n">B_j_q_init</span>
+				<span class="n">C_k_r_init_simu</span> <span class="o">=</span> <span class="n">C_k_r_init</span>
+				<span class="n">best_time_elapsed_simu</span> <span class="o">=</span> <span class="n">time_elapsed</span>
+
+
+			<span class="k">if</span> <span class="p">(</span><span class="n">best_PF</span> <span class="o">&gt;</span> <span class="n">best_PF_simu</span><span class="p">):</span>
+				<span class="n">B_j_q_simu</span> <span class="o">=</span> <span class="n">best_B_j_q</span>
+				<span class="n">C_k_r_simu</span> <span class="o">=</span> <span class="n">best_C_k_r</span>
+				<span class="n">U_i_g_simu</span> <span class="o">=</span> <span class="n">best_U_i_g</span>
+				<span class="n">km_iter_simu</span> <span class="o">=</span> <span class="n">best_km_iter</span>
+				<span class="n">fa_iter_simu</span> <span class="o">=</span> <span class="n">best_fa_iter</span>
+				<span class="n">loop_simu</span> <span class="o">=</span> <span class="n">loop</span>
+				<span class="n">km_converged_simu</span> <span class="o">=</span> <span class="n">km_converged</span>
+				<span class="n">fa_converged_simu</span> <span class="o">=</span> <span class="n">fa_converged</span>
+				<span class="n">Fs_fa</span> <span class="o">=</span> <span class="n">Fs_fa</span>
+				<span class="n">Fs_km</span> <span class="o">=</span> <span class="n">Fs_km</span>
+				<span class="n">pseudoF_full_simu</span> <span class="o">=</span> <span class="n">pseudoF_full</span>
+				<span class="n">pseudoF_reduced_simu</span> <span class="o">=</span> <span class="n">pseudoF_reduced</span>
+				<span class="n">best_PF_simu</span> <span class="o">=</span> <span class="n">best_PF</span>
+				<span class="n">TSS_full_simu</span> <span class="o">=</span> <span class="n">TSS_full</span>
+				<span class="n">BSS_full_simu</span> <span class="o">=</span> <span class="n">BSS_full</span>
+				<span class="n">RSS_full_simu</span> <span class="o">=</span> <span class="n">RSS_full</span>
+				<span class="n">TSS_reduced_simu</span> <span class="o">=</span> <span class="n">TSS_reduced</span>
+				<span class="n">BSS_reduced_simu</span> <span class="o">=</span> <span class="n">BSS_reduced</span>
+				<span class="n">RSS_reduced_simu</span> <span class="o">=</span> <span class="n">RSS_reduced</span>
+				<span class="n">U_i_g_init_simu</span> <span class="o">=</span> <span class="n">U_i_g_init</span>
+				<span class="n">B_j_q_init_simu</span> <span class="o">=</span> <span class="n">B_j_q_init</span>
+				<span class="n">C_k_r_init_simu</span> <span class="o">=</span> <span class="n">C_k_r_init</span>
+				<span class="n">best_time_elapsed_simu</span> <span class="o">=</span> <span class="n">time_elapsed</span>
+
+			<span class="c1"># ----------- End of results update for each loop --------------</span>
+
+		<span class="c1"># ----------- Start of result update for best loop --------------</span>
+
+		<span class="n">Y_i_qr</span> <span class="o">=</span> <span class="n">X_i_jk</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">C_k_r_simu</span><span class="p">,</span> <span class="n">B_j_q_simu</span><span class="p">)</span>
+		<span class="n">Y_g_qr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">U_i_g_simu</span><span class="o">.</span><span class="n">T</span><span class="nd">@U_i_g_simu</span><span class="p">)</span><span class="nd">@U_i_g_simu</span><span class="o">.</span><span class="n">T</span><span class="nd">@Y_i_qr</span>
+		<span class="n">Z_i_qr</span> <span class="o">=</span> <span class="n">U_i_g_simu</span> <span class="o">@</span> <span class="n">Y_g_qr</span>
+
+		<span class="c1"># factor matrices and centroid matrices</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">U_i_g</span> <span class="o">=</span> <span class="n">U_i_g_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">U_i_g0</span> <span class="o">=</span> <span class="n">U_i_g_init_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">B_j_q0</span> <span class="o">=</span> <span class="n">B_j_q_init_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">C_k_r0</span> <span class="o">=</span> <span class="n">C_k_r_init_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">B_j_q</span> <span class="o">=</span> <span class="n">B_j_q_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">C_k_r</span> <span class="o">=</span> <span class="n">C_k_r_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Y_g_qr</span> <span class="o">=</span> <span class="n">Y_g_qr</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">X_i_jk_scaled</span> <span class="o">=</span> <span class="n">X_i_jk</span>
+
+		<span class="c1"># total time taken</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BestTimeElapsed</span> <span class="o">=</span> <span class="n">best_time_elapsed_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BestLoop</span> <span class="o">=</span> <span class="n">loop_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BestKMIteration</span> <span class="o">=</span> <span class="n">km_iter_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BestFAIteration</span> <span class="o">=</span> <span class="n">fa_iter_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ConvergedFA</span> <span class="o">=</span> <span class="n">fa_converged_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ConvergedKM</span> <span class="o">=</span> <span class="n">km_converged_simu</span>
+
+		<span class="c1"># maximum between cluster deviance</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">TSSFull</span> <span class="o">=</span> <span class="n">TSS_full_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BSSFull</span> <span class="o">=</span> <span class="n">BSS_full_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">RSSFull</span> <span class="o">=</span> <span class="n">RSS_full_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">TSSReduced</span> <span class="o">=</span> <span class="n">TSS_reduced_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BSSReduced</span> <span class="o">=</span> <span class="n">BSS_reduced_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">RSSReduced</span> <span class="o">=</span> <span class="n">RSS_reduced_simu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">PFFull</span> <span class="o">=</span> <span class="n">pseudoF_full</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">PFReduced</span> <span class="o">=</span> <span class="n">pseudoF_reduced</span>		
+
+		<span class="c1"># Error in model</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">FsKM</span> <span class="o">=</span> <span class="n">Fs_km</span>  <span class="c1"># all objective values</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">FsFA</span> <span class="o">=</span> <span class="n">Fs_fa</span>  <span class="c1"># all objectiveh values for Factor Analysis</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Enorm</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">I</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X_i_jk</span> <span class="o">-</span> <span class="n">Z_i_qr</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">C_k_r_simu</span><span class="p">,</span> <span class="n">B_j_q_simu</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+		
+		<span class="c1"># classification of objects (labels)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">U_i_g_simu</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="c1"># ----------- End of result update for best loop --------------</span>
+
+		<span class="k">return</span> <span class="bp">self</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Prosper Ablordeppey.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

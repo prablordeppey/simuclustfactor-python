@@ -34,7 +34,7 @@ The package provides just two main modules namely,
   `tandem`: 
   `simultaneous`:
 
-```pycon
+<!-- ```pycon
 >>> from simuclustfactor import tandem
 >>> from tensor import Unfold
 
@@ -44,4 +44,27 @@ The package provides just two main modules namely,
 >>> I,J,K = 3,4,4  # dimension of the tensor in the fullspace
 >>> G,Q,R = 2,3,1  # dimension of tensor in the reduced space
 >>> twcfta_res = TWCFTA().fit(X_i_jk=X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R))
+``` -->
+
+```pycon
+>>> import numpy as np
+>>> from simuclustfactor import tandem
+>>> from simuclustfactor import simultaneous
+>>> from sklearn.datasets import make_blobs
+
+>>> I,J,K = 40,15,20  # dimensions in the full space.
+>>> G,Q,R = 8,4,3  # tensor dimensions in reduced space.  
+>>> X_i_jk, y = make_blobs(n_samples=I, centers=G, n_features=J*K, random_state=0)  # generate dataset
+
+>>> twcfta = tandem.TWCFTA(random_state=0,verbose=True, n_max_iter=10).fit(X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R))
+
+>>> twfcta = tandem.TWFCTA(random_state=0,verbose=True, n_max_iter=10).fit(X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R))
+
+>>> t3clus = simultaneous.T3Clus(random_state=0, init='random', verbose=True, n_max_iter=10).fit(X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R))
+
+>>> tfkmeans = simultaneous.TFKMeans(random_state=0, init='random', verbose=True, n_max_iter=10).fit(X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R))
+
+>>> tfkmeans_1 = simultaneous.CT3Clus(random_state=0, init='random', verbose=True, n_max_iter=10).fit(X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R), alpha=0)
+
+>>> t3clus_1 = simultaneous.CT3Clus(random_state=0, init='random', verbose=True, n_max_iter=10).fit(X_i_jk, full_tensor_shape=(I,J,K), reduced_tensor_shape=(G,Q,R), alpha=1)
 ```

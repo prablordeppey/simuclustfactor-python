@@ -10,7 +10,7 @@ def get_ext_paths(root_dir, exclude_files):
 
     for root, dirs, files in os.walk(root_dir):
         for filename in files:
-            if filename == '__init__.py':
+            if filename in exclude_files:
                 continue
 
             if os.path.splitext(filename)[1] != '.py':
@@ -25,12 +25,16 @@ def get_ext_paths(root_dir, exclude_files):
 
 # exclude files from cython compilation
 EXCLUDE_FILES = [
-    '__init__.py'
+    '__init__.py',
+    '_version.py'
 ]
+
+# access the versioning file
+exec(open('simuclustfactor\\_version.py').read())
 
 setuptools.setup(
     name="simuclustfactor",
-    version="0.1.0",
+    version=__version__,
     author="Ablordeppey Prosper",
     author_email="prablordeppey@gmail.com",
     description="Simultaneous Component and Clustering Models for Three-way Data: Within and Between Approaches.",
@@ -45,15 +49,15 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
+    package_dir={"": "simuclustfactor"},
+    packages=setuptools.find_packages(where="simuclustfactor"),
     python_requires=">=3.6",
     install_requires=['numpy>=1.19.2', 'tabulate>=0.8.9'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
 
     ext_modules=cythonize(
-        get_ext_paths('src/simuclustfactor', EXCLUDE_FILES),
+        get_ext_paths('simuclustfactor', EXCLUDE_FILES),
         compiler_directives={'language_level': 3}
     ),
 
