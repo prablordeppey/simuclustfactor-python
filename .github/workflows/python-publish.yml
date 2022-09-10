@@ -1,48 +1,80 @@
-# This workflow will upload a Python Package using Twine when a release is created
-# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
+# # This workflow will upload a Python Package using Twine when a release is created
+# # For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+# # This workflow uses actions that are not certified by GitHub.
+# # They are provided by a third-party and are governed by
+# # separate terms of service, privacy policy, and support
+# # documentation.
 
-name: Upload Python Package
+# name: Upload Python Package
 
-on:
-  release:
-    types: [published]
+# on:
+#   release:
+#     types: [published]
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
+
+# jobs:
+#   deploy:
+
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Set up Python
+#       uses: actions/setup-python@v3
+#       with:
+#         python-version: '3.8'
+
+#     - name: Install pypa/build
+#       run: >-
+#         python -m
+#         pip install
+#         build
+#         --user
+#     - name: Build a binary wheel and a source tarball
+#       run: >-
+#         python -m
+#         build
+#         --sdist
+#         --wheel
+#         --outdir dist/
+
+#     - name: Publish distribution 📦 to PyPI
+#       if: startsWith(github.ref, 'refs/tags')
+#       uses: pypa/gh-action-pypi-publish@release/v1
+#       with:
+#         password: ${{ secrets.PYPI_API_TOKEN }}
+
+
+name: Build
+
+on: [push, pull_request]
 
 jobs:
-  deploy:
-
-    runs-on: ubuntu-latest
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macOS-11]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.8'
+      - uses: actions/checkout@v3
 
-    - name: Install pypa/build
-      run: >-
-        python -m
-        pip install
-        build
-        --user
-    - name: Build a binary wheel and a source tarball
-      run: >-
-        python -m
-        build
-        --sdist
-        --wheel
-        --outdir dist/
+      # Used to host cibuildwheel
+      - uses: actions/setup-python@v3
 
-    - name: Publish distribution 📦 to PyPI
-      if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel==2.9.0
+
+      - name: Build wheels
+        run: python -m cibuildwheel --output-dir wheelhouse
+        # to supply options, put them in 'env', like:
+        # env:
+        #   CIBW_SOME_OPTION: value
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./wheelhouse/*.whl
