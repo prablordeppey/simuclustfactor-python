@@ -38,7 +38,7 @@ jobs:
         python -m
         build
         --sdist
-        --wheel
+        --bdist_wheel
         --outdir dist/
 
     - name: Build package
