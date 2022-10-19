@@ -717,9 +717,9 @@ result in incorrect result (eg. complex vectors for covariance matrices)</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Y_i_qr</strong> – Used to Store the data matrix for all objects.</p></li>
 <li><p><strong>G</strong> – Used to Define the number of clusters.</p></li>
-<li><p><strong>U_i_g=None</strong> – Used to Pass in a membership matrix to the function.</p></li>
-<li><p><strong>rng=None</strong> – Used to Ensure that the results are reproducible.</p></li>
-<li><p><strong>seed=None</strong> – Used to Ensure that the results are reproducible.</p></li>
+<li><p><strong>U_i_g</strong> – Used to Pass in a membership matrix to the function.</p></li>
+<li><p><strong>rng</strong> (<em>numpy</em>) – Used to Ensure that the results are reproducible.</p></li>
+<li><p><strong>seed</strong> (<em>integer</em>) – Used to Ensure that the results are reproducible.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -801,10 +801,10 @@ The first G rows are assigned to unique clusters 0 through G-2. The last I-G row
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>I</strong> – Used to define the number of objects in the dataset.</p></li>
-<li><p><strong>G</strong> – Used to define the number of clusters.</p></li>
-<li><p><strong>rng=None</strong> – Used to specify the random number generator.</p></li>
-<li><p><strong>seed=None</strong> – Used to ensure that the results are random.</p></li>
+<li><p><strong>I</strong> (<em>int</em>) – Used to define the number of objects in the dataset.</p></li>
+<li><p><strong>G</strong> (<em>int</em>) – Used to define the number of clusters.</p></li>
+<li><p><strong>rng</strong> (<em>generator</em>) – Used to specify the random number generator.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Used to ensure that the results are random.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

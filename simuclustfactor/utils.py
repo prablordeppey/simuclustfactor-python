@@ -17,9 +17,9 @@ def OneKMeans(Y_i_qr, G, U_i_g=None, rng=None, seed=None):
 
 	:param Y_i_qr: Used to Store the data matrix for all objects.
 	:param G: Used to Define the number of clusters.
-	:param U_i_g=None: Used to Pass in a membership matrix to the function.
-	:param rng=None: Used to Ensure that the results are reproducible.
-	:param seed=None: Used to Ensure that the results are reproducible.
+	:param U_i_g: Used to Pass in a membership matrix to the function.
+	:param numpy rng: Used to Ensure that the results are reproducible.
+	:param integer seed: Used to Ensure that the results are reproducible.
 	:return: A stochastic membership matrix (U_i_g), allocating each component score to a centroid in the reduced space is returned.
 	"""
 
@@ -118,10 +118,10 @@ def RandomMembershipMatrix(I, G, rng=None, seed=None):
 	and returns a matrix U_i_g with dimensions (I x G) where each row is an object, and each column is a cluster. 
 	The first G rows are assigned to unique clusters 0 through G-2. The last I-G rows are randomly assigned to one of the existing clusters.
 	
-	:param I: Used to define the number of objects in the dataset.
-	:param G: Used to define the number of clusters.
-	:param rng=None: Used to specify the random number generator.
-	:param seed=None: Used to ensure that the results are random.
+	:param int I: Used to define the number of objects in the dataset.
+	:param int G: Used to define the number of clusters.
+	:param generator rng: Used to specify the random number generator.
+	:param int seed: Used to ensure that the results are random.
 	:return: A binary stochastic matrix allocating objects to a cluster.
 	"""
 	
