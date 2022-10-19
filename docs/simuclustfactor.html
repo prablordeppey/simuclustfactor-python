@@ -402,11 +402,11 @@ Journal of Classification. 24. 71-98. <a class="reference external" href="https:
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_max_iter</strong> (<em>integer</em>) – Maximum number of iterations. Defaults to 10.</p></li>
-<li><p><strong>n_loops</strong> (<em>integer</em>) – Number of random initializations to gurantee global results. Defaults to 10.</p></li>
+<li><p><strong>n_max_iter</strong> (<em>int</em>) – Maximum number of iterations. Defaults to 10.</p></li>
+<li><p><strong>n_loops</strong> (<em>int</em>) – Number of random initializations to gurantee global results. Defaults to 10.</p></li>
 <li><p><strong>tol</strong> (<em>float</em>) – Tolerance level/acceptable error. Defaults to 1e-3.</p></li>
-<li><p><strong>seed</strong> (<em>boolean</em>) – Seed for random sequence generation. Defaults to None.</p></li>
-<li><p><strong>verbose</strong> (<em>boolean</em>) – Whether to display executions output or not. Defaults to False.</p></li>
+<li><p><strong>seed</strong> (<em>bool</em>) – Seed for random sequence generation. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Whether to display executions output or not. Defaults to False.</p></li>
 <li><p><strong>U_i_g0</strong> (<em>ndarray</em>) – (I,G) initial stochastic membership function matrix.</p></li>
 <li><p><strong>B_j_q0</strong> (<em>ndarray</em>) – (J,Q) initial component weight matrix for variables.</p></li>
 <li><p><strong>C_k_r0</strong> (<em>ndarray</em>) – (K,R) initial component weight matrix for occasions.</p></li>
@@ -510,11 +510,11 @@ In: Gaul, W., Pfeifer, D. (eds) From Data to Knowledge. Studies in Classificatio
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_max_iter</strong> (<em>integer</em>) – Maximum number of iterations. Defaults to 10.</p></li>
-<li><p><strong>n_loops</strong> (<em>integer</em>) – Number of random initializations to gurantee global results. Defaults to 10.</p></li>
+<li><p><strong>n_max_iter</strong> (<em>int</em>) – Maximum number of iterations. Defaults to 10.</p></li>
+<li><p><strong>n_loops</strong> (<em>int</em>) – Number of random initializations to gurantee global results. Defaults to 10.</p></li>
 <li><p><strong>tol</strong> (<em>float</em>) – Tolerance level/acceptable error. Defaults to 1e-3.</p></li>
-<li><p><strong>seed</strong> (<em>boolean</em>) – Seed for random sequence generation. Defaults to None.</p></li>
-<li><p><strong>verbose</strong> (<em>boolean</em>) – Whether to display executions output or not. Defaults to False.</p></li>
+<li><p><strong>seed</strong> (<em>bool</em>) – Seed for random sequence generation. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Whether to display executions output or not. Defaults to False.</p></li>
 <li><p><strong>U_i_g0</strong> (<em>ndarray</em>) – (I,G) initial stochastic membership function matrix.</p></li>
 <li><p><strong>B_j_q0</strong> (<em>ndarray</em>) – (J,Q) initial component weight matrix for variables.</p></li>
 <li><p><strong>C_k_r0</strong> (<em>ndarray</em>) – (K,R) initial component weight matrix for occasions.</p></li>
@@ -665,15 +665,18 @@ For example, if the input is a matrix X, then Unfold(X,0) returns X_k_ij as a ve
 <dd class="field-odd"><p>ndarray</p>
 </dd>
 <dt class="field-even">Example</dt>
-<dd class="field-even"><p># mode 0 unfolding
-&gt;&gt;&gt; Unfold(X_i_j_k, mode=0)
-&gt;&gt;&gt; X_i_jk</p>
-<p># mode 1 unfolding
-&gt;&gt;&gt; Unfold(X_i_j_k, mode=1)
-&gt;&gt;&gt; X_i_jk</p>
-<p># mode 2 unfolding
-&gt;&gt;&gt; Unfold(X_i_j_k, mode=2)
-&gt;&gt;&gt; X_j_ki</p>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Unfold</span><span class="p">(</span><span class="n">X_i_j_k</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># mode 0 unfolding</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_i_jk</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Unfold</span><span class="p">(</span><span class="n">X_i_j_k</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># mode 1 unfolding</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_i_jk</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Unfold</span><span class="p">(</span><span class="n">X_i_j_k</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># mode 2 unfolding</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_j_ki</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -691,8 +694,8 @@ result in incorrect result (eg. complex vectors for covariance matrices)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> – Used to Calculate the eigenvectors of x.</p></li>
-<li><p><strong>D</strong> – Used to Specify the number of eigenvectors to return.</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – Used to Calculate the eigenvectors of x.</p></li>
+<li><p><strong>D</strong> (<em>int</em>) – Used to Specify the number of eigenvectors to return.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -715,11 +718,11 @@ result in incorrect result (eg. complex vectors for covariance matrices)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Y_i_qr</strong> – Used to Store the data matrix for all objects.</p></li>
-<li><p><strong>G</strong> – Used to Define the number of clusters.</p></li>
-<li><p><strong>U_i_g</strong> – Used to Pass in a membership matrix to the function.</p></li>
+<li><p><strong>Y_i_qr</strong> (<em>ndarray</em>) – Used to Store the data matrix for all objects.</p></li>
+<li><p><strong>G</strong> (<em>int</em>) – Used to Define the number of clusters.</p></li>
+<li><p><strong>U_i_g</strong> (<em>ndarray</em>) – Used to Pass in a membership matrix to the function.</p></li>
 <li><p><strong>rng</strong> (<em>numpy</em>) – Used to Ensure that the results are reproducible.</p></li>
-<li><p><strong>seed</strong> (<em>integer</em>) – Used to Ensure that the results are reproducible.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Used to Ensure that the results are reproducible.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

@@ -14,11 +14,11 @@ class TWCFTA(_BaseClass):
 		- Perform KMeans on X_i_jk to obtain membership matrix U_i_g and centroids X_g_jk in full space.
 		- Obtain Y_g_qr and C_k_r & B_j_q factor matrices that maximizes the reconstruction of U_i_g.X_g_jk via Tucker2.
 	
-	:param integer n_max_iter: Maximum number of iterations. Defaults to 10.
-	:param integer n_loops: Number of random initializations to gurantee global results. Defaults to 10.
+	:param int n_max_iter: Maximum number of iterations. Defaults to 10.
+	:param int n_loops: Number of random initializations to gurantee global results. Defaults to 10.
 	:param float tol: Tolerance level/acceptable error. Defaults to 1e-3.
-	:param boolean seed: Seed for random sequence generation. Defaults to None.
-	:param boolean verbose: Whether to display executions output or not. Defaults to False.
+	:param bool seed: Seed for random sequence generation. Defaults to None.
+	:param bool verbose: Whether to display executions output or not. Defaults to False.
 	:param ndarray U_i_g0: (I,G) initial stochastic membership function matrix.
 	:param ndarray B_j_q0: (J,Q) initial component weight matrix for variables.
 	:param ndarray C_k_r0: (K,R) initial component weight matrix for occasions.
@@ -409,11 +409,11 @@ class TWFCTA(_BaseClass):
 		- The technique performs Tucker2 decomposition on the X_i_jk matrix to obtain the matrix of component scores Y_i_qr with component weights matrices B_j_q and C_k_r.
 		- The K-means clustering algorithm is then applied to the component scores matrix Y_i_qr to obtain the desired core centroids matrix Y_g_qr and its associated stochastic membership function matrix U_i_g.
 
-	:param integer n_max_iter: Maximum number of iterations. Defaults to 10.
-	:param integer n_loops: Number of random initializations to gurantee global results. Defaults to 10.
+	:param int n_max_iter: Maximum number of iterations. Defaults to 10.
+	:param int n_loops: Number of random initializations to gurantee global results. Defaults to 10.
 	:param float tol: Tolerance level/acceptable error. Defaults to 1e-3.
-	:param boolean seed: Seed for random sequence generation. Defaults to None.
-	:param boolean verbose: Whether to display executions output or not. Defaults to False.
+	:param bool seed: Seed for random sequence generation. Defaults to None.
+	:param bool verbose: Whether to display executions output or not. Defaults to False.
 	:param ndarray U_i_g0: (I,G) initial stochastic membership function matrix.
 	:param ndarray B_j_q0: (J,Q) initial component weight matrix for variables.
 	:param ndarray C_k_r0: (K,R) initial component weight matrix for occasions.

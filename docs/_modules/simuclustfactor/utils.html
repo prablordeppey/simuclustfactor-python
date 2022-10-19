@@ -82,11 +82,11 @@
 <span class="sd">		- G: The number of groups to cluster the objects into.</span>
 <span class="sd">		- U_i_g=None (optional): A membership matrix for all objects, with each row representing an object and each column representing a group.</span>
 
-<span class="sd">	:param Y_i_qr: Used to Store the data matrix for all objects.</span>
-<span class="sd">	:param G: Used to Define the number of clusters.</span>
-<span class="sd">	:param U_i_g: Used to Pass in a membership matrix to the function.</span>
+<span class="sd">	:param ndarray Y_i_qr: Used to Store the data matrix for all objects.</span>
+<span class="sd">	:param int G: Used to Define the number of clusters.</span>
+<span class="sd">	:param ndarray U_i_g: Used to Pass in a membership matrix to the function.</span>
 <span class="sd">	:param numpy rng: Used to Ensure that the results are reproducible.</span>
-<span class="sd">	:param integer seed: Used to Ensure that the results are reproducible.</span>
+<span class="sd">	:param int seed: Used to Ensure that the results are reproducible.</span>
 <span class="sd">	:return: A stochastic membership matrix (U_i_g), allocating each component score to a centroid in the reduced space is returned.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
@@ -221,8 +221,8 @@
 <span class="sd">	result in incorrect result (eg. complex vectors for covariance matrices)</span>
 
 
-<span class="sd">	:param X: Used to Calculate the eigenvectors of x.</span>
-<span class="sd">	:param D: Used to Specify the number of eigenvectors to return.</span>
+<span class="sd">	:param ndarray X: Used to Calculate the eigenvectors of x.</span>
+<span class="sd">	:param int D: Used to Specify the number of eigenvectors to return.</span>
 <span class="sd">	:return: The eigenvectors of the covariance matrix.</span>
 <span class="sd">	</span>
 <span class="sd">	&quot;&quot;&quot;</span>

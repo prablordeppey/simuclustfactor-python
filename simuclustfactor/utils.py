@@ -15,11 +15,11 @@ def OneKMeans(Y_i_qr, G, U_i_g=None, rng=None, seed=None):
 		- G: The number of groups to cluster the objects into.
 		- U_i_g=None (optional): A membership matrix for all objects, with each row representing an object and each column representing a group.
 
-	:param Y_i_qr: Used to Store the data matrix for all objects.
-	:param G: Used to Define the number of clusters.
-	:param U_i_g: Used to Pass in a membership matrix to the function.
+	:param ndarray Y_i_qr: Used to Store the data matrix for all objects.
+	:param int G: Used to Define the number of clusters.
+	:param ndarray U_i_g: Used to Pass in a membership matrix to the function.
 	:param numpy rng: Used to Ensure that the results are reproducible.
-	:param integer seed: Used to Ensure that the results are reproducible.
+	:param int seed: Used to Ensure that the results are reproducible.
 	:return: A stochastic membership matrix (U_i_g), allocating each component score to a centroid in the reduced space is returned.
 	"""
 
@@ -154,8 +154,8 @@ def EigenVectors(X, D):
 	result in incorrect result (eg. complex vectors for covariance matrices)
 
 
-	:param X: Used to Calculate the eigenvectors of x.
-	:param D: Used to Specify the number of eigenvectors to return.
+	:param ndarray X: Used to Calculate the eigenvectors of x.
+	:param int D: Used to Specify the number of eigenvectors to return.
 	:return: The eigenvectors of the covariance matrix.
 	
 	"""

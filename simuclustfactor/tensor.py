@@ -11,17 +11,14 @@ def Unfold(tensor, mode):
 	:return: A matrix of size (KxIJ) for mode=0, (IxJK) for mode=2 and (JxKI) for mode=2.
 	:rtype: ndarray
 
-	:Example:
-		# mode 0 unfolding
-		>>> Unfold(X_i_j_k, mode=0)
+	:Example:		
+		>>> Unfold(X_i_j_k, mode=0)  # mode 0 unfolding
 		>>> X_i_jk
 
-		# mode 1 unfolding
-		>>> Unfold(X_i_j_k, mode=1)
+		>>> Unfold(X_i_j_k, mode=1)  # mode 1 unfolding
 		>>> X_i_jk
 
-		# mode 2 unfolding
-		>>> Unfold(X_i_j_k, mode=2)
+		>>> Unfold(X_i_j_k, mode=2)  # mode 2 unfolding
 		>>> X_j_ki
 	"""
 	

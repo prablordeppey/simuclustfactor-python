@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>simuclustfactor.tandem &mdash; simuclustfactor 0.0.1 documentation</title>
+  <title>simuclustfactor.tandem &mdash; simuclustfactor 0.0.3 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -81,11 +81,11 @@
 <span class="sd">		- Perform KMeans on X_i_jk to obtain membership matrix U_i_g and centroids X_g_jk in full space.</span>
 <span class="sd">		- Obtain Y_g_qr and C_k_r &amp; B_j_q factor matrices that maximizes the reconstruction of U_i_g.X_g_jk via Tucker2.</span>
 <span class="sd">	</span>
-<span class="sd">	:param integer n_max_iter: Maximum number of iterations. Defaults to 10.</span>
-<span class="sd">	:param integer n_loops: Number of random initializations to gurantee global results. Defaults to 10.</span>
+<span class="sd">	:param int n_max_iter: Maximum number of iterations. Defaults to 10.</span>
+<span class="sd">	:param int n_loops: Number of random initializations to gurantee global results. Defaults to 10.</span>
 <span class="sd">	:param float tol: Tolerance level/acceptable error. Defaults to 1e-3.</span>
-<span class="sd">	:param boolean seed: Seed for random sequence generation. Defaults to None.</span>
-<span class="sd">	:param boolean verbose: Whether to display executions output or not. Defaults to False.</span>
+<span class="sd">	:param bool seed: Seed for random sequence generation. Defaults to None.</span>
+<span class="sd">	:param bool verbose: Whether to display executions output or not. Defaults to False.</span>
 <span class="sd">	:param ndarray U_i_g0: (I,G) initial stochastic membership function matrix.</span>
 <span class="sd">	:param ndarray B_j_q0: (J,Q) initial component weight matrix for variables.</span>
 <span class="sd">	:param ndarray C_k_r0: (K,R) initial component weight matrix for occasions.</span>
@@ -476,11 +476,11 @@
 <span class="sd">		- The technique performs Tucker2 decomposition on the X_i_jk matrix to obtain the matrix of component scores Y_i_qr with component weights matrices B_j_q and C_k_r.</span>
 <span class="sd">		- The K-means clustering algorithm is then applied to the component scores matrix Y_i_qr to obtain the desired core centroids matrix Y_g_qr and its associated stochastic membership function matrix U_i_g.</span>
 
-<span class="sd">	:param integer n_max_iter: Maximum number of iterations. Defaults to 10.</span>
-<span class="sd">	:param integer n_loops: Number of random initializations to gurantee global results. Defaults to 10.</span>
+<span class="sd">	:param int n_max_iter: Maximum number of iterations. Defaults to 10.</span>
+<span class="sd">	:param int n_loops: Number of random initializations to gurantee global results. Defaults to 10.</span>
 <span class="sd">	:param float tol: Tolerance level/acceptable error. Defaults to 1e-3.</span>
-<span class="sd">	:param boolean seed: Seed for random sequence generation. Defaults to None.</span>
-<span class="sd">	:param boolean verbose: Whether to display executions output or not. Defaults to False.</span>
+<span class="sd">	:param bool seed: Seed for random sequence generation. Defaults to None.</span>
+<span class="sd">	:param bool verbose: Whether to display executions output or not. Defaults to False.</span>
 <span class="sd">	:param ndarray U_i_g0: (I,G) initial stochastic membership function matrix.</span>
 <span class="sd">	:param ndarray B_j_q0: (J,Q) initial component weight matrix for variables.</span>
 <span class="sd">	:param ndarray C_k_r0: (K,R) initial component weight matrix for occasions.</span>
