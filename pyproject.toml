@@ -13,3 +13,10 @@ log_cli = "True"
 log_cli_level = "CRITICAL"
 log_file = "logs/pytest-logs.txt"
 
+[tool.your-orcid-builder]
+authors = [
+    {author = "Prosper Ablordeppey", email = "pablordeppey@ua.pt", orcid = "0000-0002-5581-7005"},
+    {author = "Adelaide Freitas", email = "adelaide@ua.pt", orcid = "0000-0002-4685-1615"},
+    {author = "Giorgia Zaccaria", email = "giorgia.zaccaria@unitelmasapienza.it", orcid = "0000-0001-9119-9104"},
+]
+

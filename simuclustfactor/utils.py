@@ -36,47 +36,10 @@ def OneKMeans(Y_i_qr, G, U_i_g=None, rng=None, seed=None):
 		U_i_g = RandomMembershipMatrix(I,G,rng=rng)
 	else:
 		U_i_g = np.array(U_i_g)
-	Y_g_qr = np.linalg.inv(U_i_g.T@U_i_g) @ U_i_g.T @ Y_i_qr
+	Y_g_qr = np.diag(1/U_i_g.sum(axis=0)) @ U_i_g.T @ Y_i_qr
 
 	# ------- case 1: repeat until no empty clustering	
 	U_i_g = np.zeros((I,G))
-
-	def split_update(LC, EC, U_i_g):
-		"""
-		The split_update function takes in the following parameters:
-			- LC: The index of the largest cluster.
-			- EC: The index of the empty cluster.
-			- U_i_g: A membership matrix for all objects, with each row representing an object and each column representing a group.
-		
-		It then performs these operations to reassign objects to new clusters based on their distance from subcluster centroids (Y_2):
-			- M = number of objects in largest cluster.
-			- Find indices for all members of largest cluster.
-			- Initialize a 2xQR centroids matrix Y_2 for subclusters using random initialization.
-			- Allocate members to closest centroids.
-			- Update and return the membership function matrix.
-		
-		:param LC: Used to Select the largest cluster.
-		:param EC: Used to Store the index of the largest cluster.
-		:param U_i_g: Used to Assign each object to a cluster.
-		:return: The updated membership matrix u_i_g.
-		"""
-		M = int(C_g[LC])  # number of objects in the chosen largest cluster.
-		cluster_members_indices = np.where(U_i_g[:,LC])[0]  # indices of objects in the largest cluster
-
-		U_m_2 = RandomMembershipMatrix(I=M, G=2, rng=rng)  # initialize matrix with 2 groups
-		Y_2_qr = np.linalg.inv(U_m_2.T@U_m_2) @ U_m_2.T @ Y_i_qr[cluster_members_indices,:]  # 2xQR centroids matrix for subclusters
-
-		# assign each cluster member to the respective sub-cluster
-		for i in cluster_members_indices:
-			dist = ((Y_i_qr[i,]-Y_2_qr)**2).sum(axis=1)  # calculate distance between obj and the 2 sub-centroids.
-			min_dist_cluster = dist.argmin()  # get cluster with smallest distance.
-
-			# obj reassignment
-			if min_dist_cluster == 0:
-				U_i_g[i, LC] = 0  # unassign the obj from that cluster.
-				U_i_g[i, EC] = 1  # assign the obj to that cluster.
-			
-		return U_i_g
 
 	# assign each object to the respective cluster
 	for i in range(I):
@@ -89,12 +52,61 @@ def OneKMeans(Y_i_qr, G, U_i_g=None, rng=None, seed=None):
 	while (C_g==0).any():
 		LC = C_g.argmax()  # select the largest cluster
 		EC = np.where(C_g==0)[0][0]  # select next empty cluster
-		U_i_g = split_update(LC, EC, U_i_g)  # splitting cluster into 2 sub-clusters and updating U_i_g
+		
+		LC_members = np.where(U_i_g[:,LC]==1)[0]
+
+		LC_scores = Y_i_qr[LC_members,]
+		U_i_g = _split_update(LC, LC_members, LC_scores, EC, U_i_g, C_g, seed)  # splitting cluster into 2 sub-clusters and updating U_i_g
+
 		C_g = U_i_g.sum(axis=0)  # ensure the alg stops
 
 	return U_i_g
 
-# ===========  END OF KMEANS ALGORITHM
+
+def _split_update(LC, LC_members, LC_scores, EC, U_i_g, C_g, seed):
+	"""
+	The split_update function takes in the following parameters:
+		- LC: The index of the largest cluster.
+		- EC: The index of the empty cluster.
+		- U_i_g: A membership matrix for all objects, with each row representing an object and each column representing a group.
+	
+		It then performs these operations to reassign objects to new clusters based on their distance from subcluster centroids (Y_2):
+			- M = number of objects in largest cluster.
+			- Find indices for all members of largest cluster.
+			- Initialize a 2xQR centroids matrix Y_2 for subclusters using random initialization.
+			- Allocate members to closest centroids.
+	
+		It returns the updated membership function matrix u_i_g.
+	
+	:param LC: Used to Select the largest cluster.
+	:param LC_members: Used to Store the indices of all objects in the largest cluster.
+	:param LC_scores: Used to Store the scores of each cluster.
+	:param EC: Used to Store the index of the empty cluster.
+	:param U_i_g: Used to Assign each object to a cluster.
+	:param C_g: Used to Store the index of the largest cluster.
+	:param seed: Used to Initialize the random number generator.
+	:return: The updated membership matrix u_i_g.
+	
+	:doc-author: Trelent
+	"""
+
+	M = len(LC_members)  # number of objects in the largest cluster.
+
+	# perform K-means to split members of LC into 2 clusters and update U_i_g matrix
+	U_m_2 = RandomMembershipMatrix(I=M, G=2, seed=seed)  # initialize matrix with 2 groups
+	Y_2_qr = np.diag(1/U_m_2.sum(axis=0)) @ U_m_2.T @ LC_scores   # 2xQR centroids matrix for subclusters
+
+	# assign each cluster member to the respective sub-cluster
+	for i in range(len(LC_scores)):
+
+		dist = ((LC_scores[i,]-Y_2_qr)**2).sum(axis=1)  # calculate distance between obj and the 2 sub-centroids.
+		min_dist_cluster = dist.argmin()  # get cluster with smallest distance.
+
+		if (min_dist_cluster == 0):
+			U_i_g[LC_members[i],] = 0  # unassign the obj from the large cluster.
+			U_i_g[LC_members[i], EC] = 1  # assign the obj to the empty cluster.
+
+	return U_i_g
 
 
 # =========== BUILDING MEMBERSHIP FUNCTION MATRIX CONSTRUCTION
@@ -117,14 +129,15 @@ def RandomMembershipMatrix(I, G, rng=None, seed=None):
 	if rng is None:
 		rng = np.random.default_rng(seed)
 
-	U_i_g = np.zeros((I,G))  # initialize U_i_g to 0's.
+	# initialize U_i_g
+	U_i_g = np.zeros((I,G))
 	U_i_g[:G,] = np.eye(G)  # first G assignments to unique clusters. To ensure no cluster is empty
 
 	# assign random clusters to remaining objects
 	if I > G:
 		for p in range(G,I):
 			c = rng.integers(G) # choose a random cluster for the i'th object.
-			U_i_g[p,c] = 1  # assign object i to cluster p
+			U_i_g[p,c] = 1  # assign object p to cluster c
 
 	return U_i_g
 
@@ -133,30 +146,36 @@ def RandomMembershipMatrix(I, G, rng=None, seed=None):
 
 # ===========  LARGEST EIGENVECTORS
 
-def SingularVectors(X, D):
+def EigenVectors(X, D):
 	"""
-	The SingularVectors function computes the first D singular vectors of X.
-	X is a matrix with dimension N x M. D is an integer greater than zero.
-	U is a matrix with dimension N x min(N,D) containing the first min(N,D) singular vectors of X
-	
-	:param X: Used to Store the data matrix.
-	:param D: Used to Specify the number of singular vectors to return.
-	:return: The first D columns of the matrix U.
-	"""
-	U,_,_ = np.linalg.svd(X)
-	return U[:,:D]
+	The EigenVectors function takes in a matrix X and the number of desired eigenvectors D.
+	It returns the first D eigenvectors of X, sorted by their corresponding eigenvalues.
+	eigh instead of eig because of truncation errors with numpy's implementtation which could 
+	result in incorrect result (eg. complex vectors for covariance matrices)
 
+
+	:param X: Used to Calculate the eigenvectors of x.
+	:param D: Used to Specify the number of eigenvectors to return.
+	:return: The eigenvectors of the covariance matrix.
+	
+	"""
+	
+	# U,_,_ = np.linalg.svd(X)
+	# return U[:,:D]
+
+	eigenValues,eigVectors = np.linalg.eigh(X)
 	# eigenValues,eigVectors = np.linalg.eig(X)
-	# idx = eigenValues.argsort()[::-1]   
-	# eigenValues = eigenValues[idx]
-	# return eigVectors[:,:D]
+	idx = eigenValues.argsort()[::-1]  
+	eigenValues = eigenValues[idx]
+
+	return eigVectors[:,:D]
 
 # ===========  END OF LARGEST EIGENVECTORS
 
 
-# ===========  START OF THE PseudoF STATISTIC FUNCTION
+# ===========  START OF THE PseudoF STATISTIC IN FULL & REDUCED spaces
 
-def PseudoF(bss, wss, full_tensor_shape, reduced_tensor_shape):
+def PseudoF_Full(bss, wss, full_tensor_shape, reduced_tensor_shape):
 	"""
 	The PseudoF function is a measure of the ratio between the amount of 
 	variance explained by a model with `rank` components, and the variance 
@@ -175,18 +194,45 @@ def PseudoF(bss, wss, full_tensor_shape, reduced_tensor_shape):
 	:rtype: float
 	
 	Reference:
-		[1] T. Caliński & J Harabasz (1974).
-		A dendrite method for cluster analysis
-		Communications in Statistics, 3:1, 1-27, DOI: 10.1080/03610927408827101
-
-		[2] Roberto Rocci and Maurizio Vichi (2005).
+		[1] Roberto Rocci and Maurizio Vichi (2005).
 		Three-mode component analysis with crisp or fuzzy partition of units. 
 		Psychometrika, 70:715–736, 02 2005.
 	"""
 	I,J,K = full_tensor_shape
 	G,Q,R = reduced_tensor_shape
 	db = (G-1)*Q*R + (J-Q)*Q + (K-R)*R
-	dw = I*J*K - G*Q*R + (J-Q)*Q + (K-R)*R
+	dw = I*J*K - (G*Q*R + (J-Q)*Q + (K-R)*R)
+	return (bss/db)/(wss/dw)
+
+
+def PseudoF_Reduced(bss, wss, full_tensor_shape, reduced_tensor_shape):
+	"""
+	The PseudoF function is a measure of the ratio between the amount of 
+	variance explained by a model with `rank` components, and the variance 
+	explained by an optimal model with `tensor_shape` dimensions. Computes
+	the PseudoF score without taking into account any contraints. 
+	The naive implementation.
+	
+	:param bss: Between cluster sum of squares deviance.
+	:type bss: float
+	:param wss: Within cluster sum of squares deviance.
+	:type wss: float
+	:param full_tensor_shape: (I,J,K) tensor dimensions.
+	:type full_tensor_shape: tuple
+	:param reduced_tensor_shape: (G,Q,R) G clusters, Q components for variables, R components for Occasions.
+	:type reduced_tensor_shape: tuple
+	:return: The pseudo-f statistic for the given tensor and rank.
+	:rtype: float
+	
+	Reference:
+		[1] T. Caliński & J Harabasz (1974).
+		A dendrite method for cluster analysis
+		Communications in Statistics, 3:1, 1-27, DOI: 10.1080/03610927408827101
+	"""
+	I,J,K = full_tensor_shape
+	G,Q,R = reduced_tensor_shape
+	db = G-1
+	dw = I*Q*R - G
 	return (bss/db)/(wss/dw)
 
 # ===========  END OF PseudoF STATISTIC FUNCTION
@@ -199,22 +245,17 @@ class _BaseClass:
 	Base class for the tandem tucker-factorial and kmeans-clustering models.
 	For checking initialization configuration.
 	
-	Initialization Args:
-		n_max_iter (int, optional): maximum number of iterations. Defaults to 10.
-		:type n_max_iter: integer
-		n_loops (int, optional): number of random initializations to gurantee global results. Defaults to 10.
-		:type n_loops: integer
-		tol (float, optional): tolerance level/acceptable error. Defaults to 1e-5.
-		:type tol: float
-		random_state (int, optional): seed for random sequence generation. Defaults to None.
-		:type random_state: integer
-		verbose (bool, optional): whether to display executions output or not. Defaults to False.
-		:type verbose: boolean'''
+	:param bool verbose: whether to display executions output or not. Defaults to False.
+	:param str init: the parameter initialization method. Defaults to svd.
+	:param int seed: seed for random sequence generation. Defaults to None.
+	:param int n_max_iter: maximum number of iterations. Defaults to 10.
+	:param int n_loops: number of random initializations to gurantee global results. Defaults to 10.
+	:param float tol: tolerance level/acceptable error. Defaults to 1e-5.
 	"""
 
 	def __init__(
 		self,
-		random_state=None,
+		seed=None,
 		verbose=False,
 		init='svd',
 		n_max_iter=10,
@@ -228,7 +269,7 @@ class _BaseClass:
 		self.n_max_iter = n_max_iter
 		self.n_loops = n_loops
 		self.tol = tol
-		self.random_state = random_state
+		self.seed = seed
 		self.verbose = verbose
 
 		self.full_tensor_shape = None  # (I,J,K)
@@ -258,25 +299,6 @@ class _BaseClass:
 				f"verbose must be boolean but got {type(self.verbose).__name__}"
 			)
 
-		# tensor dimension in full and reduced space must be 1D array.
-		if np.array(self.full_tensor_shape).dtype != 'int32' or np.array(self.reduced_tensor_shape).dtype != 'int32':
-			raise ValueError(
-				f"please ensure all dimensions are positive integers."
-			)
-
-		# ensure shape variables are 1D array with 3 integers
-		if np.array(self.full_tensor_shape).size != 3 or np.array(self.reduced_tensor_shape).size != 3:
-			raise ValueError(
-				f"full and reduced tensor dimensions must have only 3 elements, but got \
-					|full_shape|={len(self.full_tensor_shape)} and |reduced_shape|={len(self.reduced_tensor_shape)}"
-			)
-
-		# ensure dimensions are positive integers
-		if (not (np.array(self.full_tensor_shape) > 0).all()) or (not (np.array(self.reduced_tensor_shape) > 0).all()):
-			raise ValueError(
-				f"please ensure all dimensions are positive integers."
-			)
-
 		# ensure all dimensions given are greater than 0
 		if not (np.array(self.reduced_tensor_shape) <= np.array(self.full_tensor_shape)).all():
 			raise ValueError(
@@ -298,7 +320,7 @@ class _BaseClass:
 				)
 			
 			# check row stochastic nature
-			if (self.U_i_g.sum(axis=1) != 1).all():
+			if (self.U_i_g.sum(axis=0) != 0).all():
 				raise ValueError(
 					f"incorrect U_i_g matrix. U_i_g must be row stochastic."
 				)
@@ -319,6 +341,5 @@ class _BaseClass:
 					f"incorrect C_k_r matrix, expected shape {(self.full_tensor_shape[2], self.reduced_tensor_shape[2])} but got {self.C_k_r.shape}"
 				)
 
-# ===========  END OF _BASECLASS
 
 

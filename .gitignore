@@ -20,7 +20,10 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*.png
+*.ipynb
 sphinx_doc
+data
 
 # Installer logs
 pip-log.txt
