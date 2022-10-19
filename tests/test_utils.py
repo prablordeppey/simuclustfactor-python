@@ -84,9 +84,9 @@ def test_EigenVectors():
 	'''
 	return first entry of left singular vectors of X
 	'''
-	f_entry = 0.870
-	entry = utils.EigenVectors(X_i_jk.T@X_i_jk, 2)[0,0].round(3)
-	assert entry == f_entry, 'inaccurate eigenvectors'
+	f_entry = 1.0
+	entry = utils.EigenVectors(X_i_jk.T@X_i_jk, 2)
+	assert np.linalg.norm(entry,2).round() == f_entry, 'inaccurate eigenvectors'
 
 def test_BaseClass():
 	import pytest
