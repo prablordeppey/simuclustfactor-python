@@ -82,7 +82,7 @@ def test_RandomMembershipMatrix():
 
 def test_EigenVectors():
 	'''
-	return first entry of left singular vectors of X
+	Check norm of computed matrix, must be 1.0
 	'''
 	f_entry = 1.0
 	entry = utils.EigenVectors(X_i_jk.T@X_i_jk, 2)
